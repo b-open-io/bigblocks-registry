@@ -2,8 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "step-indicator",
   "type": "registry:ui",
-  "title": "Step Indicator",
-  "description": "Display progress through multi-step processes with horizontal and vertical variants",
+  "author": "Satchmo",
   "dependencies": [
     "@radix-ui/react-icons"
   ],
@@ -11,10 +10,8 @@
     {
       "path": "registry/new-york/ui/step-indicator.tsx",
       "content": "\"use client\";\n\nimport { CheckIcon } from \"@radix-ui/react-icons\";\nimport React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface Step {\n\tid: string;\n\tlabel: string;\n\tdescription?: string;\n\tstatus: \"pending\" | \"active\" | \"complete\";\n}\n\nexport interface StepIndicatorProps {\n\tsteps: Step[];\n\tclassName?: string;\n\tvariant?: \"horizontal\" | \"vertical\";\n}\n\nexport function StepIndicator({\n\tsteps,\n\tclassName = \"\",\n\tvariant = \"horizontal\",\n}: StepIndicatorProps) {\n\tif (variant === \"vertical\") {\n\t\treturn (\n\t\t\t<div className={cn(\"flex flex-col gap-4\", className)}>\n\t\t\t\t{steps.map((step, index) => (\n\t\t\t\t\t<div key={step.id} className=\"flex items-start gap-3\">\n\t\t\t\t\t\t<div\n\t\t\t\t\t\t\tclassName={cn(\n\t\t\t\t\t\t\t\t\"min-w-[32px] h-8 rounded-full flex items-center justify-center font-bold text-sm\",\n\t\t\t\t\t\t\t\tstep.status === \"complete\" &&\n\t\t\t\t\t\t\t\t\t\"bg-green-600 dark:bg-green-500 text-white\",\n\t\t\t\t\t\t\t\tstep.status === \"active\" &&\n\t\t\t\t\t\t\t\t\t\"bg-primary text-primary-foreground\",\n\t\t\t\t\t\t\t\tstep.status === \"pending\" && \"bg-muted text-muted-foreground\",\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{step.status === \"complete\" ? (\n\t\t\t\t\t\t\t\t<CheckIcon className=\"h-4 w-4\" aria-label=\"Complete\" />\n\t\t\t\t\t\t\t) : (\n\t\t\t\t\t\t\t\t<span>{index + 1}</span>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div className=\"flex-1\">\n\t\t\t\t\t\t\t<p\n\t\t\t\t\t\t\t\tclassName={cn(\n\t\t\t\t\t\t\t\t\t\"font-medium\",\n\t\t\t\t\t\t\t\t\tstep.status === \"pending\" && \"text-muted-foreground\",\n\t\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t{step.label}\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t{step.description && (\n\t\t\t\t\t\t\t\t<p className=\"text-sm text-muted-foreground\">\n\t\t\t\t\t\t\t\t\t{step.description}\n\t\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t))}\n\t\t\t</div>\n\t\t);\n\t}\n\n\t// Horizontal variant\n\treturn (\n\t\t<div className={cn(\"flex items-center\", className)}>\n\t\t\t{steps.map((step, index) => (\n\t\t\t\t<React.Fragment key={step.id}>\n\t\t\t\t\t<div className=\"flex flex-col items-center\">\n\t\t\t\t\t\t<div\n\t\t\t\t\t\t\tclassName={cn(\n\t\t\t\t\t\t\t\t\"w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all\",\n\t\t\t\t\t\t\t\tstep.status === \"complete\" &&\n\t\t\t\t\t\t\t\t\t\"bg-green-600 dark:bg-green-500 text-white\",\n\t\t\t\t\t\t\t\tstep.status === \"active\" &&\n\t\t\t\t\t\t\t\t\t\"bg-primary text-primary-foreground shadow-lg shadow-primary/25\",\n\t\t\t\t\t\t\t\tstep.status === \"pending\" && \"bg-muted text-muted-foreground\",\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{step.status === \"complete\" ? (\n\t\t\t\t\t\t\t\t<CheckIcon className=\"h-5 w-5\" aria-label=\"Complete\" />\n\t\t\t\t\t\t\t) : (\n\t\t\t\t\t\t\t\t<span>{index + 1}</span>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<p\n\t\t\t\t\t\t\tclassName={cn(\n\t\t\t\t\t\t\t\t\"text-xs mt-2\",\n\t\t\t\t\t\t\t\tstep.status === \"pending\" && \"text-muted-foreground\",\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{step.label}\n\t\t\t\t\t\t</p>\n\t\t\t\t\t</div>\n\t\t\t\t\t{index < steps.length - 1 && (\n\t\t\t\t\t\t<div\n\t\t\t\t\t\t\tclassName={cn(\n\t\t\t\t\t\t\t\t\"flex-1 h-0.5 mx-3 transition-colors\",\n\t\t\t\t\t\t\t\tsteps[index + 1]?.status !== \"pending\"\n\t\t\t\t\t\t\t\t\t? \"bg-primary\"\n\t\t\t\t\t\t\t\t\t: \"bg-border\",\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t)}\n\t\t\t\t</React.Fragment>\n\t\t\t))}\n\t\t</div>\n\t);\n}",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": ""
     }
-  ],
-  "categories": [
-    "ui-components"
   ]
 }

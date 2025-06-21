@@ -6,53 +6,52 @@
     {
       "name": "step-indicator",
       "type": "registry:ui",
-      "title": "Step Indicator",
-      "description": "Display progress through multi-step processes with horizontal and vertical variants",
-      "categories": ["ui-components"],
+      "author": "Satchmo",
       "dependencies": ["@radix-ui/react-icons"],
       "files": [
         {
           "path": "registry/new-york/ui/step-indicator.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": ""
         }
       ]
     },
     {
       "name": "step-indicator-demo",
       "type": "registry:example",
-      "title": "Step Indicator Demo",
-      "description": "Interactive demo showing step progression with Previous/Next buttons",
+      "author": "Satchmo",
       "registryDependencies": ["step-indicator"],
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": ""
         }
       ]
     },
     {
       "name": "step-indicator-vertical",
       "type": "registry:example",
-      "title": "Vertical Step Indicator",
-      "description": "Step indicator with vertical layout and descriptions",
+      "author": "Satchmo",
       "registryDependencies": ["step-indicator"],
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-vertical.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": ""
         }
       ]
     },
     {
       "name": "step-indicator-with-descriptions",
       "type": "registry:example",
-      "title": "Step Indicator with Descriptions",
-      "description": "Horizontal step indicator with detailed descriptions for each step",
+      "author": "Satchmo",
       "registryDependencies": ["step-indicator"],
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-with-descriptions.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": ""
         }
       ]
     }
