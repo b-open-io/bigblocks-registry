@@ -1,0 +1,7 @@
+{
+  "buildCommand": "echo 'This is a monorepo. Deploy individual apps from their directories.'",
+  "installCommand": "bun install",
+  "framework": null,
+  "outputDirectory": ".",
+  "ignoreBuildCache": false
+}

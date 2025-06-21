@@ -4,69 +4,71 @@ turbo 2.5.4
 • Packages in scope: registry, registry-data, showcase
 • Running dev in 3 packages
 • Remote caching disabled
-registry:dev: cache bypass, force executing 72641621b3103c15
-showcase:dev: cache bypass, force executing f6b825daeb680d62
+registry:dev: cache bypass, force executing 296f578e4d602b4c
+showcase:dev: cache bypass, force executing 79d4c5afbdc8949f
 registry:dev: $ next dev --port 3002
 showcase:dev: $ next dev --turbopack --port 3003
-showcase:dev: [MDX] updated map file in 4.574582999999961ms
-showcase:dev: [MDX] started dev server
 registry:dev:    ▲ Next.js 15.3.1
 registry:dev:    - Local:        http://localhost:3002
 registry:dev:    - Network:      http://192.168.1.163:3002
+registry:dev:    - Environments: .env.local
 registry:dev: 
 registry:dev:  ✓ Starting...
+showcase:dev: [MDX] updated map file in 4.154415999999969ms
+showcase:dev: [MDX] started dev server
 showcase:dev:    ▲ Next.js 15.3.4 (Turbopack)
 showcase:dev:    - Local:        http://localhost:3003
 showcase:dev:    - Network:      http://192.168.1.163:3003
+showcase:dev:    - Environments: .env.local
 showcase:dev: 
 showcase:dev:  ✓ Starting...
-showcase:dev:  ✓ Ready in 581ms
-registry:dev:  ✓ Ready in 914ms
+registry:dev:  ✓ Ready in 888ms
+showcase:dev:  ✓ Ready in 752ms
 showcase:dev:  ○ Compiling /docs/[[...slug]] ...
-showcase:dev:  ✓ Compiled /docs/[[...slug]] in 1677ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 1412ms
-showcase:dev:  ✓ Compiled /favicon.ico in 177ms
-showcase:dev:  GET /favicon.ico?favicon.45db1c09.ico 200 in 426ms
-showcase:dev:  GET /docs/components/wallet 200 in 30ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 114ms
-showcase:dev:  GET /docs/components/social 200 in 44ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 268ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 237ms
-showcase:dev:  ✓ Compiled /_not-found/page in 412ms
-showcase:dev:  GET /.well-known/appspecific/com.chrome.devtools.json 404 in 494ms
-showcase:dev:  GET /docs/components/social 200 in 50ms
-showcase:dev: [MDX] updated map file in 1.3189159999601543ms
-showcase:dev:  ✓ Compiled /docs/[[...slug]] in 16ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 212ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 91ms
-showcase:dev:  ✓ Compiled in 45ms
-showcase:dev:  ✓ Compiled in 35ms
-showcase:dev:  ✓ Compiled in 41ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 395ms
-showcase:dev:  GET /.well-known/appspecific/com.chrome.devtools.json 404 in 30ms
-showcase:dev:  GET /favicon.ico?favicon.45db1c09.ico 200 in 260ms
-showcase:dev: [MDX] updated map file in 4.175791000016034ms
-showcase:dev:  ✓ Compiled /docs/[[...slug]] in 10ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 218ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 97ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 245ms
-showcase:dev: [MDX] updated map file in 1.4330420000478625ms
-showcase:dev:  ✓ Compiled /docs/[[...slug]] in 10ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 213ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 88ms
-showcase:dev:  ✓ Compiled in 39ms
-showcase:dev:  ✓ Compiled /docs/[[...slug]] in 10ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 222ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 95ms
-showcase:dev:  ✓ Compiled /docs/[[...slug]] in 30ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 239ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 96ms
-showcase:dev: [MDX] updated map file in 5.245666000060737ms
-showcase:dev:  ✓ Compiled /docs/[[...slug]] in 9ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 224ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 95ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 248ms
-showcase:dev:  GET /docs/components/wallet 200 in 51ms
-showcase:dev:  GET /docs/components/step-indicator 200 in 113ms
-showcase:dev:  ✓ Compiled in 37ms
-showcase:dev:  ✓ Compiled in 78ms
+showcase:dev:  ✓ Compiled /docs/[[...slug]] in 3.4s
+showcase:dev:  ⚠ ./node_modules/shadcn/node_modules/ts-morph/dist
+showcase:dev: Package @ts-morph/common can't be external
+showcase:dev: The request @ts-morph/common matches serverExternalPackages (or the default list).
+showcase:dev: The package resolves to a different version when requested from the project directory (0.27.0) compared to the package requested from the importing module (0.19.0).
+showcase:dev: Make sure to install the same version of the package in both locations.
+showcase:dev: 
+showcase:dev: 
+showcase:dev:  ⚠ ./node_modules/shadcn/node_modules/ts-morph/node_modules/@ts-morph/common/node_modules/minimatch/dist/cjs
+showcase:dev: Package brace-expansion can't be external
+showcase:dev: The request brace-expansion matches serverExternalPackages (or the default list).
+showcase:dev: The package resolves to a different version when requested from the project directory (1.1.12) compared to the package requested from the importing module (2.0.2).
+showcase:dev: Make sure to install the same version of the package in both locations.
+showcase:dev: 
+showcase:dev: 
+showcase:dev:  ⚠ ./node_modules/shadcn/node_modules/ts-morph/dist
+showcase:dev: Package code-block-writer can't be external
+showcase:dev: The request code-block-writer matches serverExternalPackages (or the default list).
+showcase:dev: The package.json of the package has no name or version.
+showcase:dev: 
+showcase:dev: 
+showcase:dev:  ⚠ ./node_modules/shadcn/node_modules/ts-morph/node_modules/@ts-morph/common/dist
+showcase:dev: Package minimatch can't be external
+showcase:dev: The request minimatch matches serverExternalPackages (or the default list).
+showcase:dev: The package.json of the package resolved from project directory has no name or version.
+showcase:dev: 
+showcase:dev: 
+showcase:dev:  ⚠ ./node_modules/shadcn/node_modules/ts-morph/node_modules/@ts-morph/common/dist
+showcase:dev: Package mkdirp can't be external
+showcase:dev: The request mkdirp matches serverExternalPackages (or the default list).
+showcase:dev: The package resolves to a different version when requested from the project directory (3.0.1) compared to the package requested from the importing module (2.1.6).
+showcase:dev: Make sure to install the same version of the package in both locations.
+showcase:dev: 
+showcase:dev: 
+showcase:dev:  ⚠ ./node_modules/shadcn/dist
+showcase:dev: Package ts-morph can't be external
+showcase:dev: The request ts-morph matches serverExternalPackages (or the default list).
+showcase:dev: The package resolves to a different version when requested from the project directory (26.0.0) compared to the package requested from the importing module (18.0.0).
+showcase:dev: Make sure to install the same version of the package in both locations.
+showcase:dev: 
+showcase:dev: 
+showcase:dev:  GET /docs/components/step-indicator 200 in 5782ms
+error: script "dev" was terminated by signal SIGTERM (Polite quit request)
+registry:dev: [?25h
+showcase:dev: [?25h
+showcase:dev: [MDX] closing dev server
+ ERROR  run failed: command  exited (1)

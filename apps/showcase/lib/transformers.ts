@@ -38,14 +38,22 @@ export const transformers: ShikiTransformer[] = [
 
         // npx shadcn
         if (raw.startsWith("npx shadcn")) {
-          // Replace localhost URLs with dynamic registry URL
-          const registryUrl = getRegistryUrl()
-          const processedRaw = raw.replace("http://localhost:3002", registryUrl)
-          
-          node.properties["__npm__"] = processedRaw
-          node.properties["__yarn__"] = processedRaw
-          node.properties["__pnpm__"] = processedRaw.replace("npx", "pnpm dlx")
-          node.properties["__bun__"] = processedRaw.replace("npx shadcn", "bunx shadcn")
+          // Try to replace localhost URLs with dynamic registry URL
+          try {
+            const registryUrl = getRegistryUrl()
+            const processedRaw = raw.replace("http://localhost:3002", registryUrl)
+            
+            node.properties["__npm__"] = processedRaw
+            node.properties["__yarn__"] = processedRaw
+            node.properties["__pnpm__"] = processedRaw.replace("npx", "pnpm dlx")
+            node.properties["__bun__"] = processedRaw.replace("npx shadcn", "bunx shadcn")
+          } catch (error) {
+            // If env var is not available during build, keep original
+            node.properties["__npm__"] = raw
+            node.properties["__yarn__"] = raw
+            node.properties["__pnpm__"] = raw.replace("npx", "pnpm dlx")
+            node.properties["__bun__"] = raw.replace("npx shadcn", "bunx shadcn")
+          }
         }
 
         // other npx commands

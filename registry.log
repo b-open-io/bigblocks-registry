@@ -1,0 +1,36 @@
+$ turbo dev --filter=registry
+turbo 2.5.4
+
+• Packages in scope: registry
+• Running dev in 1 packages
+• Remote caching disabled
+registry:dev: cache bypass, force executing 9f03c963e87fad71
+registry:dev: $ next dev --port 3002
+registry:dev:    ▲ Next.js 15.3.1
+registry:dev:    - Local:        http://localhost:3002
+registry:dev:    - Network:      http://192.168.1.163:3002
+registry:dev: 
+registry:dev:  ✓ Starting...
+registry:dev:  ✓ Ready in 921ms
+registry:dev:  ○ Compiling / ...
+registry:dev:  ✓ Compiled / in 655ms (697 modules)
+registry:dev:  GET / 200 in 798ms
+registry:dev:    Reload env: .env.local
+registry:dev:  ✓ Compiled in 285ms (697 modules)
+registry:dev:  GET / 200 in 34ms
+registry:dev:  GET / 200 in 27ms
+registry:dev:  GET / 200 in 42ms
+registry:dev:  ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+registry:dev:    ▲ Next.js 15.3.1
+registry:dev:    - Local:        http://localhost:3002
+registry:dev:    - Network:      http://192.168.1.163:3002
+registry:dev:    - Environments: .env.local
+registry:dev: 
+registry:dev:  ✓ Starting...
+registry:dev:  ✓ Ready in 997ms
+registry:dev: [?25h
+
+ Tasks:    1 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    31m49.235s 
+

@@ -10,7 +10,10 @@
     "build": "turbo build",
     "registry:dev": "turbo dev --filter=registry",
     "showcase:dev": "turbo dev --filter=showcase",
-    "registry:build": "turbo run registry:build --filter=registry"
+    "registry:build": "turbo run registry:build --filter=registry",
+    "deploy": "./scripts/deploy-vercel.sh",
+    "deploy:registry": "cd apps/registry && vercel --prod",
+    "deploy:showcase": "cd apps/showcase && vercel --prod"
   },
   "devDependencies": {
     "@types/node": "^20.19.1",

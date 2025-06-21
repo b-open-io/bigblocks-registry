@@ -1,9 +1,7 @@
 export function getRegistryUrl(): string {
   const url = process.env.NEXT_PUBLIC_REGISTRY_URL
   if (!url) {
-    // During build, use localhost as fallback
-    // The actual URL will be used at runtime
-    return 'http://localhost:3002'
+    throw new Error('NEXT_PUBLIC_REGISTRY_URL environment variable is required')
   }
   return url
 }

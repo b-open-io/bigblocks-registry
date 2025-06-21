@@ -1,0 +1,3 @@
+$ node ~/code/shadcn-ui/packages/shadcn/dist/index.js build
+- Building step-indicator...
+✔ Building registry.
