@@ -19,20 +19,21 @@ export function CopyButton({
   value,
   className,
   variant = "ghost",
-  event,
   ...props
 }: React.ComponentProps<typeof Button> & {
   value: string
   src?: string
-  event?: Event["name"]
 }) {
   const [hasCopied, setHasCopied] = React.useState(false)
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setHasCopied(false)
-    }, 2000)
-  }, [])
+    if (hasCopied) {
+      const timer = setTimeout(() => {
+        setHasCopied(false)
+      }, 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [hasCopied])
 
   return (
     <Tooltip>
@@ -46,17 +47,7 @@ export function CopyButton({
             className
           )}
           onClick={() => {
-            copyToClipboardWithMeta(
-              value,
-              event
-                ? {
-                    name: event,
-                    properties: {
-                      code: value,
-                    },
-                  }
-                : undefined
-            )
+            copyToClipboardWithMeta(value)
             setHasCopied(true)
           }}
           {...props}
