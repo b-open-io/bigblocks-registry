@@ -4,46 +4,35 @@ This document explains how to set up advanced v0 integration for the BigBlocks R
 
 ## Current Status
 
-The BigBlocks Registry supports two levels of v0 integration:
+The BigBlocks Registry now has full v0 integration enabled with both:
 
-### 1. Basic Integration (Currently Active)
+### 1. Basic Integration (Fallback)
 - Uses the public `https://v0.dev/chat/api/open?url=` endpoint
 - No authentication required
 - Works out of the box
 - Limited to opening the component JSON
 
-### 2. Advanced Integration (Requires V0_EDIT_SECRET)
+### 2. Advanced Integration (Currently Active)
 - Uses the private `https://v0.dev/chat/api/open-in-v0` POST endpoint
 - Sends rich component data with metadata
 - Better handling of component variants
-- Requires authentication token from Vercel
+- Uses authentication token for v0 API access
 
-## How to Enable Advanced Integration
+## How Advanced Integration Works
 
-### Step 1: Obtain V0_EDIT_SECRET
+### Environment Configuration
 
-The `V0_EDIT_SECRET` is a special authentication token that must be obtained from the Vercel team. This is not available through standard Vercel CLI commands.
+The `V0_EDIT_SECRET` is configured in the environment variables. This token enables the advanced integration features.
 
-To request access:
-1. Contact the v0 team at support@v0.dev
-2. Explain that you're running a shadcn-compatible component registry
-3. Request access to the `open-in-v0` API endpoint
-4. They will provide you with:
-   - `V0_EDIT_SECRET` - Authentication token
-   - `DEPLOYMENT_PROTECTION_BYPASS` (optional) - For protected deployments
+### Server Action Implementation
 
-### Step 2: Configure Environment Variables
+The integration uses a server action (`editInV0`) that:
+1. Fetches the registry item JSON
+2. Transforms the component data with metadata
+3. Makes a POST request to v0's API
+4. Returns a session URL for editing in v0
 
-Add the following to your `.env.local` file:
-
-```env
-# v0 Integration
-V0_URL=https://v0.dev
-V0_EDIT_SECRET=your_secret_here
-DEPLOYMENT_PROTECTION_BYPASS=your_bypass_token_here  # Optional
-```
-
-### Step 3: Deploy
+### Deployment
 
 Once the environment variables are set, the advanced integration will automatically activate. The server action will detect the presence of `V0_EDIT_SECRET` and use the POST endpoint instead of the simple URL approach.
 
@@ -69,4 +58,4 @@ Following shadcn-ui's pattern, we register component variants (like `step-indica
 - If you see "Unauthorized - check V0_EDIT_SECRET", verify your token is correct
 - Check the browser console for any errors
 - Ensure your registry URL is publicly accessible
-- Contact support@v0.dev for assistance with the API
+- The advanced integration requires proper environment configuration
