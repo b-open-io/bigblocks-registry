@@ -173,7 +173,7 @@ npx shadcn@latest add {{REGISTRY_URL}}/r/use-[hook-name].json
 
 **Variable Substitution:**
 - Development: Replace `{{REGISTRY_URL}}` with `http://localhost:3002`
-- Production: Replace `{{REGISTRY_URL}}` with `https://registry-theta-murex.vercel.app`
+- Production: Replace `{{REGISTRY_URL}}` with `https://bigblocks-registry.vercel.app`
 
   </TabsContent>
   <TabsContent value="manual">
