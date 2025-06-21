@@ -1,5 +1,15 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+
+interface RegistryItem {
+  title?: string
+  description?: string
+  name: string
+  type: string
+}
 
 export function OpenInV0Button({
   name,
@@ -8,12 +18,61 @@ export function OpenInV0Button({
 }: React.ComponentProps<typeof Button> & {
   name: string
 }) {
+  const [registryItem, setRegistryItem] = useState<RegistryItem | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const registryUrl = process.env.NEXT_PUBLIC_REGISTRY_URL
   
   if (!registryUrl) {
     console.error('NEXT_PUBLIC_REGISTRY_URL environment variable is required')
     return null
   }
+
+  useEffect(() => {
+    const fetchRegistryItem = async () => {
+      try {
+        setIsLoading(true)
+        const response = await fetch(`${registryUrl}/r/${name}.json`)
+        if (!response.ok) throw new Error('Failed to fetch registry item')
+        const item: RegistryItem = await response.json()
+        setRegistryItem(item)
+      } catch (error) {
+        console.error('Failed to fetch registry item metadata:', error)
+        // Fallback to basic metadata
+        setRegistryItem({
+          name,
+          title: name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+          description: `${name} component from BigBlocks registry`,
+          type: 'registry:ui'
+        })
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchRegistryItem()
+  }, [name, registryUrl])
+
+  if (isLoading || !registryItem) {
+    return (
+      <Button
+        aria-label="Open in v0"
+        size="sm"
+        disabled
+        className={cn(
+          "shadow-none bg-black text-white hover:bg-black hover:text-white dark:bg-white dark:text-black opacity-50",
+          className
+        )}
+      >
+        Loading...
+      </Button>
+    )
+  }
+
+  const title = encodeURIComponent(registryItem.title || registryItem.name)
+  const prompt = encodeURIComponent(registryItem.description || `${registryItem.name} component`)
+  const url = encodeURIComponent(`${registryUrl}/r/${name}.json`)
+  
+  const v0Url = `https://v0.dev/chat/api/open?title=${title}&prompt=${prompt}&url=${url}`
 
   return (
     <Button
@@ -26,7 +85,7 @@ export function OpenInV0Button({
       asChild
     >
       <a
-        href={`https://v0.dev/chat/api/open?url=${registryUrl}/r/${name}.json`}
+        href={v0Url}
         target="_blank"
         rel="noreferrer"
       >

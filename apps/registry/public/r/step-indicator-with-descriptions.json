@@ -2,6 +2,8 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "step-indicator-with-descriptions",
   "type": "registry:example",
+  "title": "Step Indicator with Descriptions",
+  "description": "Horizontal step indicator with detailed descriptions for each step",
   "registryDependencies": [
     "step-indicator"
   ],

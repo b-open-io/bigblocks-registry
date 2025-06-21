@@ -143,8 +143,12 @@ component: true
   <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add https://registry-theta-murex.vercel.app/r/[component-name].json
+npx shadcn@latest add {{REGISTRY_URL}}/r/[component-name].json
 ```
+
+**Variable Substitution:**
+- Development: Replace `{{REGISTRY_URL}}` with `http://localhost:3002`
+- Production: Replace `{{REGISTRY_URL}}` with `https://registry-theta-murex.vercel.app`
 
   </TabsContent>
   <TabsContent value="manual">
@@ -246,6 +250,8 @@ Add demo entries to `apps/registry/registry.json`:
 {
   "name": "[component-name]-demo",
   "type": "registry:example",
+  "title": "[Component Name] Demo",
+  "description": "Interactive demo showing [brief description of what the demo demonstrates]",
   "registryDependencies": ["[component-name]"],
   "files": [
     {
@@ -255,6 +261,11 @@ Add demo entries to `apps/registry/registry.json`:
   ]
 }
 ```
+
+**CRITICAL for v0.dev Integration:**
+- `title`: Required for v0.dev API - short, descriptive title
+- `description`: Required for v0.dev API - explains what the demo shows
+- These fields are used by OpenInV0Button to generate proper v0.dev URLs
 
 Repeat for each demo variant you create.
 

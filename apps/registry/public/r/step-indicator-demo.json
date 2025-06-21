@@ -2,6 +2,8 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "step-indicator-demo",
   "type": "registry:example",
+  "title": "Step Indicator Demo",
+  "description": "Interactive demo showing step progression with Previous/Next buttons",
   "registryDependencies": [
     "step-indicator"
   ],

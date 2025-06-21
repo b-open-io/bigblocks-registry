@@ -2,6 +2,8 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "step-indicator-vertical",
   "type": "registry:example",
+  "title": "Vertical Step Indicator",
+  "description": "Step indicator with vertical layout and descriptions",
   "registryDependencies": [
     "step-indicator"
   ],

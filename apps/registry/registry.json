@@ -20,6 +20,8 @@
     {
       "name": "step-indicator-demo",
       "type": "registry:example",
+      "title": "Step Indicator Demo",
+      "description": "Interactive demo showing step progression with Previous/Next buttons",
       "registryDependencies": ["step-indicator"],
       "files": [
         {
@@ -31,6 +33,8 @@
     {
       "name": "step-indicator-vertical",
       "type": "registry:example",
+      "title": "Vertical Step Indicator",
+      "description": "Step indicator with vertical layout and descriptions",
       "registryDependencies": ["step-indicator"],
       "files": [
         {
@@ -42,6 +46,8 @@
     {
       "name": "step-indicator-with-descriptions",
       "type": "registry:example",
+      "title": "Step Indicator with Descriptions",
+      "description": "Horizontal step indicator with detailed descriptions for each step",
       "registryDependencies": ["step-indicator"],
       "files": [
         {
