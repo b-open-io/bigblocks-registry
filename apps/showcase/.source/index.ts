@@ -1,0 +1,12 @@
+// @ts-nocheck -- skip type checking
+import * as docs_7 from "../content/docs/components/wallet.mdx?collection=docs&hash=1750489800174"
+import * as docs_6 from "../content/docs/components/step-indicator.mdx?collection=docs&hash=1750489800174"
+import * as docs_5 from "../content/docs/components/social.mdx?collection=docs&hash=1750489800174"
+import * as docs_4 from "../content/docs/components/market.mdx?collection=docs&hash=1750489800174"
+import * as docs_3 from "../content/docs/components/authentication.mdx?collection=docs&hash=1750489800174"
+import * as docs_2 from "../content/docs/installation.mdx?collection=docs&hash=1750489800174"
+import * as docs_1 from "../content/docs/index.mdx?collection=docs&hash=1750489800174"
+import * as docs_0 from "../content/docs/cli.mdx?collection=docs&hash=1750489800174"
+import { _runtime } from "fumadocs-mdx"
+import * as _source from "../source.config"
+export const docs = _runtime.docs<typeof _source.docs>([{ info: {"path":"cli.mdx","absolutePath":"/Users/satchmo/code/bigblocks-registry/apps/showcase/content/docs/cli.mdx"}, data: docs_0 }, { info: {"path":"index.mdx","absolutePath":"/Users/satchmo/code/bigblocks-registry/apps/showcase/content/docs/index.mdx"}, data: docs_1 }, { info: {"path":"installation.mdx","absolutePath":"/Users/satchmo/code/bigblocks-registry/apps/showcase/content/docs/installation.mdx"}, data: docs_2 }, { info: {"path":"components/authentication.mdx","absolutePath":"/Users/satchmo/code/bigblocks-registry/apps/showcase/content/docs/components/authentication.mdx"}, data: docs_3 }, { info: {"path":"components/market.mdx","absolutePath":"/Users/satchmo/code/bigblocks-registry/apps/showcase/content/docs/components/market.mdx"}, data: docs_4 }, { info: {"path":"components/social.mdx","absolutePath":"/Users/satchmo/code/bigblocks-registry/apps/showcase/content/docs/components/social.mdx"}, data: docs_5 }, { info: {"path":"components/step-indicator.mdx","absolutePath":"/Users/satchmo/code/bigblocks-registry/apps/showcase/content/docs/components/step-indicator.mdx"}, data: docs_6 }, { info: {"path":"components/wallet.mdx","absolutePath":"/Users/satchmo/code/bigblocks-registry/apps/showcase/content/docs/components/wallet.mdx"}, data: docs_7 }], [])

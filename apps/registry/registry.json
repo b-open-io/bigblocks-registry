@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "bigblocks",
+  "homepage": "https://bigblocks.dev",
+  "items": [
+    {
+      "name": "step-indicator",
+      "type": "registry:ui",
+      "title": "Step Indicator",
+      "description": "Display progress through multi-step processes with horizontal and vertical variants",
+      "categories": ["ui-components"],
+      "dependencies": ["@radix-ui/react-icons"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/step-indicator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}

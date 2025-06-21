@@ -1,0 +1,133 @@
+---
+title: CLI
+description: Use the BigBlocks CLI to add components to your project
+---
+
+## Overview
+
+The BigBlocks CLI allows you to quickly add components to your project with proper dependencies and configuration.
+
+## Installation
+
+The CLI is available via npx, so no installation is required. You can also install it globally:
+
+<Tabs defaultValue="npx">
+  <TabsList>
+    <TabsTrigger value="npx">npx (recommended)</TabsTrigger>
+    <TabsTrigger value="global">Global Install</TabsTrigger>
+  </TabsList>
+  <TabsContent value="npx">
+    ```bash
+    npx shadcn@latest add [component]
+    ```
+  </TabsContent>
+  <TabsContent value="global">
+    ```bash
+    npm install -g shadcn
+    shadcn add [component]
+    ```
+  </TabsContent>
+</Tabs>
+
+## Commands
+
+### add
+
+Add components to your project.
+
+```bash
+npx shadcn@latest add [component]
+```
+
+#### Options
+
+- `-y, --yes` - Skip confirmation prompts
+- `-o, --overwrite` - Overwrite existing files
+- `-c, --cwd <path>` - The working directory (default: current directory)
+- `-p, --path <path>` - Path to add the component to
+
+#### Examples
+
+Add a specific component:
+
+```bash
+npx shadcn@latest add http://localhost:3002/r/step-indicator.json
+```
+
+Add multiple components:
+
+```bash
+npx shadcn@latest add http://localhost:3002/r/step-indicator.json http://localhost:3002/r/button.json
+```
+
+Add to a specific directory:
+
+```bash
+npx shadcn@latest add http://localhost:3002/r/step-indicator.json -p ./src/components/ui
+```
+
+### init
+
+Initialize your project with BigBlocks configuration.
+
+```bash
+npx shadcn@latest init
+```
+
+This command will:
+- Create a `components.json` configuration file
+- Set up necessary dependencies
+- Configure your project for BigBlocks components
+
+## Configuration
+
+The CLI uses a `components.json` file in your project root:
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils"
+  }
+}
+```
+
+## Component Registry
+
+BigBlocks components are served from our registry. Each component has a unique URL:
+
+```
+http://localhost:3002/r/[component-name].json
+```
+
+The registry provides:
+- Component source code
+- Dependencies
+- Installation instructions
+- Documentation links
+
+## Troubleshooting
+
+### Common Issues
+
+**Component not found**: Ensure you're using the correct registry URL and the component exists.
+
+**Dependency conflicts**: Check that your project meets the minimum requirements for React and Tailwind CSS.
+
+**TypeScript errors**: Make sure TypeScript is properly configured in your project.
+
+### Getting Help
+
+- Check our [GitHub issues](https://github.com/bigblocks/registry)
+- Join our [Discord community](https://discord.gg/bigblocks)
+- Read the [FAQ](/docs/faq)

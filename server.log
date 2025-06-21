@@ -1,0 +1,101 @@
+$ next dev --turbopack
+ ⚠ Port 3000 is in use, using available port 3002 instead.
+   ▲ Next.js 15.3.1 (Turbopack)
+   - Local:        http://localhost:3002
+   - Network:      http://192.168.1.163:3002
+
+ ✓ Starting...
+ ✓ Ready in 568ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1354ms
+ ⨯ ./app/page.tsx:5:1
+Module not found: Can't resolve '@/registry/new-york/blocks/complex-component/page'
+[0m [90m 3 |[39m [36mimport[39m { [33mHelloWorld[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/hello-world/hello-world"[39m[0m
+[0m [90m 4 |[39m [36mimport[39m { [33mExampleForm[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/example-form/example-form"[39m[0m
+[0m[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mPokemonPage[39m [36mfrom[39m [32m"@/registry/new-york/blocks/complex-component/page"[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 6 |[39m [36mimport[39m { [33mExampleCard[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/example-with-css/example-card"[39m[0m
+[0m [90m 7 |[39m [90m// This page displays items from the custom registry.[39m[0m
+[0m [90m 8 |[39m [90m// You are free to implement this with your own design as needed.[39m[0m
+
+Import map: aliased to relative './registry/new-york/blocks/complex-component/page' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:4:1
+Module not found: Can't resolve '@/registry/new-york/blocks/example-form/example-form'
+[0m [90m 2 |[39m [36mimport[39m { [33mOpenInV0Button[39m } [36mfrom[39m [32m"@/components/open-in-v0-button"[39m[0m
+[0m [90m 3 |[39m [36mimport[39m { [33mHelloWorld[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/hello-world/hello-world"[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m { [33mExampleForm[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/example-form/example-form"[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mPokemonPage[39m [36mfrom[39m [32m"@/registry/new-york/blocks/complex-component/page"[39m[0m
+[0m [90m 6 |[39m [36mimport[39m { [33mExampleCard[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/example-with-css/example-card"[39m[0m
+[0m [90m 7 |[39m [90m// This page displays items from the custom registry.[39m[0m
+
+Import map: aliased to relative './registry/new-york/blocks/example-form/example-form' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:6:1
+Module not found: Can't resolve '@/registry/new-york/blocks/example-with-css/example-card'
+[0m [90m 4 |[39m [36mimport[39m { [33mExampleForm[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/example-form/example-form"[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mPokemonPage[39m [36mfrom[39m [32m"@/registry/new-york/blocks/complex-component/page"[39m[0m
+[0m[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mExampleCard[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/example-with-css/example-card"[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 7 |[39m [90m// This page displays items from the custom registry.[39m[0m
+[0m [90m 8 |[39m [90m// You are free to implement this with your own design as needed.[39m[0m
+[0m [90m 9 |[39m[0m
+
+Import map: aliased to relative './registry/new-york/blocks/example-with-css/example-card' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:3:1
+Module not found: Can't resolve '@/registry/new-york/blocks/hello-world/hello-world'
+[0m [90m 1 |[39m [36mimport[39m [33m*[39m [36mas[39m [33mReact[39m [36mfrom[39m [32m"react"[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { [33mOpenInV0Button[39m } [36mfrom[39m [32m"@/components/open-in-v0-button"[39m[0m
+[0m[31m[1m>[22m[39m[90m 3 |[39m [36mimport[39m { [33mHelloWorld[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/hello-world/hello-world"[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 4 |[39m [36mimport[39m { [33mExampleForm[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/example-form/example-form"[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mPokemonPage[39m [36mfrom[39m [32m"@/registry/new-york/blocks/complex-component/page"[39m[0m
+[0m [90m 6 |[39m [36mimport[39m { [33mExampleCard[39m } [36mfrom[39m [32m"@/registry/new-york/blocks/example-with-css/example-card"[39m[0m
+
+Import map: aliased to relative './registry/new-york/blocks/hello-world/hello-world' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ✓ Compiled /_error in 384ms
+ HEAD / 500 in 1818ms
+ ✓ Compiled in 22ms
+ ✓ Compiled / in 7ms
+ HEAD / 200 in 112ms
+[Error: ENOENT: no such file or directory, scandir '/Users/satchmo/code/bigblocks-registry/app'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/satchmo/code/bigblocks-registry/app'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, scandir '/Users/satchmo/code/bigblocks-registry/app'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/satchmo/code/bigblocks-registry/app'
+}
+ ⨯ unhandledRejection:  [Error: ENOENT: no such file or directory, scandir '/Users/satchmo/code/bigblocks-registry/app'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/satchmo/code/bigblocks-registry/app'
+}
+[?25h

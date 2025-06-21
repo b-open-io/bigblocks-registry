@@ -1,0 +1,28 @@
+$ next build
+   ▲ Next.js 15.3.1
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 0ms
+   Linting and checking validity of types ...
+Failed to compile.
+
+./registry/new-york/ui/button.tsx:51:6
+Type error: Type '{ ref?: Ref<HTMLButtonElement> | undefined; key?: Key | null | undefined; disabled?: boolean | undefined; form?: string | undefined; formAction?: string | ((formData: FormData) => void | Promise<...>) | undefined; ... 287 more ...; className: string; }' is not assignable to type 'SlotProps'.
+  Types of property 'onBeforeInput' are incompatible.
+    Type 'FormEventHandler<HTMLButtonElement> | undefined' is not assignable to type 'InputEventHandler<HTMLElement> | undefined'.
+      Type 'FormEventHandler<HTMLButtonElement>' is not assignable to type 'InputEventHandler<HTMLElement>'.
+        Types of parameters 'event' and 'event' are incompatible.
+          Type 'InputEvent<HTMLElement>' is not assignable to type 'FormEvent<HTMLButtonElement>'.
+            Types of property 'currentTarget' are incompatible.
+              Type 'EventTarget & HTMLElement' is not assignable to type 'EventTarget & HTMLButtonElement'.
+                Type 'EventTarget & HTMLElement' is missing the following properties from type 'HTMLButtonElement': disabled, form, formAction, formEnctype, and 15 more.
+
+[0m [90m 49 |[39m[0m
+[0m [90m 50 |[39m   [36mreturn[39m ([0m
+[0m[31m[1m>[22m[39m[90m 51 |[39m     [33m<[39m[33mComp[39m[0m
+[0m [90m    |[39m      [31m[1m^[22m[39m[0m
+[0m [90m 52 |[39m       data[33m-[39mslot[33m=[39m[32m"button"[39m[0m
+[0m [90m 53 |[39m       className[33m=[39m{cn(buttonVariants({ variant[33m,[39m size[33m,[39m className }))}[0m
+[0m [90m 54 |[39m       {[33m...[39mprops}[0m
+Next.js build worker exited with code: 1 and signal: null
+error: script "build" exited with code 1

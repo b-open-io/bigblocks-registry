@@ -1,0 +1,85 @@
+---
+title: Installation
+description: Install BigBlocks components in your project
+---
+
+## Prerequisites
+
+BigBlocks components are designed to work with React applications. Make sure you have:
+
+- React 18 or later
+- Tailwind CSS v4
+- TypeScript (recommended)
+
+## Installation
+
+BigBlocks provides a CLI tool to easily add components to your project.
+
+### Using the CLI
+
+Install components directly from the registry:
+
+```bash
+npx shadcn@latest add http://localhost:3002/r/step-indicator.json
+```
+
+### Manual Installation
+
+<Tabs defaultValue="npm">
+  <TabsList>
+    <TabsTrigger value="npm">npm</TabsTrigger>
+    <TabsTrigger value="yarn">yarn</TabsTrigger>
+    <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+    <TabsTrigger value="bun">bun</TabsTrigger>
+  </TabsList>
+  <TabsContent value="npm">
+    ```bash
+    npm install bigblocks
+    ```
+  </TabsContent>
+  <TabsContent value="yarn">
+    ```bash
+    yarn add bigblocks
+    ```
+  </TabsContent>
+  <TabsContent value="pnpm">
+    ```bash
+    pnpm add bigblocks
+    ```
+  </TabsContent>
+  <TabsContent value="bun">
+    ```bash
+    bun add bigblocks
+    ```
+  </TabsContent>
+</Tabs>
+
+## Configuration
+
+### Tailwind CSS
+
+BigBlocks requires Tailwind CSS v4. Add the following to your `tailwind.config.js`:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    // ... your content paths
+    "./node_modules/bigblocks/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+### TypeScript
+
+BigBlocks is written in TypeScript and provides full type definitions. No additional configuration is required.
+
+## Next Steps
+
+- Check out the [CLI documentation](/docs/cli) for advanced usage
+- Browse [available components](/docs/components/step-indicator)
+- Learn about [theming and customization](/docs/theming)

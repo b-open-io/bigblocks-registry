@@ -1,0 +1,62 @@
+$ next build
+   ▲ Next.js 15.3.4
+
+   Creating an optimized production build ...
+[MDX] updated map file in 3.863125000000025ms
+ ⚠ Compiled with warnings in 1000ms
+
+../../node_modules/cosmiconfig/dist/loaders.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/cosmiconfig/dist/loaders.js
+../../node_modules/cosmiconfig/dist/index.js
+../../node_modules/shadcn/dist/chunk-JJ2VRW56.js
+../../node_modules/shadcn/dist/registry/index.js
+./lib/registry.ts
+./components/component-source.tsx
+./mdx-components.tsx
+./app/docs/components/[...slug]/page.tsx
+
+../../node_modules/tsconfig-paths/lib/filesystem.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/tsconfig-paths/lib/filesystem.js
+../../node_modules/tsconfig-paths/lib/match-path-sync.js
+../../node_modules/tsconfig-paths/lib/index.js
+../../node_modules/shadcn/dist/chunk-JJ2VRW56.js
+../../node_modules/shadcn/dist/registry/index.js
+./lib/registry.ts
+./components/component-source.tsx
+./mdx-components.tsx
+./app/docs/components/[...slug]/page.tsx
+
+../../node_modules/tsconfig-paths/lib/match-path-async.js
+require.extensions is not supported by webpack. Use a loader instead.
+
+Import trace for requested module:
+../../node_modules/tsconfig-paths/lib/match-path-async.js
+../../node_modules/tsconfig-paths/lib/index.js
+../../node_modules/shadcn/dist/chunk-JJ2VRW56.js
+../../node_modules/shadcn/dist/registry/index.js
+./lib/registry.ts
+./components/component-source.tsx
+./mdx-components.tsx
+./app/docs/components/[...slug]/page.tsx
+
+../../node_modules/tsconfig-paths/lib/match-path-sync.js
+require.extensions is not supported by webpack. Use a loader instead.
+
+Import trace for requested module:
+../../node_modules/tsconfig-paths/lib/match-path-sync.js
+../../node_modules/tsconfig-paths/lib/index.js
+../../node_modules/shadcn/dist/chunk-JJ2VRW56.js
+../../node_modules/shadcn/dist/registry/index.js
+./lib/registry.ts
+./components/component-source.tsx
+./mdx-components.tsx
+./app/docs/components/[...slug]/page.tsx
+
+   Linting and checking validity of types ...
+error: script "build" exited with code 130
