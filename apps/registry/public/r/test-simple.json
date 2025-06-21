@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "test-simple",
+  "type": "registry:example",
+  "files": [
+    {
+      "path": "test-simple.tsx",
+      "content": "export default function TestSimple() {\n  return <div>Hello from BigBlocks!</div>\n}",
+      "type": "registry:example"
+    }
+  ]
+}
