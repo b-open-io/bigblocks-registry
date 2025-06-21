@@ -1,5 +1,9 @@
 export function getRegistryUrl(): string {
-  return process.env.NEXT_PUBLIC_REGISTRY_URL || "http://localhost:3002"
+  const url = process.env.NEXT_PUBLIC_REGISTRY_URL
+  if (!url) {
+    throw new Error('NEXT_PUBLIC_REGISTRY_URL environment variable is required')
+  }
+  return url
 }
 
 export function getComponentInstallCommand(componentName: string): string {

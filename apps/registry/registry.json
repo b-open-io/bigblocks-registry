@@ -16,6 +16,39 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "step-indicator-demo",
+      "type": "registry:example",
+      "registryDependencies": ["step-indicator"],
+      "files": [
+        {
+          "path": "registry/new-york/examples/step-indicator-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "step-indicator-vertical",
+      "type": "registry:example",
+      "registryDependencies": ["step-indicator"],
+      "files": [
+        {
+          "path": "registry/new-york/examples/step-indicator-vertical.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "step-indicator-with-descriptions",
+      "type": "registry:example",
+      "registryDependencies": ["step-indicator"],
+      "files": [
+        {
+          "path": "registry/new-york/examples/step-indicator-with-descriptions.tsx",
+          "type": "registry:example"
+        }
+      ]
     }
   ]
 }
