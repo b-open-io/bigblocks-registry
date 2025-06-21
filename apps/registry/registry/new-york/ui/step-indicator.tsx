@@ -18,7 +18,12 @@ export interface StepIndicatorProps {
 }
 
 export function StepIndicator({
-	steps,
+	steps = [
+		{ id: "1", label: "Account", status: "complete" as const },
+		{ id: "2", label: "Profile", status: "active" as const },
+		{ id: "3", label: "Settings", status: "pending" as const },
+		{ id: "4", label: "Review", status: "pending" as const }
+	],
 	className = "",
 	variant = "horizontal",
 }: StepIndicatorProps) {
