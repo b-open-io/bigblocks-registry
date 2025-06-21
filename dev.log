@@ -1,0 +1,70 @@
+$ turbo dev
+turbo 2.5.4
+
+• Packages in scope: registry, registry-data, showcase
+• Running dev in 3 packages
+• Remote caching disabled
+registry:dev: cache bypass, force executing 72641621b3103c15
+showcase:dev: cache bypass, force executing f6b825daeb680d62
+registry:dev: $ next dev --port 3002
+showcase:dev: $ next dev --turbopack --port 3003
+showcase:dev: [MDX] updated map file in 4.574582999999961ms
+showcase:dev: [MDX] started dev server
+registry:dev:    ▲ Next.js 15.3.1
+registry:dev:    - Local:        http://localhost:3002
+registry:dev:    - Network:      http://192.168.1.163:3002
+registry:dev: 
+registry:dev:  ✓ Starting...
+showcase:dev:    ▲ Next.js 15.3.4 (Turbopack)
+showcase:dev:    - Local:        http://localhost:3003
+showcase:dev:    - Network:      http://192.168.1.163:3003
+showcase:dev: 
+showcase:dev:  ✓ Starting...
+showcase:dev:  ✓ Ready in 581ms
+registry:dev:  ✓ Ready in 914ms
+showcase:dev:  ○ Compiling /docs/[[...slug]] ...
+showcase:dev:  ✓ Compiled /docs/[[...slug]] in 1677ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 1412ms
+showcase:dev:  ✓ Compiled /favicon.ico in 177ms
+showcase:dev:  GET /favicon.ico?favicon.45db1c09.ico 200 in 426ms
+showcase:dev:  GET /docs/components/wallet 200 in 30ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 114ms
+showcase:dev:  GET /docs/components/social 200 in 44ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 268ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 237ms
+showcase:dev:  ✓ Compiled /_not-found/page in 412ms
+showcase:dev:  GET /.well-known/appspecific/com.chrome.devtools.json 404 in 494ms
+showcase:dev:  GET /docs/components/social 200 in 50ms
+showcase:dev: [MDX] updated map file in 1.3189159999601543ms
+showcase:dev:  ✓ Compiled /docs/[[...slug]] in 16ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 212ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 91ms
+showcase:dev:  ✓ Compiled in 45ms
+showcase:dev:  ✓ Compiled in 35ms
+showcase:dev:  ✓ Compiled in 41ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 395ms
+showcase:dev:  GET /.well-known/appspecific/com.chrome.devtools.json 404 in 30ms
+showcase:dev:  GET /favicon.ico?favicon.45db1c09.ico 200 in 260ms
+showcase:dev: [MDX] updated map file in 4.175791000016034ms
+showcase:dev:  ✓ Compiled /docs/[[...slug]] in 10ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 218ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 97ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 245ms
+showcase:dev: [MDX] updated map file in 1.4330420000478625ms
+showcase:dev:  ✓ Compiled /docs/[[...slug]] in 10ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 213ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 88ms
+showcase:dev:  ✓ Compiled in 39ms
+showcase:dev:  ✓ Compiled /docs/[[...slug]] in 10ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 222ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 95ms
+showcase:dev:  ✓ Compiled /docs/[[...slug]] in 30ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 239ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 96ms
+showcase:dev: [MDX] updated map file in 5.245666000060737ms
+showcase:dev:  ✓ Compiled /docs/[[...slug]] in 9ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 224ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 95ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 248ms
+showcase:dev:  GET /docs/components/wallet 200 in 51ms
+showcase:dev:  GET /docs/components/step-indicator 200 in 113ms

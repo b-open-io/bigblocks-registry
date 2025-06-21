@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { StepIndicator } from "@/registry/bigblocks/ui/step-indicator"
+import { Button } from "@/components/ui/button"
 
 export default function StepIndicatorDemo() {
   const [activeStep, setActiveStep] = useState(1)
@@ -14,8 +15,8 @@ export default function StepIndicatorDemo() {
   
   const steps = [
     { id: "1", label: "Account", status: getStatus(0) },
-    { id: "2", label: "Profile", status: getStatus(1) },
-    { id: "3", label: "Settings", status: getStatus(2) },
+    { id: "2", label: "Security", status: getStatus(1) },
+    { id: "3", label: "Backup", status: getStatus(2) },
     { id: "4", label: "Complete", status: getStatus(3) }
   ]
 
@@ -23,18 +24,19 @@ export default function StepIndicatorDemo() {
     <div className="w-full">
       <StepIndicator steps={steps} />
       <div className="mt-8 flex gap-2">
-        <button 
+        <Button 
+          variant="outline"
           onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
-          className="px-4 py-2 border rounded hover:bg-gray-100"
+          disabled={activeStep === 0}
         >
           Previous
-        </button>
-        <button 
+        </Button>
+        <Button 
           onClick={() => setActiveStep(Math.min(3, activeStep + 1))}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          disabled={activeStep === 3}
         >
-          Next
-        </button>
+          {activeStep === 3 ? "Finish" : "Next"}
+        </Button>
       </div>
     </div>
   )

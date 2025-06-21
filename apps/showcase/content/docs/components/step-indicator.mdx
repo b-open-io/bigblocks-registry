@@ -17,7 +17,7 @@ component: true
   <TabsContent value="cli">
 
 ```bash
-bunx shadcn@latest add http://localhost:3002/r/step-indicator.json
+npx shadcn@latest add http://localhost:3002/r/step-indicator.json
 ```
 
   </TabsContent>
@@ -28,7 +28,7 @@ bunx shadcn@latest add http://localhost:3002/r/step-indicator.json
 <Step>Install the following dependencies:</Step>
 
 ```bash
-bun add @radix-ui/react-icons
+npm install @radix-ui/react-icons
 ```
 
 <Step>Copy and paste the following code into your project:</Step>
@@ -49,8 +49,9 @@ import { StepIndicator } from "@/components/ui/step-indicator"
 
 const steps = [
   { id: "1", label: "Account", status: "complete" },
-  { id: "2", label: "Profile", status: "active" },
-  { id: "3", label: "Settings", status: "pending" }
+  { id: "2", label: "Security", status: "active" },
+  { id: "3", label: "Backup", status: "pending" },
+  { id: "4", label: "Complete", status: "pending" }
 ]
 
 export default function Example() {
@@ -60,50 +61,17 @@ export default function Example() {
 
 ## Examples
 
-### Horizontal Variant
+### Vertical
 
-The default horizontal variant displays steps in a row with connecting lines.
+Use the vertical variant for authentication flows and onboarding processes.
 
-```tsx
-<StepIndicator steps={steps} />
-```
-
-### Vertical Variant
-
-Use the vertical variant for forms or processes that benefit from a top-to-bottom flow.
-
-```tsx
-<StepIndicator steps={steps} variant="vertical" />
-```
+<ComponentPreview name="step-indicator-vertical" />
 
 ### With Descriptions
 
-Add descriptions to provide more context for each step.
+Add descriptions to guide users through complex authentication steps.
 
-```tsx
-const stepsWithDescriptions = [
-  { 
-    id: "1", 
-    label: "Create Account", 
-    description: "Enter your email and password",
-    status: "complete" 
-  },
-  { 
-    id: "2", 
-    label: "Verify Email", 
-    description: "Check your inbox for verification",
-    status: "active" 
-  },
-  { 
-    id: "3", 
-    label: "Complete Profile", 
-    description: "Add your personal information",
-    status: "pending" 
-  }
-]
-
-<StepIndicator steps={stepsWithDescriptions} variant="vertical" />
-```
+<ComponentPreview name="step-indicator-with-descriptions" />
 
 ## API Reference
 

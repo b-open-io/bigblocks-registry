@@ -2,7 +2,7 @@ $ next build
    ▲ Next.js 15.3.4
 
    Creating an optimized production build ...
-[MDX] updated map file in 3.863125000000025ms
+[MDX] updated map file in 4.2055839999999876ms
  ⚠ Compiled with warnings in 1000ms
 
 ../../node_modules/cosmiconfig/dist/loaders.js
@@ -16,7 +16,7 @@ Import trace for requested module:
 ./lib/registry.ts
 ./components/component-source.tsx
 ./mdx-components.tsx
-./app/docs/components/[...slug]/page.tsx
+./app/(app)/docs/[[...slug]]/page.tsx
 
 ../../node_modules/tsconfig-paths/lib/filesystem.js
 Critical dependency: the request of a dependency is an expression
@@ -30,7 +30,7 @@ Import trace for requested module:
 ./lib/registry.ts
 ./components/component-source.tsx
 ./mdx-components.tsx
-./app/docs/components/[...slug]/page.tsx
+./app/(app)/docs/[[...slug]]/page.tsx
 
 ../../node_modules/tsconfig-paths/lib/match-path-async.js
 require.extensions is not supported by webpack. Use a loader instead.
@@ -43,7 +43,7 @@ Import trace for requested module:
 ./lib/registry.ts
 ./components/component-source.tsx
 ./mdx-components.tsx
-./app/docs/components/[...slug]/page.tsx
+./app/(app)/docs/[[...slug]]/page.tsx
 
 ../../node_modules/tsconfig-paths/lib/match-path-sync.js
 require.extensions is not supported by webpack. Use a loader instead.
@@ -56,7 +56,7 @@ Import trace for requested module:
 ./lib/registry.ts
 ./components/component-source.tsx
 ./mdx-components.tsx
-./app/docs/components/[...slug]/page.tsx
+./app/(app)/docs/[[...slug]]/page.tsx
 
    Linting and checking validity of types ...
 error: script "build" exited with code 130

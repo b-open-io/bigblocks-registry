@@ -37,4 +37,30 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/step-indicator-demo.tsx")),
     categories: ["examples"],
   },
+  "step-indicator-vertical": {
+    name: "step-indicator-vertical",
+    title: "Step Indicator Vertical",
+    description: "Vertical variant of the step indicator",
+    type: "registry:example",
+    files: [{
+      path: "registry/bigblocks/examples/step-indicator-vertical.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/step-indicator-vertical.tsx")),
+    categories: ["examples"],
+  },
+  "step-indicator-with-descriptions": {
+    name: "step-indicator-with-descriptions",
+    title: "Step Indicator With Descriptions",
+    description: "Step indicator with descriptions for each step",
+    type: "registry:example",
+    files: [{
+      path: "registry/bigblocks/examples/step-indicator-with-descriptions.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/step-indicator-with-descriptions.tsx")),
+    categories: ["examples"],
+  },
 }

@@ -38,7 +38,12 @@ var transformers = [
           node.properties["__pnpm__"] = raw.replace("npm create", "pnpm create");
           node.properties["__bun__"] = raw.replace("npm create", "bun create");
         }
-        if (raw.startsWith("npx")) {
+        if (raw.startsWith("npx shadcn")) {
+          node.properties["__npm__"] = raw;
+          node.properties["__yarn__"] = raw;
+          node.properties["__pnpm__"] = raw.replace("npx", "pnpm dlx");
+          node.properties["__bun__"] = raw.replace("npx shadcn", "bunx shadcn");
+        } else if (raw.startsWith("npx")) {
           node.properties["__npm__"] = raw;
           node.properties["__yarn__"] = raw.replace("npx", "yarn");
           node.properties["__pnpm__"] = raw.replace("npx", "pnpm dlx");

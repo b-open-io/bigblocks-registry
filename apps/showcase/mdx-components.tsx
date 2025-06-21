@@ -7,6 +7,7 @@ import { ComponentPreview } from "@/components/component-preview"
 import { ComponentSource } from "@/components/component-source"
 import { CopyButton } from "@/components/copy-button"
 import { CodeTabs } from "@/components/code-tabs"
+import { CodeBlockCommand } from "@/components/code-block-command"
 import {
   Tabs,
   TabsContent,
@@ -182,10 +183,18 @@ export const mdxComponents = {
     className,
     __raw__,
     __src__,
+    __npm__,
+    __yarn__,
+    __pnpm__,
+    __bun__,
     ...props
   }: React.ComponentProps<"code"> & {
     __raw__?: string
     __src__?: string
+    __npm__?: string
+    __yarn__?: string
+    __pnpm__?: string
+    __bun__?: string
   }) => {
     // Inline Code.
     if (typeof props.children === "string") {
@@ -196,6 +205,19 @@ export const mdxComponents = {
             className
           )}
           {...props}
+        />
+      )
+    }
+
+    // npm command.
+    const isNpmCommand = __npm__ && __yarn__ && __pnpm__ && __bun__
+    if (isNpmCommand) {
+      return (
+        <CodeBlockCommand
+          __npm__={__npm__}
+          __yarn__={__yarn__}
+          __pnpm__={__pnpm__}
+          __bun__={__bun__}
         />
       )
     }
