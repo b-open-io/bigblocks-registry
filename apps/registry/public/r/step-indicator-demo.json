@@ -3,6 +3,9 @@
   "name": "step-indicator-demo",
   "type": "registry:component",
   "author": "Satchmo",
+  "registryDependencies": [
+    "https://bigblocks-registry.vercel.app/r/step-indicator.json"
+  ],
   "files": [
     {
       "path": "registry/new-york/examples/step-indicator-demo.tsx",

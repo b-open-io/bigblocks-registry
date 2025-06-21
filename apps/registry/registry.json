@@ -20,6 +20,7 @@
       "name": "step-indicator-demo",
       "type": "registry:component",
       "author": "Satchmo",
+      "registryDependencies": ["https://bigblocks-registry.vercel.app/r/step-indicator.json"],
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-demo.tsx",
@@ -30,8 +31,9 @@
     },
     {
       "name": "step-indicator-vertical",
-      "type": "registry:example",
+      "type": "registry:component",
       "author": "Satchmo",
+      "registryDependencies": ["https://bigblocks-registry.vercel.app/r/step-indicator.json"],
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-vertical.tsx",
@@ -42,8 +44,9 @@
     },
     {
       "name": "step-indicator-with-descriptions",
-      "type": "registry:example",
+      "type": "registry:component",
       "author": "Satchmo",
+      "registryDependencies": ["https://bigblocks-registry.vercel.app/r/step-indicator.json"],
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-with-descriptions.tsx",
