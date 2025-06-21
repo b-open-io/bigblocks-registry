@@ -8,6 +8,7 @@ import { ComponentSource } from "@/components/component-source"
 import { CopyButton } from "@/components/copy-button"
 import { CodeTabs } from "@/components/code-tabs"
 import { CodeBlockCommand } from "@/components/code-block-command"
+import { RegistryInstallCommand } from "@/components/registry-install-command"
 import {
   Tabs,
   TabsContent,
@@ -287,6 +288,7 @@ export const mdxComponents = {
   CodeTabs,
   ComponentPreview,
   ComponentSource,
+  RegistryInstallCommand,
   Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn("font-medium underline underline-offset-4", className)}
