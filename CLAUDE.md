@@ -6,6 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 BigBlocks Registry is a monorepo containing a shadcn-compatible component registry and documentation showcase for Bitcoin-related UI components. The project follows shadcn's component distribution model, allowing developers to install components directly into their projects using the shadcn CLI.
 
+## 🚨 CRITICAL: Adding Components
+
+Use the command: `/project:add-component [component-name]`
+
+This command contains all instructions for properly adding BigBlocks components. NEVER manually add components without using this command.
+
 ## Architecture
 
 ### Monorepo Structure
@@ -120,8 +126,12 @@ component: true
 
 ### Component Configuration
 - `apps/showcase/components.json` - shadcn configuration
-- `apps/registry/registry.json` - Component registry definition
+- `apps/registry/registry.json` - Component registry definition (ONLY custom BigBlocks components)
 - Style: "new-york" theme throughout
+
+### Environment Variables
+- `NEXT_PUBLIC_REGISTRY_URL` - Registry URL for component installation (default: http://localhost:3002)
+- `NEXT_PUBLIC_BASE_URL` - Base URL for v0 links
 
 ### Build Configuration
 - `turbo.json` - Defines build pipeline and caching
@@ -129,11 +139,13 @@ component: true
 
 ## Adding New Components
 
-1. Add component definition to `apps/registry/registry.json`
-2. Create component file in appropriate location
-3. Run `bun registry:build` to generate JSON
-4. Create MDX documentation in `apps/showcase/content/docs/components/`
-5. Add component preview/demo if needed
+**DO NOT manually add components. Use: `/project:add-component [component-name]`**
+
+Key rules:
+- ONLY add custom BigBlocks components (authentication, wallet, social, market)
+- NEVER add standard shadcn-ui components (button, card, dialog, etc.)
+- Standard components are installed via: `bunx shadcn@latest add [component]`
+- All imports must use `@/components/ui/*` for installed components
 
 ## Important Notes
 
@@ -141,4 +153,5 @@ component: true
 - Tailwind CSS v4 is used - do not downgrade
 - All apps use the same "new-york" shadcn style for consistency
 - The showcase app uses `[[...slug]]` routing for flexible documentation paths
-- Code highlighting requires transformers to enable copy buttons
+- Code highlighting with copy buttons and package manager switching
+- Registry app may have build issues with button component - this is known and doesn't affect functionality
