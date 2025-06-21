@@ -15,6 +15,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { getRegistryUrl } from "@/lib/registry-url"
 
 export function CodeBlockCommand({
   __npm__,
@@ -38,11 +39,18 @@ export function CodeBlockCommand({
   }, [hasCopied])
 
   const tabs = React.useMemo(() => {
+    const registryUrl = getRegistryUrl()
+    
+    // Replace localhost URLs with dynamic registry URL
+    const replaceUrl = (command?: string) => {
+      return command?.replace("http://localhost:3002", registryUrl)
+    }
+    
     return {
-      npm: __npm__,
-      yarn: __yarn__,
-      pnpm: __pnpm__,
-      bun: __bun__,
+      npm: replaceUrl(__npm__),
+      yarn: replaceUrl(__yarn__),
+      pnpm: replaceUrl(__pnpm__),
+      bun: replaceUrl(__bun__),
     }
   }, [__npm__, __pnpm__, __yarn__, __bun__])
 

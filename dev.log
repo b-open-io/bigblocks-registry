@@ -68,3 +68,5 @@ showcase:dev:  GET /docs/components/step-indicator 200 in 95ms
 showcase:dev:  GET /docs/components/step-indicator 200 in 248ms
 showcase:dev:  GET /docs/components/wallet 200 in 51ms
 showcase:dev:  GET /docs/components/step-indicator 200 in 113ms
+showcase:dev:  ✓ Compiled in 37ms
+showcase:dev:  ✓ Compiled in 78ms
