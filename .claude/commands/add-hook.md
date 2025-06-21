@@ -129,14 +129,13 @@ Edit `apps/registry/registry.json` and add:
 {
   "name": "use-[hook-name]",
   "type": "registry:hook",
-  "title": "use[HookName]",
-  "description": "[Brief description of what the hook does]",
-  "categories": ["[category]"],
+  "author": "Satchmo",
   "dependencies": ["[npm-packages-needed]"],
   "files": [
     {
       "path": "registry/new-york/hooks/use-[hook-name].ts",
-      "type": "registry:hook"
+      "type": "registry:hook",
+      "target": ""
     }
   ]
 }

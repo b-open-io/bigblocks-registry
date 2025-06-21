@@ -3,9 +3,6 @@
   "name": "step-indicator-vertical",
   "type": "registry:example",
   "author": "Satchmo",
-  "registryDependencies": [
-    "step-indicator"
-  ],
   "files": [
     {
       "path": "registry/new-york/examples/step-indicator-vertical.tsx",

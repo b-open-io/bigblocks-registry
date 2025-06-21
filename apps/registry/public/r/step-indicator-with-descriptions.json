@@ -3,9 +3,6 @@
   "name": "step-indicator-with-descriptions",
   "type": "registry:example",
   "author": "Satchmo",
-  "registryDependencies": [
-    "step-indicator"
-  ],
   "files": [
     {
       "path": "registry/new-york/examples/step-indicator-with-descriptions.tsx",

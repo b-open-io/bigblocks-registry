@@ -100,14 +100,13 @@ Edit `apps/registry/registry.json`:
 {
   "name": "[component-name]",
   "type": "registry:ui",
-  "title": "[Component Title]",
-  "description": "[Brief description of what the component does]",
-  "categories": ["[category]"],
+  "author": "Satchmo",
   "dependencies": ["[npm-packages-from-shadcn-docs]"],
   "files": [
     {
       "path": "registry/new-york/ui/[component-name].tsx",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": ""
     }
   ]
 }
@@ -227,7 +226,7 @@ Demo template:
 ```tsx
 "use client"
 
-import { ComponentName } from "@/registry/new-york/ui/[component-name]"
+import { ComponentName } from "@/components/ui/[component-name]"
 // Only import shadcn components from @/components/ui/*
 import { Button } from "@/components/ui/button"
 
@@ -250,22 +249,21 @@ Add demo entries to `apps/registry/registry.json`:
 {
   "name": "[component-name]-demo",
   "type": "registry:example",
-  "title": "[Component Name] Demo",
-  "description": "Interactive demo showing [brief description of what the demo demonstrates]",
-  "registryDependencies": ["[component-name]"],
+  "author": "Satchmo",
   "files": [
     {
       "path": "registry/new-york/examples/[component-name]-demo.tsx",
-      "type": "registry:example"
+      "type": "registry:example",
+      "target": ""
     }
   ]
 }
 ```
 
-**CRITICAL for v0.dev Integration:**
-- `title`: Required for v0.dev API - short, descriptive title
-- `description`: Required for v0.dev API - explains what the demo shows
-- These fields are used by OpenInV0Button to generate proper v0.dev URLs
+**IMPORTANT Notes:**
+- Do NOT include `registryDependencies` - demos assume the component is already installed
+- Do NOT include `title` or `description` fields - these cause v0.dev to fail
+- All imports in demos must use `@/components/ui/*` paths, not registry paths
 
 Repeat for each demo variant you create.
 
@@ -288,9 +286,23 @@ cd apps/registry && bun run lint
 cd apps/showcase && bun run build
 ```
 
+## Step 9: Test v0.dev Integration
+
+After building and deploying:
+```bash
+# Test that v0.dev accepts the component
+curl -I "https://v0.dev/chat/api/open?url=https://bigblocks-registry.vercel.app/r/[component-name].json"
+# Should return HTTP 307 (redirect to login)
+```
+
 ## Common Mistakes to Avoid
 - Adding standard shadcn components to our registry
 - Using wrong import paths (registry paths instead of @/components/ui/*)
+- Using registry paths in demo imports (use @/components/ui/* instead)
+- Including `registryDependencies` in demos (they should be standalone)
+- Adding `title`/`description` to components (causes v0.dev errors)
+- Forgetting `author: "Satchmo"` field
+- Forgetting `target: ""` in file entries
 - Forgetting to install shadcn dependencies in both apps
 - Not following the exact MDX structure from step-indicator
 - Missing API reference documentation
