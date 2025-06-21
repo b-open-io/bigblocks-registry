@@ -2,7 +2,9 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "step-indicator-vertical",
   "type": "registry:component",
+  "title": "Step Indicator Vertical",
   "author": "Satchmo",
+  "description": "Vertical variant of the step indicator component",
   "registryDependencies": [
     "https://bigblocks-registry.vercel.app/r/step-indicator.json"
   ],

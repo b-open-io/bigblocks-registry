@@ -4,11 +4,13 @@
   "tasks": {
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["NEXT_PUBLIC_REGISTRY_URL", "V0_URL", "V0_EDIT_SECRET", "DEPLOYMENT_PROTECTION_BYPASS"]
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "env": ["NEXT_PUBLIC_REGISTRY_URL", "V0_URL", "V0_EDIT_SECRET", "DEPLOYMENT_PROTECTION_BYPASS"]
     },
     "registry:build": {
       "dependsOn": ["^build"],

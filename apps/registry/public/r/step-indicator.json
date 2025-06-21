@@ -2,7 +2,9 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "step-indicator",
   "type": "registry:ui",
+  "title": "Step Indicator",
   "author": "Satchmo",
+  "description": "A step indicator component for multi-step forms and processes",
   "dependencies": [
     "@radix-ui/react-icons"
   ],

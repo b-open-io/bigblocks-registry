@@ -2,7 +2,9 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "step-indicator-with-descriptions",
   "type": "registry:component",
+  "title": "Step Indicator with Descriptions",
   "author": "Satchmo",
+  "description": "Step indicator component with detailed descriptions for each step",
   "registryDependencies": [
     "https://bigblocks-registry.vercel.app/r/step-indicator.json"
   ],

@@ -6,6 +6,8 @@
     {
       "name": "step-indicator",
       "type": "registry:ui",
+      "title": "Step Indicator",
+      "description": "A step indicator component for multi-step forms and processes",
       "author": "Satchmo",
       "dependencies": ["@radix-ui/react-icons"],
       "files": [
@@ -19,6 +21,8 @@
     {
       "name": "step-indicator-demo",
       "type": "registry:component",
+      "title": "Step Indicator Demo",
+      "description": "Interactive demo of the step indicator component",
       "author": "Satchmo",
       "registryDependencies": ["https://bigblocks-registry.vercel.app/r/step-indicator.json"],
       "files": [
@@ -32,6 +36,8 @@
     {
       "name": "step-indicator-vertical",
       "type": "registry:component",
+      "title": "Step Indicator Vertical",
+      "description": "Vertical variant of the step indicator component",
       "author": "Satchmo",
       "registryDependencies": ["https://bigblocks-registry.vercel.app/r/step-indicator.json"],
       "files": [
@@ -45,6 +51,8 @@
     {
       "name": "step-indicator-with-descriptions",
       "type": "registry:component",
+      "title": "Step Indicator with Descriptions",
+      "description": "Step indicator component with detailed descriptions for each step",
       "author": "Satchmo",
       "registryDependencies": ["https://bigblocks-registry.vercel.app/r/step-indicator.json"],
       "files": [
