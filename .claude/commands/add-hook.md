@@ -168,7 +168,7 @@ description: [Detailed description of the hook's purpose and capabilities]
   <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add http://localhost:3002/r/use-[hook-name].json
+npx shadcn@latest add https://registry-theta-murex.vercel.app/r/use-[hook-name].json
 ```
 
   </TabsContent>

@@ -143,7 +143,7 @@ component: true
   <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add http://localhost:3002/r/[component-name].json
+npx shadcn@latest add https://registry-theta-murex.vercel.app/r/[component-name].json
 ```
 
   </TabsContent>
@@ -213,17 +213,17 @@ interface ComponentNameProps {
 
 ## Step 6: Create Demo Components
 
-Create at least 3 demos in `apps/showcase/registry/bigblocks/examples/`:
+Create at least 3 demos in `apps/registry/registry/new-york/examples/`:
 
 1. `[component-name]-demo.tsx` - Basic/default usage
-2. `[component-name]-[variant].tsx` - Showing a specific variant or feature
+2. `[component-name]-[variant].tsx` - Showing a specific variant or feature  
 3. `[component-name]-[another-variant].tsx` - Another use case
 
 Demo template:
 ```tsx
 "use client"
 
-import { ComponentName } from "@/registry/bigblocks/ui/[component-name]"
+import { ComponentName } from "@/registry/new-york/ui/[component-name]"
 // Only import shadcn components from @/components/ui/*
 import { Button } from "@/components/ui/button"
 
@@ -239,9 +239,24 @@ export default function ComponentNameDemo() {
 }
 ```
 
-## Step 7: Update Registry Index
+## Step 7: Update Registry Configuration for Demo Components
 
-The showcase registry should auto-update when you restart the dev server.
+Add demo entries to `apps/registry/registry.json`:
+```json
+{
+  "name": "[component-name]-demo",
+  "type": "registry:example",
+  "registryDependencies": ["[component-name]"],
+  "files": [
+    {
+      "path": "registry/new-york/examples/[component-name]-demo.tsx",
+      "type": "registry:example"
+    }
+  ]
+}
+```
+
+Repeat for each demo variant you create.
 
 ## Step 8: Type Checking and Validation
 
