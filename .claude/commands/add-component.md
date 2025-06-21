@@ -4,6 +4,8 @@ Add a new component "$ARGUMENTS" to the BigBlocks registry.
 1. Only add CUSTOM BigBlocks components! NEVER add standard shadcn-ui components to our registry!
 2. Always BUILD components using shadcn-ui components first, Radix UI primitives second
 3. All imports must use @/components/ui/* for installed components
+4. **NEVER use `any`, `unknown`, or type casting** - trace all types to their source
+5. **Check shadcn-ui reference**: Always look at `/Users/satchmo/code/shadcn-ui` for patterns
 
 ## Valid BigBlocks Categories
 - authentication: AuthButton, LoginForm, DeviceLinkQR, SignupFlow, OAuthRestoreFlow
@@ -22,38 +24,67 @@ https://www.radix-ui.com/primitives/docs/overview/introduction
 
 ### Actions:
 1. Check shadcn-ui docs for the component you need: https://ui.shadcn.com/docs/components/[component-name]
-2. Install required shadcn dependencies in BOTH apps:
+2. **Check shadcn-ui source code for patterns**:
+   ```bash
+   # Look at similar components
+   ls /Users/satchmo/code/shadcn-ui/apps/www/registry/new-york/ui/
+   # Check if they use "use client"
+   grep "use client" /Users/satchmo/code/shadcn-ui/apps/www/registry/new-york/ui/[similar-component].tsx
+   ```
+3. Install required shadcn dependencies in BOTH apps:
    ```bash
    cd apps/showcase && bunx shadcn@latest add [required-components]
    cd apps/registry && bunx shadcn@latest add [required-components]
    ```
-3. Note all npm dependencies from the shadcn docs
+4. Note all npm dependencies from the shadcn docs
 
 ## Step 2: Create Component File
 
 Location: `apps/registry/registry/new-york/ui/[component-name].tsx`
 
+### "use client" Decision Tree:
+1. **Does it use hooks (useState, useEffect, etc.)?** → Add "use client"
+2. **Does it have event handlers (onClick, onChange)?** → Add "use client"
+3. **Does it use browser APIs (window, document)?** → Add "use client"
+4. **Does it use Context?** → Add "use client"
+5. **Is it pure presentational with no interactivity?** → No "use client" needed
+
 Template:
 ```tsx
+// Add "use client" only if needed (see decision tree above)
 "use client"
 
 import * as React from "react"
 // Import shadcn-ui components - use @/components/ui/*
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+// Import types - NEVER use any, trace to source
+import type { SpecificType } from "@/lib/types"
 // Import from @/lib/utils for cn
 import { cn } from "@/lib/utils"
 
 export interface ComponentNameProps {
-  // Define props with proper TypeScript types
+  // Define ALL props with proper TypeScript types
+  // NEVER use any or unknown
   className?: string
-  // ... other props
+  onAction?: (result: SpecificType) => void
+  // ... other props with explicit types
 }
 
 export function ComponentName({
   className,
+  onAction,
   ...props
 }: ComponentNameProps) {
+  // If using state/hooks, component needs "use client"
+  const [state, setState] = React.useState<SpecificType | null>(null)
+  
+  // Browser API checks if needed
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+    // Browser-specific code
+  }, [])
+
   return (
     <div className={cn("", className)} {...props}>
       {/* Component implementation using shadcn-ui components */}
@@ -212,6 +243,25 @@ export default function ComponentNameDemo() {
 
 The showcase registry should auto-update when you restart the dev server.
 
+## Step 8: Type Checking and Validation
+
+**MANDATORY before committing:**
+```bash
+# Type check both apps
+cd apps/showcase && bunx tsc --noEmit
+cd apps/registry && bunx tsc --noEmit
+
+# Check for any usage (should return nothing)
+grep -r "\bany\b" apps/registry/registry/new-york/ui/[component-name].tsx
+
+# Run linting
+cd apps/showcase && bun run lint
+cd apps/registry && bun run lint
+
+# Test the component builds
+cd apps/showcase && bun run build
+```
+
 ## Common Mistakes to Avoid
 - Adding standard shadcn components to our registry
 - Using wrong import paths (registry paths instead of @/components/ui/*)
@@ -219,3 +269,7 @@ The showcase registry should auto-update when you restart the dev server.
 - Not following the exact MDX structure from step-indicator
 - Missing API reference documentation
 - Not creating enough demo examples
+- Using `any` type instead of finding proper types
+- Adding "use client" to pure presentational components
+- Not checking browser API availability before use
+- Type casting with `as` instead of proper typing
