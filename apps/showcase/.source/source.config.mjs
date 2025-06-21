@@ -7,6 +7,17 @@ import {
 import rehypePrettyCode from "rehype-pretty-code";
 import { z } from "zod";
 
+// lib/registry-url.ts
+function getRegistryUrl() {
+  const url = process.env.NEXT_PUBLIC_REGISTRY_URL;
+  if (!url) {
+    // During build, use localhost as fallback
+    // The actual URL will be used at runtime
+    return "http://localhost:3002";
+  }
+  return url;
+}
+
 // lib/transformers.ts
 var transformers = [
   {
@@ -39,10 +50,12 @@ var transformers = [
           node.properties["__bun__"] = raw.replace("npm create", "bun create");
         }
         if (raw.startsWith("npx shadcn")) {
-          node.properties["__npm__"] = raw;
-          node.properties["__yarn__"] = raw;
-          node.properties["__pnpm__"] = raw.replace("npx", "pnpm dlx");
-          node.properties["__bun__"] = raw.replace("npx shadcn", "bunx shadcn");
+          const registryUrl = getRegistryUrl();
+          const processedRaw = raw.replace("http://localhost:3002", registryUrl);
+          node.properties["__npm__"] = processedRaw;
+          node.properties["__yarn__"] = processedRaw;
+          node.properties["__pnpm__"] = processedRaw.replace("npx", "pnpm dlx");
+          node.properties["__bun__"] = processedRaw.replace("npx shadcn", "bunx shadcn");
         } else if (raw.startsWith("npx")) {
           node.properties["__npm__"] = raw;
           node.properties["__yarn__"] = raw.replace("npx", "yarn");
