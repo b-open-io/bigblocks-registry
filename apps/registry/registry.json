@@ -18,12 +18,12 @@
     },
     {
       "name": "step-indicator-demo",
-      "type": "registry:example",
+      "type": "registry:component",
       "author": "Satchmo",
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-demo.tsx",
-          "type": "registry:example",
+          "type": "registry:component",
           "target": ""
         }
       ]
@@ -35,7 +35,7 @@
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-vertical.tsx",
-          "type": "registry:example",
+          "type": "registry:component",
           "target": ""
         }
       ]
@@ -47,7 +47,7 @@
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-with-descriptions.tsx",
-          "type": "registry:example",
+          "type": "registry:component",
           "target": ""
         }
       ]

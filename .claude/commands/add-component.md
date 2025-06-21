@@ -95,6 +95,12 @@ export function ComponentName({
 
 ## Step 3: Update Registry Configuration
 
+**IMPORTANT**: Component JSON must follow the shadcn registry schema:
+- Schema reference: https://ui.shadcn.com/schema/registry-item.json
+- Documentation: https://ui.shadcn.com/docs/registry/registry-item-json
+- Valid types: "registry:lib", "registry:block", "registry:component", "registry:ui", "registry:hook", "registry:theme", "registry:page", "registry:file", "registry:style"
+- Note: "registry:example" is NOT in the schema but is used by shadcn internally
+
 Edit `apps/registry/registry.json`:
 ```json
 {
