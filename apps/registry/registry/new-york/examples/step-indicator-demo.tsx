@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { StepIndicator } from "@/registry/new-york/ui/step-indicator"
+import { StepIndicator } from "@/components/ui/step-indicator"
 import { Button } from "@/components/ui/button"
 
 export default function StepIndicatorDemo() {
