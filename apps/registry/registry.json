@@ -20,7 +20,7 @@
     },
     {
       "name": "step-indicator-demo",
-      "type": "registry:component",
+      "type": "registry:example",
       "title": "Step Indicator Demo",
       "description": "Interactive demo of the step indicator component",
       "author": "Satchmo",
@@ -28,14 +28,14 @@
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-demo.tsx",
-          "type": "registry:component",
+          "type": "registry:example",
           "target": ""
         }
       ]
     },
     {
       "name": "step-indicator-vertical",
-      "type": "registry:component",
+      "type": "registry:example",
       "title": "Step Indicator Vertical",
       "description": "Vertical variant of the step indicator component",
       "author": "Satchmo",
@@ -43,14 +43,14 @@
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-vertical.tsx",
-          "type": "registry:component",
+          "type": "registry:example",
           "target": ""
         }
       ]
     },
     {
       "name": "step-indicator-with-descriptions",
-      "type": "registry:component",
+      "type": "registry:example",
       "title": "Step Indicator with Descriptions",
       "description": "Step indicator component with detailed descriptions for each step",
       "author": "Satchmo",
@@ -58,7 +58,7 @@
       "files": [
         {
           "path": "registry/new-york/examples/step-indicator-with-descriptions.tsx",
-          "type": "registry:component",
+          "type": "registry:example",
           "target": ""
         }
       ]
