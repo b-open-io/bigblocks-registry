@@ -29,11 +29,11 @@ export function StepIndicator({
 					<div key={step.id} className="flex items-start gap-3">
 						<div
 							className={cn(
-								"min-w-[32px] h-8 rounded-full flex items-center justify-center font-bold text-sm",
+								"min-w-[32px] h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all",
 								step.status === "complete" &&
-									"bg-green-600 dark:bg-green-500 text-white",
+									"border-2 border-primary bg-background text-primary",
 								step.status === "active" &&
-									"bg-primary text-primary-foreground",
+									"bg-primary text-primary-foreground ring-2 ring-offset-2 ring-ring",
 								step.status === "pending" && "bg-muted text-muted-foreground",
 							)}
 						>
@@ -74,9 +74,9 @@ export function StepIndicator({
 							className={cn(
 								"w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all",
 								step.status === "complete" &&
-									"bg-green-600 dark:bg-green-500 text-white",
+									"border-2 border-primary bg-background text-primary",
 								step.status === "active" &&
-									"bg-primary text-primary-foreground shadow-lg shadow-primary/25",
+									"bg-primary text-primary-foreground shadow-lg shadow-primary/25 ring-2 ring-offset-2 ring-ring",
 								step.status === "pending" && "bg-muted text-muted-foreground",
 							)}
 						>
