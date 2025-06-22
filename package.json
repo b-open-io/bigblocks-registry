@@ -16,6 +16,7 @@
     "deploy:showcase": "cd apps/showcase && vercel --prod"
   },
   "devDependencies": {
+    "@anthropic-ai/claude-code": "latest",
     "@types/node": "^20.19.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",

@@ -326,6 +326,8 @@ Automated workflows for component quality:
 - **Theme Compatibility**: Checks for hardcoded colors
 - **Visual Testing**: Playwright screenshots for components
 
+See `.claude/GITHUB_ACTIONS_SETUP.md` for setup instructions.
+
 ### MCP Servers
 Configure Model Context Protocol servers in `.claude/mcp-config.json`:
 - `playwright` - Visual testing and screenshots

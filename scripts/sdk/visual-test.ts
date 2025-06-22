@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import { query, type ClaudeCodeOptions } from "@anthropic-ai/claude-code";
+import { query, type Options } from "@anthropic-ai/claude-code";
 import { readFile } from "fs/promises";
 import { join } from "path";
 
@@ -58,7 +58,7 @@ Steps:
 4. Generate a summary report of all screenshots taken
 `;
 
-    const queryOptions: ClaudeCodeOptions = {
+    const queryOptions: Options = {
       maxTurns: 10,
       allowedTools: ["mcp__playwright__screenshot", "mcp__playwright__navigate", "mcp__playwright__click", "mcp__filesystem__write_file"],
     };

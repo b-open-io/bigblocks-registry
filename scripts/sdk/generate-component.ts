@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import { query, type SDKMessage, type ClaudeCodeOptions } from "@anthropic-ai/claude-code";
+import { query, type SDKMessage, type Options } from "@anthropic-ai/claude-code";
 import { readFile, writeFile, mkdir } from "fs/promises";
 import { join, dirname } from "path";
 import { existsSync } from "fs";
@@ -61,7 +61,6 @@ async function loadSharedContext(): Promise<string> {
   const contexts = [
     "shared-context.md",
     "bitcoin-patterns.md",
-    "sensible-defaults.md",
   ];
   
   const loadedContexts = await Promise.all(
@@ -111,9 +110,9 @@ async function executePhase(
   const messages: SDKMessage[] = [];
   const results: string[] = [];
   
-  const queryOptions: ClaudeCodeOptions = {
+  const queryOptions: Options = {
     maxTurns: phase.maxTurns || 3,
-    systemPrompt: sharedContext,
+    customSystemPrompt: sharedContext,
   };
   
   for await (const message of query({
