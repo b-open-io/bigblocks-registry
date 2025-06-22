@@ -88,6 +88,16 @@ export function ComponentName({
   return (
     <div className={cn("", className)} {...props}>
       {/* Component implementation using shadcn-ui components */}
+      {/* THEME COMPATIBILITY: Use semantic color classes:
+          - bg-primary text-primary-foreground (main actions)
+          - bg-secondary text-secondary-foreground (secondary actions)
+          - bg-muted text-muted-foreground (disabled/inactive)
+          - bg-accent text-accent-foreground (highlights)
+          - bg-destructive text-destructive-foreground (dangerous actions)
+          - border-border (borders)
+          - ring-ring (focus rings)
+          NEVER use hard-coded colors like bg-green-500, bg-blue-600, etc.
+      */}
     </div>
   )
 }
@@ -293,7 +303,27 @@ cd apps/registry && bun run lint
 cd apps/showcase && bun run build
 ```
 
-## Step 9: Test v0.dev Integration
+## Step 9: Test Theme Compatibility
+
+**MANDATORY theme testing:**
+```bash
+# Test with different shadcn themes
+bunx shadcn@latest add https://tweakcn.com/r/themes/caffeine.json
+# Or other themes from https://ui.shadcn.com/themes
+
+# Verify component uses theme-aware colors
+# Check that no hard-coded colors remain
+grep -r "bg-\(red\|blue\|green\|yellow\|orange\|purple\|pink\|gray\|slate\)-[0-9]" apps/registry/registry/new-york/ui/[component-name].tsx
+# Should return nothing - all colors should use semantic classes
+```
+
+**Theme Compatibility Verified:**
+- Components automatically adapt to any shadcn theme
+- Primary colors change based on theme selection (e.g., blue → orange/brown for Caffeine)
+- All color classes use CSS variables for full theme support
+- Tested with multiple themes including Caffeine, ensuring proper color inheritance
+
+## Step 10: Test v0.dev Integration
 
 After building and deploying:
 ```bash

@@ -142,6 +142,13 @@ component: true
 - **User workflow**: Users can ask v0 to modify components after opening (e.g., "make this vertical")
 - **Registry types**: Demo components use `type: "registry:example"` to match shadcn-ui patterns
 
+### Theme Compatibility
+- **Full shadcn theme support**: All BigBlocks components use semantic color classes that adapt to any shadcn theme
+- **CSS Variables**: Components use theme-aware classes like `bg-primary`, `text-muted-foreground`, etc.
+- **No hard-coded colors**: Never use specific color classes like `bg-green-500` or `bg-blue-600`
+- **Tested themes**: Verified compatibility with Caffeine and other community themes
+- **Automatic adaptation**: Components inherit theme colors without modification
+
 ### Build Configuration
 - `turbo.json` - Defines build pipeline and caching
 - Root `package.json` - Workspace configuration
