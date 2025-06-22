@@ -1,18 +1,16 @@
 Add a new component "$ARGUMENTS" to the BigBlocks registry.
 
-## CRITICAL RULES
-1. Only add CUSTOM BigBlocks components! NEVER add standard shadcn-ui components to our registry!
-2. Always BUILD components using shadcn-ui components first, Radix UI primitives second
-3. All imports must use @/components/ui/* for installed components
-4. **NEVER use `any`, `unknown`, or type casting** - trace all types to their source
-5. **Check shadcn-ui reference**: Always look at `/Users/satchmo/code/shadcn-ui` for patterns
+## Shared Context
+@.claude/prompts/shared-context.md
+@.claude/prompts/bitcoin-patterns.md
 
-## Valid BigBlocks Categories
-- authentication: AuthButton, LoginForm, DeviceLinkQR, SignupFlow, OAuthRestoreFlow
-- wallet: SendBSVButton, WalletOverview, TokenBalance, DonateButton
-- social: PostButton, SocialFeed, LikeButton, FollowButton, MessageDisplay
-- market: CreateListingButton, MarketTable, BuyListingButton, CancelListingButton
-- ui-components: StepIndicator, QRCodeRenderer, TransactionProgress, ErrorDisplay
+## Component-Specific Guidelines
+
+This command creates UI components that:
+- Have visual representation and user interaction
+- Use shadcn-ui components as building blocks
+- Follow Bitcoin-specific patterns for auth/wallet/social features
+- Are theme-compatible and accessible
 
 ## Step 1: Research and Plan
 
@@ -50,32 +48,65 @@ Location: `apps/registry/registry/new-york/ui/[component-name].tsx`
 5. **Is it pure presentational with no interactivity?** → No "use client" needed
 
 ### Provider Pattern (shadcn-ui style):
-Providers should be embedded within components that need them, not distributed separately:
+
+**IMPORTANT**: Only embed providers for component-specific state that doesn't need to be shared with other components!
+
+#### When to Embed a Provider:
+- Component-specific UI state (e.g., sidebar open/closed, accordion expanded)
+- State that is isolated to this component and its direct children
+- Complex components that manage their own internal state
+
+#### When NOT to Embed a Provider:
+- Authentication state (use app-level BitcoinAuthProvider)
+- Wallet state (use app-level WalletProvider)
+- Any state that multiple components need to access
+- Cross-component communication
+
+#### Embedded Provider Example:
 ```tsx
 // Context definition inside the component file
-type ComponentContextValue = {
-  state: string
-  setState: (state: string) => void
+// ONLY for component-specific state!
+type SidebarContextValue = {
+  isOpen: boolean
+  setIsOpen: (open: boolean) => void
 }
 
-const ComponentContext = React.createContext<ComponentContextValue | null>(null)
+const SidebarContext = React.createContext<SidebarContextValue | null>(null)
 
-function useComponent() {
-  const context = React.useContext(ComponentContext)
+function useSidebar() {
+  const context = React.useContext(SidebarContext)
   if (!context) {
-    throw new Error("useComponent must be used within ComponentProvider")
+    throw new Error("useSidebar must be used within SidebarProvider")
   }
   return context
 }
 
-// Provider as part of the main component export
-export function ComponentProvider({ children, ...props }: ComponentProps) {
-  const [state, setState] = React.useState("initial")
+// Provider embedded in the component
+export function Sidebar({ children, ...props }: SidebarProps) {
+  const [isOpen, setIsOpen] = React.useState(true)
   
   return (
-    <ComponentContext.Provider value={{ state, setState }}>
+    <SidebarContext.Provider value={{ isOpen, setIsOpen }}>
       <div {...props}>{children}</div>
-    </ComponentContext.Provider>
+    </SidebarContext.Provider>
+  )
+}
+```
+
+#### Using Global State Instead:
+For shared state, components should use hooks that access app-level providers:
+```tsx
+// DON'T embed auth provider in component
+// DO use the global hook
+import { useBitcoinAuth } from "@/hooks/use-bitcoin-auth"
+
+export function AuthButton() {
+  const { user, signIn } = useBitcoinAuth() // Accesses app-level provider
+  
+  return (
+    <Button onClick={signIn}>
+      {user ? `Signed in as ${user.name}` : "Sign In"}
+    </Button>
   )
 }
 ```
@@ -135,13 +166,201 @@ export function ComponentName({
 ```
 
 ### Components with Embedded Providers:
-If your component includes a provider, export both the provider and any hooks:
+If your component includes an embedded provider for component-specific state:
 ```tsx
-// At the end of your component file
-export { ComponentProvider, useComponent, ComponentContext }
+// Export the component with embedded provider
+export function Sidebar({ children }: SidebarProps) {
+  // Provider logic here
+}
+
+// Export the hook to access the provider
+export { useSidebar }
+
+// Don't export the Context - keep it private to the component
 ```
 
 The registry entry remains the same - just one file that exports multiple items.
+
+### State Management Architecture Guidelines:
+
+1. **App-Level Providers** (in app layout):
+   - `BitcoinAuthProvider` - Authentication state
+   - `WalletProvider` - Wallet and transaction state
+   - `ThemeProvider` - Theme configuration
+   
+2. **Component-Level Providers** (embedded in components):
+   - Only for UI state specific to that component
+   - Examples: sidebar state, accordion state, tooltip state
+
+3. **Cross-Component State** (use state management libraries):
+   - **Jotai**: For component-centric, atomic state
+   - **Zustand**: For module-level stores
+   - See `/project:add-hook` for implementation patterns
+
+### Bitcoin Backup Handling
+
+Components that handle authentication should understand Bitcoin backup types:
+
+#### Backup Types
+```typescript
+// From bitcoin-backup library
+type BackupTypeName = 
+  | "BapMasterBackup"    // Full identity with xprv, mnemonic, IDs
+  | "BapMemberBackup"    // Member identity with WIF/derivedPrivateKey
+  | "OneSatBackup"       // ordPk, payPk, identityPk
+  | "WifBackup"          // Simple WIF private key
+
+// Default configuration (BapMasterBackup excluded for security)
+const DEFAULT_ALLOWED_BACKUP_TYPES = [
+  "BapMemberBackup",
+  "OneSatBackup", 
+  "WifBackup"
+]
+```
+
+#### Storage Patterns
+```typescript
+// CRITICAL: Never store decrypted backups in localStorage!
+
+// Session Storage (temporary, cleared on signout)
+sessionStorage.setItem("decryptedBackup", JSON.stringify(backup))
+sessionStorage.setItem("paymentKey", paymentPrivateKey)
+sessionStorage.setItem("ordinalKey", ordinalPrivateKey)
+
+// Local Storage (persistent, encrypted only!)
+localStorage.setItem("encryptedBackup", encryptedBackupString)
+localStorage.setItem("bap-rotation-{idKey}", encryptedRotationData)
+```
+
+#### Component Example with Backup Support
+```tsx
+import { useBitcoinAuth } from "@/hooks/use-bitcoin-auth"
+import { detectBackupType, isBackupTypeAllowed } from "@/lib/backup-utils"
+
+export function BackupImportButton() {
+  const { importBackup } = useBitcoinAuth()
+  
+  const handleImport = async (backupData: string, password: string) => {
+    try {
+      // Decrypt if needed
+      const decrypted = await decryptBackup(backupData, password)
+      
+      // Detect type
+      const backupType = detectBackupType(decrypted)
+      
+      // Validate allowed types
+      if (!isBackupTypeAllowed(backupType, DEFAULT_ALLOWED_BACKUP_TYPES)) {
+        throw new Error(`${backupType} backups are not supported`)
+      }
+      
+      // Import
+      await importBackup(decrypted, password)
+    } catch (error) {
+      // Handle errors
+    }
+  }
+  
+  return <Button onClick={handleImport}>Import Backup</Button>
+}
+```
+
+#### Sensible Defaults for Auth Components
+- **Allowed Backup Types**: Exclude BapMasterBackup by default
+- **Password Requirements**: Minimum 8 characters
+- **Storage**: Use sessionStorage for decrypted data
+- **Cleanup**: Clear session data on signout
+- **Encryption**: Always encrypt before localStorage
+
+### Auth Server Detection (Works with auth.sigmaidentity.com!)
+
+Components that handle authentication should auto-detect when they're running on an auth server:
+
+```typescript
+// Utility for detecting auth context
+const detectAuthContext = () => {
+  const params = new URLSearchParams(window.location.search)
+  const currentUrl = window.location.origin
+  
+  return {
+    // Running on auth server
+    isAuthServer: currentUrl.includes('auth.sigmaidentity.com') ||
+                  currentUrl.includes('auth-staging.sigmaidentity.com') ||
+                  currentUrl.includes('auth.'),
+    
+    // OAuth callback detection
+    isOAuthCallback: params.has('code') || params.has('state'),
+    
+    // OAuth authorization request
+    isOAuthRequest: params.has('client_id') && params.has('redirect_uri'),
+    
+    // OAuth parameters
+    clientId: params.get('client_id'),
+    redirectUri: params.get('redirect_uri'),
+    state: params.get('state'),
+    code: params.get('code'),
+    provider: params.get('provider') || 'sigma',
+  }
+}
+
+// Example usage in auth components
+export function AuthButton() {
+  const authContext = detectAuthContext()
+  const { user, signIn } = useBitcoinAuth()
+  
+  const handleAuth = async () => {
+    if (authContext.isAuthServer) {
+      // Direct Bitcoin authentication
+      await signIn()
+    } else if (authContext.isOAuthRequest) {
+      // OAuth authorization request - redirect to auth server
+      const authUrl = `https://auth.sigmaidentity.com/authorize?client_id=${authContext.clientId}&redirect_uri=${authContext.redirectUri}`
+      window.location.href = authUrl
+    } else {
+      // Normal app flow
+      await signIn()
+    }
+  }
+  
+  return (
+    <Button onClick={handleAuth}>
+      {user ? `Signed in as ${user.name}` : "Sign In"}
+    </Button>
+  )
+}
+```
+
+### Bitcoin Authentication Patterns
+
+Components should use proper Bitcoin signature authentication:
+
+```typescript
+import { createAuthToken } from "bitcoin-auth"
+
+// Example for components that make authenticated requests
+const makeAuthenticatedRequest = async (privateKey: string, endpoint: string, body?: string) => {
+  const authToken = createAuthToken({
+    privateKey,
+    requestPath: endpoint,
+    body,
+    timestamp: new Date().toISOString()
+  })
+
+  const response = await fetch(`https://auth.sigmaidentity.com${endpoint}`, {
+    method: 'POST',
+    headers: {
+      'X-Auth-Token': authToken,
+      'Content-Type': 'application/json'
+    },
+    body: body || '{}'
+  })
+
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.statusText}`)
+  }
+
+  return response.json()
+}
+```
 
 ## Step 3: Update Registry Configuration
 

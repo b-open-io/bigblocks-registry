@@ -8,9 +8,31 @@ BigBlocks Registry is a monorepo containing a shadcn-compatible component regist
 
 ## 🚨 CRITICAL: Adding Components
 
-Use the command: `/project:add-component [component-name]`
+### Automated Generation (Recommended)
+Use the Claude Code SDK for multi-phase component generation:
+```bash
+bun scripts/sdk/generate-component.ts "component-name" category "description"
+```
 
-This command contains all instructions for properly adding BigBlocks components. NEVER manually add components without using this command.
+### Manual Commands
+Use project commands for more control:
+- `/project:plan-component [description]` - Plan and analyze requirements
+- `/project:add-component [component-name]` - Add a UI component
+- `/project:add-hook [hook-name]` - Add a React hook
+
+## 📚 Shared Prompts & Memory
+
+### Prompt System
+All commands use shared context from:
+@.claude/prompts/shared-context.md
+@.claude/prompts/bitcoin-patterns.md
+
+### Component Generation Phases
+@.claude/prompts/phase1-planning.md
+@.claude/prompts/phase2-questions.md
+@.claude/prompts/phase3-implementation.md
+@.claude/prompts/phase4-review.md
+@.claude/prompts/phase5-finalize.md
 
 ## Architecture
 
@@ -159,6 +181,7 @@ Use the appropriate command for each asset type:
 
 - **Components**: `/project:add-component [component-name]` - UI components with optional embedded providers
 - **Hooks**: `/project:add-hook [hook-name]` - React hooks for functionality
+- **Providers**: `/project:add-provider [provider-name]` - App-level providers for global state
 - **Blocks**: `/project:add-block [block-name]` - Complete page sections with multiple files
 - **Examples**: `/project:add-example [component-name]-[variant]` - Demo implementations
 - **Libraries**: `/project:add-lib [library-name]` - Utility functions and services
@@ -171,7 +194,40 @@ Key rules:
 - NEVER add standard shadcn-ui components (button, card, dialog, etc.)
 - Standard components are installed via: `bunx shadcn@latest add [component]`
 - All imports must use `@/components/ui/*` for installed components
-- Providers are embedded within components, not distributed separately
+
+## State Management Architecture
+
+### 1. **App-Level Providers** (Global State)
+- Located in app layout, wrapping entire application
+- Examples: `BitcoinAuthProvider`, `WalletProvider`, `ThemeProvider`
+- Use `/project:add-provider` to create these
+- Accessed via hooks like `useBitcoinAuth()`
+
+### 2. **Component-Level Providers** (Local State)
+- Embedded within components for component-specific state
+- Examples: Sidebar open/closed, accordion expanded state
+- Only for state that doesn't need sharing with other components
+- Created as part of the component file
+
+### 3. **Cross-Component State** (Shared State)
+- **Jotai**: For component-centric atomic state
+  - Best for: React Suspense, dynamic atoms, component state
+  - Example: Selected items, UI preferences
+- **Zustand**: For module-level stores
+  - Best for: Complex state logic, DevTools support
+  - Example: Shopping cart, user preferences
+
+### 4. **State Management Decision Tree**
+1. Is it authentication/wallet/theme state? → App-level provider
+2. Is it specific to one component? → Embedded provider or useState
+3. Do multiple components need it? → Jotai atoms or Zustand store
+4. Is it server state? → Consider React Query or SWR
+
+### 5. **Implementation Patterns**
+- Providers are installed at root level, not imported into components
+- Hooks access global providers via useContext
+- Components consume state via hooks, not direct provider imports
+- Follow shadcn-ui patterns: single ThemeProvider at app level
 
 ## ⚠️ Critical Guidelines - DO NOT MODIFY
 
@@ -253,3 +309,32 @@ bun run deploy:showcase
 - The showcase app uses `[[...slug]]` routing for flexible documentation paths
 - Code highlighting with copy buttons and package manager switching
 - Registry app excludes `registry/` directory from TypeScript compilation to avoid build errors
+
+## 🤖 Automation & CI/CD
+
+### Claude Code SDK Integration
+The project includes automated component generation using the Claude Code SDK:
+```bash
+# Generate components with multi-phase workflow
+bun scripts/sdk/generate-component.ts "component-name" category "description"
+```
+
+### GitHub Actions
+Automated workflows for component quality:
+- **Component Review**: Automatic PR review for new components
+- **Type Safety**: TypeScript validation on all PRs
+- **Theme Compatibility**: Checks for hardcoded colors
+- **Visual Testing**: Playwright screenshots for components
+
+### MCP Servers
+Configure Model Context Protocol servers in `.claude/mcp-config.json`:
+- `playwright` - Visual testing and screenshots
+- `filesystem` - Enhanced file operations
+- `bigblocks` - Bitcoin wallet operations
+- `github` - PR and issue automation
+
+### Using MCP in Claude Code
+```bash
+# Use MCP servers for enhanced capabilities
+claude --mcp-config .claude/mcp-config.json
+```

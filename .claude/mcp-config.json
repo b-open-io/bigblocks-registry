@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-playwright"
+      ],
+      "description": "Generate screenshots and videos of components for visual testing"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y", 
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/satchmo/code/bigblocks-registry"
+      ],
+      "description": "Enhanced file operations for component generation"
+    },
+    "bigblocks": {
+      "command": "bunx",
+      "args": [
+        "bsv-mcp@latest"
+      ],
+      "description": "Bitcoin wallet and blockchain operations for testing components"
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub integration for automated PR reviews and issue management"
+    }
+  }
+}
