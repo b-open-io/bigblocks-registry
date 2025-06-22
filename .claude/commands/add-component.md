@@ -49,6 +49,37 @@ Location: `apps/registry/registry/new-york/ui/[component-name].tsx`
 4. **Does it use Context?** → Add "use client"
 5. **Is it pure presentational with no interactivity?** → No "use client" needed
 
+### Provider Pattern (shadcn-ui style):
+Providers should be embedded within components that need them, not distributed separately:
+```tsx
+// Context definition inside the component file
+type ComponentContextValue = {
+  state: string
+  setState: (state: string) => void
+}
+
+const ComponentContext = React.createContext<ComponentContextValue | null>(null)
+
+function useComponent() {
+  const context = React.useContext(ComponentContext)
+  if (!context) {
+    throw new Error("useComponent must be used within ComponentProvider")
+  }
+  return context
+}
+
+// Provider as part of the main component export
+export function ComponentProvider({ children, ...props }: ComponentProps) {
+  const [state, setState] = React.useState("initial")
+  
+  return (
+    <ComponentContext.Provider value={{ state, setState }}>
+      <div {...props}>{children}</div>
+    </ComponentContext.Provider>
+  )
+}
+```
+
 Template:
 ```tsx
 // Add "use client" only if needed (see decision tree above)
@@ -102,6 +133,15 @@ export function ComponentName({
   )
 }
 ```
+
+### Components with Embedded Providers:
+If your component includes a provider, export both the provider and any hooks:
+```tsx
+// At the end of your component file
+export { ComponentProvider, useComponent, ComponentContext }
+```
+
+The registry entry remains the same - just one file that exports multiple items.
 
 ## Step 3: Update Registry Configuration
 

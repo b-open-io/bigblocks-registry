@@ -153,15 +153,25 @@ component: true
 - `turbo.json` - Defines build pipeline and caching
 - Root `package.json` - Workspace configuration
 
-## Adding New Components
+## Adding New Assets to the Registry
 
-**DO NOT manually add components. Use: `/project:add-component [component-name]`**
+Use the appropriate command for each asset type:
+
+- **Components**: `/project:add-component [component-name]` - UI components with optional embedded providers
+- **Hooks**: `/project:add-hook [hook-name]` - React hooks for functionality
+- **Blocks**: `/project:add-block [block-name]` - Complete page sections with multiple files
+- **Examples**: `/project:add-example [component-name]-[variant]` - Demo implementations
+- **Libraries**: `/project:add-lib [library-name]` - Utility functions and services
+- **Themes**: `/project:add-theme [theme-name]` - Color scheme configurations
+
+See `.claude/commands/` directory for detailed instructions on each asset type.
 
 Key rules:
 - ONLY add custom BigBlocks components (authentication, wallet, social, market)
 - NEVER add standard shadcn-ui components (button, card, dialog, etc.)
 - Standard components are installed via: `bunx shadcn@latest add [component]`
 - All imports must use `@/components/ui/*` for installed components
+- Providers are embedded within components, not distributed separately
 
 ## ⚠️ Critical Guidelines - DO NOT MODIFY
 

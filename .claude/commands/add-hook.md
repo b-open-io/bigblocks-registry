@@ -318,6 +318,34 @@ cd apps/registry && bun run lint
 - Creating visual demos (hooks don't have visual output)
 - Putting documentation in wrong folder (use /docs/hooks not /docs/components)
 
+## Hooks That Return Providers
+Some authentication/context hooks may return provider components:
+```tsx
+export function useBitcoinAuth() {
+  // ... hook logic ...
+  
+  // Return provider as part of the hook
+  return {
+    Provider: BitcoinAuthProvider,
+    user,
+    signIn,
+    signOut,
+    // ... other returns
+  }
+}
+
+// Usage:
+const { Provider, user } = useBitcoinAuth()
+
+return (
+  <Provider>
+    <App />
+  </Provider>
+)
+```
+
+This pattern follows shadcn-ui's approach of embedding providers within their related components/hooks rather than distributing them separately.
+
 ## Reference shadcn-ui Implementation
 Always check how shadcn-ui implements similar functionality:
 - `/Users/satchmo/code/shadcn-ui/apps/www/registry/new-york/hooks/`
