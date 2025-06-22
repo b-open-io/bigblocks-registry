@@ -10,12 +10,14 @@ export function ComponentPreview({
   className,
   align = "center",
   hideCode = false,
+  showV0Button = true,
   ...props
 }: React.ComponentProps<"div"> & {
   name: string
   align?: "center" | "start" | "end"
   description?: string
   hideCode?: boolean
+  showV0Button?: boolean
   type?: "block" | "component" | "example"
 }) {
   const Component = Index[name]?.component
@@ -64,6 +66,7 @@ export function ComponentPreview({
       component={<Component />}
       source={<ComponentSource name={name} collapsible={false} />}
       name={name}
+      showV0Button={showV0Button}
       {...props}
     />
   )

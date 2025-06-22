@@ -132,6 +132,15 @@ component: true
 ### Environment Variables
 - `NEXT_PUBLIC_REGISTRY_URL` - Registry URL for component installation (default: http://localhost:3002)
 - `NEXT_PUBLIC_BASE_URL` - Base URL for v0 links
+- `V0_URL` - v0.dev URL (default: https://v0.dev)
+- `V0_EDIT_SECRET` - Authentication token for advanced v0 integration
+
+### v0 Integration
+- **"Open in v0" buttons**: Only displayed on main component previews, not on individual demo variants
+- **Component variants**: v0 opens the base component definition, not variant-specific implementations
+- **Best use case**: Full blocks/pages rather than component variants
+- **User workflow**: Users can ask v0 to modify components after opening (e.g., "make this vertical")
+- **Registry types**: Demo components use `type: "registry:example"` to match shadcn-ui patterns
 
 ### Build Configuration
 - `turbo.json` - Defines build pipeline and caching

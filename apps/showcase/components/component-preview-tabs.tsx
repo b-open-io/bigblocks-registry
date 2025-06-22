@@ -13,6 +13,7 @@ export function ComponentPreviewTabs({
   component,
   source,
   name,
+  showV0Button = true,
   ...props
 }: React.ComponentProps<"div"> & {
   align?: "center" | "start" | "end"
@@ -20,6 +21,7 @@ export function ComponentPreviewTabs({
   component: React.ReactNode
   source: React.ReactNode
   name?: string
+  showV0Button?: boolean
 }) {
   const [tab, setTab] = React.useState("preview")
 
@@ -52,7 +54,7 @@ export function ComponentPreviewTabs({
               </TabsList>
             )}
           </div>
-          {name && <OpenInV0Button name={name} />}
+          {name && showV0Button && <OpenInV0Button name={name} />}
         </div>
       </Tabs>
       <div

@@ -268,8 +268,9 @@ Add demo entries to `apps/registry/registry.json`:
 
 **IMPORTANT Notes:**
 - Do NOT include `registryDependencies` - demos assume the component is already installed
-- Do NOT include `title` or `description` fields - these cause v0.dev to fail
 - All imports in demos must use `@/components/ui/*` paths, not registry paths
+- Demo components use `type: "registry:example"` to match shadcn-ui patterns
+- v0 integration: "Open in v0" buttons are only shown on the main component, not on individual demo variants (v0 doesn't execute variant-specific code)
 
 Repeat for each demo variant you create.
 
@@ -300,6 +301,12 @@ After building and deploying:
 curl -I "https://v0.dev/chat/api/open?url=https://bigblocks-registry.vercel.app/r/[component-name].json"
 # Should return HTTP 307 (redirect to login)
 ```
+
+**v0 Integration Notes:**
+- "Open in v0" buttons are useful for full blocks/pages, less useful for component variants
+- v0 opens the component definition but doesn't execute demo-specific code
+- Users can ask v0 to modify components after opening (e.g., "make this vertical")
+- We show "Open in v0" only on the main component preview, not on each variant demo
 
 ## Common Mistakes to Avoid
 - Adding standard shadcn components to our registry
