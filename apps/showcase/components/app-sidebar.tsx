@@ -29,6 +29,7 @@ const data = {
       url: "/",
       items: [
         { title: "Introduction", url: "/" },
+        { title: "Step Indicator", url: "/docs/components/step-indicator" },
       ],
     },
     {
