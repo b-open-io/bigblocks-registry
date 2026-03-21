@@ -1,0 +1,214 @@
+---
+title: Send BSV
+description: A trigger button that opens a send dialog for transferring Bitcoin SV to any address, with sats/BSV unit toggle and fee preview
+featured: true
+component: true
+---
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/send-bsv.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add badge button dialog input label separator
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/send-bsv/index.tsx`
+- `components/blocks/send-bsv/send-bsv-trigger.tsx`
+- `components/blocks/send-bsv/send-bsv-dialog.tsx`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+`SendBsv` requires an `onSend` callback that performs the actual transaction. The callback receives the destination address and satoshi amount and must return a `SendBsvResult`.
+
+```tsx
+import { SendBsv } from "@/components/blocks/send-bsv"
+
+export function WalletActions() {
+  return (
+    <SendBsv
+      onSend={async ({ address, satoshis }) => {
+        // Call your wallet's send action here.
+        // With @1sat/actions:
+        // const result = await sendBsv.execute(ctx, {
+        //   requests: [{ address, satoshis }],
+        // })
+        // return result
+        return { txid: "abc123..." }
+      }}
+      onSuccess={(result) => console.log("txid:", result.txid)}
+      onError={(err) => console.error(err)}
+    />
+  )
+}
+```
+
+## Variants
+
+### Default
+
+A labeled button with a send icon that opens the full send dialog.
+
+```tsx
+<SendBsv variant="default" triggerLabel="Send BSV" onSend={handleSend} />
+```
+
+### Compact
+
+An icon-only square button. Useful in dense UIs such as table rows or toolbars.
+
+```tsx
+<SendBsv variant="compact" onSend={handleSend} />
+```
+
+### Quick
+
+An inline input + send button that pre-fills the dialog amount. Users type a satoshi amount directly without opening the dialog first.
+
+```tsx
+<SendBsv variant="quick" onSend={handleSend} />
+```
+
+## Dialog Sizes
+
+The send dialog has two size modes controlled by `dialogSize`:
+
+| Value | Max width | Use case |
+|-------|-----------|----------|
+| `"full"` (default) | `sm:max-w-md` | Standard send flow with description text |
+| `"compact"` | `sm:max-w-sm` | Tighter layouts, hides the dialog description |
+
+## Props
+
+### SendBsv
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onSend` | `(params: SendBsvParams) => Promise<SendBsvResult>` | **required** | Callback that executes the send transaction |
+| `variant` | `"default" \| "compact" \| "quick"` | `"default"` | Trigger button style |
+| `dialogSize` | `"full" \| "compact"` | `"full"` | Controls the send dialog width and verbosity |
+| `onSuccess` | `(result: SendBsvResult) => void` | — | Called after a successful send |
+| `onError` | `(error: Error) => void` | — | Called when the send fails |
+| `defaultAddress` | `string` | `""` | Pre-filled destination address |
+| `defaultSatoshis` | `number` | — | Pre-filled amount in satoshis |
+| `estimatedFee` | `number` | `50` | Network fee estimate shown in the dialog (satoshis) |
+| `triggerLabel` | `string` | `"Send BSV"` | Label for the default variant button |
+| `disabled` | `boolean` | `false` | Disables the trigger button |
+| `className` | `string` | — | Additional CSS classes for the trigger |
+| `dialogClassName` | `string` | — | Additional CSS classes for the dialog content |
+
+### SendBsvParams
+
+The object passed to your `onSend` callback:
+
+```typescript
+interface SendBsvParams {
+  address: string  // Destination BSV address
+  satoshis: number // Amount in satoshis
+}
+```
+
+### SendBsvResult
+
+The object your `onSend` callback must return:
+
+```typescript
+interface SendBsvResult {
+  txid?: string   // Transaction ID on success
+  rawtx?: string  // Raw transaction hex
+  error?: string  // Error message on failure
+}
+```
+
+When `error` is present in the result, `SendBsv` surfaces it in the dialog and calls `onError`. When `txid` is present, the dialog shows a success state with the transaction ID.
+
+## Sub-components
+
+The block exports `SendBsvTrigger` and `SendBsvDialog` separately if you need to wire them independently.
+
+### SendBsvTrigger
+
+```tsx
+import { SendBsvTrigger } from "@/components/blocks/send-bsv"
+
+<SendBsvTrigger
+  variant="default"
+  label="Send"
+  loading={isSending}
+  onClick={() => setDialogOpen(true)}
+/>
+```
+
+### SendBsvTrigger Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "compact" \| "quick"` | `"default"` | Trigger style |
+| `label` | `string` | `"Send BSV"` | Button label (default and quick variants) |
+| `disabled` | `boolean` | `false` | Disables the trigger |
+| `loading` | `boolean` | `false` | Shows a spinner and disables the trigger |
+| `onClick` | `() => void` | — | Click handler (opens the dialog) |
+| `quickAmount` | `string` | `""` | Controlled amount value for the quick variant |
+| `onQuickAmountChange` | `(value: string) => void` | — | Called when the quick variant amount changes |
+| `onQuickSend` | `() => void` | — | Called when the quick variant send button is clicked |
+| `className` | `string` | — | Additional CSS classes |
+
+### SendBsvDialog
+
+```tsx
+import { SendBsvDialog } from "@/components/blocks/send-bsv"
+
+<SendBsvDialog
+  open={dialogOpen}
+  onOpenChange={setDialogOpen}
+  onSend={handleSend}
+  onSuccess={(result) => console.log(result.txid)}
+  estimatedFee={50}
+/>
+```
+
+### SendBsvDialog Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | **required** | Whether the dialog is open |
+| `onOpenChange` | `(open: boolean) => void` | **required** | Called when the open state should change |
+| `onSend` | `(params: SendBsvParams) => Promise<SendBsvResult>` | **required** | Send callback |
+| `onSuccess` | `(result: SendBsvResult) => void` | — | Called on successful send |
+| `onError` | `(error: Error) => void` | — | Called on send failure |
+| `defaultAddress` | `string` | `""` | Pre-filled destination address |
+| `defaultSatoshis` | `number` | — | Pre-filled amount in satoshis |
+| `estimatedFee` | `number` | `50` | Network fee shown in the summary row |
+| `size` | `"full" \| "compact"` | `"full"` | Dialog width and description visibility |
+| `className` | `string` | — | Additional CSS classes for the dialog content |

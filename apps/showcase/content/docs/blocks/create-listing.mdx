@@ -1,0 +1,191 @@
+---
+title: Create Listing
+description: List an ordinal NFT for sale on the global BSV orderbook with a dialog-based price and payout address form
+featured: true
+component: true
+---
+
+A dialog-triggered block for listing ordinal NFTs. A button opens a dialog showing an ordinal preview, price input (satoshis), payout address, and a confirm action. Validates price bounds and address before enabling submission. The underlying `useCreateListing` hook is also exported for headless usage.
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/create-listing.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react class-variance-authority
+```
+
+<Step>Install the required shadcn components:</Step>
+
+```bash
+bunx shadcn@latest add badge button dialog input label
+```
+
+<Step>Copy the block source into your project:</Step>
+
+```bash
+cp -r registry/new-york/blocks/create-listing ./components/blocks/create-listing
+```
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { CreateListing, type ListOrdinalParams, type ListOrdinalResult } from "@/components/blocks/create-listing"
+
+export default function OrdinalDetailPage() {
+  const ordinal = {
+    outpoint: "abc123...def.0",
+    name: "Rare Pepe #42",
+    contentType: "image/png",
+    origin: "abc123...def.0",
+  }
+
+  const handleList = async (params: ListOrdinalParams): Promise<ListOrdinalResult> => {
+    try {
+      const result = await listOrdinal.execute(ctx, {
+        ordinal: walletOutput,
+        price: params.price,
+        payAddress: params.payAddress,
+      })
+      return { txid: result.txid }
+    } catch (err) {
+      return { error: err instanceof Error ? err.message : "Listing failed" }
+    }
+  }
+
+  return (
+    <CreateListing
+      ordinal={ordinal}
+      onList={handleList}
+      onListed={(result) => console.log("Listed:", result.txid)}
+      defaultPayAddress="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+      triggerLabel="List for Sale"
+    />
+  )
+}
+```
+
+## Variants
+
+The trigger button accepts `variant` from `class-variance-authority`. Pass the variant name as a prop.
+
+```tsx
+<CreateListing ordinal={ordinal} onList={handleList} variant="outline" />
+<CreateListing ordinal={ordinal} onList={handleList} variant="ghost" />
+```
+
+## API Reference
+
+### CreateListing
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `ordinal` | `OrdinalItem` | — | Required. The ordinal to list for sale. |
+| `onList` | `(params: ListOrdinalParams) => Promise<ListOrdinalResult>` | — | Required. Executes the on-chain listing action. |
+| `onListed` | `(result: ListOrdinalResult) => void` | — | Called after a successful listing. |
+| `onError` | `(error: Error) => void` | — | Called when the listing fails. |
+| `defaultPayAddress` | `string` | `""` | Pre-fills the payout address field. |
+| `triggerLabel` | `string` | `"List for Sale"` | Text label on the trigger button. |
+| `variant` | `VariantProps<typeof createListingTriggerVariants>` | `"default"` | Visual style of the trigger button. |
+| `className` | `string` | — | Additional CSS classes applied to the trigger. |
+
+### OrdinalItem
+
+```typescript
+interface OrdinalItem {
+  outpoint: string      // txid.vout format
+  name?: string         // Display name
+  contentType?: string  // MIME type
+  origin?: string       // Origin outpoint for collection grouping
+}
+```
+
+### ListOrdinalParams
+
+```typescript
+interface ListOrdinalParams {
+  ordinal: OrdinalItem  // The ordinal being listed
+  price: number         // Price in satoshis
+  payAddress: string    // Address that receives payment on purchase
+}
+```
+
+### ListOrdinalResult
+
+```typescript
+interface ListOrdinalResult {
+  txid?: string   // Transaction ID on success
+  rawtx?: string  // Raw transaction hex (optional)
+  error?: string  // Error message when listing failed
+}
+```
+
+## Hook
+
+Use `useCreateListing` directly when you need a custom UI or want to embed the logic elsewhere.
+
+```tsx
+import { useCreateListing } from "@/components/blocks/create-listing"
+
+function CustomListingFlow({ ordinal, onList }) {
+  const listing = useCreateListing({ ordinal, onList, defaultPayAddress: myAddress })
+
+  return (
+    <div>
+      <input
+        value={listing.priceInput}
+        onChange={(e) => listing.setPriceInput(e.target.value)}
+        placeholder="Price in satoshis"
+      />
+      {listing.validationError && <p>{listing.validationError}</p>}
+      <button
+        onClick={listing.handleList}
+        disabled={!listing.canSubmit || listing.isListing}
+      >
+        List for {listing.priceSats.toLocaleString()} sats
+      </button>
+    </div>
+  )
+}
+```
+
+### UseCreateListingReturn
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `open` | `boolean` | Whether the dialog is open. |
+| `handleOpenChange` | `(nextOpen: boolean) => void` | Open/close the dialog. Resets form on close. |
+| `priceInput` | `string` | Current raw price input string. |
+| `setPriceInput` | `(value: string) => void` | Update the price input. |
+| `payAddress` | `string` | Current payout address value. |
+| `setPayAddress` | `(value: string) => void` | Update the payout address. |
+| `isListing` | `boolean` | Whether a listing transaction is in progress. |
+| `result` | `ListOrdinalResult \| null` | Result from the most recent listing attempt. |
+| `error` | `string \| null` | Error message from the most recent attempt. |
+| `priceSats` | `number` | Parsed price in satoshis (0 if input is invalid). |
+| `validationError` | `string \| null` | Human-readable validation error or `null`. |
+| `canSubmit` | `boolean` | Whether the form passes validation and can be submitted. |
+| `handleList` | `() => Promise<void>` | Execute the listing. No-op if `canSubmit` is false. |

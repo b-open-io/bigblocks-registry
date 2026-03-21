@@ -1,0 +1,208 @@
+---
+title: Bitcoin Avatar
+description: Hybrid avatar that resolves on-chain images for Bitcoin addresses, with deterministic sigma-avatars fallback when no image exists or resolution fails.
+featured: true
+component: true
+---
+
+<ComponentPreview name="bitcoin-avatar-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+<RegistryInstallCommand component="bitcoin-avatar" />
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+bun add sigma-avatars bitcoin-image
+```
+
+<Step>Copy the block files into your project:</Step>
+
+Create the three block files — `index.tsx`, `ui.tsx`, and `use-bitcoin-avatar.ts` — from the source below.
+
+<ComponentSource name="bitcoin-avatar" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { BitcoinAvatar } from "@/components/blocks/bitcoin-avatar"
+
+export default function Example() {
+  return (
+    <BitcoinAvatar
+      address="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+      size="md"
+      variant="marble"
+    />
+  )
+}
+```
+
+## How image resolution works
+
+`BitcoinAvatar` follows a two-step priority chain:
+
+1. **On-chain image** — when you pass `imageUrl`, the `bitcoin-image` library resolves the protocol to a fetchable HTTP URL. Supported protocols include `ord://` and `b://`. If the URL resolves and the `<img>` loads without error, the on-chain image is displayed.
+
+2. **Deterministic fallback** — if `imageUrl` is omitted, the URL is invalid, or the image fails to load at runtime, `sigma-avatars` generates a deterministic SVG seeded by the `address` prop. The same address always produces the same avatar, giving every Bitcoin address a consistent visual identity across your entire application without any server-side storage.
+
+The `ImageProtocols` instance from `bitcoin-image` is shared as a module-level singleton with a one-hour in-memory cache, so repeated renders of the same `imageUrl` skip the resolution fetch entirely.
+
+## Examples
+
+### Sizes
+
+```tsx
+<div className="flex items-end gap-6">
+  <BitcoinAvatar address={address} size="sm" />  {/* 32px */}
+  <BitcoinAvatar address={address} size="md" />  {/* 40px */}
+  <BitcoinAvatar address={address} size="lg" />  {/* 64px */}
+  <BitcoinAvatar address={address} size="xl" />  {/* 96px */}
+</div>
+```
+
+### Variant styles
+
+All 10 deterministic styles from sigma-avatars:
+
+```tsx
+<BitcoinAvatar address={address} variant="marble" />   {/* default */}
+<BitcoinAvatar address={address} variant="pixel" />
+<BitcoinAvatar address={address} variant="beam" />
+<BitcoinAvatar address={address} variant="ring" />
+<BitcoinAvatar address={address} variant="sunset" />
+<BitcoinAvatar address={address} variant="bauhaus" />
+<BitcoinAvatar address={address} variant="fractal" />
+<BitcoinAvatar address={address} variant="mage" />
+<BitcoinAvatar address={address} variant="barcode" />
+<BitcoinAvatar address={address} variant="pepe" />
+```
+
+Each variant produces a visually distinct style. Pick the one that fits your app's personality; the fallback will be consistent regardless of which variant you choose.
+
+### On-chain image with fallback
+
+```tsx
+{/* Resolves the ord:// URL and displays the on-chain image */}
+<BitcoinAvatar
+  address="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+  imageUrl="ord://d4d03c2e7bf8ac27f1a6b6e0e92c6a33cfe90afee8a8deb12e076172f5705894_0"
+  size="lg"
+/>
+
+{/* Invalid URL: silently falls back to deterministic avatar */}
+<BitcoinAvatar
+  address="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+  imageUrl="ord://invalid-txid"
+  size="lg"
+/>
+```
+
+### Using the hook directly
+
+Use `useBitcoinAvatar` when you need to build a custom avatar UI or integrate resolution state into a larger component:
+
+```tsx
+import { useBitcoinAvatar } from "@/components/blocks/bitcoin-avatar"
+
+export function CustomAvatar({ address, imageUrl }: { address: string; imageUrl?: string }) {
+  const { resolvedUrl, showOnChainImage, resolutionFailed, markResolutionFailed } =
+    useBitcoinAvatar({ address, imageUrl })
+
+  if (showOnChainImage && resolvedUrl) {
+    return (
+      <img
+        src={resolvedUrl}
+        alt={`Avatar for ${address.slice(0, 8)}...`}
+        className="rounded-full"
+        onError={markResolutionFailed}
+      />
+    )
+  }
+
+  // render your own fallback
+  return <span>{address.slice(0, 4)}</span>
+}
+```
+
+## API Reference
+
+### BitcoinAvatar
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `address` | `string` | — | Bitcoin address or BAP ID. Used as the deterministic seed for the fallback avatar. Required. |
+| `imageUrl` | `string` | — | On-chain image URL to resolve (`ord://` or `b://`). Falls back to deterministic avatar on failure. |
+| `size` | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` | Avatar size. Maps to 32px, 40px, 64px, and 96px respectively. |
+| `variant` | `AvatarVariant` | `"marble"` | Visual style for the deterministic fallback avatar. See variant list below. |
+| `className` | `string` | — | Additional CSS class names applied to the root element. |
+
+### AvatarVariant
+
+```typescript
+type AvatarVariant =
+  | "marble"
+  | "pixel"
+  | "beam"
+  | "ring"
+  | "sunset"
+  | "bauhaus"
+  | "fractal"
+  | "mage"
+  | "barcode"
+  | "pepe"
+```
+
+### useBitcoinAvatar
+
+The hook that powers `BitcoinAvatar`. Use it when you need resolution state without the default UI.
+
+**Options**
+
+| Option | Type | Description |
+| --- | --- | --- |
+| `address` | `string` | Bitcoin address or BAP ID. Required. |
+| `imageUrl` | `string` | On-chain image URL to resolve. Optional. |
+
+**Return value**
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `resolvedUrl` | `string \| null` | The resolved HTTP URL for the on-chain image, or `null` if not yet resolved or unavailable. |
+| `resolutionFailed` | `boolean` | `true` when resolution was attempted and failed. |
+| `showOnChainImage` | `boolean` | Convenience flag: `true` when `imageUrl` was provided, `resolvedUrl` is set, and `resolutionFailed` is `false`. |
+| `markResolutionFailed` | `() => void` | Call this on `<img onError>` to trigger fallback to the deterministic avatar. |
+
+### BitcoinAvatarUI
+
+The low-level presentational component. Accepts all resolved state from `useBitcoinAvatar` as explicit props, making it straightforward to test in isolation or use in a server-rendered context where you supply the resolved URL yourself.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `address` | `string` | — | Bitcoin address or BAP ID. Required. |
+| `px` | `number` | — | Pixel size for both width and height. Required. |
+| `variant` | `AvatarVariant` | `"marble"` | Visual style for the deterministic fallback. |
+| `className` | `string` | — | Additional CSS class names. |
+| `showOnChainImage` | `boolean` | — | Whether to render the on-chain `<img>`. Required. |
+| `resolvedUrl` | `string \| null` | — | The HTTP URL to use as the `<img>` src. Required. |
+| `onImageError` | `() => void` | — | Called when the on-chain `<img>` fails to load. Required. |

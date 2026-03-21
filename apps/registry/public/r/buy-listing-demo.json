@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "buy-listing-demo",
+  "title": "Buy Listing Demo",
+  "author": "Satchmo",
+  "description": "Demo showcasing a grid of ordinal listings with the buy listing component",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/buy-listing.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/buy-listing-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport {\n  BuyListing,\n  type PurchaseOrdinalParams,\n  type PurchaseOrdinalResult,\n} from \"@/registry/new-york/blocks/buy-listing\"\n\nconst SAMPLE_LISTINGS = [\n  {\n    outpoint:\n      \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2.0\",\n    price: 50000,\n    name: \"Rare Pepe #42\",\n    seller: \"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\",\n    contentType: \"image/png\",\n  },\n  {\n    outpoint:\n      \"b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2.0\",\n    price: 125000,\n    name: \"1Sat Punk #1337\",\n    seller: \"1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2\",\n    contentType: \"image/webp\",\n  },\n  {\n    outpoint:\n      \"c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3.0\",\n    price: 1000000,\n    name: \"Genesis Block Art\",\n    seller: \"1CounterpartyXXXXXXXXXXXXXXXUWLpVr\",\n    contentType: \"image/svg+xml\",\n  },\n]\n\nexport default function BuyListingDemo() {\n  const [purchased, setPurchased] = useState<Set<string>>(new Set())\n\n  async function handlePurchase(\n    params: PurchaseOrdinalParams,\n  ): Promise<PurchaseOrdinalResult> {\n    // In a real application, you would use the @1sat/actions purchaseOrdinal action:\n    //\n    // import { purchaseOrdinal } from \"@1sat/actions\"\n    //\n    // const result = await purchaseOrdinal.execute(ctx, {\n    //   outpoint: params.outpoint,\n    //   marketplaceAddress: params.marketplaceAddress,\n    //   marketplaceRate: params.marketplaceRate,\n    // })\n    //\n    // return result\n\n    // Demo: simulate a 2-second purchase\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    return {\n      txid: \"d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5\",\n    }\n  }\n\n  return (\n    <div className=\"grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3\">\n      {SAMPLE_LISTINGS.map((listing) => (\n        <BuyListing\n          key={listing.outpoint}\n          outpoint={listing.outpoint}\n          price={listing.price}\n          name={listing.name}\n          seller={listing.seller}\n          contentType={listing.contentType}\n          onPurchase={handlePurchase}\n          onPurchased={(result) => {\n            if (result.txid) {\n              setPurchased((prev) => new Set(prev).add(listing.outpoint))\n            }\n          }}\n          onError={(error) => console.error(\"Purchase error:\", error)}\n          marketplaceAddress=\"1MarketplaceXXXXXXXXXXXXXXXXXXXYhYb\"\n          marketplaceRate={0.04}\n        />\n      ))}\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

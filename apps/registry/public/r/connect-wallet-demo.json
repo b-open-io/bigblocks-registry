@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "connect-wallet-demo",
+  "title": "Connect Wallet Demo",
+  "author": "Satchmo",
+  "description": "Demo showing all three variants (default, compact, outline) of the connect wallet component",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/connect-wallet.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/connect-wallet-demo.tsx",
+      "content": "\"use client\"\n\nimport { ConnectWallet } from \"@/registry/new-york/blocks/connect-wallet\"\nimport { WalletProvider, ConnectDialogProvider } from \"@1sat/react\"\n\nexport default function ConnectWalletDemo() {\n  return (\n    <WalletProvider>\n      <ConnectDialogProvider>\n        <div className=\"flex flex-col items-start gap-6\">\n          {/* Default variant */}\n          <div className=\"space-y-1.5\">\n            <p className=\"text-sm font-medium text-muted-foreground\">Default</p>\n            <ConnectWallet variant=\"default\" />\n          </div>\n\n          {/* Compact variant */}\n          <div className=\"space-y-1.5\">\n            <p className=\"text-sm font-medium text-muted-foreground\">Compact</p>\n            <ConnectWallet variant=\"compact\" />\n          </div>\n\n          {/* Outline variant */}\n          <div className=\"space-y-1.5\">\n            <p className=\"text-sm font-medium text-muted-foreground\">Outline</p>\n            <ConnectWallet variant=\"outline\" />\n          </div>\n        </div>\n      </ConnectDialogProvider>\n    </WalletProvider>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

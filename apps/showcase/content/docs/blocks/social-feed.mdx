@@ -1,0 +1,286 @@
+---
+title: Social Feed
+description: A chronological feed of on-chain BSocial posts with infinite scroll, channel filtering, and composable like buttons
+featured: true
+component: true
+---
+
+<ComponentPreview name="social-feed-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/social-feed.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add button separator skeleton
+```
+
+<Step>Copy and paste the following code into your project:</Step>
+
+<ComponentSource name="social-feed" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+The simplest usage fetches from `https://api.1sat.app` on mount and renders an infinite-scroll feed.
+
+```tsx
+import { SocialFeed } from "@/components/blocks/social-feed"
+
+export default function FeedPage() {
+  return (
+    <SocialFeed
+      onPostClick={(post) => router.push(`/post/${post.txid}`)}
+      onAuthorClick={(post) => router.push(`/user/${post.signers?.[0]?.bapId}`)}
+    />
+  )
+}
+```
+
+## Channel Filtering
+
+Filter by BSocial channel to show only posts from a specific topic or community.
+
+```tsx
+<SocialFeed channel="general" />
+
+<SocialFeed channel="bitcoin" limit={10} />
+```
+
+## Search
+
+Pass a `query` string to filter posts by content.
+
+```tsx
+<SocialFeed query="bitcoin" />
+```
+
+## Composing with LikeButton
+
+Provide `renderLikeButton` to add on-chain likes to each post card. The `post` object is passed so you can wire up the correct `txid` and initial state.
+
+```tsx
+import { SocialFeed } from "@/components/blocks/social-feed"
+import { LikeButton } from "@/components/blocks/like-button"
+
+export default function FeedWithLikes() {
+  return (
+    <SocialFeed
+      renderLikeButton={(post) => (
+        <LikeButton
+          txid={post.txid}
+          count={post.likes ?? 0}
+          variant="text"
+          onLike={async (txid) => {
+            const result = await broadcastLike(txid)
+            return { txid: result.txid }
+          }}
+          onUnlike={async (txid) => {
+            const result = await broadcastUnlike(txid)
+            return { txid: result.txid }
+          }}
+        />
+      )}
+    />
+  )
+}
+```
+
+## Custom Post Cards
+
+Replace the default `PostCardUI` entirely using `renderPostCard`. The second argument supplies pre-computed default props so you can spread them selectively.
+
+```tsx
+import { SocialFeed } from "@/components/blocks/social-feed"
+import type { SocialPost, PostCardUIProps } from "@/components/blocks/social-feed"
+
+export default function CustomFeed() {
+  return (
+    <SocialFeed
+      renderPostCard={(post: SocialPost, defaultProps: PostCardUIProps) => (
+        <article className="p-4 border-b">
+          <p className="text-sm text-muted-foreground">{post.txid}</p>
+          <p>{post.content}</p>
+        </article>
+      )}
+    />
+  )
+}
+```
+
+## Manual Pagination
+
+Disable infinite scroll to show an explicit "Load more" button instead.
+
+```tsx
+<SocialFeed infiniteScroll={false} />
+```
+
+## Custom API URL
+
+Point the feed at your own 1sat-stack instance.
+
+```tsx
+<SocialFeed apiUrl="https://your-api.example.com" />
+```
+
+## Hook: `useSocialFeed`
+
+Use `useSocialFeed` when you want full control over how posts are rendered, or when you need the raw feed state to combine with other data sources.
+
+```tsx
+import { useSocialFeed, type SocialPost } from "@/components/blocks/social-feed"
+
+export function CustomFeedView() {
+  const { posts, isLoading, isLoadingMore, error, hasMore, loadMore, refresh } =
+    useSocialFeed({
+      channel: "general",
+      limit: 10,
+      apiUrl: "https://api.1sat.app",
+    })
+
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>Error: {error.message}</p>
+
+  return (
+    <div>
+      {posts.map((post: SocialPost) => (
+        <div key={post.txid}>
+          <p>{post.content}</p>
+        </div>
+      ))}
+      {hasMore && (
+        <button onClick={loadMore} disabled={isLoadingMore}>
+          {isLoadingMore ? "Loading..." : "Load more"}
+        </button>
+      )}
+    </div>
+  )
+}
+```
+
+## API Reference
+
+### SocialFeed
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `channel` | `string` | — | Channel to filter posts by |
+| `query` | `string` | — | Search query string |
+| `limit` | `number` | `20` | Number of posts per page |
+| `apiUrl` | `string` | `"https://api.1sat.app"` | Base URL for the 1sat-stack API |
+| `autoFetch` | `boolean` | `true` | Whether to fetch on mount |
+| `className` | `string` | — | CSS classes for the outer container |
+| `onPostClick` | `(post: SocialPost) => void` | — | Called when a post card is clicked |
+| `onAuthorClick` | `(post: SocialPost) => void` | — | Called when an author is clicked |
+| `onReplyClick` | `(post: SocialPost) => void` | — | Called when the reply button is clicked |
+| `infiniteScroll` | `boolean` | `true` | Use IntersectionObserver for infinite scroll |
+| `renderLikeButton` | `(post: SocialPost) => React.ReactNode` | — | Render function for a custom like button per post |
+| `renderPostCard` | `(post: SocialPost, defaultProps: PostCardUIProps) => React.ReactNode` | — | Render function to replace the default post card entirely |
+
+### SocialPost
+
+```typescript
+interface SocialPost {
+  /** Transaction ID of the post */
+  txid: string
+  /** Post content text */
+  content: string
+  /** Timestamp in seconds since epoch */
+  timestamp: number
+  /** App name from MAP protocol */
+  app: string
+  /** Action type (post, reply, etc.) */
+  type: string
+  /** Channel the post belongs to, if any */
+  channel?: string
+  /** Signer/author information from AIP */
+  signers?: PostSigner[]
+  /** Resolved author profile (populated client-side) */
+  author?: AuthorProfile
+  /** Number of likes on this post */
+  likes?: number
+  /** Number of replies to this post */
+  replies?: number
+  /** Media outpoint if post has embedded media */
+  mediaOutpoint?: string
+}
+```
+
+### PostSigner
+
+```typescript
+interface PostSigner {
+  /** Algorithm identifier (e.g. "BITCOIN_ECDSA") */
+  algorithm: string
+  /** Bitcoin address of the signer */
+  address: string
+  /** BAP identity ID, if present */
+  bapId?: string
+}
+```
+
+### AuthorProfile
+
+```typescript
+interface AuthorProfile {
+  /** BAP identity ID */
+  bapId: string
+  /** Display name */
+  name?: string
+  /** Profile image URL or on-chain reference */
+  avatar?: string
+  /** Bitcoin address */
+  address?: string
+}
+```
+
+### useSocialFeed Options
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `channel` | `string` | — | Channel to filter posts by |
+| `query` | `string` | — | Search query string |
+| `limit` | `number` | `20` | Posts per page |
+| `apiUrl` | `string` | `"https://api.1sat.app"` | API base URL |
+| `autoFetch` | `boolean` | `true` | Whether to fetch on mount |
+
+### useSocialFeed Return
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `posts` | `SocialPost[]` | Array of fetched posts |
+| `isLoading` | `boolean` | Whether the initial fetch is in progress |
+| `isLoadingMore` | `boolean` | Whether a "load more" request is in progress |
+| `error` | `Error \| null` | Error from the most recent fetch |
+| `hasMore` | `boolean` | Whether more posts are available |
+| `loadMore` | `() => Promise<void>` | Fetch the next page |
+| `refresh` | `() => Promise<void>` | Re-fetch from the beginning |

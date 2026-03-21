@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "inscribe-file-demo",
+  "title": "Inscribe File Demo",
+  "author": "Satchmo",
+  "description": "Demo of the inscribe file block with simulated inscription",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/inscribe-file.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/inscribe-file-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport {\n  InscribeFile,\n  type InscribeParams,\n  type InscribeResult,\n} from \"@/registry/new-york/blocks/inscribe-file\"\n\nexport default function InscribeFileDemo() {\n  const [lastResult, setLastResult] = useState<InscribeResult | null>(null)\n\n  async function handleInscribe(params: InscribeParams): Promise<InscribeResult> {\n    // In a real application, you would dispatch based on params.type:\n    //\n    // if (params.type === \"file\") {\n    //   return await inscribe.execute(ctx, {\n    //     base64Content: params.base64Content,\n    //     contentType: params.contentType,\n    //     map: params.map,\n    //     signWithBAP: params.signWithBAP,\n    //   })\n    // }\n    //\n    // if (params.type === \"bsv20\") {\n    //   const { mode, ticker, amount, maxSupply, mintLimit, decimals } = params.bsv20!\n    //   // handle BSV20 mint or deploy...\n    // }\n    //\n    // if (params.type === \"bsv21\") {\n    //   const { symbol, maxSupply, decimals, iconBase64 } = params.bsv21!\n    //   // handle BSV21 deploy...\n    // }\n\n    // Demo: simulate a 2-second inscription\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    return {\n      txid: \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2\",\n    }\n  }\n\n  return (\n    <div className=\"w-full max-w-lg mx-auto\">\n      <InscribeFile\n        onInscribe={handleInscribe}\n        onSuccess={(result) => setLastResult(result)}\n        onError={(error) => console.error(\"Inscription error:\", error)}\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

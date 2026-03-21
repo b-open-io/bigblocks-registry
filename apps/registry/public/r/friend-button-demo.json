@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "friend-button-demo",
+  "title": "Friend Button Demo",
+  "author": "Satchmo",
+  "description": "Demo showcasing all four friendship states and compact variant for the friend button component",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/friend-button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/friend-button-demo.tsx",
+      "content": "\"use client\"\n\nimport { FriendButton } from \"@/registry/new-york/blocks/friend-button\"\n\nconst SAMPLE_IDENTITY = \"02a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2\"\n\n/** Simulates an on-chain friend action with a short delay. */\nasync function mockAction(_id: string) {\n  await new Promise((resolve) => setTimeout(resolve, 1200))\n  return {\n    txid: `${Math.random().toString(36).slice(2, 10)}...${Math.random().toString(36).slice(2, 6)}`,\n    friendPublicKey: \"03f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2\",\n  }\n}\n\nexport default function FriendButtonDemo() {\n  return (\n    <div className=\"flex flex-col items-start gap-6\">\n      {/* None: Add Friend */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Not friends\n        </p>\n        <FriendButton\n          identityKey={SAMPLE_IDENTITY}\n          status=\"none\"\n          onAddFriend={mockAction}\n          onAccept={mockAction}\n          onDecline={mockAction}\n          onRemove={mockAction}\n        />\n      </div>\n\n      {/* Pending Sent */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Pending (sent)\n        </p>\n        <FriendButton\n          identityKey={SAMPLE_IDENTITY}\n          status=\"pending-sent\"\n          onAddFriend={mockAction}\n        />\n      </div>\n\n      {/* Pending Received: Accept + Decline */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Pending (received)\n        </p>\n        <FriendButton\n          identityKey={SAMPLE_IDENTITY}\n          status=\"pending-received\"\n          onAddFriend={mockAction}\n          onAccept={mockAction}\n          onDecline={mockAction}\n        />\n      </div>\n\n      {/* Friends (hover to see Remove) */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Friends (hover to remove)\n        </p>\n        <FriendButton\n          identityKey={SAMPLE_IDENTITY}\n          status=\"friends\"\n          onAddFriend={mockAction}\n          onRemove={mockAction}\n        />\n      </div>\n\n      {/* Compact variant */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Compact variant\n        </p>\n        <FriendButton\n          variant=\"compact\"\n          identityKey={SAMPLE_IDENTITY}\n          status=\"none\"\n          onAddFriend={mockAction}\n          onAccept={mockAction}\n        />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

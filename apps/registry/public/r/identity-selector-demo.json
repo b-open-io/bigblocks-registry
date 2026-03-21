@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "identity-selector-demo",
+  "title": "Identity Selector Demo",
+  "author": "Satchmo",
+  "description": "Demo showcasing the identity selector block with mock identities, interactive selection, loading, and error states",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/identity-selector.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/identity-selector-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { IdentitySelector } from \"@/registry/new-york/blocks/identity-selector\"\nimport { IdentitySelectorUI } from \"@/registry/new-york/blocks/identity-selector/identity-selector-ui\"\nimport type { IdentityEntry } from \"@/registry/new-york/blocks/identity-selector/use-identity-selector\"\n\nconst MOCK_IDENTITIES: IdentityEntry[] = [\n  {\n    bapId: \"Go8vCHAa4S6AhXKdRp3nT9wJm\",\n    name: \"Satoshi Nakamoto\",\n    currentAddress: \"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\",\n    imageUrl: null,\n  },\n  {\n    bapId: \"Hk9wBCDe5F7AiYLmNp2qR8xTs\",\n    name: \"Hal Finney\",\n    currentAddress: \"1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2\",\n    imageUrl: null,\n  },\n  {\n    bapId: \"Jm3xDEFg6H8BiZKnOq4sT9yVw\",\n    name: null,\n    currentAddress: \"3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy\",\n    imageUrl: null,\n  },\n]\n\nexport default function IdentitySelectorDemo() {\n  const [activeBapId, setActiveBapId] = useState(MOCK_IDENTITIES[0].bapId)\n\n  return (\n    <div className=\"space-y-8\">\n      {/* Interactive selector */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium\">Interactive selector</p>\n        <IdentitySelector\n          identities={MOCK_IDENTITIES}\n          activeBapId={activeBapId}\n          onSelect={(bapId) => setActiveBapId(bapId)}\n          onAddIdentity={() => {}}\n        />\n        <p className=\"text-xs text-muted-foreground\">\n          Active: {activeBapId}\n        </p>\n      </div>\n\n      {/* Loading state */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium\">Loading state</p>\n        <IdentitySelectorUI\n          identities={[]}\n          activeBapId={null}\n          isLoading={true}\n          error={null}\n          onSelect={() => {}}\n          onAddIdentity={() => {}}\n        />\n      </div>\n\n      {/* Without add button */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium\">Without &ldquo;Add identity&rdquo;</p>\n        <IdentitySelector\n          identities={MOCK_IDENTITIES.slice(0, 2)}\n          activeBapId={MOCK_IDENTITIES[0].bapId}\n          onSelect={() => {}}\n          showAddIdentity={false}\n        />\n      </div>\n\n      {/* Error state */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium\">Error state</p>\n        <IdentitySelectorUI\n          identities={[]}\n          activeBapId={null}\n          isLoading={false}\n          error={new Error(\"Failed to load identities\")}\n          onSelect={() => {}}\n          onAddIdentity={() => {}}\n        />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

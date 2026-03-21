@@ -1,0 +1,168 @@
+---
+title: Token List
+description: Displays BSV20/BSV21 fungible token holdings with balances, icons, and token details fetched from the 1Sat API
+featured: true
+component: true
+---
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/token-list.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add avatar badge card separator skeleton
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/token-list/index.tsx`
+- `components/blocks/token-list/token-list-ui.tsx`
+- `components/blocks/token-list/use-token-list.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+Provide a BSV payment address and an array of token IDs. Token details and balances are fetched automatically from the 1Sat API on mount.
+
+```tsx
+import { TokenList } from "@/components/blocks/token-list"
+
+export function WalletTokens({ address }: { address: string }) {
+  return (
+    <TokenList
+      address={address}
+      tokenIds={["abc123_0", "def456_0"]}
+      onSelect={(token) => console.log("Selected:", token.symbol)}
+    />
+  )
+}
+```
+
+When `address` is `null` or `tokenIds` is empty, the list renders an empty state without making any network requests.
+
+## Props
+
+### TokenList
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `address` | `string \| null` | **required** | BSV payment address to fetch token holdings for. Pass `null` when no wallet is connected. |
+| `tokenIds` | `string[]` | — | Token IDs (inscription IDs) to fetch balances for. When omitted or empty, no tokens are fetched. |
+| `apiUrl` | `string` | `"https://api.1sat.app"` | Override the 1Sat API base URL |
+| `autoFetch` | `boolean` | `true` | Whether to fetch automatically on mount and when `address` or `tokenIds` change |
+| `onSelect` | `(token: TokenHolding) => void` | — | Called when a token row is clicked. When provided, rows become interactive with hover state and keyboard support. |
+| `skeletonCount` | `number` | `3` | Number of skeleton rows to render while loading |
+| `className` | `string` | — | Additional CSS classes applied to the wrapping card |
+
+## Data Types
+
+### TokenHolding
+
+The shape of each token in the list, also passed to `onSelect`:
+
+```typescript
+interface TokenHolding {
+  tokenId: string       // Token contract/inscription ID
+  symbol: string        // Token symbol or ticker
+  type: "BSV20" | "BSV21"  // Token standard
+  balance: string       // Raw balance string (before decimal adjustment)
+  decimals: number      // Decimal precision for the token
+  iconUrl: string | null // ORDFS URL for the token icon, or null
+}
+```
+
+Balances are stored as raw strings to avoid floating-point precision loss. The UI component applies decimal formatting automatically using `BigInt` arithmetic.
+
+## States
+
+`TokenList` handles four display states automatically:
+
+| State | Trigger | Rendered UI |
+|-------|---------|-------------|
+| Loading | `isLoading && tokens.length === 0` | Skeleton rows matching `skeletonCount` |
+| Error | `error !== null` | Error card with the error message |
+| Empty | `tokens.length === 0` (after load) | Empty state card with a coin icon |
+| Populated | `tokens.length > 0` | Scrollable list of token rows |
+
+## Hook
+
+`useTokenList` can be used directly to fetch token data and render a completely custom UI.
+
+```tsx
+import { useTokenList } from "@/components/blocks/token-list"
+
+function CustomTokenDisplay({ address }: { address: string }) {
+  const { tokens, isLoading, error, refetch } = useTokenList({
+    address,
+    tokenIds: ["abc123_0"],
+  })
+
+  if (isLoading) return <p>Loading tokens...</p>
+  if (error) return <p>Error: {error.message} <button onClick={refetch}>Retry</button></p>
+
+  return (
+    <ul>
+      {tokens.map((token) => (
+        <li key={token.tokenId}>
+          {token.symbol}: {token.balance}
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+### useTokenList Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `address` | `string \| null` | **required** | BSV payment address to fetch holdings for |
+| `tokenIds` | `string[]` | — | Token IDs to fetch. No requests are made when this is empty or omitted. |
+| `apiUrl` | `string` | `"https://api.1sat.app"` | Override the 1Sat API base URL |
+| `autoFetch` | `boolean` | `true` | Automatically fetch on mount and when dependencies change |
+
+### useTokenList Return
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `tokens` | `TokenHolding[]` | List of resolved token holdings |
+| `isLoading` | `boolean` | `true` while the initial fetch is in progress |
+| `error` | `Error \| null` | Error from the last failed fetch, or `null` |
+| `refetch` | `() => void` | Manually trigger a refetch without changing dependencies |
+
+## API Endpoints Used
+
+The hook fetches from two 1Sat API endpoints per token:
+
+- `GET /1sat/bsv21/:tokenId` — token metadata (symbol, decimals, icon)
+- `GET /1sat/bsv21/:tokenId/p2pkh/:address/balance` — confirmed and pending balances
+
+Balances from both confirmed and pending are summed. A 404 on the balance endpoint (no holdings for that address) is treated as a zero balance rather than an error.

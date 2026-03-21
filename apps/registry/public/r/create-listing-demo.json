@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "create-listing-demo",
+  "title": "Create Listing Demo",
+  "author": "Satchmo",
+  "description": "Demo of the create listing component with a sample ordinal",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/create-listing.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/create-listing-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport {\n  CreateListing,\n  type ListOrdinalParams,\n  type ListOrdinalResult,\n  type OrdinalItem,\n} from \"@/registry/new-york/blocks/create-listing\"\n\nconst SAMPLE_ORDINAL: OrdinalItem = {\n  outpoint:\n    \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.0\",\n  name: \"Rare Pepe #42\",\n  contentType: \"image/png\",\n  origin:\n    \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.0\",\n}\n\nexport default function CreateListingDemo() {\n  const [lastResult, setLastResult] = useState<ListOrdinalResult | null>(null)\n\n  async function handleList(\n    params: ListOrdinalParams,\n  ): Promise<ListOrdinalResult> {\n    // In a real application, you would use the @1sat/actions listOrdinal action:\n    //\n    // import { listOrdinal } from \"@1sat/actions\"\n    //\n    // const result = await listOrdinal.execute(ctx, {\n    //   ordinal: walletOutput,\n    //   price: params.price,\n    //   payAddress: params.payAddress,\n    // })\n    //\n    // return result\n\n    // Demo: simulate a 2-second listing\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    return {\n      txid: \"f4a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2\",\n    }\n  }\n\n  return (\n    <div className=\"flex flex-col items-center gap-6\">\n      <div className=\"flex flex-wrap items-center justify-center gap-4\">\n        <CreateListing\n          ordinal={SAMPLE_ORDINAL}\n          onList={handleList}\n          onListed={(result) => setLastResult(result)}\n          onError={(error) => console.error(\"Listing error:\", error)}\n          defaultPayAddress=\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\"\n        />\n        <CreateListing\n          variant=\"primary\"\n          ordinal={SAMPLE_ORDINAL}\n          onList={handleList}\n          onListed={(result) => setLastResult(result)}\n          onError={(error) => console.error(\"Listing error:\", error)}\n          defaultPayAddress=\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\"\n          triggerLabel=\"Sell Now\"\n        />\n        <CreateListing\n          variant=\"ghost\"\n          ordinal={SAMPLE_ORDINAL}\n          onList={handleList}\n          onListed={(result) => setLastResult(result)}\n          onError={(error) => console.error(\"Listing error:\", error)}\n          defaultPayAddress=\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\"\n          triggerLabel=\"List\"\n        />\n      </div>\n\n      {lastResult?.txid && (\n        <p className=\"text-sm text-muted-foreground\">\n          Last listing txid: {lastResult.txid.slice(0, 12)}...\n        </p>\n      )}\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

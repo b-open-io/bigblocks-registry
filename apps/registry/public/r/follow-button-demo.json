@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "follow-button-demo",
+  "title": "Follow Button Demo",
+  "author": "Satchmo",
+  "description": "Demo showcasing all variants, states, and custom labels for the follow button component",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/follow-button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/follow-button-demo.tsx",
+      "content": "\"use client\"\n\nimport { FollowButton } from \"@/registry/new-york/blocks/follow-button\"\n\nconst SAMPLE_BAP_ID = \"02a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2\"\n\n/** Simulates an on-chain follow/unfollow action with a short delay. */\nasync function mockFollow(_bapId: string) {\n  await new Promise((resolve) => setTimeout(resolve, 1000))\n  return {\n    txid: `${Math.random().toString(36).slice(2, 10)}...${Math.random().toString(36).slice(2, 6)}`,\n  }\n}\n\nexport default function FollowButtonDemo() {\n  return (\n    <div className=\"flex flex-col items-start gap-6\">\n      {/* Default — not following */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Default (not following)\n        </p>\n        <FollowButton\n          bapId={SAMPLE_BAP_ID}\n          isFollowing={false}\n          onFollow={mockFollow}\n          onUnfollow={mockFollow}\n        />\n      </div>\n\n      {/* Default — already following (hover to see unfollow) */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Default (following — hover to unfollow)\n        </p>\n        <FollowButton\n          bapId={SAMPLE_BAP_ID}\n          isFollowing={true}\n          onFollow={mockFollow}\n          onUnfollow={mockFollow}\n        />\n      </div>\n\n      {/* Compact variant */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Compact</p>\n        <FollowButton\n          variant=\"compact\"\n          bapId={SAMPLE_BAP_ID}\n          isFollowing={false}\n          onFollow={mockFollow}\n          onUnfollow={mockFollow}\n        />\n      </div>\n\n      {/* Pill variant */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Pill</p>\n        <FollowButton\n          variant=\"pill\"\n          bapId={SAMPLE_BAP_ID}\n          isFollowing={false}\n          onFollow={mockFollow}\n          onUnfollow={mockFollow}\n        />\n      </div>\n\n      {/* Custom labels */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Custom labels\n        </p>\n        <FollowButton\n          bapId={SAMPLE_BAP_ID}\n          isFollowing={false}\n          onFollow={mockFollow}\n          onUnfollow={mockFollow}\n          labels={{\n            follow: \"Subscribe\",\n            following: \"Subscribed\",\n            unfollow: \"Unsubscribe\",\n          }}\n        />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

@@ -1,0 +1,163 @@
+---
+title: Inscribe File
+description: Upload files, mint BSV20 tokens, and deploy BSV21 tokens to the BSV blockchain with a single tabbed block
+featured: true
+component: true
+---
+
+A complete inscription flow with three tabs: file upload with drag-and-drop, BSV20 mint/deploy, and BSV21 token deployment. Handles base64 encoding, MAP metadata, BAP identity signing, and fee estimation internally. You supply the `onInscribe` callback that broadcasts the transaction.
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/inscribe-file.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn components:</Step>
+
+```bash
+bunx shadcn@latest add badge button card separator tabs input label
+```
+
+<Step>Copy the block source into your project:</Step>
+
+```bash
+cp -r registry/new-york/blocks/inscribe-file ./components/blocks/inscribe-file
+```
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { InscribeFile, type InscribeParams, type InscribeResult } from "@/components/blocks/inscribe-file"
+
+export default function InscribePage() {
+  const handleInscribe = async (params: InscribeParams): Promise<InscribeResult> => {
+    if (params.type === "file") {
+      const response = await fetch("/api/inscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          base64Content: params.base64Content,
+          contentType: params.contentType,
+          map: params.map,
+          signWithBAP: params.signWithBAP,
+        }),
+      })
+      const data = await response.json()
+      return { txid: data.txid }
+    }
+
+    if (params.type === "bsv20") {
+      // handle BSV20 mint or deploy
+      return { txid: "..." }
+    }
+
+    // bsv21
+    return { txid: "..." }
+  }
+
+  return (
+    <InscribeFile
+      onInscribe={handleInscribe}
+      onSuccess={(result) => console.log("txid:", result.txid)}
+      onError={(error) => console.error(error)}
+      maxFileSize={5 * 1024 * 1024}
+      defaultTab="file"
+    />
+  )
+}
+```
+
+## Tabs
+
+| Tab | What it does |
+| --- | --- |
+| `file` | Drag-and-drop file upload with content type override, MAP metadata key/value editor, and optional BAP (Sigma) identity signing |
+| `bsv20` | Mint tokens against an existing ticker or deploy a new BSV20 ticker with supply and mint limit |
+| `bsv21` | Deploy a new BSV21 fungible token with symbol, max supply, decimal precision, and an icon image |
+
+## API Reference
+
+### InscribeFile
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onInscribe` | `(params: InscribeParams) => Promise<InscribeResult>` | — | Required. Called when the user clicks the inscribe button. |
+| `onSuccess` | `(result: InscribeResult) => void` | — | Called after a successful inscription. |
+| `onError` | `(error: Error) => void` | — | Called when inscription fails. |
+| `maxFileSize` | `number` | `10485760` (10 MB) | Maximum file size in bytes for the file tab. |
+| `defaultTab` | `"file" \| "bsv20" \| "bsv21"` | `"file"` | Which tab is active on first render. |
+| `className` | `string` | — | Additional CSS classes applied to the outer card. |
+
+### InscribeParams
+
+The object passed to `onInscribe`. The `type` field determines which other fields are populated.
+
+```typescript
+interface InscribeParams {
+  type: "file" | "bsv20" | "bsv21"
+  // file tab
+  base64Content?: string        // Raw base64 (no data: prefix)
+  contentType: string           // MIME type
+  map: Record<string, string>   // MAP metadata key/value pairs
+  signWithBAP?: boolean         // Sign with BAP identity (Sigma)
+  // bsv20 tab
+  bsv20?: Bsv20FormData
+  // bsv21 tab
+  bsv21?: {
+    symbol: string
+    maxSupply: string
+    decimals: string
+    iconBase64?: string         // Raw base64
+    iconContentType?: string
+  }
+}
+```
+
+### Bsv20FormData
+
+```typescript
+interface Bsv20FormData {
+  mode: "mint" | "deploy"
+  ticker: string        // Max 4 characters, uppercase
+  amount: string        // Mint mode: tokens to mint
+  maxSupply: string     // Deploy mode: maximum supply
+  mintLimit: string     // Deploy mode: mint limit per transaction
+  decimals: string      // Deploy mode: decimal precision
+}
+```
+
+### InscribeResult
+
+```typescript
+interface InscribeResult {
+  txid?: string    // Transaction ID on success
+  rawtx?: string   // Raw transaction hex (optional)
+  error?: string   // Error message when inscription failed
+}
+```

@@ -1,0 +1,171 @@
+---
+title: Buy Listing
+description: Purchase an ordinal NFT from the global BSV orderbook with ORDFS thumbnail, price breakdown, and one-click buy
+featured: true
+component: true
+---
+
+A card block for buying an ordinal NFT listing. Resolves a thumbnail from ORDFS, shows the price, optional seller info, marketplace fee breakdown, and a "Buy Now" action. Supply `onPurchase` to handle the on-chain transaction. The underlying `useBuyListing` hook is also exported for headless usage.
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/buy-listing.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react class-variance-authority
+```
+
+<Step>Install the required shadcn components:</Step>
+
+```bash
+bunx shadcn@latest add badge button card separator
+```
+
+<Step>Copy the block source into your project:</Step>
+
+```bash
+cp -r registry/new-york/blocks/buy-listing ./components/blocks/buy-listing
+```
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { BuyListing, type PurchaseOrdinalParams, type PurchaseOrdinalResult } from "@/components/blocks/buy-listing"
+
+export default function MarketItemPage() {
+  const handlePurchase = async (params: PurchaseOrdinalParams): Promise<PurchaseOrdinalResult> => {
+    try {
+      const result = await purchaseOrdinal.execute(ctx, params)
+      return { txid: result.txid }
+    } catch (err) {
+      return { error: err instanceof Error ? err.message : "Purchase failed" }
+    }
+  }
+
+  return (
+    <BuyListing
+      outpoint="abc123...def.0"
+      price={50000}
+      name="Rare Pepe #42"
+      seller="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+      contentType="image/png"
+      origin="abc123...def.0"
+      onPurchase={handlePurchase}
+      onPurchased={(result) => console.log("Purchased:", result.txid)}
+      marketplaceAddress="1MarketAddress..."
+      marketplaceRate={0.02}
+    />
+  )
+}
+```
+
+## Size Variants
+
+The card accepts a `size` variant prop.
+
+```tsx
+<BuyListing outpoint={outpoint} price={50000} onPurchase={handlePurchase} size="default" />
+```
+
+## API Reference
+
+### BuyListing
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `outpoint` | `string` | — | Required. Listing outpoint in `txid.vout` format. |
+| `price` | `number` | — | Required. Listing price in satoshis. |
+| `name` | `string` | — | Display name of the ordinal. |
+| `seller` | `string` | — | Seller display name or address. |
+| `contentType` | `string` | — | MIME type used to render the thumbnail. |
+| `origin` | `string` | — | Origin outpoint for ORDFS thumbnail resolution. Falls back to `outpoint`. |
+| `onPurchase` | `(params: PurchaseOrdinalParams) => Promise<PurchaseOrdinalResult>` | — | Required. Executes the on-chain purchase. |
+| `onPurchased` | `(result: PurchaseOrdinalResult) => void` | — | Called after a successful purchase. |
+| `onError` | `(error: Error) => void` | — | Called when the purchase fails. |
+| `marketplaceAddress` | `string` | — | Address that receives the marketplace fee. Required when `marketplaceRate` is set. |
+| `marketplaceRate` | `number` | — | Fee rate between 0 and 1 (e.g. `0.02` for 2%). |
+| `size` | `VariantProps<typeof buyListingVariants>` | `"default"` | Visual size of the card. |
+| `className` | `string` | — | Additional CSS classes applied to the card. |
+
+### PurchaseOrdinalParams
+
+```typescript
+interface PurchaseOrdinalParams {
+  outpoint: string             // Listing outpoint to purchase
+  marketplaceAddress?: string  // Fee recipient address
+  marketplaceRate?: number     // Fee rate 0–1
+}
+```
+
+### PurchaseOrdinalResult
+
+```typescript
+interface PurchaseOrdinalResult {
+  txid?: string   // Transaction ID on success
+  rawtx?: string  // Raw transaction hex (optional)
+  error?: string  // Error message when purchase failed
+}
+```
+
+## Hook
+
+Use `useBuyListing` directly for custom card layouts or when embedding purchase logic into an existing component.
+
+```tsx
+import { useBuyListing } from "@/components/blocks/buy-listing"
+
+function CustomBuyCard({ outpoint, price, onPurchase }) {
+  const buy = useBuyListing({ outpoint, price, onPurchase })
+
+  return (
+    <div>
+      <p>Price: {price.toLocaleString()} sats</p>
+      {buy.marketFee > 0 && <p>Fee: {buy.marketFee.toLocaleString()} sats</p>}
+      <p>Total: {buy.totalCost.toLocaleString()} sats</p>
+      {buy.error && <p className="text-destructive">{buy.error}</p>}
+      <button
+        onClick={buy.handlePurchase}
+        disabled={buy.isPurchasing}
+      >
+        {buy.isPurchasing ? "Buying..." : "Buy Now"}
+      </button>
+    </div>
+  )
+}
+```
+
+### UseBuyListingReturn
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `isPurchasing` | `boolean` | Whether a purchase transaction is in progress. |
+| `result` | `PurchaseOrdinalResult \| null` | Result from the most recent purchase attempt. |
+| `error` | `string \| null` | Error message from the most recent attempt. |
+| `imgError` | `boolean` | Whether the ORDFS thumbnail failed to load. |
+| `setImgError` | `(failed: boolean) => void` | Mark the thumbnail as failed (to show a fallback). |
+| `marketFee` | `number` | Calculated marketplace fee in satoshis. |
+| `totalCost` | `number` | Total cost in satoshis (price + marketplace fee). |
+| `handlePurchase` | `() => Promise<void>` | Execute the purchase. |

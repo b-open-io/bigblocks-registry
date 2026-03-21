@@ -1,0 +1,203 @@
+---
+title: Market Grid
+description: Paginated grid of active ordinal NFT listings from the global BSV orderbook with sorting, filtering, and buy actions
+featured: true
+component: true
+---
+
+A responsive grid of OrdLock listings fetched from the 1sat-stack API. Each card shows an ORDFS thumbnail, price badge, seller avatar, and a buy action. Supports pagination with a "Load More" button, loading skeletons, error recovery, and empty states. The underlying `useMarketGrid` hook is also exported for headless usage.
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/market-grid.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn components:</Step>
+
+```bash
+bunx shadcn@latest add avatar badge button card skeleton
+```
+
+<Step>Copy the block source into your project:</Step>
+
+```bash
+cp -r registry/new-york/blocks/market-grid ./components/blocks/market-grid
+```
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { MarketGrid } from "@/components/blocks/market-grid"
+import { useRouter } from "next/navigation"
+
+export default function MarketplacePage() {
+  const router = useRouter()
+
+  return (
+    <MarketGrid
+      onBuy={(outpoint, price) => {
+        router.push(`/buy/${outpoint}?price=${price}`)
+      }}
+      onListingClick={(outpoint) => {
+        router.push(`/ordinal/${outpoint}`)
+      }}
+      pageSize={24}
+      sortBy="recent"
+      sortDir="desc"
+    />
+  )
+}
+```
+
+### Filtered by content type
+
+```tsx
+<MarketGrid
+  contentTypeFilter="image/png"
+  sortBy="price"
+  sortDir="asc"
+  onBuy={(outpoint, price) => handleBuy(outpoint, price)}
+/>
+```
+
+## API Reference
+
+### MarketGrid
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onBuy` | `(outpoint: string, price: number) => void` | — | Required. Called when the "Buy" button on a listing card is clicked. |
+| `onListingClick` | `(outpoint: string) => void` | — | Called when a listing card body is clicked (for navigation). |
+| `apiUrl` | `string` | `"https://api.1sat.app"` | Base URL of the 1sat-stack API. |
+| `pageSize` | `number` | `20` | Number of listings to load per page. |
+| `sortBy` | `"price" \| "recent"` | `"recent"` | Sort field. |
+| `sortDir` | `"asc" \| "desc"` | `"desc"` | Sort direction. |
+| `contentTypeFilter` | `string` | — | Optional MIME type filter (e.g. `"image/png"`). |
+| `skeletonCount` | `number` | — | Number of skeleton cards to show during initial load. |
+| `className` | `string` | — | Additional CSS classes applied to the outer container. |
+
+## Types
+
+### MarketListing
+
+The normalized listing shape used for display.
+
+```typescript
+interface MarketListing {
+  outpoint: string      // txid.vout format
+  price: number         // Listing price in satoshis
+  seller: string        // Seller address (base58check)
+  contentType: string   // MIME type
+  origin: string        // Origin outpoint for ORDFS thumbnail
+  name: string | null   // Name from MAP metadata, or null
+}
+```
+
+### OneSatTxo
+
+Raw TXO record from the API before normalization. Available from the re-export if you need to build your own normalization.
+
+```typescript
+interface OneSatTxo {
+  txid: string
+  vout: number
+  outpoint: string
+  satoshis: number
+  script: string
+  type?: string
+  origin?: string
+  MAP?: Record<string, string>
+  price?: number
+  seller?: string
+  name?: string
+}
+```
+
+## Hook
+
+Use `useMarketGrid` directly when you need a custom listing layout or additional control over pagination.
+
+```tsx
+import { useMarketGrid } from "@/components/blocks/market-grid"
+
+function CustomMarket() {
+  const market = useMarketGrid({
+    pageSize: 12,
+    sortBy: "price",
+    sortDir: "asc",
+    contentTypeFilter: "image/jpeg",
+  })
+
+  return (
+    <div>
+      {market.error && (
+        <p>
+          {market.error}{" "}
+          <button onClick={market.refresh}>Retry</button>
+        </p>
+      )}
+
+      <ul>
+        {market.listings.map((listing) => (
+          <li key={listing.outpoint}>
+            {listing.name ?? listing.outpoint} — {listing.price.toLocaleString()} sats
+          </li>
+        ))}
+      </ul>
+
+      {market.hasMore && (
+        <button
+          onClick={market.loadMore}
+          disabled={market.isLoadingMore}
+        >
+          {market.isLoadingMore ? "Loading..." : "Load more"}
+        </button>
+      )}
+    </div>
+  )
+}
+```
+
+### UseMarketGridReturn
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `listings` | `MarketListing[]` | Currently loaded listings across all loaded pages. |
+| `isLoading` | `boolean` | Whether the initial page load is in progress. |
+| `isLoadingMore` | `boolean` | Whether a subsequent page is being fetched. |
+| `error` | `string \| null` | Error message from the most recent failed fetch. |
+| `hasMore` | `boolean` | Whether there are additional pages to load. |
+| `loadMore` | `() => void` | Fetch the next page and append results. No-op when `isLoadingMore` or `!hasMore`. |
+| `refresh` | `() => void` | Re-fetch from the first page, clearing existing results. |
+
+## Notes
+
+- Listings with a price of 0 are filtered out during normalization.
+- Requests in flight are aborted when sort/filter parameters change, preventing stale results from appearing.
+- The API endpoint queried is `GET /1sat/txo/search?tags=ordlock&unspent=true&limit=N&offset=N`.

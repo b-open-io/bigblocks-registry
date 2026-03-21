@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "token-list-demo",
+  "title": "Token List Demo",
+  "author": "Satchmo",
+  "description": "Demo showcasing token holdings list with populated, loading, and empty states",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/token-list.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/token-list-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport {\n  TokenListUI,\n  type TokenHolding,\n} from \"@/registry/new-york/blocks/token-list\"\n\n// ---------------------------------------------------------------------------\n// Mock data\n// ---------------------------------------------------------------------------\n\nconst MOCK_TOKENS: TokenHolding[] = [\n  {\n    tokenId:\n      \"e6d40ba206340aa94ed40fe1a8adcd722c08c9438b2c1dd0da1ddc2d11af5c49_0\",\n    symbol: \"VIBES\",\n    type: \"BSV21\",\n    balance: \"5000000000\",\n    decimals: 8,\n    iconUrl: null,\n  },\n  {\n    tokenId:\n      \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2_0\",\n    symbol: \"PEPE\",\n    type: \"BSV21\",\n    balance: \"42000000\",\n    decimals: 4,\n    iconUrl: null,\n  },\n  {\n    tokenId:\n      \"b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3_0\",\n    symbol: \"GOLD\",\n    type: \"BSV20\",\n    balance: \"100\",\n    decimals: 0,\n    iconUrl: null,\n  },\n  {\n    tokenId:\n      \"c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4_0\",\n    symbol: \"SATS\",\n    type: \"BSV21\",\n    balance: \"2100000000000000\",\n    decimals: 8,\n    iconUrl: null,\n  },\n]\n\n// ---------------------------------------------------------------------------\n// Demo\n// ---------------------------------------------------------------------------\n\nexport default function TokenListDemo() {\n  const [selected, setSelected] = useState<TokenHolding | null>(null)\n\n  return (\n    <div className=\"mx-auto w-full max-w-lg space-y-4\">\n      {/* Populated list */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Token Holdings\n        </p>\n        <TokenListUI\n          tokens={MOCK_TOKENS}\n          isLoading={false}\n          error={null}\n          onSelect={setSelected}\n        />\n      </div>\n\n      {/* Selected indicator */}\n      {selected && (\n        <p className=\"text-sm text-muted-foreground\">\n          Selected:{\" \"}\n          <span className=\"font-semibold text-foreground\">\n            {selected.symbol}\n          </span>\n        </p>\n      )}\n\n      {/* Loading state */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Loading State\n        </p>\n        <TokenListUI tokens={[]} isLoading={true} error={null} />\n      </div>\n\n      {/* Empty state */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Empty State\n        </p>\n        <TokenListUI tokens={[]} isLoading={false} error={null} />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

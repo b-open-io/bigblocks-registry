@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "send-bsv-demo",
+  "title": "Send BSV Demo",
+  "author": "Satchmo",
+  "description": "Demo showing all three trigger variants (default, compact, quick) of the send BSV block",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/send-bsv.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/send-bsv-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport {\n  SendBsv,\n  type SendBsvParams,\n  type SendBsvResult,\n} from \"@/registry/new-york/blocks/send-bsv\"\n\nexport default function SendBsvDemo() {\n  const [lastResult, setLastResult] = useState<SendBsvResult | null>(null)\n\n  async function handleSend(params: SendBsvParams): Promise<SendBsvResult> {\n    // In a real application, use @1sat/actions:\n    //\n    // import { sendBsv, createContext } from \"@1sat/actions\"\n    // import { useWallet } from \"@1sat/react\"\n    //\n    // const { wallet } = useWallet()\n    // const ctx = createContext(wallet)\n    // const result = await sendBsv.execute(ctx, {\n    //   requests: [{ address: params.address, satoshis: params.satoshis }],\n    // })\n    // return result\n\n    // Demo: simulate a 2-second transaction\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    return {\n      txid: \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n    }\n  }\n\n  return (\n    <div className=\"flex flex-col items-start gap-8\">\n      {/* Default trigger */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Default</p>\n        <SendBsv\n          onSend={handleSend}\n          onSuccess={(result) => setLastResult(result)}\n          onError={(error) => console.error(\"Send error:\", error)}\n        />\n      </div>\n\n      {/* Compact trigger */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Compact</p>\n        <SendBsv\n          variant=\"compact\"\n          dialogSize=\"compact\"\n          onSend={handleSend}\n          onSuccess={(result) => setLastResult(result)}\n        />\n      </div>\n\n      {/* Quick trigger */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Quick</p>\n        <SendBsv\n          variant=\"quick\"\n          onSend={handleSend}\n          onSuccess={(result) => setLastResult(result)}\n        />\n      </div>\n\n      {/* Last result display */}\n      {lastResult?.txid && (\n        <div className=\"w-full max-w-sm rounded-md border bg-muted/50 p-3\">\n          <p className=\"text-xs text-muted-foreground\">Last transaction</p>\n          <p className=\"mt-1 break-all font-mono text-xs\">\n            {lastResult.txid}\n          </p>\n        </div>\n      )}\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@anthropic-ai/claude-code": "latest",
-    "@types/node": "^20.19.1",
+    "@types/node": "^20.19.4",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "turbo": "^2.5.4",

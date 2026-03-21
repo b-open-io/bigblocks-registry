@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "like-button-demo",
+  "title": "Like Button Demo",
+  "author": "Satchmo",
+  "description": "Demo showcasing all variants and icon options for the like button component",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/like-button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/like-button-demo.tsx",
+      "content": "\"use client\"\n\nimport { LikeButton } from \"@/registry/new-york/blocks/like-button\"\n\nconst SAMPLE_TXID = \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2\"\n\n/** Simulates an on-chain like/unlike action with a short delay. */\nasync function mockLike(_txid: string) {\n  await new Promise((resolve) => setTimeout(resolve, 800))\n  return {\n    txid: `${Math.random().toString(36).slice(2, 10)}...${Math.random().toString(36).slice(2, 6)}`,\n  }\n}\n\nexport default function LikeButtonDemo() {\n  return (\n    <div className=\"flex flex-col items-start gap-6\">\n      {/* Default variant — not liked */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Default (not liked)\n        </p>\n        <LikeButton\n          txid={SAMPLE_TXID}\n          count={12}\n          liked={false}\n          onLike={mockLike}\n          onUnlike={mockLike}\n        />\n      </div>\n\n      {/* Default variant — already liked */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Default (liked)\n        </p>\n        <LikeButton\n          txid={SAMPLE_TXID}\n          count={43}\n          liked={true}\n          onLike={mockLike}\n          onUnlike={mockLike}\n        />\n      </div>\n\n      {/* Compact variant */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Compact</p>\n        <LikeButton\n          variant=\"compact\"\n          txid={SAMPLE_TXID}\n          count={7}\n          liked={false}\n          onLike={mockLike}\n          onUnlike={mockLike}\n        />\n      </div>\n\n      {/* Text variant */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Text</p>\n        <LikeButton\n          variant=\"text\"\n          txid={SAMPLE_TXID}\n          count={99}\n          liked={false}\n          onLike={mockLike}\n          onUnlike={mockLike}\n        />\n      </div>\n\n      {/* Thumbs-up icon */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Thumbs-up icon\n        </p>\n        <LikeButton\n          txid={SAMPLE_TXID}\n          count={5}\n          liked={false}\n          useThumbsUp\n          onLike={mockLike}\n          onUnlike={mockLike}\n        />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

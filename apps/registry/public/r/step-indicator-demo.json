@@ -1,12 +1,11 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "step-indicator-demo",
-  "type": "registry:example",
   "title": "Step Indicator Demo",
   "author": "Satchmo",
   "description": "Interactive demo of the step indicator component",
   "registryDependencies": [
-    "https://bigblocks-registry.vercel.app/r/step-indicator.json"
+    "https://registry.bigblocks.dev/r/step-indicator.json"
   ],
   "files": [
     {
@@ -15,5 +14,6 @@
       "type": "registry:example",
       "target": ""
     }
-  ]
+  ],
+  "type": "registry:example"
 }

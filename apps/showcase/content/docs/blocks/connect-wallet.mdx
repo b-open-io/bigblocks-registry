@@ -1,0 +1,194 @@
+---
+title: Connect Wallet
+description: A themed wallet connection button that handles detecting, connecting, and disconnecting BSV wallets via @1sat/react
+featured: true
+component: true
+---
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/connect-wallet.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add @1sat/react lucide-react class-variance-authority
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add avatar badge button dialog dropdown-menu
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/connect-wallet/index.tsx`
+- `components/blocks/connect-wallet/ui.tsx`
+- `components/blocks/connect-wallet/use-connect-wallet.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+The block must be rendered inside both `WalletProvider` and `ConnectDialogProvider` from `@1sat/react`. Place the providers once in your root layout.
+
+```tsx
+import { WalletProvider, ConnectDialogProvider } from "@1sat/react"
+import { ConnectWallet } from "@/components/blocks/connect-wallet"
+
+function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <WalletProvider>
+      <ConnectDialogProvider>
+        {children}
+      </ConnectDialogProvider>
+    </WalletProvider>
+  )
+}
+
+// Then anywhere in your app:
+export function Header() {
+  return (
+    <header className="flex items-center justify-between p-4">
+      <span>My App</span>
+      <ConnectWallet
+        onConnect={() => console.log("connected")}
+        onDisconnect={() => console.log("disconnected")}
+      />
+    </header>
+  )
+}
+```
+
+## Variants
+
+### Default
+
+A full-width button showing the wallet icon and label when disconnected, and a gradient avatar with the truncated identity key when connected.
+
+```tsx
+<ConnectWallet variant="default" connectLabel="Connect Wallet" />
+```
+
+### Compact
+
+An icon-only square button. Useful for tight navigation bars.
+
+```tsx
+<ConnectWallet variant="compact" />
+```
+
+### Outline
+
+A smaller outlined button with reduced padding. Suitable for secondary placements.
+
+```tsx
+<ConnectWallet variant="outline" />
+```
+
+## Connection States
+
+The button renders differently based on the wallet status from `@1sat/react`:
+
+| Status | Rendered UI |
+|--------|-------------|
+| `disconnected` | Connect button |
+| `detecting` | Disabled spinner button |
+| `connecting` | Disabled spinner button |
+| `selecting` | Connect button + wallet provider dialog |
+| `connected` | Dropdown with identity key, copy action, and disconnect |
+
+## Props
+
+### ConnectWallet
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "compact" \| "outline"` | `"default"` | Visual style of the button |
+| `className` | `string` | — | Additional CSS classes applied to the trigger element |
+| `connectLabel` | `string` | `"Connect Wallet"` | Label shown on the connect button and used as `aria-label` for the compact variant |
+| `onConnect` | `() => void` | — | Called after a wallet connection succeeds |
+| `onDisconnect` | `() => void` | — | Called after the wallet is disconnected |
+| `onError` | `(error: Error) => void` | — | Called when a connection error occurs |
+
+## Hook
+
+`useConnectWallet` can be used independently if you want to build a custom connection UI.
+
+```tsx
+import { useConnectWallet } from "@/components/blocks/connect-wallet"
+
+function CustomTrigger() {
+  const {
+    status,
+    identityKey,
+    truncatedKey,
+    gradient,
+    handleTriggerClick,
+    handleDisconnect,
+    handleCopy,
+    copied,
+    error,
+  } = useConnectWallet({
+    onConnect: () => console.log("connected"),
+    onDisconnect: () => console.log("disconnected"),
+  })
+
+  if (status === "connected" && identityKey) {
+    return (
+      <button onClick={handleDisconnect} style={{ background: gradient }}>
+        {truncatedKey}
+      </button>
+    )
+  }
+
+  return <button onClick={handleTriggerClick}>Connect</button>
+}
+```
+
+### useConnectWallet Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `variant` | `"default" \| "compact" \| "outline" \| null` | `"default"` | Used to compute `isCompact` in the return value |
+| `onConnect` | `() => void` | — | Called after successful connection |
+| `onDisconnect` | `() => void` | — | Called after disconnection |
+| `onError` | `(error: Error) => void` | — | Called when a connection error occurs |
+
+### useConnectWallet Return
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `status` | `string` | Current wallet status from `@1sat/react` |
+| `identityKey` | `string \| undefined` | Identity key when connected |
+| `dialogOpen` | `boolean` | Whether the provider selection dialog is open |
+| `setDialogOpen` | `(open: boolean) => void` | Control the dialog open state |
+| `isCompact` | `boolean` | `true` when `variant === "compact"` |
+| `gradient` | `string` | Deterministic CSS gradient derived from the identity key |
+| `truncatedKey` | `string` | Identity key truncated for display (e.g. `abc123...xyz9`) |
+| `handleConnect` | `() => Promise<void>` | Initiate wallet connection |
+| `handleDisconnect` | `() => void` | Disconnect the wallet |
+| `handleTriggerClick` | `() => void` | Click handler for the connect trigger button |
+| `handleCopy` | `() => void` | Copy the identity key to the clipboard |
+| `copied` | `boolean` | `true` for 2 seconds after a successful copy |
+| `error` | `Error \| null` | Last error from the wallet provider |

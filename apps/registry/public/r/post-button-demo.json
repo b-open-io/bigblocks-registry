@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "post-button-demo",
+  "title": "Post Button Demo",
+  "author": "Satchmo",
+  "description": "Demo showcasing all four variants (default, compact, inline, fab) of the post button component",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/post-button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/post-button-demo.tsx",
+      "content": "\"use client\"\n\nimport { PostButton } from \"@/registry/new-york/blocks/post-button\"\n\n/** Simulates an on-chain post broadcast with a short delay. */\nasync function mockPost(content: string) {\n  await new Promise((resolve) => setTimeout(resolve, 1500))\n  return {\n    txid: `${Math.random().toString(36).slice(2, 10)}...${Math.random().toString(36).slice(2, 6)}`,\n  }\n}\n\nexport default function PostButtonDemo() {\n  return (\n    <div className=\"flex flex-col items-start gap-6\">\n      {/* Default variant */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Default</p>\n        <PostButton variant=\"default\" onPost={mockPost} />\n      </div>\n\n      {/* Compact variant */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Compact</p>\n        <PostButton variant=\"compact\" onPost={mockPost} />\n      </div>\n\n      {/* Inline variant */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Inline</p>\n        <PostButton variant=\"inline\" label=\"Write\" onPost={mockPost} />\n      </div>\n\n      {/* With character limit */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          With 280-char limit\n        </p>\n        <PostButton\n          variant=\"default\"\n          label=\"Tweet\"\n          maxLength={280}\n          onPost={mockPost}\n        />\n      </div>\n\n      {/* FAB variant (shown inline for demo) */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          FAB (floating action button)\n        </p>\n        <div className=\"relative h-20 w-20\">\n          <PostButton\n            variant=\"fab\"\n            onPost={mockPost}\n            className=\"absolute bottom-2 right-2 position-static\"\n          />\n        </div>\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

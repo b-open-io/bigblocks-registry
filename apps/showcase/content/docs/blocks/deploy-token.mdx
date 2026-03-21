@@ -1,0 +1,184 @@
+---
+title: Deploy Token
+description: Deploy a BSV21 fungible token to the BSV blockchain with symbol, supply, decimal precision, and an icon image
+featured: true
+component: true
+---
+
+A self-contained block for deploying BSV21 fungible tokens. Manages form state, icon upload with live preview, fee estimation, and deploy execution through a clean `onDeploy` callback. The underlying `useDeployToken` hook is also exported for headless usage.
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/deploy-token.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn components:</Step>
+
+```bash
+bunx shadcn@latest add badge button card input label separator
+```
+
+<Step>Copy the block source into your project:</Step>
+
+```bash
+cp -r registry/new-york/blocks/deploy-token ./components/blocks/deploy-token
+```
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { DeployToken, type DeployTokenParams, type DeployTokenResult } from "@/components/blocks/deploy-token"
+import { deployBsv21Token } from "@1sat/core"
+
+export default function DeployTokenPage() {
+  const handleDeploy = async (params: DeployTokenParams): Promise<DeployTokenResult> => {
+    try {
+      const tx = await deployBsv21Token({
+        symbol: params.symbol,
+        decimals: params.decimals,
+        icon: {
+          dataB64: params.iconBase64,
+          contentType: params.iconContentType,
+        },
+        initialDistribution: {
+          address: myAddress,
+          tokens: Number(params.maxSupply),
+        },
+        destinationAddress: myAddress,
+        utxos: paymentUtxos,
+      })
+      return { txid: tx.id("hex") }
+    } catch (err) {
+      return { error: err instanceof Error ? err.message : "Deploy failed" }
+    }
+  }
+
+  return (
+    <DeployToken
+      onDeploy={handleDeploy}
+      onSuccess={(result) => console.log("Deployed:", result.txid)}
+      onError={(error) => console.error(error)}
+      defaults={{ defaultMaxSupply: "21000000", defaultDecimals: 8 }}
+    />
+  )
+}
+```
+
+## API Reference
+
+### DeployToken
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onDeploy` | `(params: DeployTokenParams) => Promise<DeployTokenResult>` | — | Required. Executes the on-chain deploy action. |
+| `onSuccess` | `(result: DeployTokenResult) => void` | — | Called after a successful deployment. |
+| `onError` | `(error: Error) => void` | — | Called when deployment fails. |
+| `defaults` | `UseDeployTokenOptions` | — | Default values for the form fields. |
+| `className` | `string` | — | Additional CSS classes applied to the outer card. |
+
+### DeployTokenParams
+
+```typescript
+interface DeployTokenParams {
+  symbol: string           // Token ticker symbol
+  maxSupply: string        // Raw integer string, no separators
+  decimals: number         // 0–18
+  iconBase64: string       // Raw base64 (no data: prefix)
+  iconContentType: string  // MIME type of the icon image
+}
+```
+
+### DeployTokenResult
+
+```typescript
+interface DeployTokenResult {
+  txid?: string   // Transaction ID on success
+  rawtx?: string  // Raw transaction hex (optional)
+  error?: string  // Error message when deploy failed
+}
+```
+
+### UseDeployTokenOptions
+
+Pass as `defaults` to pre-populate form fields.
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `defaultSymbol` | `string` | `""` | Initial token symbol. |
+| `defaultMaxSupply` | `string` | `"21000000"` | Initial max supply. |
+| `defaultDecimals` | `number` | `8` | Initial decimal precision (0–18). |
+
+## Hook
+
+Use `useDeployToken` directly when you need a custom UI.
+
+```tsx
+import { useDeployToken } from "@/components/blocks/deploy-token"
+
+function CustomDeployForm() {
+  const token = useDeployToken({ defaultMaxSupply: "1000000" })
+
+  return (
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      token.deploy(async (params) => {
+        // call your deploy function
+        return { txid: "..." }
+      })
+    }}>
+      <input
+        value={token.form.symbol}
+        onChange={(e) => token.setSymbol(e.target.value)}
+        placeholder="TOKEN"
+      />
+      <p>Estimated fee: {token.feeEstimate} sats</p>
+      <button type="submit" disabled={!token.isValid || token.isDeploying}>
+        Deploy
+      </button>
+    </form>
+  )
+}
+```
+
+### UseDeployTokenReturn
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `form` | `DeployTokenFormState` | Current form values for binding to UI inputs. |
+| `isValid` | `boolean` | Whether all required fields are filled. |
+| `isDeploying` | `boolean` | Whether a deploy is in progress. |
+| `feeEstimate` | `number` | Estimated fee in satoshis (0 until icon is selected). |
+| `resultTxid` | `string \| null` | Transaction ID after successful deploy. |
+| `errorMessage` | `string \| null` | Error message from the most recent attempt. |
+| `setSymbol` | `(value: string) => void` | Update the symbol field. |
+| `setMaxSupply` | `(value: string) => void` | Update the max supply field. |
+| `setDecimals` | `(value: string) => void` | Update the decimals field. |
+| `selectIcon` | `(file: File) => void` | Select and preview an icon file. |
+| `removeIcon` | `() => void` | Clear the selected icon. |
+| `deploy` | `(handler: (params: DeployTokenParams) => Promise<DeployTokenResult>) => Promise<void>` | Execute the deploy with a provided handler. |

@@ -1,0 +1,186 @@
+---
+title: Post Button
+description: A button that opens a compose dialog for creating on-chain BSocial posts
+featured: true
+component: true
+---
+
+<ComponentPreview name="post-button-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/post-button.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+bun add class-variance-authority lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add button dialog
+```
+
+<Step>Copy and paste the following code into your project:</Step>
+
+<ComponentSource name="post-button" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+Supply an `onPost` callback that builds and broadcasts the BSocial transaction. The component renders the dialog and tracks submission state; the transaction logic lives entirely in your callback.
+
+```tsx
+import { PostButton } from "@/components/blocks/post-button"
+
+export default function Example() {
+  return (
+    <PostButton
+      onPost={async (content) => {
+        // Build and broadcast your BSocial transaction here.
+        // Return the txid on success.
+        const txid = await broadcastPost(content)
+        return { txid }
+      }}
+      onPosted={(result) => console.log("Posted:", result.txid)}
+    />
+  )
+}
+```
+
+## Variants
+
+The `variant` prop controls how the trigger button is presented.
+
+| Variant | Description |
+| --- | --- |
+| `default` | Full-width labeled button with a compose icon |
+| `compact` | Smaller button with label and pencil icon |
+| `fab` | Fixed floating action button in the bottom-right corner |
+| `inline` | Borderless ghost-style button for embedding in toolbars |
+
+```tsx
+// Floating action button — ideal for feed pages
+<PostButton variant="fab" onPost={handlePost} />
+
+// Compact toolbar button
+<PostButton variant="compact" label="New Post" onPost={handlePost} />
+
+// Inline in a card footer
+<PostButton variant="inline" label="Write" onPost={handlePost} />
+```
+
+## Hook: `usePost`
+
+Use `usePost` directly when you need full control over the compose dialog state, or when you want to integrate the dialog into an existing component.
+
+```tsx
+import { usePost, PostButtonUI } from "@/components/blocks/post-button"
+
+export function CustomPostComposer() {
+  const post = usePost({
+    maxLength: 280,
+    onPost: async (content) => {
+      const txid = await broadcastPost(content)
+      return { txid }
+    },
+    onPosted: (result) => console.log("Posted:", result.txid),
+    onError: (error) => console.error(error),
+  })
+
+  return (
+    <>
+      <button onClick={post.handleOpen}>Compose</button>
+      <PostButtonUI
+        dialogOpen={post.dialogOpen}
+        content={post.content}
+        onContentChange={post.setContent}
+        isPosting={post.isPosting}
+        error={post.error}
+        charCount={post.charCount}
+        overLimit={post.overLimit}
+        canSubmit={post.canSubmit}
+        onOpen={post.handleOpen}
+        onClose={post.handleClose}
+        onSubmit={post.handleSubmit}
+      />
+    </>
+  )
+}
+```
+
+## API Reference
+
+### PostButton
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onPost` | `(content: string) => Promise<PostResult>` | — | **Required.** Called with the post content to broadcast the transaction |
+| `onPosted` | `(result: PostResult) => void` | — | Called after a successful post |
+| `onError` | `(error: Error) => void` | — | Called when posting fails |
+| `label` | `string` | `"Post"` | Button label text |
+| `placeholder` | `string` | `"What's on your mind?"` | Textarea placeholder |
+| `maxLength` | `number` | `0` | Maximum character count; `0` means unlimited |
+| `variant` | `"default" \| "compact" \| "fab" \| "inline"` | `"default"` | Visual variant |
+| `disabled` | `boolean` | `false` | Disable the trigger button |
+| `className` | `string` | — | Additional CSS classes |
+
+### PostResult
+
+```typescript
+interface PostResult {
+  /** Transaction ID of the on-chain post */
+  txid?: string
+  /** Raw transaction hex */
+  rawtx?: string
+  /** Error message if posting failed */
+  error?: string
+}
+```
+
+### usePost Options
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onPost` | `(content: string) => Promise<PostResult>` | — | **Required.** Broadcast callback |
+| `onPosted` | `(result: PostResult) => void` | — | Success callback |
+| `onError` | `(error: Error) => void` | — | Error callback |
+| `maxLength` | `number` | `0` | Maximum character count |
+
+### usePost Return
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `dialogOpen` | `boolean` | Whether the compose dialog is open |
+| `content` | `string` | Current textarea content |
+| `setContent` | `(content: string) => void` | Update textarea content |
+| `isPosting` | `boolean` | Whether a post is being submitted |
+| `error` | `string \| null` | Error message if present |
+| `charCount` | `number` | Current character count |
+| `overLimit` | `boolean` | Whether content exceeds `maxLength` |
+| `canSubmit` | `boolean` | Whether the post can be submitted |
+| `handleOpen` | `() => void` | Open the compose dialog |
+| `handleClose` | `() => void` | Close and reset the dialog |
+| `handleSubmit` | `() => Promise<void>` | Submit the post |

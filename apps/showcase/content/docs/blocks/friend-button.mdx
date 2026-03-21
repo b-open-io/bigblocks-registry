@@ -1,0 +1,249 @@
+---
+title: Friend Button
+description: A friend request button with four states built on the BSocial follow protocol
+featured: true
+component: true
+---
+
+<ComponentPreview name="friend-button-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/friend-button.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+bun add class-variance-authority lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add button
+```
+
+<Step>Copy and paste the following code into your project:</Step>
+
+<ComponentSource name="friend-button" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+Pass the identity key of the other user and the current `FriendshipStatus`. The button automatically renders the correct UI for each state and transitions between states as actions complete.
+
+When both users have followed each other (`status: "friends"`), you can derive a shared encryption key via `getFriendPublicKey()` from `@1sat/actions`. The `FriendResult` returned by `onAccept` includes the `friendPublicKey` for this purpose.
+
+```tsx
+import { FriendButton } from "@/components/blocks/friend-button"
+
+export default function UserProfile({ user }) {
+  return (
+    <FriendButton
+      identityKey={user.identityKey}
+      status={user.friendshipStatus}
+      onAddFriend={async (id) => {
+        // Send a BSocial follow transaction
+        const txid = await broadcastFollow(id)
+        return { txid }
+      }}
+      onAccept={async (id) => {
+        // Create a mutual follow and derive the shared encryption key
+        const result = await acceptFriendRequest(id)
+        return { txid: result.txid, friendPublicKey: result.sharedKey }
+      }}
+      onDecline={async (id) => {
+        const txid = await declineFriendRequest(id)
+        return { txid }
+      }}
+      onRemove={async (id) => {
+        const txid = await removeFriend(id)
+        return { txid }
+      }}
+      onStatusChange={(newStatus, result) => {
+        if (newStatus === "friends" && result.friendPublicKey) {
+          console.log("Shared key:", result.friendPublicKey)
+        }
+      }}
+    />
+  )
+}
+```
+
+## Friendship States
+
+The `status` prop drives which UI the button renders:
+
+| Status | UI shown | Actions available |
+| --- | --- | --- |
+| `none` | "Add Friend" button | `onAddFriend` |
+| `pending-sent` | "Pending" (disabled) | None |
+| `pending-received` | "Accept" and "Decline" buttons | `onAccept`, `onDecline` |
+| `friends` | "Friends" button; hover reveals "Remove" | `onRemove` |
+
+## Variants
+
+| Variant | Description |
+| --- | --- |
+| `default` | Standard rounded button (`px-4 py-2`) |
+| `compact` | Smaller button (`px-3 py-1.5 text-xs`) |
+
+```tsx
+// Default
+<FriendButton identityKey={id} status="none" onAddFriend={handleAdd} />
+
+// Compact — for use inside post cards or sidebars
+<FriendButton identityKey={id} status="none" variant="compact" onAddFriend={handleAdd} />
+```
+
+## Hook: `useFriend`
+
+Use `useFriend` when you need to drive a fully custom friendship UI — for example, a dropdown menu or an icon row.
+
+```tsx
+import { useFriend } from "@/components/blocks/friend-button"
+
+export function FriendActions({ identityKey, status }) {
+  const {
+    currentStatus,
+    isLoading,
+    loadingAction,
+    handleAdd,
+    handleAccept,
+    handleDecline,
+    handleRemove,
+    hasAccept,
+    hasDecline,
+    hasRemove,
+  } = useFriend({
+    identityKey,
+    status,
+    onAddFriend: async (id) => ({ txid: await broadcastFollow(id) }),
+    onAccept: async (id) => acceptRequest(id),
+    onDecline: async (id) => declineRequest(id),
+    onRemove: async (id) => removeConnection(id),
+  })
+
+  if (currentStatus === "pending-received") {
+    return (
+      <div>
+        <button onClick={handleAccept} disabled={isLoading}>
+          {loadingAction === "accept" ? "Accepting..." : "Accept"}
+        </button>
+        {hasDecline && (
+          <button onClick={handleDecline} disabled={isLoading}>
+            Decline
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  if (currentStatus === "friends" && hasRemove) {
+    return (
+      <button onClick={handleRemove} disabled={isLoading}>
+        Remove Friend
+      </button>
+    )
+  }
+
+  return (
+    <button onClick={handleAdd} disabled={isLoading || currentStatus === "pending-sent"}>
+      Add Friend
+    </button>
+  )
+}
+```
+
+## API Reference
+
+### FriendButton
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `identityKey` | `string` | — | **Required.** Identity key of the other user |
+| `status` | `FriendshipStatus` | — | **Required.** Current friendship status |
+| `onAddFriend` | `(identityKey: string) => Promise<FriendResult>` | — | **Required.** Called to send a friend request |
+| `onAccept` | `(identityKey: string) => Promise<FriendResult>` | — | Called to accept an incoming request |
+| `onDecline` | `(identityKey: string) => Promise<FriendResult>` | — | Called to decline an incoming request |
+| `onRemove` | `(identityKey: string) => Promise<FriendResult>` | — | Called to remove an existing friend |
+| `onStatusChange` | `(newStatus: FriendshipStatus, result: FriendResult) => void` | — | Called after any successful action |
+| `onError` | `(error: Error) => void` | — | Called when an action fails |
+| `variant` | `"default" \| "compact"` | `"default"` | Visual variant |
+| `disabled` | `boolean` | `false` | Disable the button |
+| `className` | `string` | — | Additional CSS classes |
+
+### FriendshipStatus
+
+```typescript
+type FriendshipStatus =
+  | "none"            // No relationship
+  | "pending-sent"    // Current user sent a request (waiting for acceptance)
+  | "pending-received" // Another user sent a request (can accept or decline)
+  | "friends"         // Mutual follow established
+```
+
+### FriendResult
+
+```typescript
+interface FriendResult {
+  /** Transaction ID of the action */
+  txid?: string
+  /** Derived public key for encrypted messaging (returned on accept) */
+  friendPublicKey?: string
+  /** Raw transaction hex */
+  rawtx?: string
+  /** Error message if the action failed */
+  error?: string
+}
+```
+
+### useFriend Options
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `identityKey` | `string` | — | **Required.** Identity key of the other user |
+| `status` | `FriendshipStatus` | — | **Required.** Initial friendship status |
+| `onAddFriend` | `(identityKey: string) => Promise<FriendResult>` | — | **Required.** Add friend callback |
+| `onAccept` | `(identityKey: string) => Promise<FriendResult>` | — | Accept request callback |
+| `onDecline` | `(identityKey: string) => Promise<FriendResult>` | — | Decline request callback |
+| `onRemove` | `(identityKey: string) => Promise<FriendResult>` | — | Remove friend callback |
+| `onStatusChange` | `(newStatus: FriendshipStatus, result: FriendResult) => void` | — | Status change callback |
+| `onError` | `(error: Error) => void` | — | Error callback |
+
+### useFriend Return
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `currentStatus` | `FriendshipStatus` | Current friendship status |
+| `isLoading` | `boolean` | Whether an action is in progress |
+| `loadingAction` | `string \| null` | Which action is currently loading (`"add"`, `"accept"`, `"decline"`, `"remove"`) |
+| `isHovering` | `boolean` | Whether the user is hovering (used for friends state) |
+| `setIsHovering` | `(hovering: boolean) => void` | Set the hovering state |
+| `hasAccept` | `boolean` | Whether `onAccept` was provided |
+| `hasDecline` | `boolean` | Whether `onDecline` was provided |
+| `hasRemove` | `boolean` | Whether `onRemove` was provided |
+| `handleAdd` | `() => void` | Send a friend request |
+| `handleAccept` | `() => void` | Accept the incoming request |
+| `handleDecline` | `() => void` | Decline the incoming request |
+| `handleRemove` | `() => void` | Remove the friend |

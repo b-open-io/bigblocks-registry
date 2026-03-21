@@ -1,0 +1,184 @@
+---
+title: Like Button
+description: An on-chain like/unlike toggle button for BSocial content with optimistic UI updates
+featured: true
+component: true
+---
+
+<ComponentPreview name="like-button-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/like-button.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+bun add class-variance-authority lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add badge
+```
+
+<Step>Copy and paste the following code into your project:</Step>
+
+<ComponentSource name="like-button" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+Pass the transaction ID of the content to like, the current like count, and whether the user has already liked it. Supply `onLike` (and optionally `onUnlike`) to broadcast the transaction.
+
+The button applies optimistic UI updates immediately and reverts on error.
+
+```tsx
+import { LikeButton } from "@/components/blocks/like-button"
+
+export default function PostCard({ post }) {
+  return (
+    <LikeButton
+      txid={post.txid}
+      count={post.likes}
+      liked={post.likedByMe}
+      onLike={async (txid) => {
+        const txid = await broadcastLike(txid)
+        return { txid }
+      }}
+      onUnlike={async (txid) => {
+        const txid = await broadcastUnlike(txid)
+        return { txid }
+      }}
+      onToggled={(liked, result) => {
+        console.log("Like toggled:", liked, result.txid)
+      }}
+    />
+  )
+}
+```
+
+## Variants
+
+| Variant | Description |
+| --- | --- |
+| `default` | Bordered button with icon and count |
+| `compact` | Square icon-only button (count hidden) |
+| `text` | Plain text style for minimal UIs |
+
+```tsx
+// Default — shows heart icon and count
+<LikeButton txid={txid} count={42} onLike={handleLike} />
+
+// Compact — icon-only square button
+<LikeButton txid={txid} variant="compact" onLike={handleLike} />
+
+// Text — blends into a post footer
+<LikeButton txid={txid} variant="text" count={7} onLike={handleLike} />
+
+// Thumbs-up icon instead of heart
+<LikeButton txid={txid} useThumbsUp onLike={handleLike} />
+```
+
+## Hook: `useLike`
+
+Use `useLike` directly when you need to embed the like state into a custom component without the default button rendering.
+
+```tsx
+import { useLike } from "@/components/blocks/like-button"
+
+export function CustomLikeControl({ txid, count, liked }) {
+  const { isLiked, displayCount, isLoading, handleToggle } = useLike({
+    txid,
+    count,
+    liked,
+    onLike: async (id) => {
+      const result = await broadcastLike(id)
+      return { txid: result.txid }
+    },
+    onUnlike: async (id) => {
+      const result = await broadcastUnlike(id)
+      return { txid: result.txid }
+    },
+  })
+
+  return (
+    <button onClick={handleToggle} disabled={isLoading}>
+      {isLiked ? "Unlike" : "Like"} ({displayCount})
+    </button>
+  )
+}
+```
+
+## API Reference
+
+### LikeButton
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `txid` | `string` | — | **Required.** Transaction ID of the content to like |
+| `onLike` | `(txid: string) => Promise<LikeResult>` | — | **Required.** Called to broadcast a like action |
+| `onUnlike` | `(txid: string) => Promise<LikeResult>` | — | Called to broadcast an unlike action |
+| `count` | `number` | `0` | Current like count to display |
+| `liked` | `boolean` | `false` | Whether the current user has already liked this content |
+| `onToggled` | `(liked: boolean, result: LikeResult) => void` | — | Called after a successful like/unlike |
+| `onError` | `(error: Error) => void` | — | Called when the action fails |
+| `useThumbsUp` | `boolean` | `false` | Use a thumbs-up icon instead of a heart |
+| `variant` | `"default" \| "compact" \| "text"` | `"default"` | Visual variant |
+| `disabled` | `boolean` | `false` | Disable the button |
+| `className` | `string` | — | Additional CSS classes |
+
+### LikeResult
+
+```typescript
+interface LikeResult {
+  /** Transaction ID of the like/unlike action */
+  txid?: string
+  /** Raw transaction hex */
+  rawtx?: string
+  /** Error message if the action failed */
+  error?: string
+}
+```
+
+### useLike Options
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `txid` | `string` | — | **Required.** Transaction ID to like |
+| `onLike` | `(txid: string) => Promise<LikeResult>` | — | **Required.** Like broadcast callback |
+| `onUnlike` | `(txid: string) => Promise<LikeResult>` | — | Unlike broadcast callback |
+| `count` | `number` | `0` | Initial like count |
+| `liked` | `boolean` | `false` | Initial liked state |
+| `onToggled` | `(liked: boolean, result: LikeResult) => void` | — | Success callback |
+| `onError` | `(error: Error) => void` | — | Error callback |
+
+### useLike Return
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `isLiked` | `boolean` | Whether the content is currently liked |
+| `displayCount` | `number` | Current display count (updates optimistically) |
+| `isLoading` | `boolean` | Whether a like/unlike action is in progress |
+| `handleToggle` | `() => Promise<void>` | Toggle the like state |

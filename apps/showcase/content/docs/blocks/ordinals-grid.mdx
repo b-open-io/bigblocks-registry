@@ -1,0 +1,150 @@
+---
+title: Ordinals Grid
+description: Responsive grid of owned ordinal NFTs with ORDFS thumbnails, fetched from the 1sat API or passed as pre-fetched data
+featured: true
+component: true
+---
+
+A responsive grid that displays owned ordinal NFTs. Supply an `address` to auto-fetch from the 1sat API over a streaming NDJSON response, or pass pre-fetched `ordinals` directly to skip the network call. Each card shows the inscription image, name, content type badge, and truncated outpoint. The underlying `useOrdinalsGrid` hook is also exported for headless usage.
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/ordinals-grid.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn components:</Step>
+
+```bash
+bunx shadcn@latest add badge card scroll-area skeleton
+```
+
+<Step>Copy the block source into your project:</Step>
+
+```bash
+cp -r registry/new-york/blocks/ordinals-grid ./components/blocks/ordinals-grid
+```
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { OrdinalsGrid, type OrdinalOutput } from "@/components/blocks/ordinals-grid"
+
+// Fetch from a Bitcoin address
+export function WalletOrdinals() {
+  return (
+    <OrdinalsGrid
+      address="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+      onSelect={(ordinal) => console.log("Selected:", ordinal.outpoint)}
+      showCount
+    />
+  )
+}
+
+// Pass pre-fetched ordinals (e.g. from server-side fetch)
+export function StaticOrdinals({ ordinals }: { ordinals: OrdinalOutput[] }) {
+  return (
+    <OrdinalsGrid
+      ordinals={ordinals}
+      onSelect={(ordinal) => router.push(`/ordinal/${ordinal.outpoint}`)}
+      scrollable
+      maxHeight="600px"
+    />
+  )
+}
+```
+
+## API Reference
+
+### OrdinalsGrid
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `address` | `string` | — | Bitcoin address to fetch ordinals for from the 1sat API. Mutually exclusive with `ordinals`. |
+| `ordinals` | `OrdinalOutput[]` | — | Pre-fetched ordinals. When provided, no API fetch occurs. |
+| `apiUrl` | `string` | `"https://api.1sat.app/1sat"` | Base URL for the 1sat owner API. |
+| `limit` | `number` | — | Maximum number of items to display. No limit by default. |
+| `onSelect` | `(ordinal: OrdinalOutput) => void` | — | Called when an ordinal card is clicked. |
+| `showCount` | `boolean` | `true` | Whether to show a count header above the grid. |
+| `scrollable` | `boolean` | `false` | Wrap the grid in a `ScrollArea`. |
+| `maxHeight` | `string` | — | CSS max-height for the scroll area (requires `scrollable`). |
+| `className` | `string` | — | Additional CSS classes applied to the outer container. |
+
+### OrdinalOutput
+
+```typescript
+interface OrdinalOutput {
+  outpoint: string     // txid_vout or txid.vout format
+  contentType: string  // MIME type (e.g. "image/png")
+  name?: string        // Display name from MAP metadata
+  origin: string       // Origin outpoint for ORDFS content resolution
+  satoshis: number     // Satoshi value of the output
+  tags: string[]       // Raw tags array from the wallet output
+}
+```
+
+## Hook
+
+Use `useOrdinalsGrid` directly for custom grid layouts or to integrate ordinal fetching into an existing component.
+
+```tsx
+import { useOrdinalsGrid } from "@/components/blocks/ordinals-grid"
+
+function CustomOrdinalList({ address }) {
+  const { items, isLoading, error, count, reload } = useOrdinalsGrid({ address })
+
+  if (isLoading) return <p>Loading {address}...</p>
+  if (error) return <p>Error: {error.message} <button onClick={reload}>Retry</button></p>
+
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.outpoint}>
+          {item.name ?? item.outpoint} — {item.contentType}
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+### UseOrdinalsGridReturn
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `items` | `OrdinalOutput[]` | Parsed ordinal items ready for display, respecting `limit`. |
+| `isLoading` | `boolean` | Whether the initial fetch is in progress. Always `false` when `ordinals` is provided. |
+| `error` | `Error \| null` | Error from the fetch, or `null`. Always `null` when `ordinals` is provided. |
+| `count` | `number` | Total number of items currently loaded. |
+| `reload` | `() => void` | Re-fetch ordinals from the API. No-op when `ordinals` is provided. |
+
+## Notes
+
+- The 1sat API streams results as NDJSON. The hook reads the response body as a stream, so large wallets begin rendering incrementally rather than waiting for the full response.
+- Requests are aborted when the component unmounts or when `address` changes, preventing stale state.
+- Outpoints are normalized to underscore format (`txid_vout`) internally for ORDFS compatibility.

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "deploy-token-demo",
+  "title": "Deploy Token Demo",
+  "author": "Satchmo",
+  "description": "Demo of the deploy token block with simulated deployment",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/deploy-token.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/deploy-token-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport {\n  DeployToken,\n  type DeployTokenParams,\n  type DeployTokenResult,\n} from \"@/registry/new-york/blocks/deploy-token\"\n\nexport default function DeployTokenDemo() {\n  const [lastResult, setLastResult] = useState<DeployTokenResult | null>(null)\n\n  async function handleDeploy(\n    params: DeployTokenParams\n  ): Promise<DeployTokenResult> {\n    // In a real application, you would call deployBsv21Token from @1sat/core:\n    //\n    // import { deployBsv21Token } from \"@1sat/core\"\n    //\n    // const tx = await deployBsv21Token({\n    //   symbol: params.symbol,\n    //   decimals: params.decimals,\n    //   icon: { dataB64: params.iconBase64, contentType: params.iconContentType },\n    //   initialDistribution: {\n    //     address: myAddress,\n    //     tokens: Number(params.maxSupply),\n    //   },\n    //   destinationAddress: myAddress,\n    //   utxos: paymentUtxos,\n    // })\n    //\n    // return { txid: tx.id(\"hex\") }\n\n    // Demo: simulate a 2-second deployment\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    return {\n      txid: \"f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2\",\n    }\n  }\n\n  return (\n    <div className=\"mx-auto w-full max-w-lg\">\n      <DeployToken\n        onDeploy={handleDeploy}\n        onSuccess={(result) => setLastResult(result)}\n        onError={(error) => console.error(\"Deploy error:\", error)}\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

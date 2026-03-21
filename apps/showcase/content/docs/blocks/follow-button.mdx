@@ -1,0 +1,199 @@
+---
+title: Follow Button
+description: A follow/unfollow toggle button for BSocial identities with three distinct visual states
+featured: true
+component: true
+---
+
+<ComponentPreview name="follow-button-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/follow-button.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+bun add class-variance-authority lucide-react
+```
+
+<Step>Copy and paste the following code into your project:</Step>
+
+<ComponentSource name="follow-button" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+Pass the BAP identity key of the user to follow and callbacks to broadcast follow and unfollow transactions. Set `isFollowing` to reflect the current state.
+
+```tsx
+import { FollowButton } from "@/components/blocks/follow-button"
+
+export default function UserProfile({ user }) {
+  return (
+    <FollowButton
+      bapId={user.bapId}
+      isFollowing={user.followedByMe}
+      onFollow={async (bapId) => {
+        const txid = await broadcastFollow(bapId)
+        return { txid }
+      }}
+      onUnfollow={async (bapId) => {
+        const txid = await broadcastUnfollow(bapId)
+        return { txid }
+      }}
+      onToggled={(following, result) => {
+        console.log(following ? "Now following" : "Unfollowed", result.txid)
+      }}
+    />
+  )
+}
+```
+
+## Visual States
+
+The button renders three distinct states depending on the follow status and hover interaction:
+
+| State | Condition | Appearance |
+| --- | --- | --- |
+| **Follow** | Not following | Primary button with `UserPlus` icon |
+| **Following** | Following, not hovering | Secondary/muted button with checkmark |
+| **Unfollow** | Following and hovering (requires `onUnfollow`) | Destructive button with `UserMinus` icon |
+
+## Variants
+
+| Variant | Description |
+| --- | --- |
+| `default` | Standard rounded button (`px-4 py-2`) |
+| `compact` | Smaller button (`px-3 py-1.5 text-xs`) |
+| `pill` | Fully rounded pill shape (`rounded-full px-5 py-2`) |
+
+```tsx
+// Default
+<FollowButton bapId={bapId} onFollow={handleFollow} />
+
+// Compact — for tight layouts like post cards
+<FollowButton bapId={bapId} variant="compact" onFollow={handleFollow} />
+
+// Pill — for profile pages
+<FollowButton bapId={bapId} variant="pill" onFollow={handleFollow} />
+```
+
+## Custom Labels
+
+Override the default Follow / Following / Unfollow labels via the `labels` prop.
+
+```tsx
+<FollowButton
+  bapId={bapId}
+  onFollow={handleFollow}
+  labels={{
+    follow: "Subscribe",
+    following: "Subscribed",
+    unfollow: "Unsubscribe",
+  }}
+/>
+```
+
+## Hook: `useFollow`
+
+Use `useFollow` when you need the follow state logic without the default button rendering — for example, to drive a custom toggle or an icon-only control.
+
+```tsx
+import { useFollow } from "@/components/blocks/follow-button"
+
+export function FollowIcon({ bapId, isFollowing }) {
+  const { following, isLoading, handleClick, setIsHovering } = useFollow({
+    bapId,
+    isFollowing,
+    onFollow: async (id) => ({ txid: await broadcastFollow(id) }),
+    onUnfollow: async (id) => ({ txid: await broadcastUnfollow(id) }),
+  })
+
+  return (
+    <button
+      onClick={handleClick}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      disabled={isLoading}
+    >
+      {following ? <UserCheck /> : <UserPlus />}
+    </button>
+  )
+}
+```
+
+## API Reference
+
+### FollowButton
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `bapId` | `string` | — | **Required.** BAP identity key of the user to follow |
+| `onFollow` | `(bapId: string) => Promise<FollowResult>` | — | **Required.** Called to broadcast a follow action |
+| `onUnfollow` | `(bapId: string) => Promise<FollowResult>` | — | Called to broadcast an unfollow action; also enables the unfollow hover state |
+| `isFollowing` | `boolean` | `false` | Whether the current user is already following this user |
+| `onToggled` | `(following: boolean, result: FollowResult) => void` | — | Called after a successful follow/unfollow |
+| `onError` | `(error: Error) => void` | — | Called when the action fails |
+| `labels` | `{ follow?: string; following?: string; unfollow?: string }` | — | Override default button labels |
+| `variant` | `"default" \| "compact" \| "pill"` | `"default"` | Visual variant |
+| `disabled` | `boolean` | `false` | Disable the button |
+| `className` | `string` | — | Additional CSS classes |
+
+### FollowResult
+
+```typescript
+interface FollowResult {
+  /** Transaction ID of the follow/unfollow action */
+  txid?: string
+  /** Raw transaction hex */
+  rawtx?: string
+  /** Error message if the action failed */
+  error?: string
+}
+```
+
+### useFollow Options
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `bapId` | `string` | — | **Required.** BAP identity key to follow/unfollow |
+| `onFollow` | `(bapId: string) => Promise<FollowResult>` | — | **Required.** Follow broadcast callback |
+| `onUnfollow` | `(bapId: string) => Promise<FollowResult>` | — | Unfollow broadcast callback |
+| `isFollowing` | `boolean` | `false` | Initial follow state |
+| `onToggled` | `(following: boolean, result: FollowResult) => void` | — | Success callback |
+| `onError` | `(error: Error) => void` | — | Error callback |
+| `labels` | `{ follow?: string; following?: string; unfollow?: string }` | — | Override default labels |
+
+### useFollow Return
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `following` | `boolean` | Whether the current user is following the target |
+| `isHovering` | `boolean` | Whether the user is hovering over the button |
+| `setIsHovering` | `(hovering: boolean) => void` | Set the hovering state |
+| `actionState` | `"idle" \| "following" \| "unfollowing"` | Current action state |
+| `isLoading` | `boolean` | Whether a follow/unfollow action is in progress |
+| `showUnfollow` | `boolean` | Whether the unfollow UI should show |
+| `currentLabel` | `string` | The label to display given current state |
+| `handleClick` | `() => Promise<void>` | Handle the follow/unfollow click |

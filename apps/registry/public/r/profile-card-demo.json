@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "profile-card-demo",
+  "title": "Profile Card Demo",
+  "author": "Satchmo",
+  "description": "Demo showcasing the profile card block with mock BAP profile data, action slot, loading, error, and empty states",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/profile-card.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/profile-card-demo.tsx",
+      "content": "\"use client\"\n\nimport { ProfileCard } from \"@/registry/new-york/blocks/profile-card\"\nimport { ProfileCardUI } from \"@/registry/new-york/blocks/profile-card/profile-card-ui\"\nimport { Button } from \"@/components/ui/button\"\nimport type { BapProfile } from \"@/registry/new-york/blocks/profile-card/use-profile-card\"\n\nconst MOCK_BAP_ID = \"Go8vCHAa4S6AhXKdRp3nT9wJm\"\nconst MOCK_ADDRESS = \"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\"\n\nconst MOCK_PROFILE: BapProfile = {\n  name: \"Satoshi Nakamoto\",\n  alternateName: \"satoshi\",\n  description:\n    \"Creator of Bitcoin. Building a peer-to-peer electronic cash system.\",\n  image: undefined,\n  url: \"https://bitcoin.org\",\n}\n\nexport default function ProfileCardDemo() {\n  return (\n    <div className=\"space-y-8\">\n      {/* Populated profile with mock data */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium\">With profile data</p>\n        <ProfileCardUI\n          bapId={MOCK_BAP_ID}\n          profile={MOCK_PROFILE}\n          currentAddress={MOCK_ADDRESS}\n          isLoading={false}\n          error={null}\n        />\n      </div>\n\n      {/* With follow button slot */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium\">With action slot</p>\n        <ProfileCardUI\n          bapId={MOCK_BAP_ID}\n          profile={MOCK_PROFILE}\n          currentAddress={MOCK_ADDRESS}\n          isLoading={false}\n          error={null}\n          renderAction={() => (\n            <Button variant=\"outline\" size=\"sm\">\n              Follow\n            </Button>\n          )}\n        />\n      </div>\n\n      {/* Loading state */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium\">Loading state</p>\n        <ProfileCardUI\n          bapId={null}\n          profile={null}\n          currentAddress={null}\n          isLoading={true}\n          error={null}\n        />\n      </div>\n\n      {/* Error state */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium\">Error state</p>\n        <ProfileCardUI\n          bapId={null}\n          profile={null}\n          currentAddress={null}\n          isLoading={false}\n          error={new Error(\"Failed to resolve address: 404\")}\n          onRetry={() => {}}\n        />\n      </div>\n\n      {/* No identity found */}\n      <div className=\"space-y-2\">\n        <p className=\"text-sm font-medium\">No identity found</p>\n        <ProfileCardUI\n          bapId={null}\n          profile={null}\n          currentAddress={null}\n          isLoading={false}\n          error={null}\n        />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}
