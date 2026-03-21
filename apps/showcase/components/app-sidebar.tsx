@@ -28,56 +28,48 @@ const data = {
       title: "Getting Started",
       url: "/",
       items: [
-        {
-          title: "Introduction",
-          url: "/",
-        },
-        {
-          title: "Installation",
-          url: "/docs/installation",
-        },
-        {
-          title: "CLI",
-          url: "/docs/cli",
-        },
-      ],
-    },
-    {
-      title: "Authentication",
-      url: "/docs/components/authentication",
-      items: [
-        // Authentication components will go here
-      ],
-    },
-    {
-      title: "Social",
-      url: "/docs/components/social",
-      items: [
-        // Social components will go here
+        { title: "Introduction", url: "/" },
       ],
     },
     {
       title: "Wallet",
-      url: "/docs/components/wallet",
+      url: "/docs/blocks/connect-wallet",
       items: [
-        // Wallet components will go here
+        { title: "Connect Wallet", url: "/docs/blocks/connect-wallet" },
+        { title: "Send BSV", url: "/docs/blocks/send-bsv" },
+        { title: "Token List", url: "/docs/blocks/token-list" },
       ],
     },
     {
-      title: "Market",
-      url: "/docs/components/market",
+      title: "Social",
+      url: "/docs/blocks/post-button",
       items: [
-        // Market components will go here
+        { title: "Post Button", url: "/docs/blocks/post-button" },
+        { title: "Like Button", url: "/docs/blocks/like-button" },
+        { title: "Follow Button", url: "/docs/blocks/follow-button" },
+        { title: "Friend Button", url: "/docs/blocks/friend-button" },
+        { title: "Social Feed", url: "/docs/blocks/social-feed" },
       ],
     },
     {
-      title: "UI Components",
-      url: "/docs/components/step-indicator",
+      title: "Marketplace",
+      url: "/docs/blocks/inscribe-file",
       items: [
-        {
-          title: "Step Indicator",
-          url: "/docs/components/step-indicator",
-        },
+        { title: "Inscribe File", url: "/docs/blocks/inscribe-file" },
+        { title: "Deploy Token", url: "/docs/blocks/deploy-token" },
+        { title: "Create Listing", url: "/docs/blocks/create-listing" },
+        { title: "Buy Listing", url: "/docs/blocks/buy-listing" },
+        { title: "Ordinals Grid", url: "/docs/blocks/ordinals-grid" },
+        { title: "Market Grid", url: "/docs/blocks/market-grid" },
+      ],
+    },
+    {
+      title: "Identity",
+      url: "/docs/blocks/bitcoin-avatar",
+      items: [
+        { title: "Bitcoin Avatar", url: "/docs/blocks/bitcoin-avatar" },
+        { title: "Profile Card", url: "/docs/blocks/profile-card" },
+        { title: "Identity Selector", url: "/docs/blocks/identity-selector" },
       ],
     },
   ],
