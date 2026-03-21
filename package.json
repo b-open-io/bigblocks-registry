@@ -11,6 +11,8 @@
     "registry:dev": "turbo dev --filter=registry",
     "showcase:dev": "turbo dev --filter=showcase",
     "registry:build": "turbo run registry:build --filter=registry",
+    "publish:clawnet": "bun scripts/publish-onchain.ts",
+    "publish:clawnet:dry": "bun scripts/publish-onchain.ts --dry-run",
     "deploy": "./scripts/deploy-vercel.sh",
     "deploy:registry": "cd apps/registry && vercel --prod",
     "deploy:showcase": "cd apps/showcase && vercel --prod"
