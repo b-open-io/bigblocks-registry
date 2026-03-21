@@ -3,4 +3,33 @@ $ next build
    - Environments: .env.local, .env.production
 
    Creating an optimized production build ...
-error: script "build" exited with code 130
+Failed to compile.
+
+./node_modules/next/dist/pages/_app.js
+Module not found: Can't resolve '../shared/lib/utils'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./node_modules/next/dist/pages/_document.js
+Module not found: Can't resolve '../shared/lib/constants'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./node_modules/next/dist/pages/_document.js
+Module not found: Can't resolve '../server/get-page-files'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./node_modules/next/dist/pages/_document.js
+Module not found: Can't resolve '../server/htmlescape'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./node_modules/next/dist/pages/_document.js
+Module not found: Can't resolve '../lib/is-error'
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+> Build failed because of webpack errors
+error: script "build" exited with code 1

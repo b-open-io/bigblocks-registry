@@ -77,15 +77,24 @@ function formatPhasePrompt(
   previousResults?: string
 ): string {
   let prompt = `# Component Generation - ${phase.name} Phase\n\n`;
+  prompt += `You are creating a production-ready BigBlocks component. Go beyond the basics to create a fully-featured, polished implementation.\n\n`;
   prompt += `Component Name: ${options.name}\n`;
   prompt += `Category: ${options.category}\n`;
   prompt += `Description: ${options.description}\n\n`;
+  
+  // Add context about why this component matters
+  prompt += `This component should provide exceptional value to developers using BigBlocks. `;
+  prompt += `Include thoughtful details, smooth animations, and comprehensive error handling.\n\n`;
   
   if (previousResults) {
     prompt += `## Previous Phase Results\n${previousResults}\n\n`;
   }
   
   prompt += `## Phase Instructions\n${phasePrompt}\n`;
+  
+  // Add quality reminder
+  prompt += `\nRemember: Create an impressive demonstration that showcases the best of web development. `;
+  prompt += `Don't hold back - give it your all!\n`;
   
   return prompt;
 }
