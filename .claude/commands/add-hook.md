@@ -1,5 +1,7 @@
 Add a new hook "$ARGUMENTS" to the BigBlocks registry.
 
+Create a comprehensive, well-designed hook that provides exceptional developer experience. Include thoughtful error handling, loading states, and edge case management. Your implementation should be robust, type-safe, and a joy to use.
+
 ## Shared Context
 @.claude/prompts/shared-context.md
 @.claude/prompts/bitcoin-patterns.md
@@ -8,9 +10,10 @@ Add a new hook "$ARGUMENTS" to the BigBlocks registry.
 
 ### Hooks MUST:
 1. **Always include "use client" directive** - All hooks use React hooks internally
-2. **Return typed interfaces** - Define explicit return types
-3. **Handle loading/error states** - Consistent state management
+2. **Return typed interfaces** - Define explicit return types with comprehensive JSDoc
+3. **Handle loading/error states** - Provide smooth, informative state management
 4. **Be SSR-safe** - Check for browser APIs with `typeof window !== "undefined"`
+5. **NEVER use `any` type** - All types must be explicitly defined for type safety
 
 ### Hook Categories:
 - **authentication**: useBitcoinAuth, useOAuthRestore, useDeviceLink, usePasswordValidation

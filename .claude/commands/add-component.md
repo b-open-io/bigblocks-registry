@@ -1,16 +1,20 @@
 Add a new component "$ARGUMENTS" to the BigBlocks registry.
 
+Create a fully-featured, production-ready component that goes beyond the basics. Include thoughtful details like hover states, transitions, and micro-interactions. Don't hold back - give it your all to create an impressive demonstration of web development capabilities.
+
 ## Shared Context
 @.claude/prompts/shared-context.md
 @.claude/prompts/bitcoin-patterns.md
 
 ## Component-Specific Guidelines
 
-This command creates UI components that:
-- Have visual representation and user interaction
-- Use shadcn-ui components as building blocks
+This command creates exceptional UI components that:
+- Have polished visual design with smooth animations and transitions
+- Provide delightful user interactions with attention to detail
+- Use shadcn-ui components as building blocks while adding unique value
 - Follow Bitcoin-specific patterns for auth/wallet/social features
-- Are theme-compatible and accessible
+- Are fully theme-compatible, accessible, and responsive
+- Include comprehensive error handling and loading states
 
 ## Step 1: Research and Plan
 

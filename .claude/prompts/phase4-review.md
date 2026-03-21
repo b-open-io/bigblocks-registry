@@ -1,6 +1,8 @@
 # Phase 4: Review & Validation
 
-Thoroughly review the implementation for quality, consistency, and correctness.
+Carefully reflect on the implementation quality and determine optimal improvements. Use your thinking to analyze the component thoroughly and ensure it meets the highest standards.
+
+After reviewing the component, provide specific, actionable feedback focused on what TO DO rather than what not to do. Your review should help elevate the component to production-ready quality.
 
 ## Type Safety Validation
 
@@ -182,20 +184,29 @@ import { RequiredComponent } from '@/components/ui/required'
 
 ## Final Checklist
 
-- [ ] No TypeScript errors
-- [ ] No linting warnings
-- [ ] Theme compatible
-- [ ] Mobile responsive
-- [ ] Accessible
-- [ ] Well documented
-- [ ] Performance optimized
-- [ ] Error handling complete
-- [ ] Loading states present
-- [ ] Empty states handled
-- [ ] Bitcoin features working
-- [ ] Storage patterns correct
-- [ ] Provider integration tested
-- [ ] Registry metadata complete
+Ensure every item is checked before proceeding:
+
+- [ ] **Type Safety**: All types explicitly defined, no `any` usage
+- [ ] **Code Quality**: Clean, well-structured code following best practices
+- [ ] **Theme Compatibility**: Uses only semantic color classes
+- [ ] **Responsive Design**: Works perfectly on all screen sizes
+- [ ] **Accessibility**: Full keyboard support, ARIA labels, screen reader friendly
+- [ ] **Documentation**: Comprehensive JSDoc comments and usage examples
+- [ ] **Performance**: Optimized renders, memoization where needed
+- [ ] **Error Handling**: Graceful error states with recovery options
+- [ ] **Loading States**: Smooth, informative loading experiences
+- [ ] **Empty States**: Engaging empty states that guide users
+- [ ] **Animations**: Thoughtful transitions and micro-interactions
+- [ ] **Bitcoin Integration**: Secure wallet operations, proper auth handling
+- [ ] **Storage Security**: Encrypted storage patterns properly implemented
+- [ ] **Testing Ready**: Test IDs and proper structure for testing
+
+For maximum quality, ensure the component includes:
+- Hover effects and focus states
+- Smooth transitions (200-300ms)
+- Loading skeletons that match component shape
+- Error boundaries for fault tolerance
+- Progressive enhancement approach
 
 ## Common Issues to Check
 

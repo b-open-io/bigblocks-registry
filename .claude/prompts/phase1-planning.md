@@ -1,6 +1,13 @@
 # Phase 1: Planning & Context Gathering
 
-When planning a new BigBlocks component, follow these steps:
+Create a comprehensive, production-ready plan for the new BigBlocks component. Go beyond the basics to ensure we build a fully-featured implementation that will delight developers and end users.
+
+**Critical Requirements:**
+- NEVER use `any` type - all types must be explicitly defined
+- NEVER use `unknown` type - trace types to their source
+- NEVER use type assertions (`as`) - use proper type definitions
+
+When planning, follow these steps with attention to detail:
 
 ## 1. Analyze Requirements
 
@@ -20,26 +27,31 @@ When planning a new BigBlocks component, follow these steps:
 
 ## 2. Research Existing Patterns
 
+Research thoroughly to understand established patterns and ensure consistency. This research phase is crucial because it helps us maintain consistency across the codebase and leverage proven solutions.
+
 ### Check BigBlocks Reference Implementation
 ```bash
-# Look for similar components
+# Look for similar components to understand existing patterns
 find ~/code/bigblocks/src/components -name "*${SIMILAR_COMPONENT}*"
 
-# Check authentication patterns
+# Check authentication patterns - critical for Bitcoin-based auth consistency
 cat ~/code/bigblocks/src/lib/AuthManager.ts
 
-# Review backup handling
+# Review backup handling - ensures we follow secure storage patterns
 cat ~/code/bigblocks/src/lib/backup-utils.ts
 ```
 
 ### Check shadcn-ui Patterns
+Understanding shadcn-ui patterns ensures our components integrate seamlessly with the ecosystem:
 ```bash
-# Find base components to build on
+# Find base components to build on - we always build on top of shadcn components
 ls /Users/satchmo/code/shadcn-ui/apps/www/registry/new-york/ui/
 
-# Check if similar components exist
+# Check if similar components exist to match their implementation style
 grep -r "${COMPONENT_PATTERN}" /Users/satchmo/code/shadcn-ui/apps/www/registry/
 ```
+
+Research as many relevant examples as possible to create the most comprehensive implementation.
 
 ## 3. Identify Dependencies
 
@@ -149,10 +161,14 @@ export interface UseComponentReturn {
 
 ## Output Format
 
-After planning, document:
-1. Component name and category
-2. Dependencies list (shadcn, npm, registry)
-3. Props/return interface
-4. State management approach
-5. Key implementation notes
-6. Potential challenges
+After planning, provide a comprehensive document that includes:
+
+1. **Component name and category** - Be specific and descriptive
+2. **Dependencies list** - Include ALL dependencies (shadcn, npm, registry) with exact versions where relevant
+3. **Props/return interface** - Define complete TypeScript interfaces with JSDoc comments
+4. **State management approach** - Detail exactly how state will be managed and why
+5. **Key implementation notes** - Include specific features, animations, and interactions to implement
+6. **Potential challenges** - Anticipate edge cases and document solutions
+7. **User experience enhancements** - List specific UX improvements like hover states, transitions, loading states, and error handling
+
+Be thorough and specific. The planning phase sets the foundation for an exceptional component. Include as many relevant details as possible to guide the implementation phase.

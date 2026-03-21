@@ -9,13 +9,16 @@ This document contains shared rules, patterns, and guidelines used across all Bi
    - NO `as` type assertions
    - NO `@ts-ignore` (except for documented third-party library issues)
    - NO `@ts-expect-error` (except for documented third-party library issues)
+   - This is critical for type safety - using `any` defeats TypeScript's purpose
 2. **ALL types must be properly imported and traced**
    - If unsure of types, use Read tool to check imported type definitions
    - Trace types back to their source files in BigBlocks
    - Generic types must have proper constraints
+   - Explicit types make code self-documenting and catch bugs at compile time
 3. **Type checking is mandatory**
    - Run before committing: `cd apps/showcase && bunx tsc --noEmit`
    - Run before committing: `cd apps/registry && bunx tsc --noEmit`
+   - Type errors indicate potential runtime failures
 
 ### Component Development Rules
 1. **Only add CUSTOM BigBlocks components/blocks** - NEVER add standard shadcn-ui components

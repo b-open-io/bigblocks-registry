@@ -1,6 +1,13 @@
 # Phase 3: Initial Implementation
 
-Generate the component following established patterns and best practices.
+Generate a fully-featured, production-ready component that goes beyond the basics. Don't hold back - give it your all to create an impressive implementation that showcases the best of web development.
+
+**Quality Standards:**
+- Include thoughtful details like hover states, transitions, and micro-interactions
+- Create comprehensive error handling and loading states
+- Add animations where they enhance user experience
+- Build with accessibility and performance in mind
+- NEVER use `any` type - ensure all types are explicitly defined for type safety
 
 ## Implementation Checklist
 
@@ -206,23 +213,27 @@ try {
 
 ### 7. Theme Compatibility
 
+Theme compatibility is crucial for BigBlocks components because users expect them to work seamlessly with any shadcn theme they choose. Using semantic colors ensures the component adapts automatically to different color schemes.
+
 ```typescript
-// Always use semantic colors
+// Always use semantic colors for automatic theme adaptation
 <Button
   variant={variant}
   size={size}
   className={cn(
-    // Semantic classes
+    // Semantic classes that adapt to any theme
     "bg-primary text-primary-foreground",
     "hover:bg-primary/90",
     "focus:ring-ring",
+    // Add smooth transitions for professional feel
+    "transition-colors duration-200",
     className
   )}
 >
   
-// Never use direct colors
-// ❌ WRONG: "bg-blue-500 text-white"
-// ✅ RIGHT: "bg-primary text-primary-foreground"
+// NEVER use direct colors - they break theme compatibility
+// ❌ WRONG: "bg-blue-500 text-white" - This will always be blue regardless of theme
+// ✅ RIGHT: "bg-primary text-primary-foreground" - This adapts to the user's chosen theme
 ```
 
 ### 8. Accessibility
@@ -290,20 +301,42 @@ export const ComponentNameTestIds = {
 
 ## Common Patterns Reference
 
+Implement these patterns with attention to detail and user experience:
+
 ### Loading States
 ```typescript
+// Create smooth, informative loading states
 if (isLoading) {
-  return <Skeleton className="w-full h-10" />
+  return (
+    <div className="space-y-2">
+      <Skeleton className="w-full h-10 animate-pulse" />
+      <p className="text-sm text-muted-foreground text-center">
+        Loading your Bitcoin wallet...
+      </p>
+    </div>
+  )
 }
 ```
 
 ### Empty States
 ```typescript
+// Design engaging empty states that guide users
 if (!data?.length) {
   return (
-    <Card>
-      <CardContent className="text-center py-10">
-        <p className="text-muted-foreground">No items found</p>
+    <Card className="border-dashed">
+      <CardContent className="text-center py-10 space-y-3">
+        <div className="mx-auto w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+          <IconPlaceholder className="w-6 h-6 text-muted-foreground" />
+        </div>
+        <div className="space-y-1">
+          <p className="text-muted-foreground">No items found</p>
+          <p className="text-sm text-muted-foreground">
+            Get started by creating your first item
+          </p>
+        </div>
+        <Button variant="outline" size="sm">
+          Create Item
+        </Button>
       </CardContent>
     </Card>
   )
@@ -312,11 +345,21 @@ if (!data?.length) {
 
 ### Error States
 ```typescript
+// Provide helpful error states with recovery options
 if (error) {
   return (
-    <Alert variant="destructive">
-      <AlertDescription>{error.message}</AlertDescription>
+    <Alert variant="destructive" className="animate-in fade-in-50">
+      <AlertCircle className="h-4 w-4" />
+      <AlertTitle>Something went wrong</AlertTitle>
+      <AlertDescription className="space-y-2">
+        <p>{error.message}</p>
+        <Button variant="outline" size="sm" onClick={retry}>
+          Try again
+        </Button>
+      </AlertDescription>
     </Alert>
   )
 }
 ```
+
+Remember: Every state should be polished and thoughtful. These details make the difference between good and exceptional components.

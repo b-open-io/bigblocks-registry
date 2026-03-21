@@ -68,6 +68,8 @@ bun registry:build      # Build component registry using shadcn CLI
 cd apps/showcase
 bun dev                 # Start with Turbopack on port 3003
 bun build              # Production build
+bunx tsc --noEmit      # Type checking
+bun run lint           # Linting
 ```
 
 ### Working in apps/registry
@@ -76,6 +78,8 @@ cd apps/registry
 bun dev                # Start on port 3002
 bun build             # Production build
 bun registry:build    # Build component definitions to /public/r/
+bunx tsc --noEmit     # Type checking
+bun run lint          # Linting
 ```
 
 ## Component Registry System
@@ -86,6 +90,23 @@ The registry follows shadcn's component distribution model:
 2. Running `bun registry:build` generates JSON files at `/public/r/[component-name].json`
 3. These JSON files are consumed by the shadcn CLI for installation
 4. Currently uses a local shadcn build: `node ~/code/shadcn-ui/packages/shadcn/dist/index.js build`
+
+### Current Components
+- **step-indicator**: Production-ready component with multiple variants (default, vertical, with descriptions)
+
+### Quality Assurance
+Before committing changes, always run:
+```bash
+# Type checking (both apps)
+cd apps/showcase && bunx tsc --noEmit
+cd apps/registry && bunx tsc --noEmit
+
+# Registry build test
+cd apps/registry && bun registry:build
+
+# Full build test
+bun build
+```
 
 ## Documentation System
 
