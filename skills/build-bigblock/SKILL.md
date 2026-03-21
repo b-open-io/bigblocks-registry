@@ -224,10 +224,68 @@ grep -rn "\bany\b" apps/registry/registry/new-york/blocks/[name]/
 grep -En "bg-(red|blue|green|yellow|purple|pink|gray|slate|zinc)-[0-9]+" apps/registry/registry/new-york/blocks/[name]/
 ```
 
+## Block Lifecycle
+
+Every block follows this workflow. Do not skip steps.
+
+### 1. Design
+- Open `components.pen` in Pencil
+- Design the block in the appropriate registry/category frame
+- Show all states: default, loading, error, success, empty, disabled
+- Show all variants (default, compact, etc.)
+- Get user approval before proceeding
+
+### 2. Plan
+- Research the `@1sat/*` SDK APIs the block will wrap (pull latest first)
+- Identify shadcn components needed (Card, Button, Dialog, Skeleton, Badge, etc.)
+- Define TypeScript interfaces for props, hook return, and callback params
+- List dependencies and registryDependencies
+
+### 3. Build
+- Create the block directory with hook + UI + index files
+- Create the demo/example file
+- Add registry.json entries (block + demo)
+- Follow all shadcn composition rules (gap not space-y, size-N, data-icon, Card composition, etc.)
+
+### 4. Document
+- Write MDX documentation at `apps/showcase/content/docs/blocks/[name].mdx`
+- Include: installation CLI command, usage example, full props table, hook API, variants
+
+### 5. Verify & Deploy
+```bash
+cd apps/registry && bunx tsc --noEmit
+cd apps/registry && bun registry:build
+# Test installation in fresh project
+bunx shadcn@latest add https://registry.bigblocks.dev/r/[name].json
+```
+- Commit and push (auto-deploys via Vercel)
+
+### 6. Test Live
+- Verify the block JSON serves at `registry.bigblocks.dev/r/[name].json`
+- Install in a real project and confirm it renders
+- Check light + dark theme compatibility
+- File issues for any fixes needed
+
+## shadcn Composition Rules
+
+Follow these from the official shadcn skill — violations break theme compatibility:
+
+- `gap-*` not `space-y-*` or `space-x-*`
+- `size-N` not `w-N h-N` when dimensions are equal
+- Icons inside Button: use `data-icon` attribute, no sizing classes
+- Avatar always needs AvatarFallback
+- Full Card composition: CardHeader/CardTitle/CardDescription/CardContent/CardFooter
+- Badge for status text, not styled spans
+- Separator for dividers, not border-t
+- Skeleton for loading states, not animate-pulse divs
+- Button loading = disabled + Spinner with data-icon
+- Dialog/Sheet always need a Title (use sr-only if hidden)
+
 ## Reference Implementations
 
 Study these before building:
 
 - **send-bsv** (trigger + dialog pattern): `apps/registry/registry/new-york/blocks/send-bsv/`
-- **inscribe-file** (dropzone + form pattern): `apps/registry/registry/new-york/blocks/inscribe-file/`
+- **inscribe-file** (dropzone + form + tabs pattern): `apps/registry/registry/new-york/blocks/inscribe-file/`
+- **social-feed** (display block with post cards): `apps/registry/registry/new-york/blocks/social-feed/`
 - **Registry manifest**: `apps/registry/registry.json`
