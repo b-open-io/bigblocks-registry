@@ -5,7 +5,7 @@ import {
   IconArrowLeft,
   IconArrowRight,
 } from "@tabler/icons-react"
-import { findNeighbour } from "fumadocs-core/server"
+import { findNeighbour } from "fumadocs-core/page-tree"
 
 import { source } from "@/lib/source"
 import { Button } from "@/components/ui/button"
@@ -23,7 +23,6 @@ export default async function ComponentPage({
   }
 
   const doc = page.data
-  // @ts-expect-error - revisit fumadocs types.
   const MDX = doc.body
   const neighbours = await findNeighbour(source.pageTree, page.url)
 
