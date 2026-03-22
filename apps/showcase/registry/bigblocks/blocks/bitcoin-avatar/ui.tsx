@@ -1,6 +1,6 @@
 "use client"
 
-import Avatar, { shadcnColors } from "sigma-avatars"
+import Avatar, { defaultColors } from "sigma-avatars"
 import { cn } from "@/lib/utils"
 
 // ---------------------------------------------------------------------------
@@ -74,7 +74,7 @@ export function BitcoinAvatarUI({
         name={address}
         variant={variant}
         size={px}
-        colors={shadcnColors}
+        colors={defaultColors}
         className="rounded-full"
       />
     </div>
