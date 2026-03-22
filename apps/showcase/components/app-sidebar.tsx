@@ -42,6 +42,11 @@ const data = {
         { title: "Transaction History", url: "/docs/blocks/transaction-history" },
         { title: "Token List", url: "/docs/blocks/token-list" },
         { title: "Mnemonic Flow", url: "/docs/blocks/mnemonic-flow" },
+        { title: "Lock BSV", url: "/docs/blocks/lock-bsv" },
+        { title: "Sweep Wallet", url: "/docs/blocks/sweep-wallet" },
+        { title: "Send BSV21", url: "/docs/blocks/send-bsv21" },
+        { title: "Unlock Wallet", url: "/docs/blocks/unlock-wallet" },
+        { title: "Wallet Overview", url: "/docs/blocks/wallet-overview" },
       ],
     },
     {
@@ -74,6 +79,7 @@ const data = {
         { title: "Bitcoin Avatar", url: "/docs/blocks/bitcoin-avatar" },
         { title: "Profile Card", url: "/docs/blocks/profile-card" },
         { title: "Identity Selector", url: "/docs/blocks/identity-selector" },
+        { title: "OpNS Manager", url: "/docs/blocks/opns-manager" },
       ],
     },
     {
@@ -81,6 +87,8 @@ const data = {
       url: "/docs/blocks/sync-terminal",
       items: [
         { title: "Sync Terminal", url: "/docs/blocks/sync-terminal" },
+        { title: "Theme Token Provider", url: "/docs/blocks/theme-token-provider" },
+        { title: "BigBlocks Provider", url: "/docs/blocks/bigblocks-provider" },
       ],
     },
   ],

@@ -1,0 +1,103 @@
+---
+title: OpNS Manager
+description: OpNS name management block for listing owned names and registering or deregistering identity key bindings
+featured: true
+component: true
+---
+
+<ComponentPreview name="opns-manager-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/opns-manager.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add @1sat/react @1sat/actions lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add badge button card dialog separator skeleton
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/opns-manager/index.tsx`
+- `components/blocks/opns-manager/opns-manager-ui.tsx`
+- `components/blocks/opns-manager/use-opns-manager.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+`OpnsManager` must be rendered inside a `WalletProvider` from `@1sat/react`. It lists owned OpNS names from the connected wallet and provides register/deregister identity binding actions.
+
+```tsx
+import { WalletProvider } from "@1sat/react"
+import { OpnsManager } from "@/components/blocks/opns-manager"
+
+export function IdentityPage() {
+  return (
+    <WalletProvider>
+      <OpnsManager
+        onSuccess={(r) => console.log("txid:", r.txid)}
+        onError={(e) => console.error(e)}
+      />
+    </WalletProvider>
+  )
+}
+```
+
+## Props
+
+### OpnsManager
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `autoFetch` | `boolean` | `true` | Whether to auto-fetch names on mount |
+| `onSuccess` | `(result: { txid?: string; error?: string }) => void` | -- | Called on successful register or deregister |
+| `onError` | `(error: Error) => void` | -- | Called on error |
+| `skeletonCount` | `number` | `3` | Number of skeleton rows shown while loading |
+| `className` | `string` | -- | Additional CSS classes |
+
+### OpnsNameDisplay
+
+```typescript
+interface OpnsNameDisplay {
+  outpoint: string
+  name: string
+  registered: boolean
+  identityKey?: string
+}
+```
+
+### OpnsOperationResult
+
+```typescript
+interface OpnsOperationResult {
+  txid?: string
+  error?: string
+}
+```

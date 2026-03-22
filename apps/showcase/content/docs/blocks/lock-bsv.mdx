@@ -1,0 +1,99 @@
+---
+title: Lock BSV
+description: Time-lock BSV until a future block height with lock form, lock summary, and unlock for matured locks
+featured: true
+component: true
+---
+
+<ComponentPreview name="lock-bsv-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/lock-bsv.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add badge button card input label separator skeleton
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/lock-bsv/index.tsx`
+- `components/blocks/lock-bsv/lock-bsv-ui.tsx`
+- `components/blocks/lock-bsv/use-lock-bsv.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+`LockBsv` requires `onLock` and `onUnlock` callbacks that perform the actual lock/unlock transactions. Wire these to `@1sat/actions` lock operations.
+
+```tsx
+import { LockBsv } from "@/components/blocks/lock-bsv"
+import { lockBsv, unlockBsv, createContext } from "@1sat/actions"
+import { useWallet } from "@1sat/react"
+
+export function WalletLocks() {
+  const { wallet } = useWallet()
+  const ctx = createContext(wallet)
+
+  return (
+    <LockBsv
+      onLock={(params) =>
+        lockBsv.execute(ctx, { requests: [params] })
+      }
+      onUnlock={() => unlockBsv.execute(ctx)}
+      onSuccess={(result) => console.log("txid:", result.txid)}
+      onError={(err) => console.error(err)}
+    />
+  )
+}
+```
+
+## Props
+
+### LockBsv
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `lockData` | `{ totalLocked: number; unlockable: number; nextUnlock: number }` | -- | Pre-populated lock summary data |
+| `onLock` | `(params: { satoshis: number; until: number }) => Promise<LockOperationResult>` | -- | Callback to execute the lock transaction |
+| `onUnlock` | `() => Promise<LockOperationResult>` | -- | Callback to unlock matured locks |
+| `onSuccess` | `(result: LockOperationResult) => void` | -- | Called after a successful lock or unlock |
+| `onError` | `(error: Error) => void` | -- | Called on error |
+| `className` | `string` | -- | Additional CSS classes |
+
+### LockOperationResult
+
+```typescript
+interface LockOperationResult {
+  txid?: string
+  error?: string
+}
+```

@@ -301,7 +301,7 @@ export function SweepWalletUi({
                   variant="outline"
                   size="icon"
                   className="flex-shrink-0"
-                  onClick={() => { void handlePaste() }}
+                  onClick={handlePaste}
                   disabled={isLoading}
                   aria-label="Paste from clipboard"
                 >

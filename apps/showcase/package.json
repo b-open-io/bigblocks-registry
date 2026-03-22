@@ -10,6 +10,7 @@
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
+    "@1sat/actions": "^0.0.62",
     "@1sat/connect": "^0.0.25",
     "@1sat/react": "0.0.36",
     "@radix-ui/react-avatar": "^1.1.11",
@@ -27,7 +28,9 @@
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@tabler/icons-react": "^3.34.0",
+    "@theme-token/sdk": "^0.0.12",
     "bitcoin-image": "^0.0.3",
+    "change-case": "^5.4.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "fumadocs-core": "^16.7.4",
@@ -43,12 +46,13 @@
     "shadcn": "^4.1.0",
     "shiki": "^4.0.2",
     "sigma-avatars": "^0.0.4",
+    "sigma-protocol": "^0.1.9",
     "sonner": "^2.0.5",
     "tailwind-merge": "^3.3.1",
     "ts-morph": "^26.0.0",
     "tw-animate-css": "^1.3.4",
     "vaul": "^1.1.2",
-    "zod": "3"
+    "zod": "4"
   },
   "devDependencies": {
     "typescript": "^5.8.3",

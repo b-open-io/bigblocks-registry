@@ -1,0 +1,4 @@
+[install]
+# Use isolated linker so each workspace app gets its own node_modules/next.
+# Fixes Turbopack resolution failures when next is hoisted to the monorepo root.
+linker = "isolated"

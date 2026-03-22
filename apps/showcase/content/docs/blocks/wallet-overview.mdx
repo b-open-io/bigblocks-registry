@@ -1,0 +1,107 @@
+---
+title: Wallet Overview
+description: Wallet dashboard card displaying BSV balance with privacy toggle, payment and ordinal addresses, identity key, and send/receive actions
+featured: true
+component: true
+---
+
+<ComponentPreview name="wallet-overview-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/wallet-overview.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add @1sat/react lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add card button badge skeleton separator tooltip
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/wallet-overview/index.tsx`
+- `components/blocks/wallet-overview/wallet-overview-ui.tsx`
+- `components/blocks/wallet-overview/use-wallet-overview.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+`WalletOverview` must be rendered inside a `WalletProvider` from `@1sat/react`. It fetches balance data from the wallet context automatically.
+
+```tsx
+import { WalletProvider } from "@1sat/react"
+import { WalletOverview } from "@/components/blocks/wallet-overview"
+
+export function Dashboard() {
+  return (
+    <WalletProvider>
+      <WalletOverview
+        onSend={() => console.log("Open send dialog")}
+        onReceive={() => console.log("Open receive dialog")}
+      />
+    </WalletProvider>
+  )
+}
+```
+
+## Props
+
+### WalletOverview
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onSend` | `() => void` | -- | Callback fired when the Send button is clicked |
+| `onReceive` | `() => void` | -- | Callback fired when the Receive button is clicked |
+| `className` | `string` | -- | Additional CSS classes |
+
+### WalletOverviewUI
+
+For standalone use without the hook, you can render `WalletOverviewUI` directly:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `balance` | `WalletBalance \| null` | -- | Balance data |
+| `paymentAddress` | `string \| null` | -- | Payment (BSV) address |
+| `ordinalAddress` | `string \| null` | -- | Ordinal address |
+| `identityKey` | `string \| null` | -- | Identity public key |
+| `isLoading` | `boolean` | -- | Loading state |
+| `error` | `string \| null` | -- | Error message |
+| `onSend` | `() => void` | -- | Send button callback |
+| `onReceive` | `() => void` | -- | Receive button callback |
+| `onRefresh` | `() => void` | -- | Refresh button callback |
+
+### WalletBalance
+
+```typescript
+interface WalletBalance {
+  confirmed: number
+  unconfirmed: number
+  total: number
+}
+```

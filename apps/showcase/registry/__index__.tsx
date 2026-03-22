@@ -184,6 +184,136 @@ export const Index: Record<string, any> = {
     categories: ["wallet"],
     dependencies: undefined,
   },
+  "lock-bsv": {
+    name: "lock-bsv",
+    title: "Lock BSV",
+    description: "Time-lock BSV until a future block height with lock form, summary, and unlock for matured locks",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/lock-bsv/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/lock-bsv/lock-bsv-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/lock-bsv/use-lock-bsv.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/lock-bsv/index.tsx")
+      return { default: mod.LockBsv || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "sweep-wallet": {
+    name: "sweep-wallet",
+    title: "Sweep Wallet",
+    description: "Sweep assets from a WIF private key into the connected wallet with scan and progress",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/sweep-wallet/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/sweep-wallet/sweep-wallet-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/sweep-wallet/use-sweep-wallet.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/sweep-wallet/index.tsx")
+      return { default: mod.SweepWallet || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "send-bsv21": {
+    name: "send-bsv21",
+    title: "Send BSV21",
+    description: "Token send form with selector dropdown, decimal-aware amount input, and confirmation flow",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/send-bsv21/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/send-bsv21/send-bsv21-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/send-bsv21/use-send-bsv21.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/send-bsv21/index.tsx")
+      return { default: mod.SendBsv21 || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "unlock-wallet": {
+    name: "unlock-wallet",
+    title: "Unlock Wallet",
+    description: "Passphrase and biometric unlock screen with Touch ID support and failed attempt tracking",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/unlock-wallet/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/unlock-wallet/unlock-wallet-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/unlock-wallet/use-unlock-wallet.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/unlock-wallet/index.tsx")
+      return { default: mod.UnlockWallet || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "wallet-overview": {
+    name: "wallet-overview",
+    title: "Wallet Overview",
+    description: "Wallet dashboard card with BSV balance, privacy toggle, addresses, and send/receive actions",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/wallet-overview/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/wallet-overview/wallet-overview-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/wallet-overview/use-wallet-overview.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/wallet-overview/index.tsx")
+      return { default: mod.WalletOverview || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
   "sync-terminal": {
     name: "sync-terminal",
     title: "Sync Terminal",
@@ -594,6 +724,80 @@ export const Index: Record<string, any> = {
     categories: ["identity"],
     dependencies: undefined,
   },
+  "opns-manager": {
+    name: "opns-manager",
+    title: "OpNS Manager",
+    description: "OpNS name management block for listing owned names and registering or deregistering identity key bindings",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/opns-manager/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/opns-manager/opns-manager-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/opns-manager/use-opns-manager.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/opns-manager/index.tsx")
+      return { default: mod.OpnsManager || mod.default }
+    }),
+    categories: ["identity"],
+    dependencies: undefined,
+  },
+  "theme-token-provider": {
+    name: "theme-token-provider",
+    title: "Theme Token Provider",
+    description: "On-chain theme picker using @theme-token/sdk with provider context and settings panel",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/theme-token-provider/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/theme-token-provider/theme-token-settings-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/theme-token-provider/use-theme-token.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/theme-token-provider/index.tsx")
+      return { default: mod.ThemeTokenProvider || mod.default }
+    }),
+    categories: ["developer"],
+    dependencies: undefined,
+  },
+  "bigblocks-provider": {
+    name: "bigblocks-provider",
+    title: "BigBlocks Provider",
+    description: "Context provider that configures how all BigBlocks hooks fetch data with web and custom modes",
+    type: "registry:lib",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/bigblocks-provider/index.tsx",
+      type: "registry:lib",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/bigblocks-provider/bigblocks-context.ts",
+      type: "registry:lib",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/bigblocks-provider/index.tsx")
+      return { default: mod.BigBlocksProvider || mod.default }
+    }),
+    categories: ["developer"],
+    dependencies: undefined,
+  },
   "step-indicator-demo": {
     name: "step-indicator-demo",
     type: "registry:example",
@@ -748,6 +952,66 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/sync-terminal-demo.tsx")),
+    categories: ["examples"],
+  },
+  "lock-bsv-demo": {
+    name: "lock-bsv-demo",
+    type: "registry:example",
+    registryDependencies: ["lock-bsv"],
+    files: [{
+      path: "registry/bigblocks/examples/lock-bsv-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/lock-bsv-demo.tsx")),
+    categories: ["examples"],
+  },
+  "sweep-wallet-demo": {
+    name: "sweep-wallet-demo",
+    type: "registry:example",
+    registryDependencies: ["sweep-wallet"],
+    files: [{
+      path: "registry/bigblocks/examples/sweep-wallet-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/sweep-wallet-demo.tsx")),
+    categories: ["examples"],
+  },
+  "send-bsv21-demo": {
+    name: "send-bsv21-demo",
+    type: "registry:example",
+    registryDependencies: ["send-bsv21"],
+    files: [{
+      path: "registry/bigblocks/examples/send-bsv21-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/send-bsv21-demo.tsx")),
+    categories: ["examples"],
+  },
+  "unlock-wallet-demo": {
+    name: "unlock-wallet-demo",
+    type: "registry:example",
+    registryDependencies: ["unlock-wallet"],
+    files: [{
+      path: "registry/bigblocks/examples/unlock-wallet-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/unlock-wallet-demo.tsx")),
+    categories: ["examples"],
+  },
+  "wallet-overview-demo": {
+    name: "wallet-overview-demo",
+    type: "registry:example",
+    registryDependencies: ["wallet-overview"],
+    files: [{
+      path: "registry/bigblocks/examples/wallet-overview-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/wallet-overview-demo.tsx")),
     categories: ["examples"],
   },
   "post-button-demo": {
@@ -1048,6 +1312,42 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/identity-selector-demo.tsx")),
+    categories: ["examples"],
+  },
+  "opns-manager-demo": {
+    name: "opns-manager-demo",
+    type: "registry:example",
+    registryDependencies: ["opns-manager"],
+    files: [{
+      path: "registry/bigblocks/examples/opns-manager-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/opns-manager-demo.tsx")),
+    categories: ["examples"],
+  },
+  "theme-token-provider-demo": {
+    name: "theme-token-provider-demo",
+    type: "registry:example",
+    registryDependencies: ["theme-token-provider"],
+    files: [{
+      path: "registry/bigblocks/examples/theme-token-provider-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/theme-token-provider-demo.tsx")),
+    categories: ["examples"],
+  },
+  "bigblocks-provider-demo": {
+    name: "bigblocks-provider-demo",
+    type: "registry:example",
+    registryDependencies: ["bigblocks-provider"],
+    files: [{
+      path: "registry/bigblocks/examples/bigblocks-provider-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/bigblocks-provider-demo.tsx")),
     categories: ["examples"],
   },
 }

@@ -1,0 +1,107 @@
+---
+title: BigBlocks Provider
+description: Context provider that configures how all BigBlocks hooks fetch data, with web mode for 1sat-stack API and custom mode for desktop RPC, testing, or SSR
+featured: true
+component: true
+---
+
+<ComponentPreview name="bigblocks-provider-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/bigblocks-provider.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy the provider files into your project:</Step>
+
+- `components/blocks/bigblocks-provider/index.tsx`
+- `components/blocks/bigblocks-provider/bigblocks-context.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+### Web Mode (default)
+
+Hooks fetch from the 1sat-stack API. No custom fetchers needed.
+
+```tsx
+import { BigBlocksProvider } from "@/components/blocks/bigblocks-provider"
+
+export function App() {
+  return (
+    <BigBlocksProvider>
+      {/* All BigBlocks hooks fetch from the 1sat-stack API */}
+      <Dashboard />
+    </BigBlocksProvider>
+  )
+}
+```
+
+### Custom Mode
+
+Pass custom fetcher functions for desktop RPC, testing, or SSR:
+
+```tsx
+import { BigBlocksProvider } from "@/components/blocks/bigblocks-provider"
+
+export function DesktopApp() {
+  return (
+    <BigBlocksProvider
+      apiUrl="http://localhost:8080/rpc"
+      ordfsUrl="http://localhost:9090"
+      getBalance={myRpcBalance}
+      getOrdinals={myRpcOrdinals}
+      onExternalLink={(url) => shell.openExternal(url)}
+    >
+      <Dashboard />
+    </BigBlocksProvider>
+  )
+}
+```
+
+### Accessing Context
+
+Use `useBigBlocks` in any child component:
+
+```tsx
+import { useBigBlocks } from "@/components/blocks/bigblocks-provider"
+
+function MyComponent() {
+  const { apiUrl, ordfsUrl, getBalance } = useBigBlocks()
+  // ...
+}
+```
+
+## Props
+
+### BigBlocksProvider
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `apiUrl` | `string` | `"https://api.1sat.app/1sat"` | 1sat-stack API base URL |
+| `ordfsUrl` | `string` | `"https://ordfs.network"` | ORDFS base URL for on-chain image resolution |
+| `getBalance` | `GetBalanceFn` | -- | Custom balance fetcher (bypasses API) |
+| `getOrdinals` | `GetOrdinalsFn` | -- | Custom ordinals fetcher (bypasses API) |
+| `getTokenBalances` | `GetTokenBalancesFn` | -- | Custom token balance fetcher (bypasses API) |
+| `getHistory` | `GetHistoryFn` | -- | Custom transaction history fetcher (bypasses API) |
+| `onExternalLink` | `OnExternalLinkFn` | -- | External link handler for desktop apps |
+| `children` | `ReactNode` | **required** | Child components |

@@ -127,7 +127,7 @@ function AddressPattern({
       aria-label={`QR placeholder for ${truncate(address)}`}
       className="rounded-md"
     >
-      <rect width={size} height={size} fill="white" rx={4} />
+      <rect width={size} height={size} fill="hsl(var(--background))" rx={4} />
       {cells.map((filled, i) => {
         if (!filled) return null
         const row = Math.floor(i / gridSize)
@@ -139,7 +139,7 @@ function AddressPattern({
             y={cellSize + row * cellSize}
             width={cellSize}
             height={cellSize}
-            fill="#000000"
+            fill="hsl(var(--foreground))"
           />
         )
       })}
@@ -243,13 +243,12 @@ function DefaultVariant({
                 >
                   {copied ? (
                     <Check
-                      className="size-3.5 text-primary"
+                      className="text-primary"
                       data-icon
                       aria-hidden="true"
                     />
                   ) : (
                     <Copy
-                      className="size-3.5"
                       data-icon
                       aria-hidden="true"
                     />
@@ -286,7 +285,7 @@ function DefaultVariant({
             aria-label="Generate new address"
           >
             <RefreshCw
-              className={cn("size-4", isRotating && "animate-spin")}
+              className={cn(isRotating && "animate-spin")}
               data-icon
               aria-hidden="true"
             />
@@ -380,13 +379,12 @@ function InlineVariant({
             >
               {copied ? (
                 <Check
-                  className="size-3.5 text-primary"
+                  className="text-primary"
                   data-icon
                   aria-hidden="true"
                 />
               ) : (
                 <Copy
-                  className="size-3.5"
                   data-icon
                   aria-hidden="true"
                 />

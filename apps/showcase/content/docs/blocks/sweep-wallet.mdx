@@ -1,0 +1,111 @@
+---
+title: Sweep Wallet
+description: Sweep assets from a WIF private key into the connected wallet with scan, preview, and progress
+featured: true
+component: true
+---
+
+<ComponentPreview name="sweep-wallet-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/sweep-wallet.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add badge button card input label separator skeleton
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/sweep-wallet/index.tsx`
+- `components/blocks/sweep-wallet/sweep-wallet-ui.tsx`
+- `components/blocks/sweep-wallet/use-sweep-wallet.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+`SweepWallet` provides a full WIF-input, scan, preview, and sweep flow. Supply `onScan` and `onSweep` callbacks wired to your wallet backend.
+
+```tsx
+import { SweepWallet } from "@/components/blocks/sweep-wallet"
+
+export function ImportWallet() {
+  return (
+    <SweepWallet
+      onScan={async (wif) => {
+        // Scan the WIF for spendable UTXOs, ordinals, and tokens
+        const pk = PrivateKey.fromWif(wif)
+        const address = pk.toPublicKey().toAddress()
+        return await scanAddressUtxos(services, address)
+      }}
+      onSweep={async (wif, assets) => {
+        // Sweep all found assets into the connected wallet
+        const inputs = await prepareSweepInputs(ctx, assets.funding)
+        return await sweepBsv.execute(ctx, { inputs, wif })
+      }}
+      onSuccess={(result) => console.log("Swept:", result.txid)}
+      onError={(err) => console.error(err)}
+    />
+  )
+}
+```
+
+## Props
+
+### SweepWallet
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onScan` | `(wif: string) => Promise<ScanResult>` | **required** | Scan a WIF for spendable assets |
+| `onSweep` | `(wif: string, assets: ScanResult) => Promise<SweepResult>` | **required** | Execute the sweep transaction |
+| `onSuccess` | `(result: SweepResult) => void` | -- | Called after a successful sweep |
+| `onError` | `(error: Error) => void` | -- | Called on error |
+| `className` | `string` | -- | Additional CSS classes |
+
+### ScanResult
+
+```typescript
+interface ScanResult {
+  funding: SweepFundingUtxo[]
+  ordinals: SweepOrdinalUtxo[]
+  tokens: SweepTokenGroup[]
+  totalSats: number
+}
+```
+
+### SweepResult
+
+```typescript
+interface SweepResult {
+  txid?: string
+  error?: string
+}
+```

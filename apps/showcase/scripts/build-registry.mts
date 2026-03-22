@@ -26,6 +26,14 @@ const EXPORT_NAMES: Record<string, string> = {
   "transaction-history": "TransactionHistory",
   "mnemonic-flow": "MnemonicFlow",
   "sync-terminal": "SyncTerminal",
+  "lock-bsv": "LockBsv",
+  "sweep-wallet": "SweepWallet",
+  "send-bsv21": "SendBsv21",
+  "unlock-wallet": "UnlockWallet",
+  "wallet-overview": "WalletOverview",
+  "opns-manager": "OpnsManager",
+  "theme-token-provider": "ThemeTokenProvider",
+  "bigblocks-provider": "BigBlocksProvider",
 }
 
 async function buildRegistryIndex() {

@@ -1,0 +1,98 @@
+---
+title: Unlock Wallet
+description: Passphrase and biometric unlock screen with Touch ID support on macOS, passphrase fallback, and failed attempt tracking
+featured: true
+component: true
+---
+
+<ComponentPreview name="unlock-wallet-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/unlock-wallet.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add badge button card input label
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/unlock-wallet/index.tsx`
+- `components/blocks/unlock-wallet/unlock-wallet-ui.tsx`
+- `components/blocks/unlock-wallet/use-unlock-wallet.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+`UnlockWallet` presents a biometric or passphrase unlock screen depending on the `platform`. The `onUnlock` callback receives an optional passphrase (undefined for biometric) and should return `{ success, error? }`.
+
+```tsx
+import { UnlockWallet } from "@/components/blocks/unlock-wallet"
+
+export function LockScreen() {
+  return (
+    <UnlockWallet
+      platform="macos"
+      appName="My Wallet"
+      onUnlock={async (passphrase) => {
+        if (passphrase) {
+          return verifyPassphrase(passphrase)
+        }
+        return attemptBiometric()
+      }}
+      onSuccess={() => console.log("Unlocked")}
+      onError={(err) => console.error(err)}
+    />
+  )
+}
+```
+
+## Props
+
+### UnlockWallet
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `platform` | `"macos" \| "other"` | `"other"` | Platform determines which unlock methods are available |
+| `appName` | `string` | `"Wallet"` | Application name displayed in the unlock UI |
+| `onUnlock` | `(passphrase?: string) => Promise<UnlockWalletResult>` | -- | Callback to execute the unlock attempt |
+| `onSuccess` | `() => void` | -- | Called on successful unlock |
+| `onError` | `(error: Error) => void` | -- | Called on error |
+| `className` | `string` | -- | Additional CSS classes |
+
+### UnlockWalletResult
+
+```typescript
+interface UnlockWalletResult {
+  success: boolean
+  error?: string
+}
+```

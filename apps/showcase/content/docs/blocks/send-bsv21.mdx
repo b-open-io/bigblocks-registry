@@ -1,0 +1,121 @@
+---
+title: Send BSV21
+description: Token send form with selector dropdown, decimal-aware amount input, recipient address, and confirmation flow for BSV21 fungible tokens
+featured: true
+component: true
+---
+
+<ComponentPreview name="send-bsv21-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/send-bsv21.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add badge button card input label separator
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/send-bsv21/index.tsx`
+- `components/blocks/send-bsv21/send-bsv21-ui.tsx`
+- `components/blocks/send-bsv21/use-send-bsv21.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+`SendBsv21` accepts an array of token balances and an `onSend` callback. The `amount` in `SendBsv21Params` is a raw integer string accounting for token decimals.
+
+```tsx
+import { SendBsv21 } from "@/components/blocks/send-bsv21"
+import { sendBsv21, createContext } from "@1sat/actions"
+import { useWallet } from "@1sat/react"
+
+export function TokenTransfer() {
+  const { wallet } = useWallet()
+  const ctx = createContext(wallet)
+
+  return (
+    <SendBsv21
+      balances={tokenBalances}
+      onSend={async ({ tokenId, amount, address }) => {
+        const result = await sendBsv21.execute(ctx, { tokenId, amount, address })
+        return result
+      }}
+      onSuccess={(result) => console.log("txid:", result.txid)}
+      onError={(err) => console.error(err)}
+    />
+  )
+}
+```
+
+## Props
+
+### SendBsv21
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `balances` | `TokenBalance[]` | `[]` | Available token balances for the selector |
+| `onSend` | `(params: SendBsv21Params) => Promise<SendBsv21Result>` | -- | Callback to execute the token transfer |
+| `onSuccess` | `(result: SendBsv21Result) => void` | -- | Called on successful send |
+| `onError` | `(error: Error) => void` | -- | Called on error |
+| `className` | `string` | -- | Additional CSS classes |
+
+### TokenBalance
+
+```typescript
+interface TokenBalance {
+  tokenId: string
+  symbol: string
+  balance: string
+  decimals: number
+  iconUrl?: string
+}
+```
+
+### SendBsv21Params
+
+```typescript
+interface SendBsv21Params {
+  tokenId: string
+  amount: string   // Raw integer string (accounting for decimals)
+  address: string
+}
+```
+
+### SendBsv21Result
+
+```typescript
+interface SendBsv21Result {
+  txid?: string
+  error?: string
+}
+```

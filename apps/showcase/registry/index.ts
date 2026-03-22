@@ -87,6 +87,66 @@ export const registry = {
       ],
     },
     {
+      name: "lock-bsv",
+      type: "registry:block",
+      title: "Lock BSV",
+      description: "Time-lock BSV until a future block height with lock form, summary, and unlock for matured locks",
+      categories: ["wallet"],
+      files: [
+        { path: "blocks/lock-bsv/index.tsx", type: "registry:block" },
+        { path: "blocks/lock-bsv/lock-bsv-ui.tsx", type: "registry:component" },
+        { path: "blocks/lock-bsv/use-lock-bsv.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "sweep-wallet",
+      type: "registry:block",
+      title: "Sweep Wallet",
+      description: "Sweep assets from a WIF private key into the connected wallet with scan and progress",
+      categories: ["wallet"],
+      files: [
+        { path: "blocks/sweep-wallet/index.tsx", type: "registry:block" },
+        { path: "blocks/sweep-wallet/sweep-wallet-ui.tsx", type: "registry:component" },
+        { path: "blocks/sweep-wallet/use-sweep-wallet.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "send-bsv21",
+      type: "registry:block",
+      title: "Send BSV21",
+      description: "Token send form with selector dropdown, decimal-aware amount input, and confirmation flow",
+      categories: ["wallet"],
+      files: [
+        { path: "blocks/send-bsv21/index.tsx", type: "registry:block" },
+        { path: "blocks/send-bsv21/send-bsv21-ui.tsx", type: "registry:component" },
+        { path: "blocks/send-bsv21/use-send-bsv21.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "unlock-wallet",
+      type: "registry:block",
+      title: "Unlock Wallet",
+      description: "Passphrase and biometric unlock screen with Touch ID support and failed attempt tracking",
+      categories: ["wallet"],
+      files: [
+        { path: "blocks/unlock-wallet/index.tsx", type: "registry:block" },
+        { path: "blocks/unlock-wallet/unlock-wallet-ui.tsx", type: "registry:component" },
+        { path: "blocks/unlock-wallet/use-unlock-wallet.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "wallet-overview",
+      type: "registry:block",
+      title: "Wallet Overview",
+      description: "Wallet dashboard card with BSV balance, privacy toggle, addresses, and send/receive actions",
+      categories: ["wallet"],
+      files: [
+        { path: "blocks/wallet-overview/index.tsx", type: "registry:block" },
+        { path: "blocks/wallet-overview/wallet-overview-ui.tsx", type: "registry:component" },
+        { path: "blocks/wallet-overview/use-wallet-overview.ts", type: "registry:hook" },
+      ],
+    },
+    {
       name: "sync-terminal",
       type: "registry:block",
       title: "Sync Terminal",
@@ -277,6 +337,43 @@ export const registry = {
         { path: "blocks/identity-selector/use-identity-selector.ts", type: "registry:hook" },
       ],
     },
+    {
+      name: "opns-manager",
+      type: "registry:block",
+      title: "OpNS Manager",
+      description: "OpNS name management block for listing owned names and registering or deregistering identity key bindings",
+      categories: ["identity"],
+      files: [
+        { path: "blocks/opns-manager/index.tsx", type: "registry:block" },
+        { path: "blocks/opns-manager/opns-manager-ui.tsx", type: "registry:component" },
+        { path: "blocks/opns-manager/use-opns-manager.ts", type: "registry:hook" },
+      ],
+    },
+
+    // ── Developer ──
+    {
+      name: "theme-token-provider",
+      type: "registry:block",
+      title: "Theme Token Provider",
+      description: "On-chain theme picker using @theme-token/sdk with provider context and settings panel",
+      categories: ["developer"],
+      files: [
+        { path: "blocks/theme-token-provider/index.tsx", type: "registry:block" },
+        { path: "blocks/theme-token-provider/theme-token-settings-ui.tsx", type: "registry:component" },
+        { path: "blocks/theme-token-provider/use-theme-token.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "bigblocks-provider",
+      type: "registry:lib",
+      title: "BigBlocks Provider",
+      description: "Context provider that configures how all BigBlocks hooks fetch data with web and custom modes",
+      categories: ["developer"],
+      files: [
+        { path: "blocks/bigblocks-provider/index.tsx", type: "registry:lib" },
+        { path: "blocks/bigblocks-provider/bigblocks-context.ts", type: "registry:lib" },
+      ],
+    },
   ],
 
   examples: [
@@ -296,6 +393,11 @@ export const registry = {
     { name: "transaction-history-demo", registryDependencies: ["transaction-history"], files: [{ path: "examples/transaction-history-demo.tsx", type: "registry:example" }] },
     { name: "mnemonic-flow-demo", registryDependencies: ["mnemonic-flow"], files: [{ path: "examples/mnemonic-flow-demo.tsx", type: "registry:example" }] },
     { name: "sync-terminal-demo", registryDependencies: ["sync-terminal"], files: [{ path: "examples/sync-terminal-demo.tsx", type: "registry:example" }] },
+    { name: "lock-bsv-demo", registryDependencies: ["lock-bsv"], files: [{ path: "examples/lock-bsv-demo.tsx", type: "registry:example" }] },
+    { name: "sweep-wallet-demo", registryDependencies: ["sweep-wallet"], files: [{ path: "examples/sweep-wallet-demo.tsx", type: "registry:example" }] },
+    { name: "send-bsv21-demo", registryDependencies: ["send-bsv21"], files: [{ path: "examples/send-bsv21-demo.tsx", type: "registry:example" }] },
+    { name: "unlock-wallet-demo", registryDependencies: ["unlock-wallet"], files: [{ path: "examples/unlock-wallet-demo.tsx", type: "registry:example" }] },
+    { name: "wallet-overview-demo", registryDependencies: ["wallet-overview"], files: [{ path: "examples/wallet-overview-demo.tsx", type: "registry:example" }] },
 
     // Social
     { name: "post-button-demo", registryDependencies: ["post-button"], files: [{ path: "examples/post-button-demo.tsx", type: "registry:example" }] },
@@ -327,5 +429,10 @@ export const registry = {
     { name: "bitcoin-avatar-variants", registryDependencies: ["bitcoin-avatar"], files: [{ path: "examples/bitcoin-avatar-variants.tsx", type: "registry:example" }] },
     { name: "profile-card-demo", registryDependencies: ["profile-card"], files: [{ path: "examples/profile-card-demo.tsx", type: "registry:example" }] },
     { name: "identity-selector-demo", registryDependencies: ["identity-selector"], files: [{ path: "examples/identity-selector-demo.tsx", type: "registry:example" }] },
+    { name: "opns-manager-demo", registryDependencies: ["opns-manager"], files: [{ path: "examples/opns-manager-demo.tsx", type: "registry:example" }] },
+
+    // Developer
+    { name: "theme-token-provider-demo", registryDependencies: ["theme-token-provider"], files: [{ path: "examples/theme-token-provider-demo.tsx", type: "registry:example" }] },
+    { name: "bigblocks-provider-demo", registryDependencies: ["bigblocks-provider"], files: [{ path: "examples/bigblocks-provider-demo.tsx", type: "registry:example" }] },
   ],
 }

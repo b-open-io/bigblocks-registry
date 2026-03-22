@@ -1,0 +1,105 @@
+---
+title: Theme Token Provider
+description: On-chain theme picker using @theme-token/sdk with provider context and settings panel for blockchain-inscribed ThemeTokens
+featured: true
+component: true
+---
+
+<ComponentPreview name="theme-token-provider-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/theme-token-provider.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add @theme-token/sdk lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add button card input label badge separator
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/theme-token-provider/index.tsx`
+- `components/blocks/theme-token-provider/theme-token-settings-ui.tsx`
+- `components/blocks/theme-token-provider/use-theme-token.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+Wrap your app with `ThemeTokenProvider` to enable on-chain theme fetching. Use `ThemeTokenSettings` to render the settings panel, and `useThemeTokenContext` to access theme state from any child component.
+
+```tsx
+import {
+  ThemeTokenProvider,
+  ThemeTokenSettings,
+} from "@/components/blocks/theme-token-provider"
+
+export function App() {
+  return (
+    <ThemeTokenProvider
+      onThemeApplied={(origin) => console.log("Applied:", origin)}
+      onThemeCleared={() => console.log("Cleared")}
+    >
+      <ThemeTokenSettings />
+      <main>{/* Your app content */}</main>
+    </ThemeTokenProvider>
+  )
+}
+```
+
+## Props
+
+### ThemeTokenProvider
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultOrigin` | `string` | -- | Default ThemeToken origin to apply on mount |
+| `storageKey` | `string` | -- | localStorage key for persisting the selected theme origin |
+| `onThemeApplied` | `(origin: string) => void` | -- | Called after a theme is applied |
+| `onThemeCleared` | `() => void` | -- | Called when the theme is cleared |
+| `onError` | `(error: Error) => void` | -- | Called on error |
+| `children` | `ReactNode` | -- | Child elements to wrap |
+| `className` | `string` | -- | Additional CSS classes on the wrapper |
+
+### ThemeTokenSettings
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onApply` | `(origin: string) => void` | -- | Called after a theme is applied |
+| `onClear` | `() => void` | -- | Called when the theme is cleared |
+| `className` | `string` | -- | Additional CSS classes |
+
+### useThemeTokenContext
+
+Access the theme state from any child of `ThemeTokenProvider`:
+
+```tsx
+const { origin, theme, status, error, setOrigin, clearOrigin } =
+  useThemeTokenContext()
+```
