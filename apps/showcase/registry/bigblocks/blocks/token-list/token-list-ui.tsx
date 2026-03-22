@@ -1,14 +1,15 @@
 "use client"
 
 import { useCallback } from "react"
-import { Coins } from "lucide-react"
+import { Coins, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
-import type { TokenHolding, TokenType } from "./use-token-list"
+import type { TokenHolding, TokenProtocol, TokenType } from "./use-token-list"
 
 // ---------------------------------------------------------------------------
 // Types
@@ -23,6 +24,10 @@ export interface TokenListUIProps {
   error: Error | null
   /** Callback when a token row is selected */
   onSelect?: (token: TokenHolding) => void
+  /** Callback when an external link action is triggered (e.g. view on explorer). Receives the URL string. */
+  onExternalLink?: (url: string) => void
+  /** Filter displayed tokens by protocol type (default: "all"). Useful when tokens are pre-populated. */
+  protocol?: TokenProtocol
   /** Number of skeleton rows to show while loading (default: 3) */
   skeletonCount?: number
   /** Optional CSS class name */
@@ -77,10 +82,11 @@ function truncateId(id: string, maxLen = 16): string {
 interface TokenRowProps {
   token: TokenHolding
   onSelect?: (token: TokenHolding) => void
+  onExternalLink?: (url: string) => void
   isLast: boolean
 }
 
-function TokenRow({ token, onSelect, isLast }: TokenRowProps) {
+function TokenRow({ token, onSelect, onExternalLink, isLast }: TokenRowProps) {
   const handleClick = useCallback(() => {
     onSelect?.(token)
   }, [onSelect, token])
@@ -93,6 +99,15 @@ function TokenRow({ token, onSelect, isLast }: TokenRowProps) {
       }
     },
     [onSelect, token]
+  )
+
+  const handleExternalLink = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      const url = `https://whatsonchain.com/tx/${token.tokenId.split("_")[0]}`
+      onExternalLink?.(url)
+    },
+    [onExternalLink, token.tokenId]
   )
 
   const isInteractive = !!onSelect
@@ -146,10 +161,23 @@ function TokenRow({ token, onSelect, isLast }: TokenRowProps) {
           </p>
         </div>
 
-        {/* Token ID */}
-        <span className="text-xs text-muted-foreground font-mono truncate max-w-[120px] hidden sm:block">
-          {truncateId(token.tokenId)}
-        </span>
+        {/* Token ID + external link */}
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground font-mono truncate max-w-[120px] hidden sm:block">
+            {truncateId(token.tokenId)}
+          </span>
+          {onExternalLink && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-7 flex-shrink-0"
+              onClick={handleExternalLink}
+              aria-label={`View ${token.symbol} on explorer`}
+            >
+              <ExternalLink data-icon className="size-3.5 text-muted-foreground" />
+            </Button>
+          )}
+        </div>
       </div>
       {!isLast && <Separator />}
     </>
@@ -190,11 +218,19 @@ export function TokenListUI({
   isLoading,
   error,
   onSelect,
+  onExternalLink,
+  protocol = "all",
   skeletonCount = 3,
   className,
 }: TokenListUIProps) {
+  // Apply client-side protocol filter when tokens are pre-populated
+  const filteredTokens =
+    protocol === "all"
+      ? tokens
+      : tokens.filter((t) => t.type.toLowerCase() === protocol)
+
   // Loading state
-  if (isLoading && tokens.length === 0) {
+  if (isLoading && filteredTokens.length === 0) {
     return (
       <Card className={cn("w-full", className)}>
         <CardContent className="p-0">
@@ -228,7 +264,7 @@ export function TokenListUI({
   }
 
   // Empty state
-  if (tokens.length === 0) {
+  if (filteredTokens.length === 0) {
     return (
       <Card className={cn("w-full", className)}>
         <CardContent className="flex flex-col items-center gap-2 py-10">
@@ -246,12 +282,13 @@ export function TokenListUI({
   return (
     <Card className={cn("w-full overflow-hidden", className)}>
       <CardContent className="p-0">
-        {tokens.map((token, index) => (
+        {filteredTokens.map((token, index) => (
           <TokenRow
             key={token.tokenId}
             token={token}
             onSelect={onSelect}
-            isLast={index === tokens.length - 1}
+            onExternalLink={onExternalLink}
+            isLast={index === filteredTokens.length - 1}
           />
         ))}
       </CardContent>

@@ -2,18 +2,33 @@
 
 import { useCallback, useState } from "react"
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { ImageOff, Grid2x2 } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  ImageOff,
+  Grid2x2,
+  ArrowRightLeft,
+  Tag,
+  Eye,
+  ExternalLink,
+  MoreVertical,
+} from "lucide-react"
 import type { OrdinalOutput } from "./use-ordinals-grid"
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const ORDFS_BASE = "https://ordfs.network"
+const DEFAULT_ORDFS_BASE = "https://ordfs.network"
 
 /** Number of skeleton cards to show during loading */
 const SKELETON_COUNT = 8
@@ -33,6 +48,16 @@ export interface OrdinalsGridUIProps {
   count: number
   /** Called when an ordinal card is clicked */
   onSelect?: (ordinal: OrdinalOutput) => void
+  /** Called when the Transfer action is triggered on an ordinal */
+  onTransfer?: (ordinal: OrdinalOutput) => void
+  /** Called when the List action is triggered on an ordinal */
+  onList?: (ordinal: OrdinalOutput) => void
+  /** Called when the View Detail action is triggered on an ordinal */
+  onDetail?: (ordinal: OrdinalOutput) => void
+  /** Called when an external link action is triggered. Receives the URL string. */
+  onExternalLink?: (url: string) => void
+  /** ORDFS base URL for content resolution (default: https://ordfs.network) */
+  ordfsBase?: string
   /** Whether to show the item count header (default: true) */
   showCount?: boolean
   /** Whether to wrap the grid in a ScrollArea (default: false) */
@@ -51,9 +76,10 @@ interface OrdinalThumbnailProps {
   origin: string
   name: string | undefined
   outpoint: string
+  ordfsBase: string
 }
 
-function OrdinalThumbnail({ origin, name, outpoint }: OrdinalThumbnailProps) {
+function OrdinalThumbnail({ origin, name, outpoint, ordfsBase }: OrdinalThumbnailProps) {
   const [hasError, setHasError] = useState(false)
   const [isImageLoading, setIsImageLoading] = useState(true)
 
@@ -67,7 +93,7 @@ function OrdinalThumbnail({ origin, name, outpoint }: OrdinalThumbnailProps) {
   }, [])
 
   const alt = name ?? `Ordinal ${outpoint.slice(0, 8)}...`
-  const src = `${ORDFS_BASE}/content/${origin}`
+  const src = `${ordfsBase}/content/${origin}`
 
   if (hasError) {
     return (
@@ -100,16 +126,126 @@ function OrdinalThumbnail({ origin, name, outpoint }: OrdinalThumbnailProps) {
   )
 }
 
+// ---------------------------------------------------------------------------
+// Action menu
+// ---------------------------------------------------------------------------
+
+interface OrdinalActionMenuProps {
+  ordinal: OrdinalOutput
+  truncatedOutpoint: string
+  onTransfer?: (ordinal: OrdinalOutput) => void
+  onList?: (ordinal: OrdinalOutput) => void
+  onDetail?: (ordinal: OrdinalOutput) => void
+  onExternalLink?: (url: string) => void
+}
+
+function OrdinalActionMenu({
+  ordinal,
+  truncatedOutpoint,
+  onTransfer,
+  onList,
+  onDetail,
+  onExternalLink,
+}: OrdinalActionMenuProps) {
+  const label = ordinal.name ?? truncatedOutpoint
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="secondary"
+          size="icon"
+          className={cn(
+            "absolute right-2 top-2 size-7",
+            "opacity-0 transition-opacity duration-200",
+            "group-hover:opacity-100 focus:opacity-100",
+          )}
+          aria-label={`Actions for ${label}`}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+        >
+          <MoreVertical className="size-3.5" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-40">
+        {onDetail && (
+          <DropdownMenuItem
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              onDetail(ordinal)
+            }}
+          >
+            <Eye className="size-4" />
+            View Details
+          </DropdownMenuItem>
+        )}
+        {onTransfer && (
+          <DropdownMenuItem
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              onTransfer(ordinal)
+            }}
+          >
+            <ArrowRightLeft className="size-4" />
+            Transfer
+          </DropdownMenuItem>
+        )}
+        {onList && (
+          <DropdownMenuItem
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              onList(ordinal)
+            }}
+          >
+            <Tag className="size-4" />
+            List for Sale
+          </DropdownMenuItem>
+        )}
+        {onExternalLink && (
+          <DropdownMenuItem
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              const txid = ordinal.outpoint.split("_")[0]
+              onExternalLink(`https://whatsonchain.com/tx/${txid}`)
+            }}
+          >
+            <ExternalLink className="size-4" />
+            View on Explorer
+          </DropdownMenuItem>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Ordinal card
+// ---------------------------------------------------------------------------
+
 interface OrdinalCardProps {
   ordinal: OrdinalOutput
   onSelect?: (ordinal: OrdinalOutput) => void
+  onTransfer?: (ordinal: OrdinalOutput) => void
+  onList?: (ordinal: OrdinalOutput) => void
+  onDetail?: (ordinal: OrdinalOutput) => void
+  onExternalLink?: (url: string) => void
+  ordfsBase: string
 }
 
-function OrdinalCard({ ordinal, onSelect }: OrdinalCardProps) {
+function OrdinalCard({
+  ordinal,
+  onSelect,
+  onTransfer,
+  onList,
+  onDetail,
+  onExternalLink,
+  ordfsBase,
+}: OrdinalCardProps) {
   const truncatedOutpoint =
     ordinal.outpoint.length > 16
       ? `${ordinal.outpoint.slice(0, 8)}...${ordinal.outpoint.slice(-6)}`
       : ordinal.outpoint
+
+  const hasActions = !!onTransfer || !!onList || !!onDetail || !!onExternalLink
 
   const handleClick = useCallback(() => {
     onSelect?.(ordinal)
@@ -147,7 +283,18 @@ function OrdinalCard({ ordinal, onSelect }: OrdinalCardProps) {
           origin={ordinal.origin}
           name={ordinal.name}
           outpoint={ordinal.outpoint}
+          ordfsBase={ordfsBase}
         />
+        {hasActions && (
+          <OrdinalActionMenu
+            ordinal={ordinal}
+            truncatedOutpoint={truncatedOutpoint}
+            onTransfer={onTransfer}
+            onList={onList}
+            onDetail={onDetail}
+            onExternalLink={onExternalLink}
+          />
+        )}
       </div>
       <CardContent className="flex flex-col gap-1.5 p-3">
         {ordinal.name ? (
@@ -251,6 +398,11 @@ export function OrdinalsGridUI({
   error,
   count,
   onSelect,
+  onTransfer,
+  onList,
+  onDetail,
+  onExternalLink,
+  ordfsBase = DEFAULT_ORDFS_BASE,
   showCount = true,
   scrollable = false,
   maxHeight = "600px",
@@ -291,6 +443,11 @@ export function OrdinalsGridUI({
           key={ordinal.outpoint}
           ordinal={ordinal}
           onSelect={onSelect}
+          onTransfer={onTransfer}
+          onList={onList}
+          onDetail={onDetail}
+          onExternalLink={onExternalLink}
+          ordfsBase={ordfsBase}
         />
       ))}
     </div>

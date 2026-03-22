@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
-import type { TokenHolding, TokenType } from "./use-token-list"
+import type { TokenHolding, TokenProtocol, TokenType } from "./use-token-list"
 
 // ---------------------------------------------------------------------------
 // Types
@@ -26,6 +26,8 @@ export interface TokenListUIProps {
   onSelect?: (token: TokenHolding) => void
   /** Callback when an external link action is triggered (e.g. view on explorer). Receives the URL string. */
   onExternalLink?: (url: string) => void
+  /** Filter displayed tokens by protocol type (default: "all"). Useful when tokens are pre-populated. */
+  protocol?: TokenProtocol
   /** Number of skeleton rows to show while loading (default: 3) */
   skeletonCount?: number
   /** Optional CSS class name */
@@ -217,11 +219,18 @@ export function TokenListUI({
   error,
   onSelect,
   onExternalLink,
+  protocol = "all",
   skeletonCount = 3,
   className,
 }: TokenListUIProps) {
+  // Apply client-side protocol filter when tokens are pre-populated
+  const filteredTokens =
+    protocol === "all"
+      ? tokens
+      : tokens.filter((t) => t.type.toLowerCase() === protocol)
+
   // Loading state
-  if (isLoading && tokens.length === 0) {
+  if (isLoading && filteredTokens.length === 0) {
     return (
       <Card className={cn("w-full", className)}>
         <CardContent className="p-0">
@@ -255,7 +264,7 @@ export function TokenListUI({
   }
 
   // Empty state
-  if (tokens.length === 0) {
+  if (filteredTokens.length === 0) {
     return (
       <Card className={cn("w-full", className)}>
         <CardContent className="flex flex-col items-center gap-2 py-10">
@@ -273,13 +282,13 @@ export function TokenListUI({
   return (
     <Card className={cn("w-full overflow-hidden", className)}>
       <CardContent className="p-0">
-        {tokens.map((token, index) => (
+        {filteredTokens.map((token, index) => (
           <TokenRow
             key={token.tokenId}
             token={token}
             onSelect={onSelect}
             onExternalLink={onExternalLink}
-            isLast={index === tokens.length - 1}
+            isLast={index === filteredTokens.length - 1}
           />
         ))}
       </CardContent>

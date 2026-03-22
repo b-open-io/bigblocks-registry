@@ -8,12 +8,19 @@ import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
   ImageOff,
   Grid2x2,
   ArrowRightLeft,
   Tag,
   Eye,
   ExternalLink,
+  MoreVertical,
 } from "lucide-react"
 import type { OrdinalOutput } from "./use-ordinals-grid"
 
@@ -119,6 +126,101 @@ function OrdinalThumbnail({ origin, name, outpoint, ordfsBase }: OrdinalThumbnai
   )
 }
 
+// ---------------------------------------------------------------------------
+// Action menu
+// ---------------------------------------------------------------------------
+
+interface OrdinalActionMenuProps {
+  ordinal: OrdinalOutput
+  truncatedOutpoint: string
+  onTransfer?: (ordinal: OrdinalOutput) => void
+  onList?: (ordinal: OrdinalOutput) => void
+  onDetail?: (ordinal: OrdinalOutput) => void
+  onExternalLink?: (url: string) => void
+}
+
+function OrdinalActionMenu({
+  ordinal,
+  truncatedOutpoint,
+  onTransfer,
+  onList,
+  onDetail,
+  onExternalLink,
+}: OrdinalActionMenuProps) {
+  const label = ordinal.name ?? truncatedOutpoint
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="secondary"
+          size="icon"
+          className={cn(
+            "absolute right-2 top-2 size-7",
+            "opacity-0 transition-opacity duration-200",
+            "group-hover:opacity-100 focus:opacity-100",
+          )}
+          aria-label={`Actions for ${label}`}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+        >
+          <MoreVertical className="size-3.5" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-40">
+        {onDetail && (
+          <DropdownMenuItem
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              onDetail(ordinal)
+            }}
+          >
+            <Eye className="size-4" />
+            View Details
+          </DropdownMenuItem>
+        )}
+        {onTransfer && (
+          <DropdownMenuItem
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              onTransfer(ordinal)
+            }}
+          >
+            <ArrowRightLeft className="size-4" />
+            Transfer
+          </DropdownMenuItem>
+        )}
+        {onList && (
+          <DropdownMenuItem
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              onList(ordinal)
+            }}
+          >
+            <Tag className="size-4" />
+            List for Sale
+          </DropdownMenuItem>
+        )}
+        {onExternalLink && (
+          <DropdownMenuItem
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              const txid = ordinal.outpoint.split("_")[0]
+              onExternalLink(`https://whatsonchain.com/tx/${txid}`)
+            }}
+          >
+            <ExternalLink className="size-4" />
+            View on Explorer
+          </DropdownMenuItem>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Ordinal card
+// ---------------------------------------------------------------------------
+
 interface OrdinalCardProps {
   ordinal: OrdinalOutput
   onSelect?: (ordinal: OrdinalOutput) => void
@@ -159,39 +261,6 @@ function OrdinalCard({
     [ordinal, onSelect],
   )
 
-  const handleTransfer = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation()
-      onTransfer?.(ordinal)
-    },
-    [ordinal, onTransfer],
-  )
-
-  const handleList = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation()
-      onList?.(ordinal)
-    },
-    [ordinal, onList],
-  )
-
-  const handleDetail = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation()
-      onDetail?.(ordinal)
-    },
-    [ordinal, onDetail],
-  )
-
-  const handleExternalLink = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation()
-      const txid = ordinal.outpoint.split("_")[0]
-      onExternalLink?.(`https://whatsonchain.com/tx/${txid}`)
-    },
-    [ordinal.outpoint, onExternalLink],
-  )
-
   return (
     <Card
       className={cn(
@@ -216,60 +285,15 @@ function OrdinalCard({
           outpoint={ordinal.outpoint}
           ordfsBase={ordfsBase}
         />
-        {/* Action overlay — only rendered when at least one action callback is provided */}
         {hasActions && (
-          <div
-            className={cn(
-              "absolute inset-0 flex items-end justify-center gap-1.5 p-2",
-              "bg-background/60 opacity-0 transition-opacity duration-200",
-              "group-hover:opacity-100 focus-within:opacity-100",
-            )}
-          >
-            {onDetail && (
-              <Button
-                variant="secondary"
-                size="icon"
-                className="size-8"
-                onClick={handleDetail}
-                aria-label={`View details for ${ordinal.name ?? truncatedOutpoint}`}
-              >
-                <Eye data-icon className="size-3.5" />
-              </Button>
-            )}
-            {onTransfer && (
-              <Button
-                variant="secondary"
-                size="icon"
-                className="size-8"
-                onClick={handleTransfer}
-                aria-label={`Transfer ${ordinal.name ?? truncatedOutpoint}`}
-              >
-                <ArrowRightLeft data-icon className="size-3.5" />
-              </Button>
-            )}
-            {onList && (
-              <Button
-                variant="secondary"
-                size="icon"
-                className="size-8"
-                onClick={handleList}
-                aria-label={`List ${ordinal.name ?? truncatedOutpoint}`}
-              >
-                <Tag data-icon className="size-3.5" />
-              </Button>
-            )}
-            {onExternalLink && (
-              <Button
-                variant="secondary"
-                size="icon"
-                className="size-8"
-                onClick={handleExternalLink}
-                aria-label={`View ${ordinal.name ?? truncatedOutpoint} on explorer`}
-              >
-                <ExternalLink data-icon className="size-3.5" />
-              </Button>
-            )}
-          </div>
+          <OrdinalActionMenu
+            ordinal={ordinal}
+            truncatedOutpoint={truncatedOutpoint}
+            onTransfer={onTransfer}
+            onList={onList}
+            onDetail={onDetail}
+            onExternalLink={onExternalLink}
+          />
         )}
       </div>
       <CardContent className="flex flex-col gap-1.5 p-3">
