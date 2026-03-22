@@ -3,7 +3,13 @@ import { tmpdir } from "os"
 import path from "path"
 import { registryItemFileSchema, registryItemSchema } from "shadcn/registry"
 import { Project, ScriptKind } from "ts-morph"
-import { z } from "zod"
+
+interface RegistryFile {
+  path: string
+  type: string
+  target?: string
+  content?: string
+}
 
 import { Index } from "@/registry/__index__"
 
@@ -58,7 +64,7 @@ export async function getRegistryItem(name: string) {
   return parsed.data
 }
 
-async function getFileContent(file: z.infer<typeof registryItemFileSchema>) {
+async function getFileContent(file: RegistryFile) {
   const raw = await fs.readFile(file.path, "utf-8")
 
   const project = new Project({
@@ -90,7 +96,7 @@ async function getFileContent(file: z.infer<typeof registryItemFileSchema>) {
   return code
 }
 
-function getFileTarget(file: z.infer<typeof registryItemFileSchema>) {
+function getFileTarget(file: RegistryFile) {
   let target = file.target
 
   if (!target || target === "") {
@@ -124,7 +130,7 @@ async function createTempSourceFile(filename: string) {
   return path.join(dir, filename)
 }
 
-function fixFilePaths(files: z.infer<typeof registryItemSchema>["files"]) {
+function fixFilePaths(files: { files?: RegistryFile[] }["files"]) {
   if (!files) {
     return []
   }
