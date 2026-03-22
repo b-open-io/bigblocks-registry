@@ -30,8 +30,23 @@ export const Index: Record<string, any> = {
     description: "Wallet connection button with provider selection and connected-state dropdown",
     type: "registry:block",
     registryDependencies: undefined,
-    files: [],
-    component: null,
+    files: [{
+      path: "registry/bigblocks/blocks/connect-wallet/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/connect-wallet/ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/connect-wallet/use-connect-wallet.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/connect-wallet/index.tsx")
+      return { default: mod.ConnectWallet || mod.default }
+    }),
     categories: ["wallet"],
     dependencies: undefined,
   },

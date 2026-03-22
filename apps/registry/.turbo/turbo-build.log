@@ -1,35 +1,52 @@
-$ next build
-   ▲ Next.js 15.3.1
-   - Environments: .env.local, .env.production
+$ bun run --bun next build
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/satchmo/code/bigblocks-registry/bun.lock as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/satchmo/code/bigblocks-registry/apps/registry/pnpm-lock.yaml
 
-   Creating an optimized production build ...
-Failed to compile.
+▲ Next.js 16.2.1 (Turbopack)
+- Environments: .env.local, .env.production
 
-./node_modules/next/dist/pages/_app.js
-Module not found: Can't resolve '../shared/lib/utils'
+  Creating an optimized production build ...
+Turbopack build encountered 1 warnings:
+./apps/registry/next.config.ts
+Encountered unexpected file in NFT list
+A file was traced that indicates that the whole project was traced unintentionally. Somewhere in the import trace below, there are:
+- filesystem operations (like path.join, path.resolve or fs.readFile), or
+- very dynamic requires (like require('./' + foo)).
+To resolve this, you can
+- remove them if possible, or
+- only use them in development, or
+- make sure they are statically scoped to some subfolder: path.join(process.cwd(), 'data', bar), or
+- add ignore comments: path.join(/*turbopackIgnore: true*/ process.cwd(), bar)
 
-https://nextjs.org/docs/messages/module-not-found
-
-./node_modules/next/dist/pages/_document.js
-Module not found: Can't resolve '../shared/lib/constants'
-
-https://nextjs.org/docs/messages/module-not-found
-
-./node_modules/next/dist/pages/_document.js
-Module not found: Can't resolve '../server/get-page-files'
-
-https://nextjs.org/docs/messages/module-not-found
-
-./node_modules/next/dist/pages/_document.js
-Module not found: Can't resolve '../server/htmlescape'
-
-https://nextjs.org/docs/messages/module-not-found
-
-./node_modules/next/dist/pages/_document.js
-Module not found: Can't resolve '../lib/is-error'
-
-https://nextjs.org/docs/messages/module-not-found
+Import trace:
+  App Route:
+    ./apps/registry/next.config.ts
+    ./apps/registry/lib/registry-gateway.ts
+    ./apps/registry/app/r/[name]/route.ts
 
 
-> Build failed because of webpack errors
-error: script "build" exited with code 1
+✓ Compiled successfully in 1635ms
+  Running TypeScript ...
+  Finished TypeScript in 1960ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/5) ...
+  Generating static pages using 7 workers (1/5) 
+  Generating static pages using 7 workers (2/5) 
+  Generating static pages using 7 workers (3/5) 
+✓ Generating static pages using 7 workers (5/5) in 208ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /r
+└ ƒ /r/[name]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

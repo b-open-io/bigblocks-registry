@@ -19,7 +19,11 @@ export const registry = {
       title: "Connect Wallet",
       description: "Wallet connection button with provider selection and connected-state dropdown",
       categories: ["wallet"],
-      files: [],
+      files: [
+        { path: "blocks/connect-wallet/index.tsx", type: "registry:block" },
+        { path: "blocks/connect-wallet/ui.tsx", type: "registry:component" },
+        { path: "blocks/connect-wallet/use-connect-wallet.ts", type: "registry:hook" },
+      ],
     },
     {
       name: "send-bsv",
