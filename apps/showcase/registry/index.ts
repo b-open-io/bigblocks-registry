@@ -234,6 +234,8 @@ export const registry = {
 
     // Wallet
     { name: "connect-wallet-demo", registryDependencies: ["connect-wallet"], files: [{ path: "examples/connect-wallet-demo.tsx", type: "registry:example" }] },
+    { name: "connect-wallet-compact", registryDependencies: ["connect-wallet"], files: [{ path: "examples/connect-wallet-compact.tsx", type: "registry:example" }] },
+    { name: "connect-wallet-connected", registryDependencies: ["connect-wallet"], files: [{ path: "examples/connect-wallet-connected.tsx", type: "registry:example" }] },
     { name: "send-bsv-demo", registryDependencies: ["send-bsv"], files: [{ path: "examples/send-bsv-demo.tsx", type: "registry:example" }] },
     { name: "send-bsv-compact", registryDependencies: ["send-bsv"], files: [{ path: "examples/send-bsv-compact.tsx", type: "registry:example" }] },
     { name: "send-bsv-quick", registryDependencies: ["send-bsv"], files: [{ path: "examples/send-bsv-quick.tsx", type: "registry:example" }] },

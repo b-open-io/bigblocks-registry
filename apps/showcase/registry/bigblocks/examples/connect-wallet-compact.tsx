@@ -3,11 +3,10 @@
 import { Button } from "@/components/ui/button"
 import { Wallet } from "lucide-react"
 
-export default function ConnectWalletDemo() {
+export default function ConnectWalletCompact() {
   return (
-    <Button>
-      <Wallet data-icon="inline-start" />
-      Connect Wallet
+    <Button size="icon">
+      <Wallet />
     </Button>
   )
 }
