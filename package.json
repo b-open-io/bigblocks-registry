@@ -25,5 +25,8 @@
     "turbo": "^2.5.4",
     "typescript": "^5.8.3"
   },
-  "packageManager": "bun@1.0.0"
+  "packageManager": "bun@1.0.0",
+  "dependencies": {
+    "zod": "4"
+  }
 }
