@@ -531,18 +531,6 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/connect-wallet-compact.tsx")),
     categories: ["examples"],
   },
-  "connect-wallet-connected": {
-    name: "connect-wallet-connected",
-    type: "registry:example",
-    registryDependencies: ["connect-wallet"],
-    files: [{
-      path: "registry/bigblocks/examples/connect-wallet-connected.tsx",
-      type: "registry:example",
-      target: ""
-    }],
-    component: React.lazy(() => import("@/registry/bigblocks/examples/connect-wallet-connected.tsx")),
-    categories: ["examples"],
-  },
   "send-bsv-demo": {
     name: "send-bsv-demo",
     type: "registry:example",
