@@ -1,6 +1,6 @@
 {
   "name": "bigblocks",
-  "version": "1.0.0",
+  "version": "0.0.40",
   "description": "CLI for adding BigBlocks Bitcoin UI components to your project",
   "type": "module",
   "bin": {
