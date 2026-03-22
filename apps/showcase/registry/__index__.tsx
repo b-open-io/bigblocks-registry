@@ -24,11 +24,457 @@ export const Index: Record<string, any> = {
     categories: ["ui-components"],
     dependencies: ["@radix-ui/react-icons"],
   },
+  "connect-wallet": {
+    name: "connect-wallet",
+    title: "Connect Wallet",
+    description: "Wallet connection button with provider selection and connected-state dropdown",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [],
+    component: null,
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "send-bsv": {
+    name: "send-bsv",
+    title: "Send BSV",
+    description: "Complete send BSV block with trigger variants and dialog form",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/send-bsv/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/send-bsv/send-bsv-trigger.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/send-bsv/send-bsv-dialog.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/send-bsv/index.tsx")
+      return { default: mod.SendBsv || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "token-list": {
+    name: "token-list",
+    title: "Token List",
+    description: "BSV20/BSV21 token holdings list with balances and icons",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/token-list/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/token-list/token-list-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/token-list/use-token-list.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/token-list/index.tsx")
+      return { default: mod.TokenList || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "post-button": {
+    name: "post-button",
+    title: "Post Button",
+    description: "Create on-chain BSocial posts with compose dialog",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/post-button/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/post-button/ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/post-button/use-post.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/post-button/index.tsx")
+      return { default: mod.PostButton || mod.default }
+    }),
+    categories: ["social"],
+    dependencies: undefined,
+  },
+  "like-button": {
+    name: "like-button",
+    title: "Like Button",
+    description: "Optimistic like/unlike toggle for BSocial content",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/like-button/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/like-button/ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/like-button/use-like.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/like-button/index.tsx")
+      return { default: mod.LikeButton || mod.default }
+    }),
+    categories: ["social"],
+    dependencies: undefined,
+  },
+  "follow-button": {
+    name: "follow-button",
+    title: "Follow Button",
+    description: "Three-state follow/following/unfollow toggle",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/follow-button/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/follow-button/ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/follow-button/use-follow.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/follow-button/index.tsx")
+      return { default: mod.FollowButton || mod.default }
+    }),
+    categories: ["social"],
+    dependencies: undefined,
+  },
+  "friend-button": {
+    name: "friend-button",
+    title: "Friend Button",
+    description: "Four-state friend request button with accept/decline",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/friend-button/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/friend-button/ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/friend-button/use-friend.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/friend-button/index.tsx")
+      return { default: mod.FriendButton || mod.default }
+    }),
+    categories: ["social"],
+    dependencies: undefined,
+  },
+  "social-feed": {
+    name: "social-feed",
+    title: "Social Feed",
+    description: "Chronological feed of on-chain BSocial posts",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/social-feed/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/social-feed/social-feed-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/social-feed/post-card-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/social-feed/use-social-feed.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/social-feed/index.tsx")
+      return { default: mod.SocialFeed || mod.default }
+    }),
+    categories: ["social"],
+    dependencies: undefined,
+  },
+  "inscribe-file": {
+    name: "inscribe-file",
+    title: "Inscribe File",
+    description: "Full inscription flow with file upload, BSV20/BSV21 tabs, and metadata",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/inscribe-file/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/inscribe-file/inscribe-dropzone.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/inscribe-file/inscribe-form.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/inscribe-file/content-type-select.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/inscribe-file/bsv20-form.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/inscribe-file/bsv21-form.tsx",
+      type: "registry:component",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/inscribe-file/index.tsx")
+      return { default: mod.InscribeFile || mod.default }
+    }),
+    categories: ["market"],
+    dependencies: undefined,
+  },
+  "deploy-token": {
+    name: "deploy-token",
+    title: "Deploy Token",
+    description: "Deploy BSV21 fungible tokens with icon upload",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/deploy-token/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/deploy-token/ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/deploy-token/use-deploy-token.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/deploy-token/index.tsx")
+      return { default: mod.DeployToken || mod.default }
+    }),
+    categories: ["market"],
+    dependencies: undefined,
+  },
+  "create-listing": {
+    name: "create-listing",
+    title: "Create Listing",
+    description: "List ordinal NFTs for sale via OrdLock contract",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/create-listing/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/create-listing/ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/create-listing/use-create-listing.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/create-listing/index.tsx")
+      return { default: mod.CreateListing || mod.default }
+    }),
+    categories: ["market"],
+    dependencies: undefined,
+  },
+  "buy-listing": {
+    name: "buy-listing",
+    title: "Buy Listing",
+    description: "Purchase ordinal NFTs from the global orderbook",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/buy-listing/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/buy-listing/ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/buy-listing/use-buy-listing.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/buy-listing/index.tsx")
+      return { default: mod.BuyListing || mod.default }
+    }),
+    categories: ["market"],
+    dependencies: undefined,
+  },
+  "ordinals-grid": {
+    name: "ordinals-grid",
+    title: "Ordinals Grid",
+    description: "Responsive grid of owned ordinal NFTs with ORDFS thumbnails",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/ordinals-grid/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/ordinals-grid/ordinals-grid-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/ordinals-grid/use-ordinals-grid.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/ordinals-grid/index.tsx")
+      return { default: mod.OrdinalsGrid || mod.default }
+    }),
+    categories: ["market"],
+    dependencies: undefined,
+  },
+  "market-grid": {
+    name: "market-grid",
+    title: "Market Grid",
+    description: "Global orderbook grid with listings and buy actions",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/market-grid/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/market-grid/market-grid-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/market-grid/listing-card-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/market-grid/use-market-grid.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/market-grid/index.tsx")
+      return { default: mod.MarketGrid || mod.default }
+    }),
+    categories: ["market"],
+    dependencies: undefined,
+  },
+  "bitcoin-avatar": {
+    name: "bitcoin-avatar",
+    title: "Bitcoin Avatar",
+    description: "On-chain image resolution with deterministic sigma-avatars fallback",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/bitcoin-avatar/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/bitcoin-avatar/ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/bitcoin-avatar/use-bitcoin-avatar.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/bitcoin-avatar/index.tsx")
+      return { default: mod.BitcoinAvatar || mod.default }
+    }),
+    categories: ["identity"],
+    dependencies: undefined,
+  },
+  "profile-card": {
+    name: "profile-card",
+    title: "Profile Card",
+    description: "Display BAP identity profile with avatar, name, bio",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/profile-card/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/profile-card/profile-card-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/profile-card/use-profile-card.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/profile-card/index.tsx")
+      return { default: mod.ProfileCard || mod.default }
+    }),
+    categories: ["identity"],
+    dependencies: undefined,
+  },
+  "identity-selector": {
+    name: "identity-selector",
+    title: "Identity Selector",
+    description: "Switch between BAP identities with active indicator",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/identity-selector/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/identity-selector/identity-selector-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/identity-selector/use-identity-selector.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/identity-selector/index.tsx")
+      return { default: mod.IdentitySelector || mod.default }
+    }),
+    categories: ["identity"],
+    dependencies: undefined,
+  },
   "step-indicator-demo": {
     name: "step-indicator-demo",
-    title: "Step Indicator Demo",
-    description: "Interactive demo of the step indicator component",
     type: "registry:example",
+    registryDependencies: ["step-indicator"],
     files: [{
       path: "registry/bigblocks/examples/step-indicator-demo.tsx",
       type: "registry:example",
@@ -39,9 +485,8 @@ export const Index: Record<string, any> = {
   },
   "step-indicator-vertical": {
     name: "step-indicator-vertical",
-    title: "Step Indicator Vertical",
-    description: "Vertical variant of the step indicator",
     type: "registry:example",
+    registryDependencies: ["step-indicator"],
     files: [{
       path: "registry/bigblocks/examples/step-indicator-vertical.tsx",
       type: "registry:example",
@@ -52,15 +497,218 @@ export const Index: Record<string, any> = {
   },
   "step-indicator-with-descriptions": {
     name: "step-indicator-with-descriptions",
-    title: "Step Indicator With Descriptions",
-    description: "Step indicator with descriptions for each step",
     type: "registry:example",
+    registryDependencies: ["step-indicator"],
     files: [{
       path: "registry/bigblocks/examples/step-indicator-with-descriptions.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/step-indicator-with-descriptions.tsx")),
+    categories: ["examples"],
+  },
+  "connect-wallet-demo": {
+    name: "connect-wallet-demo",
+    type: "registry:example",
+    registryDependencies: ["connect-wallet"],
+    files: [{
+      path: "registry/bigblocks/examples/connect-wallet-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/connect-wallet-demo.tsx")),
+    categories: ["examples"],
+  },
+  "send-bsv-demo": {
+    name: "send-bsv-demo",
+    type: "registry:example",
+    registryDependencies: ["send-bsv"],
+    files: [{
+      path: "registry/bigblocks/examples/send-bsv-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/send-bsv-demo.tsx")),
+    categories: ["examples"],
+  },
+  "token-list-demo": {
+    name: "token-list-demo",
+    type: "registry:example",
+    registryDependencies: ["token-list"],
+    files: [{
+      path: "registry/bigblocks/examples/token-list-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/token-list-demo.tsx")),
+    categories: ["examples"],
+  },
+  "post-button-demo": {
+    name: "post-button-demo",
+    type: "registry:example",
+    registryDependencies: ["post-button"],
+    files: [{
+      path: "registry/bigblocks/examples/post-button-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/post-button-demo.tsx")),
+    categories: ["examples"],
+  },
+  "like-button-demo": {
+    name: "like-button-demo",
+    type: "registry:example",
+    registryDependencies: ["like-button"],
+    files: [{
+      path: "registry/bigblocks/examples/like-button-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/like-button-demo.tsx")),
+    categories: ["examples"],
+  },
+  "follow-button-demo": {
+    name: "follow-button-demo",
+    type: "registry:example",
+    registryDependencies: ["follow-button"],
+    files: [{
+      path: "registry/bigblocks/examples/follow-button-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/follow-button-demo.tsx")),
+    categories: ["examples"],
+  },
+  "friend-button-demo": {
+    name: "friend-button-demo",
+    type: "registry:example",
+    registryDependencies: ["friend-button"],
+    files: [{
+      path: "registry/bigblocks/examples/friend-button-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/friend-button-demo.tsx")),
+    categories: ["examples"],
+  },
+  "social-feed-demo": {
+    name: "social-feed-demo",
+    type: "registry:example",
+    registryDependencies: ["social-feed"],
+    files: [{
+      path: "registry/bigblocks/examples/social-feed-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/social-feed-demo.tsx")),
+    categories: ["examples"],
+  },
+  "inscribe-file-demo": {
+    name: "inscribe-file-demo",
+    type: "registry:example",
+    registryDependencies: ["inscribe-file"],
+    files: [{
+      path: "registry/bigblocks/examples/inscribe-file-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/inscribe-file-demo.tsx")),
+    categories: ["examples"],
+  },
+  "deploy-token-demo": {
+    name: "deploy-token-demo",
+    type: "registry:example",
+    registryDependencies: ["deploy-token"],
+    files: [{
+      path: "registry/bigblocks/examples/deploy-token-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/deploy-token-demo.tsx")),
+    categories: ["examples"],
+  },
+  "create-listing-demo": {
+    name: "create-listing-demo",
+    type: "registry:example",
+    registryDependencies: ["create-listing"],
+    files: [{
+      path: "registry/bigblocks/examples/create-listing-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/create-listing-demo.tsx")),
+    categories: ["examples"],
+  },
+  "buy-listing-demo": {
+    name: "buy-listing-demo",
+    type: "registry:example",
+    registryDependencies: ["buy-listing"],
+    files: [{
+      path: "registry/bigblocks/examples/buy-listing-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/buy-listing-demo.tsx")),
+    categories: ["examples"],
+  },
+  "ordinals-grid-demo": {
+    name: "ordinals-grid-demo",
+    type: "registry:example",
+    registryDependencies: ["ordinals-grid"],
+    files: [{
+      path: "registry/bigblocks/examples/ordinals-grid-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/ordinals-grid-demo.tsx")),
+    categories: ["examples"],
+  },
+  "market-grid-demo": {
+    name: "market-grid-demo",
+    type: "registry:example",
+    registryDependencies: ["market-grid"],
+    files: [{
+      path: "registry/bigblocks/examples/market-grid-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/market-grid-demo.tsx")),
+    categories: ["examples"],
+  },
+  "bitcoin-avatar-demo": {
+    name: "bitcoin-avatar-demo",
+    type: "registry:example",
+    registryDependencies: ["bitcoin-avatar"],
+    files: [{
+      path: "registry/bigblocks/examples/bitcoin-avatar-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/bitcoin-avatar-demo.tsx")),
+    categories: ["examples"],
+  },
+  "profile-card-demo": {
+    name: "profile-card-demo",
+    type: "registry:example",
+    registryDependencies: ["profile-card"],
+    files: [{
+      path: "registry/bigblocks/examples/profile-card-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/profile-card-demo.tsx")),
+    categories: ["examples"],
+  },
+  "identity-selector-demo": {
+    name: "identity-selector-demo",
+    type: "registry:example",
+    registryDependencies: ["identity-selector"],
+    files: [{
+      path: "registry/bigblocks/examples/identity-selector-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/identity-selector-demo.tsx")),
     categories: ["examples"],
   },
 }

@@ -2,6 +2,28 @@ import { promises as fs } from "fs"
 import path from "path"
 import { registry } from "../registry/index.js"
 
+// Map block names to their primary export names
+const EXPORT_NAMES: Record<string, string> = {
+  "step-indicator": "StepIndicator",
+  "connect-wallet": "ConnectWallet",
+  "send-bsv": "SendBsv",
+  "token-list": "TokenList",
+  "post-button": "PostButton",
+  "like-button": "LikeButton",
+  "follow-button": "FollowButton",
+  "friend-button": "FriendButton",
+  "social-feed": "SocialFeed",
+  "inscribe-file": "InscribeFile",
+  "deploy-token": "DeployToken",
+  "create-listing": "CreateListing",
+  "buy-listing": "BuyListing",
+  "ordinals-grid": "OrdinalsGrid",
+  "market-grid": "MarketGrid",
+  "bitcoin-avatar": "BitcoinAvatar",
+  "profile-card": "ProfileCard",
+  "identity-selector": "IdentitySelector",
+}
+
 async function buildRegistryIndex() {
   let index = `/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -11,123 +33,87 @@ async function buildRegistryIndex() {
 import * as React from "react"
 
 export const Index: Record<string, any> = {`
-  
+
+  // Add all registry items (blocks + components)
   for (const item of registry.items) {
     const componentPath = item.files?.[0]?.path
       ? `@/registry/bigblocks/${item.files[0].path}`
       : ""
 
+    const exportName = EXPORT_NAMES[item.name] || "default"
+
     index += `
   "${item.name}": {
     name: "${item.name}",
     title: "${item.title || item.name}",
-    description: "${item.description ?? ""}",
+    description: ${JSON.stringify(item.description ?? "")},
     type: "${item.type}",
-    registryDependencies: ${JSON.stringify(item.registryDependencies)},
+    registryDependencies: ${JSON.stringify(item.registryDependencies ?? undefined)},
     files: [${item.files?.map((file) => {
-      const filePath = `registry/bigblocks/${typeof file === "string" ? file : file.path}`
-      return typeof file === "string"
-        ? `"${filePath}"`
-        : `{
-      path: "${filePath}",
-      type: "${file.type}",
-      target: "${file.target ?? ""}"
+      const f = typeof file === "string" ? { path: file, type: "registry:ui" } : file
+      return `{
+      path: "registry/bigblocks/${f.path}",
+      type: "${f.type}",
+      target: ""
     }`
     }).join(", ")}],
     component: ${
       componentPath
         ? `React.lazy(async () => {
       const mod = await import("${componentPath}")
-      return { default: mod.StepIndicator || mod.default }
+      return { default: mod.${exportName} || mod.default }
     })`
         : "null"
     },
-    categories: ${JSON.stringify(item.categories)},
-    dependencies: ${JSON.stringify(item.dependencies)},
+    categories: ${JSON.stringify(item.categories ?? [])},
+    dependencies: ${JSON.stringify(item.dependencies ?? undefined)},
   },`
   }
 
-  // Add demo components
-  index += `
-  "step-indicator-demo": {
-    name: "step-indicator-demo",
-    title: "Step Indicator Demo",
-    description: "Interactive demo of the step indicator component",
+  // Add all example/demo components
+  for (const example of registry.examples) {
+    const examplePath = example.files?.[0]?.path
+      ? `@/registry/bigblocks/${example.files[0].path}`
+      : ""
+
+    index += `
+  "${example.name}": {
+    name: "${example.name}",
     type: "registry:example",
-    files: [{
-      path: "registry/bigblocks/examples/step-indicator-demo.tsx",
-      type: "registry:example",
+    registryDependencies: ${JSON.stringify(example.registryDependencies ?? [])},
+    files: [${example.files?.map((file) => {
+      const f = typeof file === "string" ? { path: file, type: "registry:example" } : file
+      return `{
+      path: "registry/bigblocks/${f.path}",
+      type: "${f.type}",
       target: ""
-    }],
-    component: React.lazy(() => import("@/registry/bigblocks/examples/step-indicator-demo.tsx")),
+    }`
+    }).join(", ")}],
+    component: ${
+      examplePath
+        ? `React.lazy(() => import("${examplePath}"))`
+        : "null"
+    },
     categories: ["examples"],
   },`
+  }
 
   index += `
-}`
+}
+`
 
-  console.log(`✅ ${registry.items.length} BigBlocks components found`)
+  console.log(`✅ ${registry.items.length} items + ${registry.examples.length} examples`)
 
-  // Write the index file
   await fs.writeFile(
     path.join(process.cwd(), "registry/__index__.tsx"),
     index
   )
-  
+
   console.log("✅ Registry index generated")
-}
-
-// Also create example components
-async function createExamples() {
-  // Create step-indicator demo
-  const stepIndicatorDemo = `"use client"
-
-import { useState } from "react"
-import { StepIndicator } from "@/registry/bigblocks/ui/step-indicator"
-
-export default function StepIndicatorDemo() {
-  const [activeStep, setActiveStep] = useState(1)
-  
-  const steps = [
-    { id: "1", label: "Account", status: activeStep > 0 ? "complete" : activeStep === 0 ? "active" : "pending" },
-    { id: "2", label: "Profile", status: activeStep > 1 ? "complete" : activeStep === 1 ? "active" : "pending" },
-    { id: "3", label: "Settings", status: activeStep > 2 ? "complete" : activeStep === 2 ? "active" : "pending" },
-    { id: "4", label: "Complete", status: activeStep > 3 ? "complete" : activeStep === 3 ? "active" : "pending" }
-  ]
-
-  return (
-    <div className="w-full">
-      <StepIndicator steps={steps} />
-      <div className="mt-8 flex gap-2">
-        <button 
-          onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
-          className="px-4 py-2 border rounded hover:bg-gray-100"
-        >
-          Previous
-        </button>
-        <button 
-          onClick={() => setActiveStep(Math.min(3, activeStep + 1))}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Next
-        </button>
-      </div>
-    </div>
-  )
-}`
-
-  await fs.mkdir(path.join(process.cwd(), "registry/bigblocks/examples"), { recursive: true })
-  await fs.writeFile(
-    path.join(process.cwd(), "registry/bigblocks/examples/step-indicator-demo.tsx"),
-    stepIndicatorDemo
-  )
-  
-  console.log("✅ Example components created")
 }
 
 async function main() {
   await buildRegistryIndex()
-  await createExamples()
 }
 
 main().catch(console.error)

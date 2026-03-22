@@ -1,0 +1,29 @@
+---
+title: Profile Card
+description: Display BAP identity profile with avatar, name, bio, and identity key
+featured: true
+component: true
+---
+
+<ComponentPreview name="profile-card-demo" />
+
+## Installation
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/profile-card.json
+```
+
+## Usage
+
+```tsx
+import { ProfileCard } from "@/components/blocks/profile-card"
+
+export function Example() {
+  return (
+    <ProfileCard
+      bapId="Go8vCHAa4S6AhXKdRp3nT9wJm"
+      onFollow={(bapId) => console.log("Follow", bapId)}
+    />
+  )
+}
+```

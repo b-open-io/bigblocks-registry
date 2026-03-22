@@ -1,0 +1,29 @@
+---
+title: Identity Selector
+description: Switch between BAP identities with active indicator and full BAP IDs
+featured: true
+component: true
+---
+
+<ComponentPreview name="identity-selector-demo" />
+
+## Installation
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/identity-selector.json
+```
+
+## Usage
+
+```tsx
+import { IdentitySelector } from "@/components/blocks/identity-selector"
+
+export function Example() {
+  return (
+    <IdentitySelector
+      bapIds={["Go8vCHAa4S6AhXKdRp3nT9wJm", "Tk9wJDpL7R2bNqYs5vXmFh4eKa"]}
+      onSelect={(identity) => console.log("Selected", identity.bapId)}
+    />
+  )
+}
+```
