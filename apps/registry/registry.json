@@ -958,6 +958,59 @@
           "target": ""
         }
       ]
+    },
+    {
+      "name": "wallet-overview",
+      "type": "registry:block",
+      "title": "Wallet Overview",
+      "description": "Wallet dashboard card displaying BSV balance with privacy toggle, payment and ordinal addresses with copy buttons, identity key, and send/receive action buttons. Fetches balance from 1sat-stack API via @1sat/react wallet context.",
+      "author": "Satchmo",
+      "dependencies": [
+        "@1sat/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "card",
+        "button",
+        "badge",
+        "skeleton",
+        "separator",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/wallet-overview/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/wallet-overview/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/wallet-overview/wallet-overview-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/wallet-overview/wallet-overview-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/wallet-overview/use-wallet-overview.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/wallet-overview/use-wallet-overview.ts"
+        }
+      ]
+    },
+    {
+      "name": "wallet-overview-demo",
+      "type": "registry:example",
+      "title": "Wallet Overview Demo",
+      "description": "Demo showcasing the wallet overview block with connected, loading, error, and disconnected states",
+      "author": "Satchmo",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/wallet-overview.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/wallet-overview-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
     }
   ]
 }
