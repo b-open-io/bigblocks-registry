@@ -1,18 +1,24 @@
-import {
-  defineConfig,
-  defineDocs,
-  frontmatterSchema,
-} from "fumadocs-mdx/config"
+import { defineConfig, defineDocs } from "fumadocs-mdx/config"
+import { pageSchema, metaSchema } from "fumadocs-core/source/schema"
 import rehypePrettyCode from "rehype-pretty-code"
-import { z } from "zod"
 import { transformers } from "@/lib/transformers"
+
+export const docs = defineDocs({
+  dir: "content/docs",
+  docs: {
+    schema: pageSchema,
+  },
+  meta: {
+    schema: metaSchema,
+  },
+})
 
 export default defineConfig({
   mdxOptions: {
     rehypePlugins: (plugins) => {
       plugins.shift()
       plugins.push([
-        rehypePrettyCode as any,
+        rehypePrettyCode as never,
         {
           theme: {
             dark: "github-dark",
@@ -21,18 +27,7 @@ export default defineConfig({
           transformers,
         },
       ])
-
       return plugins
     },
-  },
-})
-
-export const docs = defineDocs({
-  dir: "content/docs",
-  docs: {
-    schema: frontmatterSchema.extend({
-      featured: z.boolean().optional(),
-      component: z.boolean().optional(),
-    }),
   },
 })

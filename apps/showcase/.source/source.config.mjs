@@ -1,11 +1,7 @@
 // source.config.ts
-import {
-  defineConfig,
-  defineDocs,
-  frontmatterSchema
-} from "fumadocs-mdx/config";
+import { defineConfig, defineDocs } from "fumadocs-mdx/config";
+import { pageSchema, metaSchema } from "fumadocs-core/source/schema";
 import rehypePrettyCode from "rehype-pretty-code";
-import { z } from "zod";
 
 // lib/registry-url.ts
 function getRegistryUrl() {
@@ -79,6 +75,15 @@ var transformers = [
 ];
 
 // source.config.ts
+var docs = defineDocs({
+  dir: "content/docs",
+  docs: {
+    schema: pageSchema
+  },
+  meta: {
+    schema: metaSchema
+  }
+});
 var source_config_default = defineConfig({
   mdxOptions: {
     rehypePlugins: (plugins) => {
@@ -95,15 +100,6 @@ var source_config_default = defineConfig({
       ]);
       return plugins;
     }
-  }
-});
-var docs = defineDocs({
-  dir: "content/docs",
-  docs: {
-    schema: frontmatterSchema.extend({
-      featured: z.boolean().optional(),
-      component: z.boolean().optional()
-    })
   }
 });
 export {
