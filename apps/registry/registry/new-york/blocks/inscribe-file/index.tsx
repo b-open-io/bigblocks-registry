@@ -39,6 +39,8 @@ export interface InscribeFileProps {
   defaultTab?: InscribeTab
   /** Optional CSS class name */
   className?: string
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 export interface InscribeParams {
@@ -155,6 +157,7 @@ export function InscribeFile({
   maxFileSize = 10 * 1024 * 1024,
   defaultTab = "file",
   className,
+  onExternalLink,
 }: InscribeFileProps) {
   const [activeTab, setActiveTab] = useState<InscribeTab>(defaultTab)
 
@@ -392,17 +395,30 @@ export function InscribeFile({
             <CheckCircle2 className="mt-0.5 size-5 flex-shrink-0 text-primary" />
             <div className="min-w-0 flex flex-col gap-1">
               <p className="text-sm font-medium">Inscription created</p>
-              <a
-                href={`https://whatsonchain.com/tx/${result.txid}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
-              >
-                <Badge variant="outline" className="max-w-full truncate text-xs font-mono">
-                  {result.txid}
-                </Badge>
-                <ExternalLink className="size-3 flex-shrink-0" />
-              </a>
+              {onExternalLink ? (
+                <button
+                  type="button"
+                  onClick={() => onExternalLink(`https://whatsonchain.com/tx/${result.txid}`)}
+                  className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
+                >
+                  <Badge variant="outline" className="max-w-full truncate text-xs font-mono">
+                    {result.txid}
+                  </Badge>
+                  <ExternalLink className="size-3 flex-shrink-0" />
+                </button>
+              ) : (
+                <a
+                  href={`https://whatsonchain.com/tx/${result.txid}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
+                >
+                  <Badge variant="outline" className="max-w-full truncate text-xs font-mono">
+                    {result.txid}
+                  </Badge>
+                  <ExternalLink className="size-3 flex-shrink-0" />
+                </a>
+              )}
             </div>
           </div>
         )}

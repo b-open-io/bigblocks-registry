@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-token-provider-demo",
+  "title": "Theme Token Provider Demo",
+  "author": "Satchmo <https://bigblocks.dev>",
+  "description": "Demo showcasing the ThemeTokenProvider and ThemeTokenSettings panel with on-chain theme application",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/theme-token-provider.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/theme-token-provider-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  ThemeTokenProvider,\n  ThemeTokenSettings,\n} from \"@/registry/new-york/blocks/theme-token-provider\"\n\n/**\n * Demo showing the ThemeTokenProvider and ThemeTokenSettings panel.\n *\n * Enter an on-chain ThemeToken origin to fetch and apply the theme.\n * The provider persists the selection to localStorage.\n */\nexport default function ThemeTokenProviderDemo() {\n  return (\n    <ThemeTokenProvider\n      onThemeApplied={(origin) =>\n        console.log(\"[ThemeToken] Applied:\", origin)\n      }\n      onThemeCleared={() => console.log(\"[ThemeToken] Cleared\")}\n    >\n      <div className=\"flex flex-col items-center gap-4 p-4\">\n        <ThemeTokenSettings\n          onApply={(origin) =>\n            console.log(\"[Demo] Theme applied:\", origin)\n          }\n          onClear={() => console.log(\"[Demo] Theme cleared\")}\n        />\n      </div>\n    </ThemeTokenProvider>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

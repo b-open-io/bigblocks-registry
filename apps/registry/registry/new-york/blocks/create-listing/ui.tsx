@@ -86,6 +86,8 @@ export interface CreateListingUIProps
   canSubmit: boolean
   /** Execute the listing */
   onList: () => void
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -131,6 +133,7 @@ export function CreateListingUI({
   validationError,
   canSubmit,
   onList,
+  onExternalLink,
 }: CreateListingUIProps) {
   const thumbnailUrl = `${ORDFS_CONTENT_URL}/${ordinal.origin ?? ordinal.outpoint}`
 
@@ -243,17 +246,30 @@ export function CreateListingUI({
               <CheckCircle2 className="mt-0.5 size-4 flex-shrink-0 text-primary" />
               <div className="min-w-0 flex flex-col gap-1">
                 <p className="text-sm font-medium">Listed successfully</p>
-                <a
-                  href={`https://whatsonchain.com/tx/${result.txid}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
-                >
-                  <Badge variant="outline" className="max-w-full truncate text-xs font-mono">
-                    {result.txid}
-                  </Badge>
-                  <ExternalLink className="size-3 flex-shrink-0" />
-                </a>
+                {onExternalLink ? (
+                  <button
+                    type="button"
+                    onClick={() => onExternalLink(`https://whatsonchain.com/tx/${result.txid}`)}
+                    className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
+                  >
+                    <Badge variant="outline" className="max-w-full truncate text-xs font-mono">
+                      {result.txid}
+                    </Badge>
+                    <ExternalLink className="size-3 flex-shrink-0" />
+                  </button>
+                ) : (
+                  <a
+                    href={`https://whatsonchain.com/tx/${result.txid}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
+                  >
+                    <Badge variant="outline" className="max-w-full truncate text-xs font-mono">
+                      {result.txid}
+                    </Badge>
+                    <ExternalLink className="size-3 flex-shrink-0" />
+                  </a>
+                )}
               </div>
             </div>
           )}

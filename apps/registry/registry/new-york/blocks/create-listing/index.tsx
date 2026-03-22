@@ -49,6 +49,8 @@ export interface CreateListingProps
   triggerLabel?: string
   /** Optional CSS class name */
   className?: string
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -86,6 +88,7 @@ export function CreateListing({
   triggerLabel = "List for Sale",
   variant = "default",
   className,
+  onExternalLink,
 }: CreateListingProps) {
   const hook = useCreateListing({
     ordinal,
@@ -114,6 +117,7 @@ export function CreateListing({
       validationError={hook.validationError}
       canSubmit={hook.canSubmit}
       onList={hook.handleList}
+      onExternalLink={onExternalLink}
     />
   )
 }

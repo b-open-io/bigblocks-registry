@@ -1481,6 +1481,95 @@
           "target": ""
         }
       ]
+    },
+    {
+      "name": "bigblocks-provider",
+      "type": "registry:lib",
+      "title": "BigBlocks Provider",
+      "description": "Context provider that configures how all BigBlocks hooks fetch data. Web mode fetches from 1sat-stack API; custom mode lets you supply your own fetchers for desktop RPC, testing, or SSR.",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "files": [
+        {
+          "path": "registry/new-york/blocks/bigblocks-provider/index.tsx",
+          "type": "registry:lib",
+          "target": "~/components/blocks/bigblocks-provider/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/bigblocks-provider/bigblocks-context.ts",
+          "type": "registry:lib",
+          "target": "~/components/blocks/bigblocks-provider/bigblocks-context.ts"
+        }
+      ]
+    },
+    {
+      "name": "bigblocks-provider-demo",
+      "type": "registry:example",
+      "title": "BigBlocks Provider Demo",
+      "description": "Demo showing web mode and custom mode configurations for BigBlocksProvider",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/bigblocks-provider.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/bigblocks-provider-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "theme-token-provider",
+      "type": "registry:block",
+      "title": "Theme Token Provider",
+      "description": "On-chain theme picker using @theme-token/sdk. Provider context and settings panel for selecting, applying, and persisting blockchain-inscribed ThemeTokens.",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "dependencies": [
+        "@theme-token/sdk",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "input",
+        "label",
+        "badge",
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/theme-token-provider/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/theme-token-provider/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/theme-token-provider/theme-token-settings-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/theme-token-provider/theme-token-settings-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/theme-token-provider/use-theme-token.ts",
+          "type": "registry:hook",
+          "target": "~/components/blocks/theme-token-provider/use-theme-token.ts"
+        }
+      ]
+    },
+    {
+      "name": "theme-token-provider-demo",
+      "type": "registry:example",
+      "title": "Theme Token Provider Demo",
+      "description": "Demo showcasing the ThemeTokenProvider and ThemeTokenSettings panel with on-chain theme application",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/theme-token-provider.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/theme-token-provider-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
     }
   ]
 }

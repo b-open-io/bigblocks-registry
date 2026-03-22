@@ -13,6 +13,7 @@
     "@radix-ui/react-icons": "^1.3.2",
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-slot": "^1.2.4",
+    "@theme-token/sdk": "^0.0.12",
     "bitcoin-image": "^0.0.3",
     "change-case": "^5.4.4",
     "class-variance-authority": "^0.7.1",
