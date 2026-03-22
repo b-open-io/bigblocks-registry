@@ -8,19 +8,16 @@ async function mockAction(_id: string) {
   await new Promise((resolve) => setTimeout(resolve, 1200))
   return {
     txid: `${Math.random().toString(36).slice(2, 10)}...${Math.random().toString(36).slice(2, 6)}`,
-    friendPublicKey: "03f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2",
   }
 }
 
-export default function FriendButtonDemo() {
+export default function FriendButtonFriendsDemo() {
   return (
     <div className="flex items-center justify-center">
       <FriendButton
         identityKey={SAMPLE_IDENTITY}
-        status="none"
+        status="friends"
         onAddFriend={mockAction}
-        onAccept={mockAction}
-        onDecline={mockAction}
         onRemove={mockAction}
       />
     </div>

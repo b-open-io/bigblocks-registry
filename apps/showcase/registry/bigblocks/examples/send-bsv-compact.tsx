@@ -6,7 +6,7 @@ import {
   type SendBsvResult,
 } from "@/registry/bigblocks/blocks/send-bsv"
 
-export default function SendBsvDemo() {
+export default function SendBsvCompactDemo() {
   async function handleSend(_params: SendBsvParams): Promise<SendBsvResult> {
     await new Promise((resolve) => setTimeout(resolve, 2000))
     return {
@@ -17,9 +17,9 @@ export default function SendBsvDemo() {
   return (
     <div className="flex items-center justify-center">
       <SendBsv
+        variant="compact"
+        dialogSize="compact"
         onSend={handleSend}
-        onSuccess={(result) => console.log("txid:", result.txid)}
-        onError={(error) => console.error("Send error:", error)}
       />
     </div>
   )

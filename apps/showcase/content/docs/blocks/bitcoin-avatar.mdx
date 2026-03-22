@@ -70,35 +70,11 @@ The `ImageProtocols` instance from `bitcoin-image` is shared as a module-level s
 
 ## Examples
 
-### Sizes
+### Variant Styles
 
-```tsx
-<div className="flex items-end gap-6">
-  <BitcoinAvatar address={address} size="sm" />  {/* 32px */}
-  <BitcoinAvatar address={address} size="md" />  {/* 40px */}
-  <BitcoinAvatar address={address} size="lg" />  {/* 64px */}
-  <BitcoinAvatar address={address} size="xl" />  {/* 96px */}
-</div>
-```
+All 10 deterministic styles from sigma-avatars. Each variant produces a visually distinct style seeded by the Bitcoin address.
 
-### Variant styles
-
-All 10 deterministic styles from sigma-avatars:
-
-```tsx
-<BitcoinAvatar address={address} variant="marble" />   {/* default */}
-<BitcoinAvatar address={address} variant="pixel" />
-<BitcoinAvatar address={address} variant="beam" />
-<BitcoinAvatar address={address} variant="ring" />
-<BitcoinAvatar address={address} variant="sunset" />
-<BitcoinAvatar address={address} variant="bauhaus" />
-<BitcoinAvatar address={address} variant="fractal" />
-<BitcoinAvatar address={address} variant="mage" />
-<BitcoinAvatar address={address} variant="barcode" />
-<BitcoinAvatar address={address} variant="pepe" />
-```
-
-Each variant produces a visually distinct style. Pick the one that fits your app's personality; the fallback will be consistent regardless of which variant you choose.
+<ComponentPreview name="bitcoin-avatar-variants" showV0Button={false} />
 
 ### On-chain image with fallback
 

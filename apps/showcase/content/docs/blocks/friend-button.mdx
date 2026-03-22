@@ -101,20 +101,32 @@ The `status` prop drives which UI the button renders:
 | `pending-received` | "Accept" and "Decline" buttons | `onAccept`, `onDecline` |
 | `friends` | "Friends" button; hover reveals "Remove" | `onRemove` |
 
+## States
+
+### Pending (Sent)
+
+After sending a friend request, the button shows a disabled "Pending" state.
+
+<ComponentPreview name="friend-button-pending" showV0Button={false} />
+
+### Pending (Received)
+
+When another user has sent a request, Accept and Decline buttons are shown.
+
+<ComponentPreview name="friend-button-received" showV0Button={false} />
+
+### Friends
+
+Once mutual, the button shows "Friends". Hover to reveal the remove option.
+
+<ComponentPreview name="friend-button-friends" showV0Button={false} />
+
 ## Variants
 
 | Variant | Description |
 | --- | --- |
 | `default` | Standard rounded button (`px-4 py-2`) |
 | `compact` | Smaller button (`px-3 py-1.5 text-xs`) |
-
-```tsx
-// Default
-<FriendButton identityKey={id} status="none" onAddFriend={handleAdd} />
-
-// Compact — for use inside post cards or sidebars
-<FriendButton identityKey={id} status="none" variant="compact" onAddFriend={handleAdd} />
-```
 
 ## Hook: `useFriend`
 

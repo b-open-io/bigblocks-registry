@@ -87,19 +87,17 @@ export default function PostCard({ post }) {
 | `compact` | Square icon-only button (count hidden) |
 | `text` | Plain text style for minimal UIs |
 
-```tsx
-// Default — shows heart icon and count
-<LikeButton txid={txid} count={42} onLike={handleLike} />
+### Liked State
 
-// Compact — icon-only square button
-<LikeButton txid={txid} variant="compact" onLike={handleLike} />
+<ComponentPreview name="like-button-liked" showV0Button={false} />
 
-// Text — blends into a post footer
-<LikeButton txid={txid} variant="text" count={7} onLike={handleLike} />
+### Compact
 
-// Thumbs-up icon instead of heart
-<LikeButton txid={txid} useThumbsUp onLike={handleLike} />
-```
+<ComponentPreview name="like-button-compact" showV0Button={false} />
+
+### Text
+
+<ComponentPreview name="like-button-text" showV0Button={false} />
 
 ## Hook: `useLike`
 

@@ -227,24 +227,46 @@ export const registry = {
   ],
 
   examples: [
+    // Step Indicator
     { name: "step-indicator-demo", registryDependencies: ["step-indicator"], files: [{ path: "examples/step-indicator-demo.tsx", type: "registry:example" }] },
     { name: "step-indicator-vertical", registryDependencies: ["step-indicator"], files: [{ path: "examples/step-indicator-vertical.tsx", type: "registry:example" }] },
     { name: "step-indicator-with-descriptions", registryDependencies: ["step-indicator"], files: [{ path: "examples/step-indicator-with-descriptions.tsx", type: "registry:example" }] },
+
+    // Wallet
     { name: "connect-wallet-demo", registryDependencies: ["connect-wallet"], files: [{ path: "examples/connect-wallet-demo.tsx", type: "registry:example" }] },
     { name: "send-bsv-demo", registryDependencies: ["send-bsv"], files: [{ path: "examples/send-bsv-demo.tsx", type: "registry:example" }] },
+    { name: "send-bsv-compact", registryDependencies: ["send-bsv"], files: [{ path: "examples/send-bsv-compact.tsx", type: "registry:example" }] },
+    { name: "send-bsv-quick", registryDependencies: ["send-bsv"], files: [{ path: "examples/send-bsv-quick.tsx", type: "registry:example" }] },
     { name: "token-list-demo", registryDependencies: ["token-list"], files: [{ path: "examples/token-list-demo.tsx", type: "registry:example" }] },
+
+    // Social
     { name: "post-button-demo", registryDependencies: ["post-button"], files: [{ path: "examples/post-button-demo.tsx", type: "registry:example" }] },
+    { name: "post-button-compact", registryDependencies: ["post-button"], files: [{ path: "examples/post-button-compact.tsx", type: "registry:example" }] },
+    { name: "post-button-inline", registryDependencies: ["post-button"], files: [{ path: "examples/post-button-inline.tsx", type: "registry:example" }] },
     { name: "like-button-demo", registryDependencies: ["like-button"], files: [{ path: "examples/like-button-demo.tsx", type: "registry:example" }] },
+    { name: "like-button-liked", registryDependencies: ["like-button"], files: [{ path: "examples/like-button-liked.tsx", type: "registry:example" }] },
+    { name: "like-button-compact", registryDependencies: ["like-button"], files: [{ path: "examples/like-button-compact.tsx", type: "registry:example" }] },
+    { name: "like-button-text", registryDependencies: ["like-button"], files: [{ path: "examples/like-button-text.tsx", type: "registry:example" }] },
     { name: "follow-button-demo", registryDependencies: ["follow-button"], files: [{ path: "examples/follow-button-demo.tsx", type: "registry:example" }] },
+    { name: "follow-button-compact", registryDependencies: ["follow-button"], files: [{ path: "examples/follow-button-compact.tsx", type: "registry:example" }] },
+    { name: "follow-button-states", registryDependencies: ["follow-button"], files: [{ path: "examples/follow-button-states.tsx", type: "registry:example" }] },
     { name: "friend-button-demo", registryDependencies: ["friend-button"], files: [{ path: "examples/friend-button-demo.tsx", type: "registry:example" }] },
+    { name: "friend-button-pending", registryDependencies: ["friend-button"], files: [{ path: "examples/friend-button-pending.tsx", type: "registry:example" }] },
+    { name: "friend-button-received", registryDependencies: ["friend-button"], files: [{ path: "examples/friend-button-received.tsx", type: "registry:example" }] },
+    { name: "friend-button-friends", registryDependencies: ["friend-button"], files: [{ path: "examples/friend-button-friends.tsx", type: "registry:example" }] },
     { name: "social-feed-demo", registryDependencies: ["social-feed"], files: [{ path: "examples/social-feed-demo.tsx", type: "registry:example" }] },
+
+    // Marketplace
     { name: "inscribe-file-demo", registryDependencies: ["inscribe-file"], files: [{ path: "examples/inscribe-file-demo.tsx", type: "registry:example" }] },
     { name: "deploy-token-demo", registryDependencies: ["deploy-token"], files: [{ path: "examples/deploy-token-demo.tsx", type: "registry:example" }] },
     { name: "create-listing-demo", registryDependencies: ["create-listing"], files: [{ path: "examples/create-listing-demo.tsx", type: "registry:example" }] },
     { name: "buy-listing-demo", registryDependencies: ["buy-listing"], files: [{ path: "examples/buy-listing-demo.tsx", type: "registry:example" }] },
     { name: "ordinals-grid-demo", registryDependencies: ["ordinals-grid"], files: [{ path: "examples/ordinals-grid-demo.tsx", type: "registry:example" }] },
     { name: "market-grid-demo", registryDependencies: ["market-grid"], files: [{ path: "examples/market-grid-demo.tsx", type: "registry:example" }] },
+
+    // Identity
     { name: "bitcoin-avatar-demo", registryDependencies: ["bitcoin-avatar"], files: [{ path: "examples/bitcoin-avatar-demo.tsx", type: "registry:example" }] },
+    { name: "bitcoin-avatar-variants", registryDependencies: ["bitcoin-avatar"], files: [{ path: "examples/bitcoin-avatar-variants.tsx", type: "registry:example" }] },
     { name: "profile-card-demo", registryDependencies: ["profile-card"], files: [{ path: "examples/profile-card-demo.tsx", type: "registry:example" }] },
     { name: "identity-selector-demo", registryDependencies: ["identity-selector"], files: [{ path: "examples/identity-selector-demo.tsx", type: "registry:example" }] },
   ],

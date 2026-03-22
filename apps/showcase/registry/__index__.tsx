@@ -531,6 +531,30 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/send-bsv-demo.tsx")),
     categories: ["examples"],
   },
+  "send-bsv-compact": {
+    name: "send-bsv-compact",
+    type: "registry:example",
+    registryDependencies: ["send-bsv"],
+    files: [{
+      path: "registry/bigblocks/examples/send-bsv-compact.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/send-bsv-compact.tsx")),
+    categories: ["examples"],
+  },
+  "send-bsv-quick": {
+    name: "send-bsv-quick",
+    type: "registry:example",
+    registryDependencies: ["send-bsv"],
+    files: [{
+      path: "registry/bigblocks/examples/send-bsv-quick.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/send-bsv-quick.tsx")),
+    categories: ["examples"],
+  },
   "token-list-demo": {
     name: "token-list-demo",
     type: "registry:example",
@@ -555,6 +579,30 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/post-button-demo.tsx")),
     categories: ["examples"],
   },
+  "post-button-compact": {
+    name: "post-button-compact",
+    type: "registry:example",
+    registryDependencies: ["post-button"],
+    files: [{
+      path: "registry/bigblocks/examples/post-button-compact.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/post-button-compact.tsx")),
+    categories: ["examples"],
+  },
+  "post-button-inline": {
+    name: "post-button-inline",
+    type: "registry:example",
+    registryDependencies: ["post-button"],
+    files: [{
+      path: "registry/bigblocks/examples/post-button-inline.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/post-button-inline.tsx")),
+    categories: ["examples"],
+  },
   "like-button-demo": {
     name: "like-button-demo",
     type: "registry:example",
@@ -565,6 +613,42 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/like-button-demo.tsx")),
+    categories: ["examples"],
+  },
+  "like-button-liked": {
+    name: "like-button-liked",
+    type: "registry:example",
+    registryDependencies: ["like-button"],
+    files: [{
+      path: "registry/bigblocks/examples/like-button-liked.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/like-button-liked.tsx")),
+    categories: ["examples"],
+  },
+  "like-button-compact": {
+    name: "like-button-compact",
+    type: "registry:example",
+    registryDependencies: ["like-button"],
+    files: [{
+      path: "registry/bigblocks/examples/like-button-compact.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/like-button-compact.tsx")),
+    categories: ["examples"],
+  },
+  "like-button-text": {
+    name: "like-button-text",
+    type: "registry:example",
+    registryDependencies: ["like-button"],
+    files: [{
+      path: "registry/bigblocks/examples/like-button-text.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/like-button-text.tsx")),
     categories: ["examples"],
   },
   "follow-button-demo": {
@@ -579,6 +663,30 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/follow-button-demo.tsx")),
     categories: ["examples"],
   },
+  "follow-button-compact": {
+    name: "follow-button-compact",
+    type: "registry:example",
+    registryDependencies: ["follow-button"],
+    files: [{
+      path: "registry/bigblocks/examples/follow-button-compact.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/follow-button-compact.tsx")),
+    categories: ["examples"],
+  },
+  "follow-button-states": {
+    name: "follow-button-states",
+    type: "registry:example",
+    registryDependencies: ["follow-button"],
+    files: [{
+      path: "registry/bigblocks/examples/follow-button-states.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/follow-button-states.tsx")),
+    categories: ["examples"],
+  },
   "friend-button-demo": {
     name: "friend-button-demo",
     type: "registry:example",
@@ -589,6 +697,42 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/friend-button-demo.tsx")),
+    categories: ["examples"],
+  },
+  "friend-button-pending": {
+    name: "friend-button-pending",
+    type: "registry:example",
+    registryDependencies: ["friend-button"],
+    files: [{
+      path: "registry/bigblocks/examples/friend-button-pending.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/friend-button-pending.tsx")),
+    categories: ["examples"],
+  },
+  "friend-button-received": {
+    name: "friend-button-received",
+    type: "registry:example",
+    registryDependencies: ["friend-button"],
+    files: [{
+      path: "registry/bigblocks/examples/friend-button-received.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/friend-button-received.tsx")),
+    categories: ["examples"],
+  },
+  "friend-button-friends": {
+    name: "friend-button-friends",
+    type: "registry:example",
+    registryDependencies: ["friend-button"],
+    files: [{
+      path: "registry/bigblocks/examples/friend-button-friends.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/friend-button-friends.tsx")),
     categories: ["examples"],
   },
   "social-feed-demo": {
@@ -685,6 +829,18 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/bitcoin-avatar-demo.tsx")),
+    categories: ["examples"],
+  },
+  "bitcoin-avatar-variants": {
+    name: "bitcoin-avatar-variants",
+    type: "registry:example",
+    registryDependencies: ["bitcoin-avatar"],
+    files: [{
+      path: "registry/bigblocks/examples/bitcoin-avatar-variants.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/bitcoin-avatar-variants.tsx")),
     categories: ["examples"],
   },
   "profile-card-demo": {

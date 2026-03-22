@@ -88,32 +88,15 @@ The button renders three distinct states depending on the follow status and hove
 | `compact` | Smaller button (`px-3 py-1.5 text-xs`) |
 | `pill` | Fully rounded pill shape (`rounded-full px-5 py-2`) |
 
-```tsx
-// Default
-<FollowButton bapId={bapId} onFollow={handleFollow} />
+### Compact and Pill
 
-// Compact — for tight layouts like post cards
-<FollowButton bapId={bapId} variant="compact" onFollow={handleFollow} />
+<ComponentPreview name="follow-button-compact" showV0Button={false} />
 
-// Pill — for profile pages
-<FollowButton bapId={bapId} variant="pill" onFollow={handleFollow} />
-```
+### Following and Custom Labels
 
-## Custom Labels
+Shows the following state (hover to see unfollow) and custom label overrides.
 
-Override the default Follow / Following / Unfollow labels via the `labels` prop.
-
-```tsx
-<FollowButton
-  bapId={bapId}
-  onFollow={handleFollow}
-  labels={{
-    follow: "Subscribe",
-    following: "Subscribed",
-    unfollow: "Unsubscribe",
-  }}
-/>
-```
+<ComponentPreview name="follow-button-states" showV0Button={false} />
 
 ## Hook: `useFollow`
 

@@ -81,16 +81,13 @@ The `variant` prop controls how the trigger button is presented.
 | `fab` | Fixed floating action button in the bottom-right corner |
 | `inline` | Borderless ghost-style button for embedding in toolbars |
 
-```tsx
-// Floating action button — ideal for feed pages
-<PostButton variant="fab" onPost={handlePost} />
+### Compact and FAB
 
-// Compact toolbar button
-<PostButton variant="compact" label="New Post" onPost={handlePost} />
+<ComponentPreview name="post-button-compact" showV0Button={false} />
 
-// Inline in a card footer
-<PostButton variant="inline" label="Write" onPost={handlePost} />
-```
+### Inline
+
+<ComponentPreview name="post-button-inline" showV0Button={false} />
 
 ## Hook: `usePost`
 

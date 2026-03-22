@@ -80,29 +80,17 @@ export function WalletActions() {
 
 ## Variants
 
-### Default
-
-A labeled button with a send icon that opens the full send dialog.
-
-```tsx
-<SendBsv variant="default" triggerLabel="Send BSV" onSend={handleSend} />
-```
-
 ### Compact
 
 An icon-only square button. Useful in dense UIs such as table rows or toolbars.
 
-```tsx
-<SendBsv variant="compact" onSend={handleSend} />
-```
+<ComponentPreview name="send-bsv-compact" showV0Button={false} />
 
 ### Quick
 
 An inline input + send button that pre-fills the dialog amount. Users type a satoshi amount directly without opening the dialog first.
 
-```tsx
-<SendBsv variant="quick" onSend={handleSend} />
-```
+<ComponentPreview name="send-bsv-quick" showV0Button={false} />
 
 ## Dialog Sizes
 

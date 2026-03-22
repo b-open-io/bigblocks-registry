@@ -9,10 +9,10 @@ async function mockPost(_content: string) {
   }
 }
 
-export default function PostButtonDemo() {
+export default function PostButtonInlineDemo() {
   return (
     <div className="flex items-center justify-center">
-      <PostButton variant="default" onPost={mockPost} />
+      <PostButton variant="inline" label="Write" onPost={mockPost} />
     </div>
   )
 }

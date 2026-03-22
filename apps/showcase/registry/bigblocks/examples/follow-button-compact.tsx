@@ -11,10 +11,18 @@ async function mockFollow(_bapId: string) {
   }
 }
 
-export default function FollowButtonDemo() {
+export default function FollowButtonCompactDemo() {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center gap-4">
       <FollowButton
+        variant="compact"
+        bapId={SAMPLE_BAP_ID}
+        isFollowing={false}
+        onFollow={mockFollow}
+        onUnfollow={mockFollow}
+      />
+      <FollowButton
+        variant="pill"
         bapId={SAMPLE_BAP_ID}
         isFollowing={false}
         onFollow={mockFollow}

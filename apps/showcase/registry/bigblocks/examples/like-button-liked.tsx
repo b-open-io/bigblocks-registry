@@ -11,13 +11,13 @@ async function mockLike(_txid: string) {
   }
 }
 
-export default function LikeButtonDemo() {
+export default function LikeButtonLikedDemo() {
   return (
     <div className="flex items-center justify-center">
       <LikeButton
         txid={SAMPLE_TXID}
-        count={12}
-        liked={false}
+        count={43}
+        liked={true}
         onLike={mockLike}
         onUnlike={mockLike}
       />

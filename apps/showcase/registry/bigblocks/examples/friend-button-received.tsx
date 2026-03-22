@@ -12,16 +12,15 @@ async function mockAction(_id: string) {
   }
 }
 
-export default function FriendButtonDemo() {
+export default function FriendButtonReceivedDemo() {
   return (
     <div className="flex items-center justify-center">
       <FriendButton
         identityKey={SAMPLE_IDENTITY}
-        status="none"
+        status="pending-received"
         onAddFriend={mockAction}
         onAccept={mockAction}
         onDecline={mockAction}
-        onRemove={mockAction}
       />
     </div>
   )
