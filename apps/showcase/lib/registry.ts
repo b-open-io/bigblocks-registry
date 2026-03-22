@@ -1,9 +1,7 @@
 import { promises as fs } from "fs"
 import { tmpdir } from "os"
 import path from "path"
-import { registryItemFileSchema, registryItemSchema } from "shadcn/registry"
 import { Project, ScriptKind } from "ts-morph"
-import { z } from "zod/v3"
 
 import { Index } from "@/registry/__index__"
 
@@ -19,18 +17,11 @@ export async function getRegistryItem(name: string) {
   }
 
   // Convert all file paths to object.
-  // TODO: remove when we migrate to new registry.
   item.files = item.files.map((file: unknown) =>
     typeof file === "string" ? { path: file } : file
   )
 
-  // Fail early before doing expensive file operations.
-  const result = registryItemSchema.safeParse(item)
-  if (!result.success) {
-    return null
-  }
-
-  let files: typeof result.data.files = []
+  const files: Array<{ path: string; type: string; target: string; content: string }> = []
   for (const file of item.files) {
     const content = await getFileContent(file)
     const relativePath = path.relative(process.cwd(), file.path)
@@ -42,23 +33,13 @@ export async function getRegistryItem(name: string) {
     })
   }
 
-  // Fix file paths.
-  files = fixFilePaths(files)
-
-  const parsed = registryItemSchema.safeParse({
-    ...result.data,
-    files,
-  })
-
-  if (!parsed.success) {
-    console.error(parsed.error.message)
-    return null
+  return {
+    ...item,
+    files: fixFilePaths(files),
   }
-
-  return parsed.data
 }
 
-async function getFileContent(file: z.infer<typeof registryItemFileSchema>) {
+async function getFileContent(file: { path: string; type?: string }) {
   const raw = await fs.readFile(file.path, "utf-8")
 
   const project = new Project({
@@ -70,27 +51,20 @@ async function getFileContent(file: z.infer<typeof registryItemFileSchema>) {
     scriptKind: ScriptKind.TSX,
   })
 
-  // Remove meta variables.
-  // removeVariable(sourceFile, "iframeHeight")
-  // removeVariable(sourceFile, "containerClassName")
-  // removeVariable(sourceFile, "description")
-
   let code = sourceFile.getFullText()
 
-  // Some registry items uses default export.
-  // We want to use named export instead.
-  // TODO: do we really need this? - @shadcn.
+  // Some registry items use default export.
+  // Convert to named export for the preview system.
   if (file.type !== "registry:page") {
     code = code.replaceAll("export default", "export")
   }
 
-  // Fix imports.
   code = fixImport(code)
 
   return code
 }
 
-function getFileTarget(file: z.infer<typeof registryItemFileSchema>) {
+function getFileTarget(file: { path: string; type?: string; target?: string }) {
   let target = file.target
 
   if (!target || target === "") {
@@ -124,12 +98,11 @@ async function createTempSourceFile(filename: string) {
   return path.join(dir, filename)
 }
 
-function fixFilePaths(files: z.infer<typeof registryItemSchema>["files"]) {
-  if (!files) {
+function fixFilePaths(files: Array<{ path: string; type: string; target: string; content: string }>) {
+  if (!files || files.length === 0) {
     return []
   }
 
-  // Resolve all paths relative to the first file's directory.
   const firstFilePath = files[0].path
   const firstFilePathDir = path.dirname(firstFilePath)
 
@@ -147,7 +120,7 @@ export function fixImport(content: string) {
 
   const replacement = (
     match: string,
-    path: string,
+    _path: string,
     type: string,
     component: string
   ) => {
@@ -179,8 +152,8 @@ export function createFileTreeForRegistryItemFiles(
   const root: FileTree[] = []
 
   for (const file of files) {
-    const path = file.target ?? file.path
-    const parts = path.split("/")
+    const filePath = file.target ?? file.path
+    const parts = filePath.split("/")
     let currentLevel = root
 
     for (let i = 0; i < parts.length; i++) {
@@ -190,15 +163,13 @@ export function createFileTreeForRegistryItemFiles(
 
       if (existingNode) {
         if (isFile) {
-          // Update existing file node with full path
-          existingNode.path = path
+          existingNode.path = filePath
         } else {
-          // Move to next level in the tree
           currentLevel = existingNode.children!
         }
       } else {
         const newNode: FileTree = isFile
-          ? { name: part, path }
+          ? { name: part, path: filePath }
           : { name: part, children: [] }
 
         currentLevel.push(newNode)
