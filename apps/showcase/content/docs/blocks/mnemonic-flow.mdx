@@ -1,0 +1,149 @@
+---
+title: Mnemonic Flow
+description: Multi-mode seed phrase display and input block with create, display, import, and verify modes
+featured: true
+component: true
+---
+
+<ComponentPreview name="mnemonic-flow-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/mnemonic-flow.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add badge button card checkbox input label
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/mnemonic-flow/index.tsx`
+- `components/blocks/mnemonic-flow/mnemonic-flow-ui.tsx`
+- `components/blocks/mnemonic-flow/mnemonic-grid-ui.tsx`
+- `components/blocks/mnemonic-flow/use-mnemonic-flow.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { MnemonicFlow } from "@/components/blocks/mnemonic-flow"
+
+export function OnboardingPage() {
+  return (
+    <MnemonicFlow
+      mode="create"
+      words={generatedWords}
+      onComplete={(words) => createWallet(words.join(" "))}
+      onCancel={() => router.back()}
+    />
+  )
+}
+```
+
+## Modes
+
+### Create
+
+Displays generated words in a numbered grid with a confirmation checkbox. The user must acknowledge they have written them down before proceeding.
+
+```tsx
+<MnemonicFlow mode="create" words={words} onComplete={handleComplete} />
+```
+
+### Display
+
+Read-only numbered grid with a copy-all button. Useful for showing an existing mnemonic.
+
+```tsx
+<MnemonicFlow mode="display" words={words} onComplete={handleComplete} />
+```
+
+### Import
+
+Editable input grid where the user enters each word manually. Validates word count on submit.
+
+```tsx
+<MnemonicFlow mode="import" wordCount={12} onComplete={handleComplete} />
+```
+
+### Verify
+
+Shows 2 random blank positions from the provided words. The user must type the correct words to continue.
+
+```tsx
+<MnemonicFlow mode="verify" words={words} onComplete={handleComplete} />
+```
+
+## Props
+
+### MnemonicFlow
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `mode` | `"display" \| "create" \| "import" \| "verify"` | **required** | Operating mode |
+| `words` | `string[]` | -- | Pre-populated words for display/create/verify modes |
+| `wordCount` | `12 \| 24` | `12` | Number of mnemonic words |
+| `onComplete` | `(words: string[]) => void` | -- | Called with the final word list |
+| `onCancel` | `() => void` | -- | Called when the user cancels |
+| `isLoading` | `boolean` | `false` | External loading state |
+| `error` | `string \| null` | -- | External error message |
+| `className` | `string` | -- | Additional CSS classes |
+
+## Hook
+
+`useMnemonicFlow` manages all mode logic, validation, and verification state.
+
+```tsx
+import { useMnemonicFlow } from "@/components/blocks/mnemonic-flow"
+
+function CustomMnemonic() {
+  const flow = useMnemonicFlow({
+    mode: "import",
+    wordCount: 12,
+    onComplete: (words) => console.log(words),
+  })
+
+  return (
+    <div>
+      {flow.words.map((word, i) => (
+        <input
+          key={i}
+          value={word}
+          onChange={(e) => flow.setWord(i, e.target.value)}
+        />
+      ))}
+      <button onClick={flow.submit} disabled={!flow.canSubmit}>
+        Submit
+      </button>
+    </div>
+  )
+}
+```

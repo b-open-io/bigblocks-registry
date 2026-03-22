@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "unlock-wallet-demo",
+  "title": "Unlock Wallet Demo",
+  "author": "Satchmo <https://bigblocks.dev>",
+  "description": "Demo showing macOS Touch ID and passphrase unlock variants with simulated authentication",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/unlock-wallet.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/unlock-wallet-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport {\n  UnlockWallet,\n  type UnlockWalletResult,\n} from \"@/registry/new-york/blocks/unlock-wallet\"\n\nexport default function UnlockWalletDemo() {\n  const [unlockCount, setUnlockCount] = useState(0)\n\n  async function handleUnlock(\n    passphrase?: string,\n  ): Promise<UnlockWalletResult> {\n    // In a real application, verify the passphrase against\n    // the encrypted backup or invoke the platform biometric API.\n    //\n    // import { decryptBackup } from \"bitcoin-backup\"\n    //\n    // if (passphrase) {\n    //   const backup = localStorage.getItem(\"encryptedBackup\")\n    //   const decrypted = await decryptBackup(backup, passphrase)\n    //   if (!decrypted) return { success: false, error: \"Invalid passphrase\" }\n    //   sessionStorage.setItem(\"decryptedBackup\", decrypted)\n    //   return { success: true }\n    // }\n    // // Biometric: delegate to OS API\n    // return await biometricAuth()\n\n    // Demo: simulate a 1.5-second unlock\n    await new Promise((resolve) => setTimeout(resolve, 1500))\n\n    // Fail every other attempt for demo purposes\n    if (unlockCount % 2 === 0) {\n      setUnlockCount((prev) => prev + 1)\n      return { success: false, error: \"Invalid passphrase. Try again.\" }\n    }\n\n    setUnlockCount((prev) => prev + 1)\n    return { success: true }\n  }\n\n  return (\n    <div className=\"flex flex-col items-center gap-8\">\n      {/* macOS variant */}\n      <div className=\"flex flex-col items-center gap-2\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          macOS (Touch ID)\n        </p>\n        <UnlockWallet\n          platform=\"macos\"\n          appName=\"BigBlocks Wallet\"\n          onUnlock={handleUnlock}\n          onSuccess={() => console.log(\"Wallet unlocked via Touch ID\")}\n          onError={(error) => console.error(\"Unlock error:\", error)}\n        />\n      </div>\n\n      {/* Passphrase variant */}\n      <div className=\"flex flex-col items-center gap-2\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Passphrase\n        </p>\n        <UnlockWallet\n          platform=\"other\"\n          appName=\"BigBlocks Wallet\"\n          onUnlock={handleUnlock}\n          onSuccess={() => console.log(\"Wallet unlocked via passphrase\")}\n          onError={(error) => console.error(\"Unlock error:\", error)}\n        />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

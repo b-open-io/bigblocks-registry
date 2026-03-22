@@ -1,0 +1,119 @@
+---
+title: Sync Terminal
+description: Monospace event log for blockchain sync activity with colour-coded severity levels, auto-scroll, and connection status indicator
+featured: true
+component: true
+---
+
+<ComponentPreview name="sync-terminal-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/sync-terminal.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/sync-terminal/index.tsx`
+- `components/blocks/sync-terminal/sync-terminal-ui.tsx`
+- `components/blocks/sync-terminal/use-sync-terminal.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+Pass an array of events and optional status to display a live sync log. The terminal auto-scrolls to the latest event and caps the internal buffer at `maxEvents`.
+
+```tsx
+import { SyncTerminal, type SyncEvent } from "@/components/blocks/sync-terminal"
+
+export function Dashboard() {
+  const [events, setEvents] = useState<SyncEvent[]>([])
+
+  return (
+    <SyncTerminal
+      events={events}
+      status={{ blockHeight: 850123, connected: true }}
+      maxEvents={500}
+    />
+  )
+}
+```
+
+## Props
+
+### SyncTerminal
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `events` | `SyncEvent[]` | **required** | Events to display |
+| `status` | `SyncStatus` | -- | Sync status shown in the header |
+| `maxEvents` | `number` | `200` | Max events in the buffer |
+| `title` | `string` | `"Sync Log"` | Header title |
+| `showTimestamps` | `boolean` | `true` | Show timestamps in each line |
+| `showSource` | `boolean` | `true` | Show source labels in each line |
+| `autoScroll` | `boolean` | `true` | Auto-scroll to latest event |
+| `className` | `string` | -- | Additional CSS classes |
+
+### SyncEvent
+
+```typescript
+interface SyncEvent {
+  timestamp: number
+  source: string
+  level: "log" | "warn" | "error" | "success"
+  message: string
+}
+```
+
+### SyncStatus
+
+```typescript
+interface SyncStatus {
+  blockHeight: number
+  connected: boolean
+}
+```
+
+## Hook
+
+`useSyncTerminal` manages the event buffer and auto-scroll ref.
+
+```tsx
+import { useSyncTerminal } from "@/components/blocks/sync-terminal"
+
+function CustomTerminal() {
+  const { events, bottomRef } = useSyncTerminal({
+    events: rawEvents,
+    maxEvents: 300,
+    autoScroll: true,
+  })
+
+  return (
+    <div className="overflow-y-auto font-mono text-xs">
+      {events.map((e, i) => (
+        <div key={i}>{e.message}</div>
+      ))}
+      <div ref={bottomRef} />
+    </div>
+  )
+}
+```

@@ -102,6 +102,114 @@ export const Index: Record<string, any> = {
     categories: ["wallet"],
     dependencies: undefined,
   },
+  "receive-address": {
+    name: "receive-address",
+    title: "Receive Address",
+    description: "QR code and deposit address display with clipboard copy and optional address rotation",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/receive-address/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/receive-address/receive-address-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/receive-address/use-receive-address.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/receive-address/index.tsx")
+      return { default: mod.ReceiveAddress || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "transaction-history": {
+    name: "transaction-history",
+    title: "Transaction History",
+    description: "Transaction list with status indicators, amounts, relative dates, and pagination",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/transaction-history/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/transaction-history/transaction-history-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/transaction-history/use-transaction-history.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/transaction-history/index.tsx")
+      return { default: mod.TransactionHistory || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "mnemonic-flow": {
+    name: "mnemonic-flow",
+    title: "Mnemonic Flow",
+    description: "Multi-mode seed phrase display and input block with create, display, import, and verify modes",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/mnemonic-flow/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/mnemonic-flow/mnemonic-flow-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/mnemonic-flow/mnemonic-grid-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/mnemonic-flow/use-mnemonic-flow.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/mnemonic-flow/index.tsx")
+      return { default: mod.MnemonicFlow || mod.default }
+    }),
+    categories: ["wallet"],
+    dependencies: undefined,
+  },
+  "sync-terminal": {
+    name: "sync-terminal",
+    title: "Sync Terminal",
+    description: "Monospace event log for blockchain sync activity with colour-coded severity levels",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/sync-terminal/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/sync-terminal/sync-terminal-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/sync-terminal/use-sync-terminal.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/sync-terminal/index.tsx")
+      return { default: mod.SyncTerminal || mod.default }
+    }),
+    categories: ["developer"],
+    dependencies: undefined,
+  },
   "post-button": {
     name: "post-button",
     title: "Post Button",
@@ -592,6 +700,54 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/token-list-demo.tsx")),
+    categories: ["examples"],
+  },
+  "receive-address-demo": {
+    name: "receive-address-demo",
+    type: "registry:example",
+    registryDependencies: ["receive-address"],
+    files: [{
+      path: "registry/bigblocks/examples/receive-address-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/receive-address-demo.tsx")),
+    categories: ["examples"],
+  },
+  "transaction-history-demo": {
+    name: "transaction-history-demo",
+    type: "registry:example",
+    registryDependencies: ["transaction-history"],
+    files: [{
+      path: "registry/bigblocks/examples/transaction-history-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/transaction-history-demo.tsx")),
+    categories: ["examples"],
+  },
+  "mnemonic-flow-demo": {
+    name: "mnemonic-flow-demo",
+    type: "registry:example",
+    registryDependencies: ["mnemonic-flow"],
+    files: [{
+      path: "registry/bigblocks/examples/mnemonic-flow-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/mnemonic-flow-demo.tsx")),
+    categories: ["examples"],
+  },
+  "sync-terminal-demo": {
+    name: "sync-terminal-demo",
+    type: "registry:example",
+    registryDependencies: ["sync-terminal"],
+    files: [{
+      path: "registry/bigblocks/examples/sync-terminal-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/sync-terminal-demo.tsx")),
     categories: ["examples"],
   },
   "post-button-demo": {

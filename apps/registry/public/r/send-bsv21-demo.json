@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "send-bsv21-demo",
+  "title": "Send BSV21 Demo",
+  "author": "Satchmo <https://bigblocks.dev>",
+  "description": "Demo of the send BSV21 token form with mock token balances and simulated transfer",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/send-bsv21.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/send-bsv21-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport {\n  SendBsv21,\n  type SendBsv21Params,\n  type SendBsv21Result,\n  type TokenBalance,\n} from \"@/registry/new-york/blocks/send-bsv21\"\n\nconst MOCK_BALANCES: TokenBalance[] = [\n  {\n    tokenId: \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2_0\",\n    symbol: \"PEPE\",\n    balance: \"100000000\",\n    decimals: 4,\n    iconUrl: \"https://ordfs.network/content/a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2_0\",\n  },\n  {\n    tokenId: \"b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3_0\",\n    symbol: \"GOLD\",\n    balance: \"5000000\",\n    decimals: 2,\n  },\n  {\n    tokenId: \"c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4_0\",\n    symbol: \"SIGMA\",\n    balance: \"999\",\n    decimals: 0,\n  },\n]\n\nexport default function SendBsv21Demo() {\n  const [lastResult, setLastResult] = useState<SendBsv21Result | null>(null)\n\n  async function handleSend(params: SendBsv21Params): Promise<SendBsv21Result> {\n    // In a real application, use @1sat/actions:\n    //\n    // import { sendBsv21, createContext } from \"@1sat/actions\"\n    // import { useWallet } from \"@1sat/react\"\n    //\n    // const { wallet } = useWallet()\n    // const ctx = createContext(wallet)\n    // const result = await sendBsv21.execute(ctx, {\n    //   tokenId: params.tokenId,\n    //   amount: params.amount,\n    //   address: params.address,\n    // })\n    // return result\n\n    // Demo: simulate a 2-second transaction\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    return {\n      txid: \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n    }\n  }\n\n  return (\n    <div className=\"flex flex-col items-center gap-8\">\n      <SendBsv21\n        balances={MOCK_BALANCES}\n        onSend={handleSend}\n        onSuccess={(result) => setLastResult(result)}\n        onError={(error) => console.error(\"Send token error:\", error)}\n      />\n\n      {lastResult?.txid && (\n        <div className=\"w-full max-w-md rounded-md border bg-muted/50 p-3\">\n          <p className=\"text-xs text-muted-foreground\">Last transaction</p>\n          <p className=\"mt-1 break-all font-mono text-xs\">{lastResult.txid}</p>\n        </div>\n      )}\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

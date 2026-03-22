@@ -22,6 +22,10 @@ const EXPORT_NAMES: Record<string, string> = {
   "bitcoin-avatar": "BitcoinAvatar",
   "profile-card": "ProfileCard",
   "identity-selector": "IdentitySelector",
+  "receive-address": "ReceiveAddress",
+  "transaction-history": "TransactionHistory",
+  "mnemonic-flow": "MnemonicFlow",
+  "sync-terminal": "SyncTerminal",
 }
 
 async function buildRegistryIndex() {

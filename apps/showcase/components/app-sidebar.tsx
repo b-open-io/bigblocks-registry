@@ -38,7 +38,10 @@ const data = {
       items: [
         { title: "Connect Wallet", url: "/docs/blocks/connect-wallet" },
         { title: "Send BSV", url: "/docs/blocks/send-bsv" },
+        { title: "Receive Address", url: "/docs/blocks/receive-address" },
+        { title: "Transaction History", url: "/docs/blocks/transaction-history" },
         { title: "Token List", url: "/docs/blocks/token-list" },
+        { title: "Mnemonic Flow", url: "/docs/blocks/mnemonic-flow" },
       ],
     },
     {
@@ -71,6 +74,13 @@ const data = {
         { title: "Bitcoin Avatar", url: "/docs/blocks/bitcoin-avatar" },
         { title: "Profile Card", url: "/docs/blocks/profile-card" },
         { title: "Identity Selector", url: "/docs/blocks/identity-selector" },
+      ],
+    },
+    {
+      title: "Developer",
+      url: "/docs/blocks/sync-terminal",
+      items: [
+        { title: "Sync Terminal", url: "/docs/blocks/sync-terminal" },
       ],
     },
   ],

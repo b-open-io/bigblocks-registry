@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sweep-wallet-demo",
+  "title": "Sweep Wallet Demo",
+  "author": "Satchmo <https://bigblocks.dev>",
+  "description": "Demo of the sweep wallet block with simulated scan and sweep operations",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/sweep-wallet.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/sweep-wallet-demo.tsx",
+      "content": "\"use client\"\n\nimport {\n  SweepWallet,\n  type ScanResult,\n  type SweepResult,\n} from \"@/registry/new-york/blocks/sweep-wallet\"\n\nexport default function SweepWalletDemo() {\n  async function handleScan(wif: string): Promise<ScanResult> {\n    // In a real application, use @1sat/actions:\n    //\n    // import { PrivateKey } from \"@bsv/sdk\"\n    // import { scanAddressUtxos } from \"@1sat/actions\"\n    //\n    // const pk = PrivateKey.fromWif(wif)\n    // const address = pk.toPublicKey().toAddress()\n    // return await scanAddressUtxos(services, address)\n\n    // Demo: simulate a 1.5-second scan returning sample assets\n    await new Promise((resolve) => setTimeout(resolve, 1500))\n\n    return {\n      funding: [\n        { outpoint: \"abc123_0\", satoshis: 50000 },\n        { outpoint: \"def456_1\", satoshis: 25000 },\n      ],\n      ordinals: [{ outpoint: \"ord789_0\" }, { outpoint: \"ord012_0\" }],\n      tokens: [\n        { tokenId: \"tok345_0\", symbol: \"GOLD\", amount: \"1000000\" },\n      ],\n      totalSats: 75000,\n    }\n  }\n\n  async function handleSweep(\n    _wif: string,\n    _assets: ScanResult,\n  ): Promise<SweepResult> {\n    // In a real application, use @1sat/actions:\n    //\n    // import { sweepBsv, prepareSweepInputs } from \"@1sat/actions\"\n    //\n    // const inputs = await prepareSweepInputs(ctx, assets.funding)\n    // return await sweepBsv.execute(ctx, { inputs, wif })\n\n    // Demo: simulate a 2-second sweep\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    return {\n      txid: \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n    }\n  }\n\n  return (\n    <div className=\"flex justify-center\">\n      <SweepWallet\n        onScan={handleScan}\n        onSweep={handleSweep}\n        onSuccess={(result) => console.log(\"Sweep success:\", result)}\n        onError={(error) => console.error(\"Sweep error:\", error)}\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

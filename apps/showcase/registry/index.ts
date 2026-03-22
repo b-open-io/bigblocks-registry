@@ -49,6 +49,55 @@ export const registry = {
         { path: "blocks/token-list/use-token-list.ts", type: "registry:hook" },
       ],
     },
+    {
+      name: "receive-address",
+      type: "registry:block",
+      title: "Receive Address",
+      description: "QR code and deposit address display with clipboard copy and optional address rotation",
+      categories: ["wallet"],
+      files: [
+        { path: "blocks/receive-address/index.tsx", type: "registry:block" },
+        { path: "blocks/receive-address/receive-address-ui.tsx", type: "registry:component" },
+        { path: "blocks/receive-address/use-receive-address.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "transaction-history",
+      type: "registry:block",
+      title: "Transaction History",
+      description: "Transaction list with status indicators, amounts, relative dates, and pagination",
+      categories: ["wallet"],
+      files: [
+        { path: "blocks/transaction-history/index.tsx", type: "registry:block" },
+        { path: "blocks/transaction-history/transaction-history-ui.tsx", type: "registry:component" },
+        { path: "blocks/transaction-history/use-transaction-history.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "mnemonic-flow",
+      type: "registry:block",
+      title: "Mnemonic Flow",
+      description: "Multi-mode seed phrase display and input block with create, display, import, and verify modes",
+      categories: ["wallet"],
+      files: [
+        { path: "blocks/mnemonic-flow/index.tsx", type: "registry:block" },
+        { path: "blocks/mnemonic-flow/mnemonic-flow-ui.tsx", type: "registry:component" },
+        { path: "blocks/mnemonic-flow/mnemonic-grid-ui.tsx", type: "registry:component" },
+        { path: "blocks/mnemonic-flow/use-mnemonic-flow.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "sync-terminal",
+      type: "registry:block",
+      title: "Sync Terminal",
+      description: "Monospace event log for blockchain sync activity with colour-coded severity levels",
+      categories: ["developer"],
+      files: [
+        { path: "blocks/sync-terminal/index.tsx", type: "registry:block" },
+        { path: "blocks/sync-terminal/sync-terminal-ui.tsx", type: "registry:component" },
+        { path: "blocks/sync-terminal/use-sync-terminal.ts", type: "registry:hook" },
+      ],
+    },
 
     // ── Social ──
     {
@@ -243,6 +292,10 @@ export const registry = {
     { name: "send-bsv-compact", registryDependencies: ["send-bsv"], files: [{ path: "examples/send-bsv-compact.tsx", type: "registry:example" }] },
     { name: "send-bsv-quick", registryDependencies: ["send-bsv"], files: [{ path: "examples/send-bsv-quick.tsx", type: "registry:example" }] },
     { name: "token-list-demo", registryDependencies: ["token-list"], files: [{ path: "examples/token-list-demo.tsx", type: "registry:example" }] },
+    { name: "receive-address-demo", registryDependencies: ["receive-address"], files: [{ path: "examples/receive-address-demo.tsx", type: "registry:example" }] },
+    { name: "transaction-history-demo", registryDependencies: ["transaction-history"], files: [{ path: "examples/transaction-history-demo.tsx", type: "registry:example" }] },
+    { name: "mnemonic-flow-demo", registryDependencies: ["mnemonic-flow"], files: [{ path: "examples/mnemonic-flow-demo.tsx", type: "registry:example" }] },
+    { name: "sync-terminal-demo", registryDependencies: ["sync-terminal"], files: [{ path: "examples/sync-terminal-demo.tsx", type: "registry:example" }] },
 
     // Social
     { name: "post-button-demo", registryDependencies: ["post-button"], files: [{ path: "examples/post-button-demo.tsx", type: "registry:example" }] },

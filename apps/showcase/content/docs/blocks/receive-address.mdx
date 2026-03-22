@@ -1,0 +1,138 @@
+---
+title: Receive Address
+description: QR code and deposit address display with clipboard copy and optional address rotation. Supports default, compact, and inline variants.
+featured: true
+component: true
+---
+
+<ComponentPreview name="receive-address-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/receive-address.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add button card badge skeleton tooltip
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/receive-address/index.tsx`
+- `components/blocks/receive-address/receive-address-ui.tsx`
+- `components/blocks/receive-address/use-receive-address.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+The composed `ReceiveAddress` component wires the hook and UI together. Pass an address and optional callbacks for rotation and copy.
+
+```tsx
+import { ReceiveAddress } from "@/components/blocks/receive-address"
+
+export function DepositPage() {
+  return (
+    <ReceiveAddress
+      address="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+      onRotate={async () => {
+        const newAddr = await generateNewAddress()
+        return newAddr
+      }}
+      onCopy={(addr) => console.log("Copied:", addr)}
+    />
+  )
+}
+```
+
+## Variants
+
+### Default
+
+Full card with QR code, address text, copy button, and optional rotate button.
+
+```tsx
+<ReceiveAddress address={address} variant="default" />
+```
+
+### Compact
+
+Smaller layout with a reduced QR code size. Useful for sidebars and panels.
+
+```tsx
+<ReceiveAddress address={address} variant="compact" qrSize={120} />
+```
+
+### Inline
+
+Horizontal layout with address and copy button only -- no QR code.
+
+```tsx
+<ReceiveAddress address={address} variant="inline" />
+```
+
+## Props
+
+### ReceiveAddress
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `address` | `string \| null` | **required** | The deposit address to display |
+| `onRotate` | `() => Promise<string>` | -- | Callback to rotate to a new address |
+| `onCopy` | `(address: string) => void` | -- | Called after address is copied |
+| `variant` | `"default" \| "compact" \| "inline"` | `"default"` | Visual layout variant |
+| `qrSize` | `number` | `200` | QR code pixel dimensions |
+| `renderQr` | `(address: string) => ReactNode` | -- | Custom QR code renderer |
+| `className` | `string` | -- | Additional CSS classes |
+
+## Hook
+
+`useReceiveAddress` can be used independently for a fully custom UI.
+
+```tsx
+import { useReceiveAddress } from "@/components/blocks/receive-address"
+
+function CustomReceive() {
+  const { copied, isRotating, rotateError, copyAddress, rotateAddress } =
+    useReceiveAddress({
+      address: "1A1zP1eP...",
+      onRotate: async () => generateNewAddress(),
+    })
+
+  return (
+    <div>
+      <button onClick={copyAddress}>{copied ? "Copied" : "Copy"}</button>
+      <button onClick={rotateAddress} disabled={isRotating}>
+        Rotate
+      </button>
+      {rotateError && <p>{rotateError.message}</p>}
+    </div>
+  )
+}
+```

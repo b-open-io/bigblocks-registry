@@ -1216,6 +1216,271 @@
           "target": ""
         }
       ]
+    },
+    {
+      "name": "lock-bsv",
+      "type": "registry:block",
+      "title": "Lock BSV",
+      "description": "Time-lock BSV until a future block height with lock form, lock summary, and unlock for matured locks via @1sat/actions lockBsv and unlockBsv",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "categories": ["wallet"],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "input",
+        "label",
+        "separator",
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/lock-bsv/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/lock-bsv/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/lock-bsv/lock-bsv-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/lock-bsv/lock-bsv-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/lock-bsv/use-lock-bsv.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/lock-bsv/use-lock-bsv.ts"
+        }
+      ]
+    },
+    {
+      "name": "lock-bsv-demo",
+      "type": "registry:example",
+      "title": "Lock BSV Demo",
+      "description": "Demo showcasing the lock BSV block with pre-populated locks, empty state, and simulated lock/unlock operations",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/lock-bsv.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/lock-bsv-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "sweep-wallet",
+      "type": "registry:block",
+      "title": "Sweep Wallet",
+      "description": "Sweep assets from a WIF private key into the connected wallet. Scans for funding UTXOs, ordinals, and BSV-21 tokens, previews found assets, and sweeps with progress.",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "input",
+        "label",
+        "separator",
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/sweep-wallet/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/sweep-wallet/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/sweep-wallet/sweep-wallet-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/sweep-wallet/sweep-wallet-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/sweep-wallet/use-sweep-wallet.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/sweep-wallet/use-sweep-wallet.ts"
+        }
+      ]
+    },
+    {
+      "name": "sweep-wallet-demo",
+      "type": "registry:example",
+      "title": "Sweep Wallet Demo",
+      "description": "Demo of the sweep wallet block with simulated scan and sweep operations",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/sweep-wallet.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/sweep-wallet-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "opns-manager",
+      "type": "registry:block",
+      "title": "OpNS Manager",
+      "description": "OpNS name management block for listing owned names and registering or deregistering identity key bindings via @1sat/actions opns module",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "categories": ["identity"],
+      "dependencies": [
+        "@1sat/react",
+        "@1sat/actions",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "dialog",
+        "separator",
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/opns-manager/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/opns-manager/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/opns-manager/opns-manager-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/opns-manager/opns-manager-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/opns-manager/use-opns-manager.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/opns-manager/use-opns-manager.ts"
+        }
+      ]
+    },
+    {
+      "name": "opns-manager-demo",
+      "type": "registry:example",
+      "title": "OpNS Manager Demo",
+      "description": "Demo showcasing the OpNS manager block with mock names, register/deregister actions, loading and empty states",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/opns-manager.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/opns-manager-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "send-bsv21",
+      "type": "registry:block",
+      "title": "Send BSV21",
+      "description": "Token send form with selector dropdown, decimal-aware amount input, recipient address, and confirmation flow for transferring BSV21 fungible tokens via @1sat/actions sendBsv21",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "input",
+        "label",
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/send-bsv21/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/send-bsv21/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/send-bsv21/send-bsv21-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/send-bsv21/send-bsv21-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/send-bsv21/use-send-bsv21.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/send-bsv21/use-send-bsv21.ts"
+        }
+      ]
+    },
+    {
+      "name": "send-bsv21-demo",
+      "type": "registry:example",
+      "title": "Send BSV21 Demo",
+      "description": "Demo of the send BSV21 token form with mock token balances and simulated transfer",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/send-bsv21.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/send-bsv21-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "unlock-wallet",
+      "type": "registry:block",
+      "title": "Unlock Wallet",
+      "description": "Passphrase and biometric unlock screen with Touch ID support on macOS, passphrase fallback, failed attempt tracking, and success state",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/unlock-wallet/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/unlock-wallet/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/unlock-wallet/unlock-wallet-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/unlock-wallet/unlock-wallet-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/unlock-wallet/use-unlock-wallet.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/unlock-wallet/use-unlock-wallet.ts"
+        }
+      ]
+    },
+    {
+      "name": "unlock-wallet-demo",
+      "type": "registry:example",
+      "title": "Unlock Wallet Demo",
+      "description": "Demo showing macOS Touch ID and passphrase unlock variants with simulated authentication",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/unlock-wallet.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/unlock-wallet-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
     }
   ]
 }

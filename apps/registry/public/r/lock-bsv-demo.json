@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lock-bsv-demo",
+  "title": "Lock BSV Demo",
+  "author": "Satchmo <https://bigblocks.dev>",
+  "description": "Demo showcasing the lock BSV block with pre-populated locks, empty state, and simulated lock/unlock operations",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/lock-bsv.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/lock-bsv-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport {\n  LockBsv,\n  type LockOperationResult,\n} from \"@/registry/new-york/blocks/lock-bsv\"\n\nexport default function LockBsvDemo() {\n  const [lastResult, setLastResult] = useState<LockOperationResult | null>(null)\n\n  async function handleLock(params: {\n    satoshis: number\n    until: number\n  }): Promise<LockOperationResult> {\n    // In a real application, use @1sat/actions:\n    //\n    // import { lockBsv, createContext } from \"@1sat/actions\"\n    // import { useWallet } from \"@1sat/react\"\n    //\n    // const { wallet } = useWallet()\n    // const ctx = createContext(wallet)\n    // return lockBsv.execute(ctx, { requests: [params] })\n\n    // Demo: simulate a 2-second lock transaction\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    return {\n      txid: \"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2\",\n    }\n  }\n\n  async function handleUnlock(): Promise<LockOperationResult> {\n    // In a real application, use @1sat/actions:\n    //\n    // import { unlockBsv, createContext } from \"@1sat/actions\"\n    // const ctx = createContext(wallet)\n    // return unlockBsv.execute(ctx)\n\n    // Demo: simulate a 2-second unlock transaction\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    return {\n      txid: \"f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5\",\n    }\n  }\n\n  return (\n    <div className=\"flex flex-col items-start gap-8\">\n      {/* With existing locks and unlockable amount */}\n      <div className=\"flex flex-col gap-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          With Existing Locks\n        </p>\n        <LockBsv\n          lockData={{\n            totalLocked: 5000000,\n            unlockable: 1500000,\n            nextUnlock: 892450,\n          }}\n          onLock={handleLock}\n          onUnlock={handleUnlock}\n          onSuccess={(result) => setLastResult(result)}\n          onError={(error) => console.error(\"Lock error:\", error)}\n        />\n      </div>\n\n      {/* Empty state - no locks */}\n      <div className=\"flex flex-col gap-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          No Existing Locks\n        </p>\n        <LockBsv\n          onLock={handleLock}\n          onUnlock={handleUnlock}\n          onSuccess={(result) => setLastResult(result)}\n        />\n      </div>\n\n      {/* Last result display */}\n      {lastResult?.txid && (\n        <div className=\"w-full max-w-md rounded-md border bg-muted/50 p-3\">\n          <p className=\"text-xs text-muted-foreground\">Last transaction</p>\n          <p className=\"mt-1 break-all font-mono text-xs\">{lastResult.txid}</p>\n        </div>\n      )}\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}
