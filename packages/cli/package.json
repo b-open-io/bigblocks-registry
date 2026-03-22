@@ -1,0 +1,31 @@
+{
+  "name": "bigblocks",
+  "version": "1.0.0",
+  "description": "CLI for adding BigBlocks Bitcoin UI components to your project",
+  "type": "module",
+  "bin": {
+    "bigblocks": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node --format esm",
+    "dev": "bun run src/index.ts"
+  },
+  "keywords": [
+    "bitcoin",
+    "bsv",
+    "shadcn",
+    "ui",
+    "components",
+    "blocks",
+    "registry"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/b-open-io/bigblocks-registry"
+  },
+  "homepage": "https://bigblocks.dev"
+}
