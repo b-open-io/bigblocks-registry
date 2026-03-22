@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "mnemonic-flow-demo",
+  "title": "Mnemonic Flow Demo",
+  "author": "Satchmo <https://bigblocks.dev>",
+  "description": "Demo showcasing all four modes (create, display, import, verify) of the mnemonic flow block",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/mnemonic-flow.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/mnemonic-flow-demo.tsx",
+      "content": "\"use client\"\n\nimport { useCallback, useState } from \"react\"\nimport { MnemonicFlow, type MnemonicFlowMode } from \"@/registry/new-york/blocks/mnemonic-flow\"\nimport { Button } from \"@/components/ui/button\"\nimport { Badge } from \"@/components/ui/badge\"\n\nconst MOCK_WORDS = [\n  \"abandon\", \"ability\", \"able\", \"about\", \"above\", \"absent\",\n  \"absorb\", \"abstract\", \"absurd\", \"abuse\", \"access\", \"accident\",\n]\n\ntype DemoState =\n  | { view: \"picker\" }\n  | { view: \"flow\"; mode: MnemonicFlowMode }\n  | { view: \"done\"; words: string[] }\n\nexport default function MnemonicFlowDemo() {\n  const [state, setState] = useState<DemoState>({ view: \"picker\" })\n\n  const handleComplete = useCallback((words: string[]) => {\n    setState({ view: \"done\", words })\n  }, [])\n\n  const handleCancel = useCallback(() => {\n    setState({ view: \"picker\" })\n  }, [])\n\n  if (state.view === \"done\") {\n    return (\n      <div className=\"mx-auto flex w-full max-w-xl flex-col items-center gap-4 py-8\">\n        <Badge variant=\"outline\" className=\"text-sm\">\n          Flow complete\n        </Badge>\n        <p className=\"text-sm text-muted-foreground\">\n          {state.words.length} words confirmed\n        </p>\n        <Button variant=\"outline\" onClick={() => setState({ view: \"picker\" })}>\n          Try Another Mode\n        </Button>\n      </div>\n    )\n  }\n\n  if (state.view === \"flow\") {\n    const needsWords =\n      state.mode === \"display\" ||\n      state.mode === \"create\" ||\n      state.mode === \"verify\"\n\n    return (\n      <div className=\"mx-auto w-full max-w-xl\">\n        <MnemonicFlow\n          mode={state.mode}\n          words={needsWords ? MOCK_WORDS : undefined}\n          wordCount={12}\n          onComplete={handleComplete}\n          onCancel={handleCancel}\n        />\n      </div>\n    )\n  }\n\n  // Picker view\n  return (\n    <div className=\"mx-auto flex w-full max-w-sm flex-col gap-3\">\n      <p className=\"text-center text-sm text-muted-foreground\">\n        Choose a mode to preview the mnemonic flow block.\n      </p>\n      {(\n        [\n          { mode: \"create\" as const, label: \"Create\", desc: \"Generate + confirm\" },\n          { mode: \"display\" as const, label: \"Display\", desc: \"Read-only grid\" },\n          { mode: \"import\" as const, label: \"Import\", desc: \"Enter words\" },\n          { mode: \"verify\" as const, label: \"Verify\", desc: \"Fill 2 blanks\" },\n        ] as const\n      ).map((item) => (\n        <Button\n          key={item.mode}\n          variant=\"outline\"\n          className=\"justify-between\"\n          onClick={() => setState({ view: \"flow\", mode: item.mode })}\n        >\n          <span>{item.label}</span>\n          <Badge variant=\"secondary\">{item.desc}</Badge>\n        </Button>\n      ))}\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

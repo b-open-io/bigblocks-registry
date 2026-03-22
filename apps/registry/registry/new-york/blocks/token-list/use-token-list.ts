@@ -7,6 +7,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 /** Token standard */
 export type TokenType = "BSV20" | "BSV21"
 
+/** Protocol filter for token queries */
+export type TokenProtocol = "bsv20" | "bsv21" | "all"
+
 /** A single fungible token holding */
 export interface TokenHolding {
   /** Token contract/inscription ID */
@@ -19,7 +22,7 @@ export interface TokenHolding {
   balance: string
   /** Decimal precision for the token */
   decimals: number
-  /** ORDFS URL for the token icon (nullable) */
+  /** ORDFS URL for the token icon (nullable). Pre-populated values skip ORDFS lookup. */
   iconUrl: string | null
 }
 
@@ -30,6 +33,14 @@ interface Bsv21TokenResponse {
   icon: string | null
   dec: number
   amt: string
+}
+
+/** Shape returned from the 1sat API for a BSV20 token */
+interface Bsv20TokenResponse {
+  tick: string
+  dec: number
+  amt: string
+  icon?: string | null
 }
 
 /** Shape returned from the balance endpoint */
@@ -43,8 +54,14 @@ export interface UseTokenListOptions {
   address: string | null
   /** Token IDs to fetch. When provided, only these tokens are fetched. */
   tokenIds?: string[]
+  /** Pre-populated token holdings (skips API fetch for tokens with matching IDs) */
+  tokens?: TokenHolding[]
   /** Custom API base URL (default: https://api.1sat.app) */
   apiUrl?: string
+  /** ORDFS base URL for icon resolution (default: https://ordfs.network) */
+  ordfsBase?: string
+  /** Filter by protocol type (default: "all") */
+  protocol?: TokenProtocol
   /** Whether to auto-fetch on mount / address change (default: true) */
   autoFetch?: boolean
 }
@@ -65,14 +82,14 @@ export interface UseTokenListReturn {
 // ---------------------------------------------------------------------------
 
 const DEFAULT_API_URL = "https://api.1sat.app"
-const ORDFS_BASE = "https://ordfs.network"
+const DEFAULT_ORDFS_BASE = "https://ordfs.network"
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
-function ordfsIconUrl(tokenId: string): string {
-  return `${ORDFS_BASE}/${tokenId}`
+function ordfsIconUrl(tokenId: string, ordfsBase: string): string {
+  return `${ordfsBase}/${tokenId}`
 }
 
 async function fetchJson<T>(url: string, signal?: AbortSignal): Promise<T> {
@@ -108,7 +125,10 @@ export function useTokenList(
   const {
     address,
     tokenIds,
+    tokens: prePopulated,
     apiUrl = DEFAULT_API_URL,
+    ordfsBase = DEFAULT_ORDFS_BASE,
+    protocol = "all",
     autoFetch = true,
   } = options
 
@@ -122,6 +142,16 @@ export function useTokenList(
     () => (tokenIds ? tokenIds.slice().sort().join(",") : ""),
     [tokenIds]
   )
+
+  // Build a lookup map from pre-populated tokens for fast access
+  const prePopulatedMap = useMemo(() => {
+    if (!prePopulated) return null
+    const map = new Map<string, TokenHolding>()
+    for (const t of prePopulated) {
+      map.set(t.tokenId, t)
+    }
+    return map
+  }, [prePopulated])
 
   const fetchTokens = useCallback(async () => {
     if (!address || !tokenIds || tokenIds.length === 0) {
@@ -139,17 +169,50 @@ export function useTokenList(
     try {
       const holdings: TokenHolding[] = await Promise.all(
         tokenIds.map(async (id) => {
-          // Fetch token details
-          const detail = await fetchJson<Bsv21TokenResponse>(
-            `${apiUrl}/1sat/bsv21/${id}`,
-            controller.signal
-          )
+          // If a pre-populated holding exists with this ID, use it directly
+          const existing = prePopulatedMap?.get(id)
+          if (existing) {
+            return existing
+          }
+
+          // Try BSV21 first, then BSV20
+          let symbol = id.slice(0, 8)
+          let tokenType: TokenType = "BSV21"
+          let decimals = 0
+          let hasIcon = false
+          let balanceEndpoint = `${apiUrl}/1sat/bsv21/${id}/p2pkh/${address}/balance`
+
+          try {
+            const detail = await fetchJson<Bsv21TokenResponse>(
+              `${apiUrl}/1sat/bsv21/${id}`,
+              controller.signal
+            )
+            symbol = detail.sym || id.slice(0, 8)
+            tokenType = "BSV21"
+            decimals = detail.dec ?? 0
+            hasIcon = !!detail.icon
+          } catch {
+            // BSV21 lookup failed, try BSV20
+            try {
+              const detail20 = await fetchJson<Bsv20TokenResponse>(
+                `${apiUrl}/1sat/bsv20/${id}`,
+                controller.signal
+              )
+              symbol = detail20.tick || id.slice(0, 8)
+              tokenType = "BSV20"
+              decimals = detail20.dec ?? 0
+              hasIcon = !!detail20.icon
+              balanceEndpoint = `${apiUrl}/1sat/bsv20/${id}/p2pkh/${address}/balance`
+            } catch {
+              // Neither endpoint found; keep defaults
+            }
+          }
 
           // Fetch balance for this token + address
           let balance = "0"
           try {
             const balanceData = await fetchJson<TokenBalanceResponse>(
-              `${apiUrl}/1sat/bsv21/${id}/p2pkh/${address}/balance`,
+              balanceEndpoint,
               controller.signal
             )
             // Combine confirmed + pending
@@ -163,16 +226,24 @@ export function useTokenList(
 
           return {
             tokenId: id,
-            symbol: detail.sym || id.slice(0, 8),
-            type: "BSV21" as const,
+            symbol,
+            type: tokenType,
             balance,
-            decimals: detail.dec ?? 0,
-            iconUrl: detail.icon ? ordfsIconUrl(id) : null,
+            decimals,
+            iconUrl: hasIcon ? ordfsIconUrl(id, ordfsBase) : null,
           }
         })
       )
 
-      setTokens(holdings)
+      // Apply protocol filter
+      const filtered =
+        protocol === "all"
+          ? holdings
+          : holdings.filter(
+              (h) => h.type.toLowerCase() === protocol
+            )
+
+      setTokens(filtered)
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return
       const fetchError =
@@ -182,7 +253,7 @@ export function useTokenList(
     } finally {
       setIsLoading(false)
     }
-  }, [address, tokenIdKey, apiUrl])
+  }, [address, tokenIdKey, apiUrl, ordfsBase, protocol, prePopulatedMap])
 
   // Auto-fetch on mount / dependency change
   useEffect(() => {

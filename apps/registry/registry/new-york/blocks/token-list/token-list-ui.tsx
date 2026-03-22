@@ -1,8 +1,9 @@
 "use client"
 
 import { useCallback } from "react"
-import { Coins } from "lucide-react"
+import { Coins, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -23,6 +24,8 @@ export interface TokenListUIProps {
   error: Error | null
   /** Callback when a token row is selected */
   onSelect?: (token: TokenHolding) => void
+  /** Callback when an external link action is triggered (e.g. view on explorer). Receives the URL string. */
+  onExternalLink?: (url: string) => void
   /** Number of skeleton rows to show while loading (default: 3) */
   skeletonCount?: number
   /** Optional CSS class name */
@@ -77,10 +80,11 @@ function truncateId(id: string, maxLen = 16): string {
 interface TokenRowProps {
   token: TokenHolding
   onSelect?: (token: TokenHolding) => void
+  onExternalLink?: (url: string) => void
   isLast: boolean
 }
 
-function TokenRow({ token, onSelect, isLast }: TokenRowProps) {
+function TokenRow({ token, onSelect, onExternalLink, isLast }: TokenRowProps) {
   const handleClick = useCallback(() => {
     onSelect?.(token)
   }, [onSelect, token])
@@ -93,6 +97,15 @@ function TokenRow({ token, onSelect, isLast }: TokenRowProps) {
       }
     },
     [onSelect, token]
+  )
+
+  const handleExternalLink = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      const url = `https://whatsonchain.com/tx/${token.tokenId.split("_")[0]}`
+      onExternalLink?.(url)
+    },
+    [onExternalLink, token.tokenId]
   )
 
   const isInteractive = !!onSelect
@@ -146,10 +159,23 @@ function TokenRow({ token, onSelect, isLast }: TokenRowProps) {
           </p>
         </div>
 
-        {/* Token ID */}
-        <span className="text-xs text-muted-foreground font-mono truncate max-w-[120px] hidden sm:block">
-          {truncateId(token.tokenId)}
-        </span>
+        {/* Token ID + external link */}
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground font-mono truncate max-w-[120px] hidden sm:block">
+            {truncateId(token.tokenId)}
+          </span>
+          {onExternalLink && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-7 flex-shrink-0"
+              onClick={handleExternalLink}
+              aria-label={`View ${token.symbol} on explorer`}
+            >
+              <ExternalLink data-icon className="size-3.5 text-muted-foreground" />
+            </Button>
+          )}
+        </div>
       </div>
       {!isLast && <Separator />}
     </>
@@ -190,6 +216,7 @@ export function TokenListUI({
   isLoading,
   error,
   onSelect,
+  onExternalLink,
   skeletonCount = 3,
   className,
 }: TokenListUIProps) {
@@ -251,6 +278,7 @@ export function TokenListUI({
             key={token.tokenId}
             token={token}
             onSelect={onSelect}
+            onExternalLink={onExternalLink}
             isLast={index === tokens.length - 1}
           />
         ))}

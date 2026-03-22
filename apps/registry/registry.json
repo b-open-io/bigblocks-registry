@@ -1011,6 +1011,211 @@
           "target": ""
         }
       ]
+    },
+    {
+      "name": "receive-address",
+      "type": "registry:block",
+      "title": "Receive Address",
+      "description": "QR code and deposit address display with clipboard copy and optional address rotation. Supports default, compact, and inline variants.",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "categories": ["wallet"],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "card",
+        "badge",
+        "skeleton",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/receive-address/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/receive-address/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/receive-address/receive-address-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/receive-address/receive-address-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/receive-address/use-receive-address.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/receive-address/use-receive-address.ts"
+        }
+      ]
+    },
+    {
+      "name": "receive-address-demo",
+      "type": "registry:example",
+      "title": "Receive Address Demo",
+      "description": "Demo showcasing default, compact, and inline variants of the receive address block",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/receive-address.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/receive-address-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "transaction-history",
+      "type": "registry:block",
+      "title": "Transaction History",
+      "description": "Transaction list with status indicators, amounts, relative dates, and pagination. Supports default and compact variants with inbound/outbound display.",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "categories": ["wallet"],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "card",
+        "separator",
+        "skeleton",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/transaction-history/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/transaction-history/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/transaction-history/transaction-history-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/transaction-history/transaction-history-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/transaction-history/use-transaction-history.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/transaction-history/use-transaction-history.ts"
+        }
+      ]
+    },
+    {
+      "name": "transaction-history-demo",
+      "type": "registry:example",
+      "title": "Transaction History Demo",
+      "description": "Demo showcasing default and compact variants, loading, and empty states of the transaction history block",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/transaction-history.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/transaction-history-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "sync-terminal",
+      "type": "registry:block",
+      "title": "Sync Terminal",
+      "description": "Monospace event log for blockchain sync activity with colour-coded severity levels, auto-scroll, and connection status indicator",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "categories": ["wallet"],
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/sync-terminal/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/sync-terminal/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/sync-terminal/sync-terminal-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/sync-terminal/sync-terminal-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/sync-terminal/use-sync-terminal.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/sync-terminal/use-sync-terminal.ts"
+        }
+      ]
+    },
+    {
+      "name": "sync-terminal-demo",
+      "type": "registry:example",
+      "title": "Sync Terminal Demo",
+      "description": "Demo showcasing the sync terminal block with streaming mock events and pause/clear controls",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/sync-terminal.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/sync-terminal-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "mnemonic-flow",
+      "type": "registry:block",
+      "title": "Mnemonic Flow",
+      "description": "Multi-mode seed phrase display and input block with create, display, import, and verify modes. Includes numbered word grid, copy-all, confirmation checkbox, and verification challenge.",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "categories": ["wallet"],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "checkbox",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/mnemonic-flow/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/mnemonic-flow/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/mnemonic-flow/mnemonic-flow-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/mnemonic-flow/mnemonic-flow-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/mnemonic-flow/mnemonic-grid-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/mnemonic-flow/mnemonic-grid-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/mnemonic-flow/use-mnemonic-flow.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/mnemonic-flow/use-mnemonic-flow.ts"
+        }
+      ]
+    },
+    {
+      "name": "mnemonic-flow-demo",
+      "type": "registry:example",
+      "title": "Mnemonic Flow Demo",
+      "description": "Demo showcasing all four modes (create, display, import, verify) of the mnemonic flow block",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/mnemonic-flow.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/mnemonic-flow-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
     }
   ]
 }
