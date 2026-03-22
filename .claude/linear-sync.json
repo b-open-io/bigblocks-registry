@@ -1,0 +1,9 @@
+{
+  "workspace": "openprotocollabs",
+  "team": "OPL",
+  "project": "BigBlocks",
+  "project_id": "9632e693-ee8a-44f7-8c8a-093106c365d0",
+  "label": "repo:bigblocks-registry",
+  "github_org": "b-open-io",
+  "mcp_server": "linear-server"
+}
