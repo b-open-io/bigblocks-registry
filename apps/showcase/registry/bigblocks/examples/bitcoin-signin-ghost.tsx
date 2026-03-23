@@ -8,12 +8,14 @@ const mockSignIn: SigmaSignInFn = async (options) => {
   console.log("[demo] signIn.sigma called with:", options)
 }
 
-export default function BitcoinSigninDemo() {
+export default function BitcoinSigninGhostDemo() {
   return (
     <div className="flex items-center justify-center">
       <BitcoinSignin
         clientId="demo-app"
         signIn={mockSignIn}
+        variant="ghost"
+        size="lg"
       />
     </div>
   )

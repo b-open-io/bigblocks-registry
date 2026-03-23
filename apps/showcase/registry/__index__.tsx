@@ -984,6 +984,30 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/token-list-demo.tsx")),
     categories: ["examples"],
   },
+  "token-list-loading": {
+    name: "token-list-loading",
+    type: "registry:example",
+    registryDependencies: ["token-list"],
+    files: [{
+      path: "registry/bigblocks/examples/token-list-loading.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/token-list-loading.tsx")),
+    categories: ["examples"],
+  },
+  "token-list-empty": {
+    name: "token-list-empty",
+    type: "registry:example",
+    registryDependencies: ["token-list"],
+    files: [{
+      path: "registry/bigblocks/examples/token-list-empty.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/token-list-empty.tsx")),
+    categories: ["examples"],
+  },
   "receive-address-demo": {
     name: "receive-address-demo",
     type: "registry:example",
@@ -996,6 +1020,30 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/receive-address-demo.tsx")),
     categories: ["examples"],
   },
+  "receive-address-compact": {
+    name: "receive-address-compact",
+    type: "registry:example",
+    registryDependencies: ["receive-address"],
+    files: [{
+      path: "registry/bigblocks/examples/receive-address-compact.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/receive-address-compact.tsx")),
+    categories: ["examples"],
+  },
+  "receive-address-inline": {
+    name: "receive-address-inline",
+    type: "registry:example",
+    registryDependencies: ["receive-address"],
+    files: [{
+      path: "registry/bigblocks/examples/receive-address-inline.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/receive-address-inline.tsx")),
+    categories: ["examples"],
+  },
   "transaction-history-demo": {
     name: "transaction-history-demo",
     type: "registry:example",
@@ -1006,6 +1054,42 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/transaction-history-demo.tsx")),
+    categories: ["examples"],
+  },
+  "transaction-history-compact": {
+    name: "transaction-history-compact",
+    type: "registry:example",
+    registryDependencies: ["transaction-history"],
+    files: [{
+      path: "registry/bigblocks/examples/transaction-history-compact.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/transaction-history-compact.tsx")),
+    categories: ["examples"],
+  },
+  "transaction-history-loading": {
+    name: "transaction-history-loading",
+    type: "registry:example",
+    registryDependencies: ["transaction-history"],
+    files: [{
+      path: "registry/bigblocks/examples/transaction-history-loading.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/transaction-history-loading.tsx")),
+    categories: ["examples"],
+  },
+  "transaction-history-empty": {
+    name: "transaction-history-empty",
+    type: "registry:example",
+    registryDependencies: ["transaction-history"],
+    files: [{
+      path: "registry/bigblocks/examples/transaction-history-empty.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/transaction-history-empty.tsx")),
     categories: ["examples"],
   },
   "mnemonic-flow-demo": {
@@ -1044,6 +1128,18 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/lock-bsv-demo.tsx")),
     categories: ["examples"],
   },
+  "lock-bsv-empty": {
+    name: "lock-bsv-empty",
+    type: "registry:example",
+    registryDependencies: ["lock-bsv"],
+    files: [{
+      path: "registry/bigblocks/examples/lock-bsv-empty.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/lock-bsv-empty.tsx")),
+    categories: ["examples"],
+  },
   "sweep-wallet-demo": {
     name: "sweep-wallet-demo",
     type: "registry:example",
@@ -1080,6 +1176,18 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/unlock-wallet-demo.tsx")),
     categories: ["examples"],
   },
+  "unlock-wallet-passphrase": {
+    name: "unlock-wallet-passphrase",
+    type: "registry:example",
+    registryDependencies: ["unlock-wallet"],
+    files: [{
+      path: "registry/bigblocks/examples/unlock-wallet-passphrase.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/unlock-wallet-passphrase.tsx")),
+    categories: ["examples"],
+  },
   "wallet-overview-demo": {
     name: "wallet-overview-demo",
     type: "registry:example",
@@ -1114,6 +1222,18 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/post-button-compact.tsx")),
+    categories: ["examples"],
+  },
+  "post-button-fab": {
+    name: "post-button-fab",
+    type: "registry:example",
+    registryDependencies: ["post-button"],
+    files: [{
+      path: "registry/bigblocks/examples/post-button-fab.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/post-button-fab.tsx")),
     categories: ["examples"],
   },
   "post-button-inline": {
@@ -1200,6 +1320,18 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/follow-button-compact.tsx")),
     categories: ["examples"],
   },
+  "follow-button-pill": {
+    name: "follow-button-pill",
+    type: "registry:example",
+    registryDependencies: ["follow-button"],
+    files: [{
+      path: "registry/bigblocks/examples/follow-button-pill.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/follow-button-pill.tsx")),
+    categories: ["examples"],
+  },
   "follow-button-states": {
     name: "follow-button-states",
     type: "registry:example",
@@ -1210,6 +1342,18 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/follow-button-states.tsx")),
+    categories: ["examples"],
+  },
+  "follow-button-custom-labels": {
+    name: "follow-button-custom-labels",
+    type: "registry:example",
+    registryDependencies: ["follow-button"],
+    files: [{
+      path: "registry/bigblocks/examples/follow-button-custom-labels.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/follow-button-custom-labels.tsx")),
     categories: ["examples"],
   },
   "friend-button-demo": {
@@ -1308,6 +1452,30 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/create-listing-demo.tsx")),
     categories: ["examples"],
   },
+  "create-listing-primary": {
+    name: "create-listing-primary",
+    type: "registry:example",
+    registryDependencies: ["create-listing"],
+    files: [{
+      path: "registry/bigblocks/examples/create-listing-primary.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/create-listing-primary.tsx")),
+    categories: ["examples"],
+  },
+  "create-listing-ghost": {
+    name: "create-listing-ghost",
+    type: "registry:example",
+    registryDependencies: ["create-listing"],
+    files: [{
+      path: "registry/bigblocks/examples/create-listing-ghost.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/create-listing-ghost.tsx")),
+    categories: ["examples"],
+  },
   "buy-listing-demo": {
     name: "buy-listing-demo",
     type: "registry:example",
@@ -1354,6 +1522,42 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/bitcoin-signin-demo.tsx")),
+    categories: ["examples"],
+  },
+  "bitcoin-signin-oauth": {
+    name: "bitcoin-signin-oauth",
+    type: "registry:example",
+    registryDependencies: ["bitcoin-signin"],
+    files: [{
+      path: "registry/bigblocks/examples/bitcoin-signin-oauth.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/bitcoin-signin-oauth.tsx")),
+    categories: ["examples"],
+  },
+  "bitcoin-signin-outline": {
+    name: "bitcoin-signin-outline",
+    type: "registry:example",
+    registryDependencies: ["bitcoin-signin"],
+    files: [{
+      path: "registry/bigblocks/examples/bitcoin-signin-outline.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/bitcoin-signin-outline.tsx")),
+    categories: ["examples"],
+  },
+  "bitcoin-signin-ghost": {
+    name: "bitcoin-signin-ghost",
+    type: "registry:example",
+    registryDependencies: ["bitcoin-signin"],
+    files: [{
+      path: "registry/bigblocks/examples/bitcoin-signin-ghost.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/bitcoin-signin-ghost.tsx")),
     categories: ["examples"],
   },
   "oauth-callback-demo": {
@@ -1438,6 +1642,30 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/opns-manager-demo.tsx")),
+    categories: ["examples"],
+  },
+  "opns-manager-loading": {
+    name: "opns-manager-loading",
+    type: "registry:example",
+    registryDependencies: ["opns-manager"],
+    files: [{
+      path: "registry/bigblocks/examples/opns-manager-loading.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/opns-manager-loading.tsx")),
+    categories: ["examples"],
+  },
+  "opns-manager-empty": {
+    name: "opns-manager-empty",
+    type: "registry:example",
+    registryDependencies: ["opns-manager"],
+    files: [{
+      path: "registry/bigblocks/examples/opns-manager-empty.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/opns-manager-empty.tsx")),
     categories: ["examples"],
   },
   "theme-token-provider-demo": {

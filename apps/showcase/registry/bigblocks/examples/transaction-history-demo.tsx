@@ -6,10 +6,6 @@ import {
   type HistoryEntry,
 } from "@/registry/bigblocks/blocks/transaction-history"
 
-// ---------------------------------------------------------------------------
-// Mock data
-// ---------------------------------------------------------------------------
-
 const MOCK_ENTRIES: HistoryEntry[] = [
   {
     txid: "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
@@ -48,33 +44,22 @@ const MOCK_ENTRIES: HistoryEntry[] = [
   },
 ]
 
-// ---------------------------------------------------------------------------
-// Demo
-// ---------------------------------------------------------------------------
-
 export default function TransactionHistoryDemo() {
   const [clicked, setClicked] = useState<string | null>(null)
 
   return (
-    <div className="mx-auto w-full max-w-lg space-y-6">
-      {/* Default variant */}
-      <div className="space-y-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Default Variant
-        </p>
-        <TransactionHistoryUI
-          entries={MOCK_ENTRIES}
-          isLoading={false}
-          error={null}
-          hasMore={true}
-          onRowClick={setClicked}
-          onExternalLink={(txid) =>
-            window.open(`https://whatsonchain.com/tx/${txid}`, "_blank")
-          }
-        />
-      </div>
+    <div className="mx-auto w-full max-w-lg space-y-4">
+      <TransactionHistoryUI
+        entries={MOCK_ENTRIES}
+        isLoading={false}
+        error={null}
+        hasMore={true}
+        onRowClick={setClicked}
+        onExternalLink={(txid) =>
+          window.open(`https://whatsonchain.com/tx/${txid}`, "_blank")
+        }
+      />
 
-      {/* Clicked indicator */}
       {clicked && (
         <p className="text-sm text-muted-foreground">
           Clicked:{" "}
@@ -83,40 +68,6 @@ export default function TransactionHistoryDemo() {
           </span>
         </p>
       )}
-
-      {/* Compact variant */}
-      <div className="space-y-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Compact Variant
-        </p>
-        <TransactionHistoryUI
-          entries={MOCK_ENTRIES.slice(0, 3)}
-          isLoading={false}
-          error={null}
-          variant="compact"
-        />
-      </div>
-
-      {/* Loading state */}
-      <div className="space-y-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Loading State
-        </p>
-        <TransactionHistoryUI
-          entries={[]}
-          isLoading={true}
-          error={null}
-          skeletonCount={3}
-        />
-      </div>
-
-      {/* Empty state */}
-      <div className="space-y-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Empty State
-        </p>
-        <TransactionHistoryUI entries={[]} isLoading={false} error={null} />
-      </div>
     </div>
   )
 }

@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import {
   CreateListing,
   type ListOrdinalParams,
@@ -17,9 +16,7 @@ const SAMPLE_ORDINAL: OrdinalItem = {
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.0",
 }
 
-export default function CreateListingDemo() {
-  const [lastResult, setLastResult] = useState<ListOrdinalResult | null>(null)
-
+export default function CreateListingPrimaryDemo() {
   async function handleList(
     params: ListOrdinalParams,
   ): Promise<ListOrdinalResult> {
@@ -30,20 +27,16 @@ export default function CreateListingDemo() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex items-center justify-center">
       <CreateListing
+        variant="primary"
         ordinal={SAMPLE_ORDINAL}
         onList={handleList}
-        onListed={(result) => setLastResult(result)}
+        onListed={(result) => console.log("Listed:", result.txid)}
         onError={(error) => console.error("Listing error:", error)}
         defaultPayAddress="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+        triggerLabel="Sell Now"
       />
-
-      {lastResult?.txid && (
-        <p className="text-sm text-muted-foreground">
-          Last listing txid: {lastResult.txid.slice(0, 12)}...
-        </p>
-      )}
     </div>
   )
 }

@@ -124,14 +124,14 @@ export default function SyncTerminalDemo() {
         <button
           type="button"
           onClick={() => setRunning((prev) => !prev)}
-          className="rounded bg-zinc-800 px-3 py-1 text-xs text-zinc-300 hover:bg-zinc-700"
+          className="rounded bg-muted px-3 py-1 text-xs text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         >
           {running ? "Pause" : "Resume"}
         </button>
         <button
           type="button"
           onClick={() => setEvents([])}
-          className="rounded bg-zinc-800 px-3 py-1 text-xs text-zinc-300 hover:bg-zinc-700"
+          className="rounded bg-muted px-3 py-1 text-xs text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         >
           Clear
         </button>

@@ -9,10 +9,16 @@ async function mockPost(_content: string) {
   }
 }
 
-export default function PostButtonCompactDemo() {
+export default function PostButtonFabDemo() {
   return (
     <div className="flex items-center justify-center">
-      <PostButton variant="compact" onPost={mockPost} />
+      <div className="relative h-14 w-14">
+        <PostButton
+          variant="fab"
+          onPost={mockPost}
+          className="absolute bottom-0 right-0 position-static"
+        />
+      </div>
     </div>
   )
 }

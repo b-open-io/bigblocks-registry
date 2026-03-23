@@ -6,7 +6,7 @@ import {
   type UnlockWalletResult,
 } from "@/registry/bigblocks/blocks/unlock-wallet"
 
-export default function UnlockWalletDemo() {
+export default function UnlockWalletPassphraseDemo() {
   const [unlockCount, setUnlockCount] = useState(0)
 
   async function handleUnlock(
@@ -14,7 +14,6 @@ export default function UnlockWalletDemo() {
   ): Promise<UnlockWalletResult> {
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
-    // Fail every other attempt for demo purposes
     if (unlockCount % 2 === 0) {
       setUnlockCount((prev) => prev + 1)
       return { success: false, error: "Invalid passphrase. Try again." }
@@ -27,10 +26,10 @@ export default function UnlockWalletDemo() {
   return (
     <div className="flex flex-col items-center gap-2">
       <UnlockWallet
-        platform="macos"
+        platform="other"
         appName="BigBlocks Wallet"
         onUnlock={handleUnlock}
-        onSuccess={() => console.log("Wallet unlocked via Touch ID")}
+        onSuccess={() => console.log("Wallet unlocked via passphrase")}
         onError={(error) => console.error("Unlock error:", error)}
       />
     </div>

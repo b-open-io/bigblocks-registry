@@ -7,10 +7,6 @@ import {
   type OpnsOperationResult,
 } from "@/registry/bigblocks/blocks/opns-manager"
 
-// ---------------------------------------------------------------------------
-// Mock data
-// ---------------------------------------------------------------------------
-
 const MOCK_NAMES: OpnsNameDisplay[] = [
   {
     outpoint:
@@ -40,10 +36,6 @@ const MOCK_NAMES: OpnsNameDisplay[] = [
   },
 ]
 
-// ---------------------------------------------------------------------------
-// Mock handler
-// ---------------------------------------------------------------------------
-
 function mockOperation(name: OpnsNameDisplay): Promise<OpnsOperationResult> {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -53,10 +45,6 @@ function mockOperation(name: OpnsNameDisplay): Promise<OpnsOperationResult> {
     }, 1500)
   })
 }
-
-// ---------------------------------------------------------------------------
-// Demo
-// ---------------------------------------------------------------------------
 
 export default function OpnsManagerDemo() {
   const [names, setNames] = useState(MOCK_NAMES)
@@ -92,48 +80,16 @@ export default function OpnsManagerDemo() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-lg flex flex-col gap-6">
-      {/* Populated list */}
-      <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Name Management
-        </p>
-        <OpnsManagerUI
-          names={names}
-          isLoading={false}
-          isOperating={false}
-          error={null}
-          onRegister={handleRegister}
-          onDeregister={handleDeregister}
-          onRefresh={() => setNames(MOCK_NAMES)}
-        />
-      </div>
-
-      {/* Loading state */}
-      <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Loading State
-        </p>
-        <OpnsManagerUI
-          names={[]}
-          isLoading={true}
-          isOperating={false}
-          error={null}
-        />
-      </div>
-
-      {/* Empty state */}
-      <div className="flex flex-col gap-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Empty State
-        </p>
-        <OpnsManagerUI
-          names={[]}
-          isLoading={false}
-          isOperating={false}
-          error={null}
-        />
-      </div>
+    <div className="mx-auto w-full max-w-lg">
+      <OpnsManagerUI
+        names={names}
+        isLoading={false}
+        isOperating={false}
+        error={null}
+        onRegister={handleRegister}
+        onDeregister={handleDeregister}
+        onRefresh={() => setNames(MOCK_NAMES)}
+      />
     </div>
   )
 }

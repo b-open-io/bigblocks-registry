@@ -6,10 +6,6 @@ import {
   type TokenHolding,
 } from "@/registry/bigblocks/blocks/token-list"
 
-// ---------------------------------------------------------------------------
-// Mock data
-// ---------------------------------------------------------------------------
-
 const MOCK_TOKENS: TokenHolding[] = [
   {
     tokenId:
@@ -49,29 +45,18 @@ const MOCK_TOKENS: TokenHolding[] = [
   },
 ]
 
-// ---------------------------------------------------------------------------
-// Demo
-// ---------------------------------------------------------------------------
-
 export default function TokenListDemo() {
   const [selected, setSelected] = useState<TokenHolding | null>(null)
 
   return (
     <div className="mx-auto w-full max-w-lg space-y-4">
-      {/* Populated list */}
-      <div className="space-y-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Token Holdings
-        </p>
-        <TokenListUI
-          tokens={MOCK_TOKENS}
-          isLoading={false}
-          error={null}
-          onSelect={setSelected}
-        />
-      </div>
+      <TokenListUI
+        tokens={MOCK_TOKENS}
+        isLoading={false}
+        error={null}
+        onSelect={setSelected}
+      />
 
-      {/* Selected indicator */}
       {selected && (
         <p className="text-sm text-muted-foreground">
           Selected:{" "}
@@ -80,22 +65,6 @@ export default function TokenListDemo() {
           </span>
         </p>
       )}
-
-      {/* Loading state */}
-      <div className="space-y-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Loading State
-        </p>
-        <TokenListUI tokens={[]} isLoading={true} error={null} />
-      </div>
-
-      {/* Empty state */}
-      <div className="space-y-2">
-        <p className="text-sm font-medium text-muted-foreground">
-          Empty State
-        </p>
-        <TokenListUI tokens={[]} isLoading={false} error={null} />
-      </div>
     </div>
   )
 }
