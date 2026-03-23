@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 
 import { Icons } from "@/components/icons"
@@ -29,7 +31,6 @@ const data = {
       url: "/",
       items: [
         { title: "Introduction", url: "/" },
-        { title: "Step Indicator", url: "/docs/components/step-indicator" },
       ],
     },
     {
@@ -95,6 +96,7 @@ const data = {
       title: "Developer",
       url: "/docs/blocks/sync-terminal",
       items: [
+        { title: "Step Indicator", url: "/docs/blocks/step-indicator" },
         { title: "Sync Terminal", url: "/docs/blocks/sync-terminal" },
         { title: "Theme Token Provider", url: "/docs/blocks/theme-token-provider" },
         { title: "BigBlocks Provider", url: "/docs/blocks/bigblocks-provider" },
