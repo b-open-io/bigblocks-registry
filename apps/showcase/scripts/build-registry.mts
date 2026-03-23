@@ -34,6 +34,9 @@ const EXPORT_NAMES: Record<string, string> = {
   "opns-manager": "OpnsManager",
   "theme-token-provider": "ThemeTokenProvider",
   "bigblocks-provider": "BigBlocksProvider",
+  "bitcoin-signin": "BitcoinSignin",
+  "oauth-callback": "OAuthCallback",
+  "cloud-backup-prompt": "CloudBackupPrompt",
 }
 
 async function buildRegistryIndex() {

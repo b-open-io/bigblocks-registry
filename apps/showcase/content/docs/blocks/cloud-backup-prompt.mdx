@@ -1,0 +1,138 @@
+---
+title: Cloud Backup Prompt
+description: Dialog prompting users to set up encrypted cloud backup with password strength validation and confirmation
+featured: true
+component: true
+---
+
+<ComponentPreview name="cloud-backup-prompt-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/cloud-backup-prompt.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add button dialog input label
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/cloud-backup-prompt/index.tsx`
+- `components/blocks/cloud-backup-prompt/cloud-backup-prompt-ui.tsx`
+- `components/blocks/cloud-backup-prompt/use-cloud-backup.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+The block is agnostic about how encryption and upload are performed. You provide an `onSave` callback that receives the chosen password and handles the rest.
+
+```tsx
+import { useState } from "react"
+import { CloudBackupPrompt } from "@/components/blocks/cloud-backup-prompt"
+
+export default function App() {
+  const [open, setOpen] = useState(true)
+
+  return (
+    <CloudBackupPrompt
+      open={open}
+      onOpenChange={setOpen}
+      onSave={async (password) => {
+        const backup = localStorage.getItem("encrypted-backup")
+        if (!backup) throw new Error("No backup found")
+        await uploadBackup(backup, password)
+      }}
+      onRemindLater={() => console.log("Remind later")}
+      onSuccess={() => console.log("Backup saved")}
+    />
+  )
+}
+```
+
+## Features
+
+- Password strength meter with visual feedback (Weak, Fair, Good, Strong)
+- Confirm password field with mismatch validation
+- End-to-end encryption explainer with feature icons
+- Success state confirming backup is enabled
+- "Remind Me Later" option for deferred setup
+- Auto-focus on password field when dialog opens
+
+## Props
+
+### CloudBackupPrompt
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Whether the dialog is open (required) |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the dialog open state changes (required) |
+| `onSave` | `(password: string) => Promise<void>` | — | Callback that performs the encryption and upload (required) |
+| `onRemindLater` | `() => void` | — | Called when "Remind Me Later" is clicked |
+| `onSuccess` | `() => void` | — | Called on successful save |
+| `onError` | `(error: Error) => void` | — | Called on error |
+| `minPasswordLength` | `number` | `8` | Minimum password length |
+| `className` | `string` | — | Optional CSS class for the dialog content |
+
+## Hook
+
+`useCloudBackup` can be used independently for a custom backup UI.
+
+```tsx
+import { useCloudBackup } from "@/components/blocks/cloud-backup-prompt"
+
+function CustomBackupForm() {
+  const hook = useCloudBackup({
+    onSave: async (password) => {
+      await encryptAndUpload(password)
+    },
+    minPasswordLength: 10,
+  })
+
+  return (
+    <form onSubmit={(e) => { e.preventDefault(); hook.save() }}>
+      <input
+        type="password"
+        value={hook.password}
+        onChange={(e) => hook.setPassword(e.target.value)}
+      />
+      <input
+        type="password"
+        value={hook.confirmPassword}
+        onChange={(e) => hook.setConfirmPassword(e.target.value)}
+      />
+      <p>Strength: {hook.validation.strengthLabel}</p>
+      <button disabled={!hook.validation.isValid || hook.status === "saving"}>
+        {hook.status === "saving" ? "Saving..." : "Save Backup"}
+      </button>
+    </form>
+  )
+}
+```

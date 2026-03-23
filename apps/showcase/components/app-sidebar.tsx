@@ -33,6 +33,15 @@ const data = {
       ],
     },
     {
+      title: "Authentication",
+      url: "/docs/blocks/bitcoin-signin",
+      items: [
+        { title: "Bitcoin Signin", url: "/docs/blocks/bitcoin-signin" },
+        { title: "OAuth Callback", url: "/docs/blocks/oauth-callback" },
+        { title: "Cloud Backup Prompt", url: "/docs/blocks/cloud-backup-prompt" },
+      ],
+    },
+    {
       title: "Wallet",
       url: "/docs/blocks/connect-wallet",
       items: [

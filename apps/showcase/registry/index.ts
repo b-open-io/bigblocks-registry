@@ -300,6 +300,44 @@ export const registry = {
       ],
     },
 
+    // ── Authentication ──
+    {
+      name: "bitcoin-signin",
+      type: "registry:block",
+      title: "Bitcoin Signin",
+      description: "OAuth sign-in button via Sigma Identity with optional provider restore buttons",
+      categories: ["authentication"],
+      files: [
+        { path: "blocks/bitcoin-signin/index.tsx", type: "registry:block" },
+        { path: "blocks/bitcoin-signin/bitcoin-signin-ui.tsx", type: "registry:component" },
+        { path: "blocks/bitcoin-signin/use-bitcoin-signin.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "oauth-callback",
+      type: "registry:block",
+      title: "OAuth Callback",
+      description: "OAuth callback page block with loading, success, and error states for post-redirect handling",
+      categories: ["authentication"],
+      files: [
+        { path: "blocks/oauth-callback/index.tsx", type: "registry:block" },
+        { path: "blocks/oauth-callback/oauth-callback-ui.tsx", type: "registry:component" },
+        { path: "blocks/oauth-callback/use-oauth-callback.ts", type: "registry:hook" },
+      ],
+    },
+    {
+      name: "cloud-backup-prompt",
+      type: "registry:block",
+      title: "Cloud Backup Prompt",
+      description: "Dialog prompting users to set up encrypted cloud backup with password strength validation",
+      categories: ["authentication"],
+      files: [
+        { path: "blocks/cloud-backup-prompt/index.tsx", type: "registry:block" },
+        { path: "blocks/cloud-backup-prompt/cloud-backup-prompt-ui.tsx", type: "registry:component" },
+        { path: "blocks/cloud-backup-prompt/use-cloud-backup.ts", type: "registry:hook" },
+      ],
+    },
+
     // ── Identity ──
     {
       name: "bitcoin-avatar",
@@ -423,6 +461,11 @@ export const registry = {
     { name: "buy-listing-demo", registryDependencies: ["buy-listing"], files: [{ path: "examples/buy-listing-demo.tsx", type: "registry:example" }] },
     { name: "ordinals-grid-demo", registryDependencies: ["ordinals-grid"], files: [{ path: "examples/ordinals-grid-demo.tsx", type: "registry:example" }] },
     { name: "market-grid-demo", registryDependencies: ["market-grid"], files: [{ path: "examples/market-grid-demo.tsx", type: "registry:example" }] },
+
+    // Authentication
+    { name: "bitcoin-signin-demo", registryDependencies: ["bitcoin-signin"], files: [{ path: "examples/bitcoin-signin-demo.tsx", type: "registry:example" }] },
+    { name: "oauth-callback-demo", registryDependencies: ["oauth-callback"], files: [{ path: "examples/oauth-callback-demo.tsx", type: "registry:example" }] },
+    { name: "cloud-backup-prompt-demo", registryDependencies: ["cloud-backup-prompt"], files: [{ path: "examples/cloud-backup-prompt-demo.tsx", type: "registry:example" }] },
 
     // Identity
     { name: "bitcoin-avatar-demo", registryDependencies: ["bitcoin-avatar"], files: [{ path: "examples/bitcoin-avatar-demo.tsx", type: "registry:example" }] },

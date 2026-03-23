@@ -1,0 +1,125 @@
+---
+title: OAuth Callback
+description: OAuth callback page block with loading, success, and error states for post-redirect authentication handling
+featured: true
+component: true
+---
+
+<ComponentPreview name="oauth-callback-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/oauth-callback.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add avatar button card skeleton
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/oauth-callback/index.tsx`
+- `components/blocks/oauth-callback/oauth-callback-ui.tsx`
+- `components/blocks/oauth-callback/use-oauth-callback.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+Place this block on your OAuth callback page (e.g. `app/auth/callback/page.tsx`). It reads `code`, `state`, and `error` from the URL search params automatically.
+
+```tsx
+import { OAuthCallback } from "@/components/blocks/oauth-callback"
+import { authClient } from "@/lib/auth-client"
+
+export default function CallbackPage() {
+  return (
+    <OAuthCallback
+      onCallback={async ({ code, state }) => {
+        const result = await authClient.sigma.handleCallback(
+          new URLSearchParams({ code, state })
+        )
+        return {
+          user: {
+            id: result.user.sub,
+            name: result.user.name,
+            image: result.user.picture ?? undefined,
+            pubkey: result.user.pubkey,
+            bapId: result.user.bap_id,
+          },
+          accessToken: result.access_token,
+        }
+      }}
+      redirectUrl="/dashboard"
+      redirectDelay={2000}
+      onSuccess={(result) => console.log("Authenticated:", result.user.id)}
+      onError={(err) => console.error("Callback failed:", err)}
+    />
+  )
+}
+```
+
+## States
+
+The block renders three states based on the callback flow:
+
+| Status | Rendered UI |
+|--------|-------------|
+| `loading` | Spinner card with skeleton placeholders |
+| `success` | User avatar, name, public key, and redirect countdown |
+| `error` | Error message with a retry button |
+
+## Props
+
+### OAuthCallback
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onCallback` | `(params: { code: string; state: string }) => Promise<OAuthCallbackResult>` | — | Handler to exchange auth code for user data (required) |
+| `onSuccess` | `(result: OAuthCallbackResult) => void` | — | Called after successful callback processing |
+| `onError` | `(error: Error) => void` | — | Called when callback processing fails |
+| `redirectUrl` | `string` | `"/"` | URL to redirect to after success |
+| `redirectDelay` | `number` | `2000` | Delay in ms before redirecting |
+| `className` | `string` | — | Additional CSS classes |
+
+## Hook
+
+`useOAuthCallback` can be used independently for a fully custom callback page.
+
+```tsx
+import { useOAuthCallback } from "@/components/blocks/oauth-callback"
+
+function CustomCallbackPage() {
+  const { status, user, errorMessage, retry } = useOAuthCallback({
+    onCallback: async ({ code, state }) => {
+      const result = await exchangeCode(code, state)
+      return { user: { id: result.id, name: result.name } }
+    },
+    redirectUrl: "/dashboard",
+  })
+
+  if (status === "loading") return <p>Processing...</p>
+  if (status === "error") return <button onClick={retry}>{errorMessage}</button>
+  return <p>Welcome, {user?.name}</p>
+}
+```

@@ -1,0 +1,139 @@
+---
+title: Bitcoin Signin
+description: OAuth sign-in button via Sigma Identity with optional provider restore buttons for GitHub and Google
+featured: true
+component: true
+---
+
+<ComponentPreview name="bitcoin-signin-demo" />
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+```bash
+bunx shadcn@latest add https://registry.bigblocks.dev/r/bitcoin-signin.json
+```
+
+  </TabsContent>
+  <TabsContent value="manual">
+
+<Steps>
+
+<Step>Install dependencies:</Step>
+
+```bash
+bun add lucide-react
+```
+
+<Step>Install the required shadcn-ui components:</Step>
+
+```bash
+bunx shadcn@latest add alert button
+```
+
+<Step>Copy the block files into your project:</Step>
+
+- `components/blocks/bitcoin-signin/index.tsx`
+- `components/blocks/bitcoin-signin/bitcoin-signin-ui.tsx`
+- `components/blocks/bitcoin-signin/use-bitcoin-signin.ts`
+
+<Step>Update import paths to match your project setup.</Step>
+
+</Steps>
+
+  </TabsContent>
+</CodeTabs>
+
+## Usage
+
+The block requires a `signIn` function that matches the shape of `authClient.signIn.sigma()` from a Better Auth client configured with the sigma plugin.
+
+```tsx
+import { authClient } from "@/lib/auth-client"
+import { BitcoinSignin } from "@/components/blocks/bitcoin-signin"
+
+export default function LoginPage() {
+  return (
+    <BitcoinSignin
+      clientId="my-app"
+      signIn={(opts) => authClient.signIn.sigma(opts)}
+      showProviders
+      onError={(err) => console.error("Sign-in failed:", err)}
+    />
+  )
+}
+```
+
+## Variants
+
+### Default
+
+A single "Sign in with Bitcoin" button using the sigma brand icon.
+
+```tsx
+<BitcoinSignin clientId="my-app" signIn={signIn} />
+```
+
+### With OAuth Providers
+
+Shows OAuth provider buttons below the primary button for account restore/linking.
+
+```tsx
+<BitcoinSignin
+  clientId="my-app"
+  signIn={signIn}
+  showProviders
+  providers={["github", "google"]}
+/>
+```
+
+### Size and Style Variants
+
+```tsx
+<BitcoinSignin clientId="my-app" signIn={signIn} variant="outline" size="sm" />
+<BitcoinSignin clientId="my-app" signIn={signIn} variant="ghost" size="lg" />
+```
+
+## Props
+
+### BitcoinSignin
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `clientId` | `string` | — | OAuth client ID registered with Sigma Identity (required) |
+| `signIn` | `SigmaSignInFn` | — | The `signIn.sigma` function from a Better Auth client (required) |
+| `callbackUrl` | `string` | `window.location.origin + "/auth/sigma/callback"` | Callback URL after OAuth redirect |
+| `showProviders` | `boolean` | `false` | Show OAuth provider buttons for account restore |
+| `providers` | `OAuthProvider[]` | `["github", "google"]` | Which OAuth providers to show |
+| `variant` | `"default" \| "outline" \| "ghost"` | `"default"` | Visual style variant |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Size variant |
+| `className` | `string` | — | Additional CSS classes |
+| `onError` | `(error: Error) => void` | — | Called when a sign-in error occurs |
+
+## Hook
+
+`useBitcoinSignin` can be used independently for a custom sign-in UI.
+
+```tsx
+import { useBitcoinSignin } from "@/components/blocks/bitcoin-signin"
+
+function CustomLogin() {
+  const { isLoading, error, loginWithSigma, loginWithProvider } =
+    useBitcoinSignin({
+      clientId: "my-app",
+      signIn: (opts) => authClient.signIn.sigma(opts),
+    })
+
+  return (
+    <button onClick={loginWithSigma} disabled={isLoading}>
+      {isLoading ? "Signing in..." : "Sign in"}
+    </button>
+  )
+}
+```

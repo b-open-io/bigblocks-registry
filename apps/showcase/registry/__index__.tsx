@@ -646,6 +646,84 @@ export const Index: Record<string, any> = {
     categories: ["market"],
     dependencies: undefined,
   },
+  "bitcoin-signin": {
+    name: "bitcoin-signin",
+    title: "Bitcoin Signin",
+    description: "OAuth sign-in button via Sigma Identity with optional provider restore buttons",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/bitcoin-signin/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/bitcoin-signin/bitcoin-signin-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/bitcoin-signin/use-bitcoin-signin.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/bitcoin-signin/index.tsx")
+      return { default: mod.BitcoinSignin || mod.default }
+    }),
+    categories: ["authentication"],
+    dependencies: undefined,
+  },
+  "oauth-callback": {
+    name: "oauth-callback",
+    title: "OAuth Callback",
+    description: "OAuth callback page block with loading, success, and error states for post-redirect handling",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/oauth-callback/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/oauth-callback/oauth-callback-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/oauth-callback/use-oauth-callback.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/oauth-callback/index.tsx")
+      return { default: mod.OAuthCallback || mod.default }
+    }),
+    categories: ["authentication"],
+    dependencies: undefined,
+  },
+  "cloud-backup-prompt": {
+    name: "cloud-backup-prompt",
+    title: "Cloud Backup Prompt",
+    description: "Dialog prompting users to set up encrypted cloud backup with password strength validation",
+    type: "registry:block",
+    registryDependencies: undefined,
+    files: [{
+      path: "registry/bigblocks/blocks/cloud-backup-prompt/index.tsx",
+      type: "registry:block",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/cloud-backup-prompt/cloud-backup-prompt-ui.tsx",
+      type: "registry:component",
+      target: ""
+    }, {
+      path: "registry/bigblocks/blocks/cloud-backup-prompt/use-cloud-backup.ts",
+      type: "registry:hook",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/bigblocks/blocks/cloud-backup-prompt/index.tsx")
+      return { default: mod.CloudBackupPrompt || mod.default }
+    }),
+    categories: ["authentication"],
+    dependencies: undefined,
+  },
   "bitcoin-avatar": {
     name: "bitcoin-avatar",
     title: "Bitcoin Avatar",
@@ -1264,6 +1342,42 @@ export const Index: Record<string, any> = {
       target: ""
     }],
     component: React.lazy(() => import("@/registry/bigblocks/examples/market-grid-demo.tsx")),
+    categories: ["examples"],
+  },
+  "bitcoin-signin-demo": {
+    name: "bitcoin-signin-demo",
+    type: "registry:example",
+    registryDependencies: ["bitcoin-signin"],
+    files: [{
+      path: "registry/bigblocks/examples/bitcoin-signin-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/bitcoin-signin-demo.tsx")),
+    categories: ["examples"],
+  },
+  "oauth-callback-demo": {
+    name: "oauth-callback-demo",
+    type: "registry:example",
+    registryDependencies: ["oauth-callback"],
+    files: [{
+      path: "registry/bigblocks/examples/oauth-callback-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/oauth-callback-demo.tsx")),
+    categories: ["examples"],
+  },
+  "cloud-backup-prompt-demo": {
+    name: "cloud-backup-prompt-demo",
+    type: "registry:example",
+    registryDependencies: ["cloud-backup-prompt"],
+    files: [{
+      path: "registry/bigblocks/examples/cloud-backup-prompt-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(() => import("@/registry/bigblocks/examples/cloud-backup-prompt-demo.tsx")),
     categories: ["examples"],
   },
   "bitcoin-avatar-demo": {
