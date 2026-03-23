@@ -5,7 +5,7 @@
   "items": [
     {
       "name": "step-indicator",
-      "type": "registry:ui",
+      "type": "registry:block",
       "title": "Step Indicator",
       "description": "A step indicator component for multi-step forms and processes",
       "author": "Satchmo",
@@ -14,8 +14,8 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/ui/step-indicator.tsx",
-          "type": "registry:ui",
+          "path": "registry/new-york/blocks/step-indicator/index.tsx",
+          "type": "registry:block",
           "target": ""
         }
       ]
