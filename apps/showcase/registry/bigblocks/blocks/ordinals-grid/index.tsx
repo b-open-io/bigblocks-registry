@@ -72,26 +72,20 @@ export interface OrdinalsGridProps {
  * pre-fetched `ordinals` directly. Each card displays the inscription
  * image, name, content type badge, and truncated outpoint.
  *
- * When action callbacks (`onTransfer`, `onList`, `onDetail`) are provided,
- * each card shows a dropdown menu with the available actions on hover.
- * Without callbacks, the grid is display-only.
- *
  * @example
  * ```tsx
  * import { OrdinalsGrid } from "@/components/blocks/ordinals-grid"
  *
- * // Display-only
+ * // Fetch from address
  * <OrdinalsGrid
  *   address="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
  *   onSelect={(ordinal) => console.log("Selected:", ordinal.outpoint)}
  * />
  *
- * // With action callbacks (desktop wallet)
+ * // Or pass pre-fetched ordinals
  * <OrdinalsGrid
  *   ordinals={myOrdinals}
- *   onTransfer={(ordinal) => transferOrdinal(ordinal)}
- *   onList={(ordinal) => listOrdinal(ordinal)}
- *   onDetail={(ordinal) => showDetail(ordinal)}
+ *   onSelect={(ordinal) => router.push(`/ordinal/${ordinal.outpoint}`)}
  * />
  * ```
  */

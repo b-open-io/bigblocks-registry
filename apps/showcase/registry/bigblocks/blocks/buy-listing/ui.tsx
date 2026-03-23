@@ -90,6 +90,8 @@ export interface BuyListingUIProps
   error: string | null
   /** Execute the purchase */
   onPurchase: () => void
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -138,6 +140,7 @@ export function BuyListingUI({
   result,
   error,
   onPurchase,
+  onExternalLink,
 }: BuyListingUIProps) {
   return (
     <Card className={cn(buyListingVariants({ size }), className)}>
@@ -213,17 +216,30 @@ export function BuyListingUI({
             <CheckCircle2 className="mt-0.5 size-4 flex-shrink-0 text-primary" />
             <div className="min-w-0 flex-1">
               <p className="text-xs font-medium">Purchased</p>
-              <a
-                href={`https://whatsonchain.com/tx/${result.txid}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[10px] transition-colors hover:text-foreground"
-              >
-                <Badge variant="outline" className="max-w-full truncate text-[10px] font-mono">
-                  {result.txid}
-                </Badge>
-                <ExternalLink className="size-2.5 flex-shrink-0" />
-              </a>
+              {onExternalLink ? (
+                <button
+                  type="button"
+                  onClick={() => onExternalLink(`https://whatsonchain.com/tx/${result.txid}`)}
+                  className="inline-flex items-center gap-1 text-[10px] transition-colors hover:text-foreground"
+                >
+                  <Badge variant="outline" className="max-w-full truncate text-[10px] font-mono">
+                    {result.txid}
+                  </Badge>
+                  <ExternalLink className="size-2.5 flex-shrink-0" />
+                </button>
+              ) : (
+                <a
+                  href={`https://whatsonchain.com/tx/${result.txid}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-[10px] transition-colors hover:text-foreground"
+                >
+                  <Badge variant="outline" className="max-w-full truncate text-[10px] font-mono">
+                    {result.txid}
+                  </Badge>
+                  <ExternalLink className="size-2.5 flex-shrink-0" />
+                </a>
+              )}
             </div>
           </div>
         )}

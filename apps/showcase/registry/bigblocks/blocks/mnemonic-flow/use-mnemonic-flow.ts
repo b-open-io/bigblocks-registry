@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 // ---------------------------------------------------------------------------
 // Types
@@ -139,6 +139,18 @@ export function useMnemonicFlow({
     Record<number, string>
   >({})
 
+  // Ref for copy timeout cleanup
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+
+  // Clean up pending timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current !== undefined) {
+        clearTimeout(copyTimeoutRef.current)
+      }
+    }
+  }, [])
+
   // Combine challenge with answers
   const challengeWithAnswers = useMemo<VerificationChallenge | null>(() => {
     if (!challenge) return null
@@ -232,7 +244,10 @@ export function useMnemonicFlow({
     try {
       await navigator.clipboard.writeText(words.join(" "))
       setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      if (copyTimeoutRef.current !== undefined) {
+        clearTimeout(copyTimeoutRef.current)
+      }
+      copyTimeoutRef.current = setTimeout(() => setCopied(false), 2000)
     } catch {
       setError("Failed to copy to clipboard")
     }

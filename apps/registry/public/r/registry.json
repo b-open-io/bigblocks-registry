@@ -5,7 +5,7 @@
   "items": [
     {
       "name": "step-indicator",
-      "type": "registry:ui",
+      "type": "registry:block",
       "title": "Step Indicator",
       "description": "A step indicator component for multi-step forms and processes",
       "author": "Satchmo",
@@ -14,8 +14,8 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/ui/step-indicator.tsx",
-          "type": "registry:ui",
+          "path": "registry/new-york/blocks/step-indicator/index.tsx",
+          "type": "registry:block",
           "target": ""
         }
       ]
@@ -1569,6 +1569,153 @@
       "files": [
         {
           "path": "registry/new-york/examples/theme-token-provider-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "oauth-callback",
+      "type": "registry:block",
+      "title": "OAuth Callback",
+      "description": "OAuth callback page block that handles the redirect after Sigma Identity authentication. Reads URL params, exchanges code for tokens via a provided handler, and displays loading, success, or error states with auto-redirect.",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "categories": ["authentication"],
+      "registryDependencies": [
+        "avatar",
+        "button",
+        "card",
+        "skeleton"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/oauth-callback/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/oauth-callback/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/oauth-callback/oauth-callback-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/oauth-callback/oauth-callback-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/oauth-callback/use-oauth-callback.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/oauth-callback/use-oauth-callback.ts"
+        }
+      ]
+    },
+    {
+      "name": "oauth-callback-demo",
+      "type": "registry:example",
+      "title": "OAuth Callback Demo",
+      "description": "Demo showcasing loading, success, and error states of the OAuth callback block with mock user data and state switcher",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/oauth-callback.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/oauth-callback-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "cloud-backup-prompt",
+      "type": "registry:block",
+      "title": "Cloud Backup Prompt",
+      "description": "Dialog that prompts users to set up encrypted cloud backup after first sign-in, with password strength validation and confirmation flow",
+      "author": "Satchmo",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "input",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/cloud-backup-prompt/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/cloud-backup-prompt/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/cloud-backup-prompt/cloud-backup-prompt-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/cloud-backup-prompt/cloud-backup-prompt-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/cloud-backup-prompt/use-cloud-backup.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/cloud-backup-prompt/use-cloud-backup.ts"
+        }
+      ]
+    },
+    {
+      "name": "cloud-backup-prompt-demo",
+      "type": "registry:example",
+      "title": "Cloud Backup Prompt Demo",
+      "description": "Demo of the cloud backup prompt dialog with a mock save handler",
+      "author": "Satchmo",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/cloud-backup-prompt.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/cloud-backup-prompt-demo.tsx",
+          "type": "registry:example",
+          "target": ""
+        }
+      ]
+    },
+    {
+      "name": "bitcoin-signin",
+      "type": "registry:block",
+      "title": "Bitcoin Sign In",
+      "description": "A sign-in button that initiates OAuth flow via Sigma Identity (Bitcoin-based authentication using Better Auth)",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "categories": ["authentication"],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "alert",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/bitcoin-signin/index.tsx",
+          "type": "registry:block",
+          "target": "~/components/blocks/bitcoin-signin/index.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/bitcoin-signin/bitcoin-signin-ui.tsx",
+          "type": "registry:component",
+          "target": "~/components/blocks/bitcoin-signin/bitcoin-signin-ui.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/bitcoin-signin/use-bitcoin-signin.ts",
+          "type": "registry:component",
+          "target": "~/components/blocks/bitcoin-signin/use-bitcoin-signin.ts"
+        }
+      ]
+    },
+    {
+      "name": "bitcoin-signin-demo",
+      "type": "registry:example",
+      "title": "Bitcoin Sign In Demo",
+      "description": "Demo showcasing Bitcoin sign-in button with OAuth provider restore options",
+      "author": "Satchmo <https://bigblocks.dev>",
+      "registryDependencies": [
+        "https://registry.bigblocks.dev/r/bitcoin-signin.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/examples/bitcoin-signin-demo.tsx",
           "type": "registry:example",
           "target": ""
         }

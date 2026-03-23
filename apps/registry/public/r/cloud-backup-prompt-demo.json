@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cloud-backup-prompt-demo",
+  "title": "Cloud Backup Prompt Demo",
+  "author": "Satchmo",
+  "description": "Demo of the cloud backup prompt dialog with a mock save handler",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/cloud-backup-prompt.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/cloud-backup-prompt-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { Button } from \"@/components/ui/button\"\nimport { CloudBackupPrompt } from \"@/registry/new-york/blocks/cloud-backup-prompt\"\n\nexport default function CloudBackupPromptDemo() {\n  const [open, setOpen] = useState(false)\n\n  async function handleSave(password: string): Promise<void> {\n    // In a real application, you would:\n    //\n    // 1. Get the backup data from localStorage\n    //    const backup = localStorage.getItem(\"encrypted-backup\")\n    //\n    // 2. Re-encrypt with the user-chosen password\n    //    const encrypted = await encryptBackup(backup, password)\n    //\n    // 3. Upload to your cloud backup API\n    //    await fetch(\"/api/backup\", {\n    //      method: \"POST\",\n    //      body: JSON.stringify({ data: encrypted }),\n    //    })\n\n    // Demo: simulate a 2-second save\n    await new Promise((resolve) => setTimeout(resolve, 2000))\n\n    // Uncomment to test error state:\n    // throw new Error(\"Network error: could not reach backup server\")\n\n    console.log(\"Backup saved with password of length:\", password.length)\n  }\n\n  return (\n    <div className=\"flex flex-col items-center gap-4\">\n      <Button onClick={() => setOpen(true)}>\n        Open Backup Prompt\n      </Button>\n      <p className=\"text-sm text-muted-foreground\">\n        Click to open the cloud backup setup dialog\n      </p>\n\n      <CloudBackupPrompt\n        open={open}\n        onOpenChange={setOpen}\n        onSave={handleSave}\n        onRemindLater={() => console.log(\"User chose remind later\")}\n        onSuccess={() => console.log(\"Backup enabled successfully\")}\n        onError={(error) => console.error(\"Backup error:\", error)}\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

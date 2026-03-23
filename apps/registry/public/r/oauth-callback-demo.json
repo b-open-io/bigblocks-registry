@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "oauth-callback-demo",
+  "title": "OAuth Callback Demo",
+  "author": "Satchmo <https://bigblocks.dev>",
+  "description": "Demo showcasing loading, success, and error states of the OAuth callback block with mock user data and state switcher",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/oauth-callback.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/oauth-callback-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { Button } from \"@/components/ui/button\"\nimport { Separator } from \"@/components/ui/separator\"\nimport { OAuthCallbackUI } from \"@/registry/new-york/blocks/oauth-callback/oauth-callback-ui\"\nimport type {\n  OAuthCallbackStatus,\n  OAuthCallbackUser,\n} from \"@/registry/new-york/blocks/oauth-callback/use-oauth-callback\"\n\nconst MOCK_USER: OAuthCallbackUser = {\n  id: \"usr_abc123\",\n  name: \"Satoshi Nakamoto\",\n  pubkey: \"02a1633cafcc01ebfb6d78e39f687a1f0995c62fc95f51ead10a02ee0be551b5dc\",\n  bapId: \"A4PYmuKGG61WCjjBaRpuSEbqytG\",\n}\n\nexport default function OAuthCallbackDemo() {\n  const [status, setStatus] = useState<OAuthCallbackStatus>(\"loading\")\n\n  return (\n    <div className=\"flex flex-col gap-6\">\n      {/* State selector */}\n      <div className=\"flex flex-wrap items-center gap-2\">\n        <p className=\"text-sm font-medium text-muted-foreground mr-2\">\n          Preview state:\n        </p>\n        <Button\n          variant={status === \"loading\" ? \"default\" : \"outline\"}\n          size=\"sm\"\n          onClick={() => setStatus(\"loading\")}\n        >\n          Loading\n        </Button>\n        <Button\n          variant={status === \"success\" ? \"default\" : \"outline\"}\n          size=\"sm\"\n          onClick={() => setStatus(\"success\")}\n        >\n          Success\n        </Button>\n        <Button\n          variant={status === \"error\" ? \"default\" : \"outline\"}\n          size=\"sm\"\n          onClick={() => setStatus(\"error\")}\n        >\n          Error\n        </Button>\n      </div>\n\n      <Separator />\n\n      {/* Preview */}\n      <OAuthCallbackUI\n        status={status}\n        user={status === \"success\" ? MOCK_USER : null}\n        errorMessage={\n          status === \"error\"\n            ? \"Invalid state parameter. This may indicate a security issue. Please try signing in again.\"\n            : null\n        }\n        redirectUrl=\"/dashboard\"\n        onRetry={() => setStatus(\"loading\")}\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

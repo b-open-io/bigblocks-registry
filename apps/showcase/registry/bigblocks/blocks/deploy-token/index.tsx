@@ -37,6 +37,8 @@ export interface DeployTokenProps {
   defaults?: UseDeployTokenOptions
   /** Optional CSS class name */
   className?: string
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -78,6 +80,7 @@ export function DeployToken({
   onError,
   defaults,
   className,
+  onExternalLink,
 }: DeployTokenProps) {
   const token = useDeployToken(defaults)
 
@@ -110,6 +113,7 @@ export function DeployToken({
       errorMessage={token.errorMessage}
       isValid={token.isValid}
       className={className}
+      onExternalLink={onExternalLink}
     />
   )
 }

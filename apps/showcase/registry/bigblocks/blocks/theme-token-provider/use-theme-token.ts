@@ -165,7 +165,12 @@ export function useThemeToken({
   // Mount: restore persisted origin (or use default)
   // ------------------------------------------------------------------
 
+  const mountedRef = useRef(false)
+
   useEffect(() => {
+    if (mountedRef.current) return
+    mountedRef.current = true
+
     if (typeof window === "undefined") return
 
     const saved = localStorage.getItem(storageKey)
@@ -174,8 +179,7 @@ export function useThemeToken({
     if (initial) {
       void applyOrigin(initial)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [storageKey, defaultOrigin, applyOrigin])
 
   return {
     origin,

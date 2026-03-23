@@ -40,7 +40,7 @@ export default function ConnectWalletDemo() {
         variant="default"
         connectLabel="Connect Wallet"
         status={status}
-        identityKey={status === "connected" ? mockIdentityKey : null}
+        identityKey={status === "connected" ? mockIdentityKey : undefined}
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
         gradient={gradient}

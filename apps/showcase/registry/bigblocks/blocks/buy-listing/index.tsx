@@ -57,6 +57,8 @@ export interface BuyListingProps
   marketplaceRate?: number
   /** Optional CSS class name */
   className?: string
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -105,6 +107,7 @@ export function BuyListing({
   marketplaceRate,
   size = "default",
   className,
+  onExternalLink,
 }: BuyListingProps) {
   const hook = useBuyListing({
     outpoint,
@@ -135,6 +138,7 @@ export function BuyListing({
       result={hook.result}
       error={hook.error}
       onPurchase={hook.handlePurchase}
+      onExternalLink={onExternalLink}
     />
   )
 }

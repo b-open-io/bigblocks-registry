@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bitcoin-signin-demo",
+  "title": "Bitcoin Sign In Demo",
+  "author": "Satchmo <https://bigblocks.dev>",
+  "description": "Demo showcasing Bitcoin sign-in button with OAuth provider restore options",
+  "registryDependencies": [
+    "https://registry.bigblocks.dev/r/bitcoin-signin.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/examples/bitcoin-signin-demo.tsx",
+      "content": "\"use client\"\n\nimport { BitcoinSignin } from \"@/registry/new-york/blocks/bitcoin-signin\"\nimport type { SigmaSignInFn } from \"@/registry/new-york/blocks/bitcoin-signin/use-bitcoin-signin\"\n\n/**\n * Mock signIn function for demo purposes.\n * In a real app, this would be `authClient.signIn.sigma` from your\n * Better Auth client configured with the sigma plugin.\n */\nconst mockSignIn: SigmaSignInFn = async (options) => {\n  // Simulate network delay\n  await new Promise((resolve) => setTimeout(resolve, 1500))\n  // eslint-disable-next-line no-console\n  console.log(\"[demo] signIn.sigma called with:\", options)\n}\n\nexport default function BitcoinSigninDemo() {\n  return (\n    <div className=\"flex flex-col items-start gap-8\">\n      {/* Default — Bitcoin-only sign-in */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">Default</p>\n        <BitcoinSignin\n          clientId=\"demo-app\"\n          signIn={mockSignIn}\n        />\n      </div>\n\n      {/* With OAuth restore providers */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          With OAuth providers\n        </p>\n        <BitcoinSignin\n          clientId=\"demo-app\"\n          signIn={mockSignIn}\n          showProviders\n          providers={[\"github\", \"google\"]}\n        />\n      </div>\n\n      {/* Outline variant, small */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Outline / Small\n        </p>\n        <BitcoinSignin\n          clientId=\"demo-app\"\n          signIn={mockSignIn}\n          variant=\"outline\"\n          size=\"sm\"\n        />\n      </div>\n\n      {/* Ghost variant, large */}\n      <div className=\"space-y-1.5\">\n        <p className=\"text-sm font-medium text-muted-foreground\">\n          Ghost / Large\n        </p>\n        <BitcoinSignin\n          clientId=\"demo-app\"\n          signIn={mockSignIn}\n          variant=\"ghost\"\n          size=\"lg\"\n        />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ],
+  "type": "registry:example"
+}

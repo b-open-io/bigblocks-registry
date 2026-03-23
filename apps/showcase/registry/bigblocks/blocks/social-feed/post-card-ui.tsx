@@ -25,6 +25,8 @@ export interface PostCardUIProps {
   showReplyButton?: boolean
   /** Called when the reply button is clicked */
   onReplyClick?: (post: SocialPost) => void
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -102,6 +104,7 @@ export function PostCardUI({
   likeButtonSlot,
   showReplyButton = true,
   onReplyClick,
+  onExternalLink,
 }: PostCardUIProps) {
   const displayName = getDisplayName(post)
   const initials = getInitials(displayName)
@@ -247,21 +250,40 @@ export function PostCardUI({
           )}
 
           {/* View on-chain link */}
-          <a
-            href={`https://whatsonchain.com/tx/${post.txid}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-muted-foreground",
-              "hover:bg-accent hover:text-accent-foreground transition-colors duration-150",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              "ml-auto"
-            )}
-            onClick={(e) => e.stopPropagation()}
-            aria-label="View transaction on-chain"
-          >
-            <ExternalLink className="size-3" aria-hidden="true" />
-          </a>
+          {onExternalLink ? (
+            <button
+              type="button"
+              className={cn(
+                "inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-muted-foreground",
+                "hover:bg-accent hover:text-accent-foreground transition-colors duration-150",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "ml-auto"
+              )}
+              onClick={(e) => {
+                e.stopPropagation()
+                onExternalLink(`https://whatsonchain.com/tx/${post.txid}`)
+              }}
+              aria-label="View transaction on-chain"
+            >
+              <ExternalLink className="size-3" aria-hidden="true" />
+            </button>
+          ) : (
+            <a
+              href={`https://whatsonchain.com/tx/${post.txid}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-muted-foreground",
+                "hover:bg-accent hover:text-accent-foreground transition-colors duration-150",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "ml-auto"
+              )}
+              onClick={(e) => e.stopPropagation()}
+              aria-label="View transaction on-chain"
+            >
+              <ExternalLink className="size-3" aria-hidden="true" />
+            </a>
+          )}
         </div>
       </div>
     </article>

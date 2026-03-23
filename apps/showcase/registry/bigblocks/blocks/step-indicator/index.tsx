@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { CheckIcon } from "@radix-ui/react-icons";
 import React from "react";
@@ -18,7 +18,12 @@ export interface StepIndicatorProps {
 }
 
 export function StepIndicator({
-	steps,
+	steps = [
+		{ id: "1", label: "Account", status: "complete" as const },
+		{ id: "2", label: "Profile", status: "active" as const },
+		{ id: "3", label: "Settings", status: "pending" as const },
+		{ id: "4", label: "Review", status: "pending" as const }
+	],
 	className = "",
 	variant = "horizontal",
 }: StepIndicatorProps) {
@@ -33,7 +38,7 @@ export function StepIndicator({
 								step.status === "complete" &&
 									"bg-accent text-accent-foreground ring-2 ring-accent",
 								step.status === "active" &&
-									"bg-primary text-primary-foreground",
+									"bg-primary text-primary-foreground ring-2 ring-offset-2 ring-ring",
 								step.status === "pending" && "bg-muted text-muted-foreground",
 							)}
 						>
@@ -76,7 +81,7 @@ export function StepIndicator({
 								step.status === "complete" &&
 									"bg-accent text-accent-foreground ring-2 ring-accent",
 								step.status === "active" &&
-									"bg-primary text-primary-foreground shadow-lg shadow-primary/25",
+									"bg-primary text-primary-foreground shadow-lg shadow-primary/25 ring-2 ring-offset-2 ring-ring",
 								step.status === "pending" && "bg-muted text-muted-foreground",
 							)}
 						>

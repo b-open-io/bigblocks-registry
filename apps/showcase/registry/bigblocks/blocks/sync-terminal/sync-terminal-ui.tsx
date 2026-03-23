@@ -30,10 +30,10 @@ export interface SyncTerminalUIProps {
 // ---------------------------------------------------------------------------
 
 const LEVEL_COLORS: Record<SyncEventLevel, string> = {
-  log: "text-zinc-400",
-  warn: "text-amber-400",
-  error: "text-rose-400",
-  success: "text-emerald-400",
+  log: "text-muted-foreground",
+  warn: "text-chart-4",
+  error: "text-destructive",
+  success: "text-chart-2",
 }
 
 /** Format a unix-ms timestamp into HH:MM:SS.mmm */
@@ -53,8 +53,7 @@ function formatTimestamp(ts: number): string {
 /**
  * Terminal-style event log display with colour-coded severity levels.
  *
- * Uses a dark background (bg-zinc-950) and monospace font regardless of theme
- * since this intentionally emulates a terminal console.
+ * Uses semantic theme tokens so the terminal adapts to any shadcn theme.
  *
  * @example
  * ```tsx
@@ -90,12 +89,12 @@ export function SyncTerminalUI({
         <span
           className={cn(
             "inline-block size-2 rounded-full",
-            status.connected ? "bg-emerald-400" : "bg-zinc-600"
+            status.connected ? "bg-chart-2" : "bg-muted-foreground"
           )}
           aria-label={status.connected ? "Connected" : "Disconnected"}
         />
         {status.connected && (
-          <span className="text-zinc-500">
+          <span className="text-muted-foreground">
             #{status.blockHeight.toLocaleString()}
           </span>
         )}
@@ -106,13 +105,13 @@ export function SyncTerminalUI({
   return (
     <div
       className={cn(
-        "flex flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 font-mono text-xs",
+        "flex flex-col overflow-hidden rounded-lg border border-border bg-card font-mono text-xs",
         className
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-zinc-800 px-3 py-2">
-        <span className="font-semibold text-zinc-300">{title}</span>
+      <div className="flex items-center justify-between border-b border-border px-3 py-2">
+        <span className="font-semibold text-foreground">{title}</span>
         {renderStatusDot()}
       </div>
 
@@ -126,7 +125,7 @@ export function SyncTerminalUI({
         aria-label={title}
       >
         {events.length === 0 ? (
-          <p className="text-zinc-600">No events yet.</p>
+          <p className="text-muted-foreground">No events yet.</p>
         ) : (
           <div className="flex flex-col gap-0.5">
             {events.map((event, i) => (
@@ -135,12 +134,12 @@ export function SyncTerminalUI({
                 className="flex gap-2 leading-5"
               >
                 {showTimestamps && (
-                  <span className="shrink-0 text-zinc-600">
+                  <span className="shrink-0 text-muted-foreground">
                     {formatTimestamp(event.timestamp)}
                   </span>
                 )}
                 {showSource && (
-                  <span className="shrink-0 text-zinc-500">
+                  <span className="shrink-0 text-muted-foreground">
                     [{event.source}]
                   </span>
                 )}

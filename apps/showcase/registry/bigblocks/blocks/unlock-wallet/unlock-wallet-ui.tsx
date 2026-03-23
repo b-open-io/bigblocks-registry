@@ -84,7 +84,7 @@ export function UnlockWalletUi({
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
         e.preventDefault()
-        handlePassphraseUnlock()
+        void handlePassphraseUnlock()
       }
     },
     [handlePassphraseUnlock],
@@ -136,7 +136,7 @@ export function UnlockWalletUi({
           <Button
             size="lg"
             className="w-full gap-2"
-            onClick={handleBiometricUnlock}
+            onClick={() => { void handleBiometricUnlock() }}
             disabled={isLoading}
             aria-busy={isLoading}
           >
@@ -243,7 +243,7 @@ export function UnlockWalletUi({
       <CardFooter className="flex flex-col gap-2">
         <Button
           className="w-full gap-2"
-          onClick={handlePassphraseUnlock}
+          onClick={() => { void handlePassphraseUnlock() }}
           disabled={isLoading || !passphrase.trim()}
           aria-busy={isLoading}
         >

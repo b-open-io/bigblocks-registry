@@ -45,6 +45,8 @@ export interface SocialFeedUIProps {
     post: SocialPost,
     defaultProps: PostCardUIProps
   ) => React.ReactNode
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -148,6 +150,7 @@ export function SocialFeedUI({
   infiniteScroll = true,
   renderLikeButton,
   renderPostCard,
+  onExternalLink,
 }: SocialFeedUIProps) {
   // Infinite scroll via IntersectionObserver
   const sentinelRef = useRef<HTMLDivElement>(null)
@@ -214,6 +217,7 @@ export function SocialFeedUI({
             onAuthorClick,
             onReplyClick,
             likeButtonSlot: renderLikeButton?.(post),
+            onExternalLink,
           }
 
           return renderPostCard ? (
