@@ -759,8 +759,10 @@
         "lucide-react"
       ],
       "registryDependencies": [
+        "button",
         "card",
         "badge",
+        "dropdown-menu",
         "skeleton",
         "scroll-area"
       ],
@@ -963,10 +965,11 @@
       "name": "wallet-overview",
       "type": "registry:block",
       "title": "Wallet Overview",
-      "description": "Wallet dashboard card displaying BSV balance with privacy toggle, payment and ordinal addresses with copy buttons, identity key, and send/receive action buttons. Fetches balance from 1sat-stack API via @1sat/react wallet context.",
+      "description": "Wallet dashboard card displaying BSV balance with privacy toggle, payment and ordinal addresses with copy buttons, identity key, and send/receive action buttons. Supports @1sat/react WalletProvider (web), direct wallet source (desktop), or fully prop-driven UI. API URL is overrideable.",
       "author": "Satchmo",
       "dependencies": [
         "@1sat/react",
+        "@1sat/connect",
         "lucide-react"
       ],
       "registryDependencies": [

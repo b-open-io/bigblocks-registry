@@ -359,18 +359,19 @@ export function InscribeFile({
                 onContentTypeChange={setContentType}
                 signWithBAP={signWithBAP}
                 onSignWithBAPChange={setSignWithBAP}
+                onExternalLink={onExternalLink}
               />
             )}
           </TabsContent>
 
           {/* ---- BSV20 Tab ---- */}
           <TabsContent value="bsv20" className="mt-4">
-            <Bsv20Form data={bsv20Data} onDataChange={setBsv20Data} />
+            <Bsv20Form data={bsv20Data} onDataChange={setBsv20Data} onExternalLink={onExternalLink} />
           </TabsContent>
 
           {/* ---- BSV21 Tab ---- */}
           <TabsContent value="bsv21" className="mt-4">
-            <Bsv21Form data={bsv21Data} onDataChange={setBsv21Data} />
+            <Bsv21Form data={bsv21Data} onDataChange={setBsv21Data} onExternalLink={onExternalLink} />
           </TabsContent>
         </Tabs>
 

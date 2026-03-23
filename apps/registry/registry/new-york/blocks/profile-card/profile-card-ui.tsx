@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { BitcoinAvatar } from "@/registry/new-york/blocks/bitcoin-avatar"
-import { AlertCircle, RefreshCw } from "lucide-react"
+import { AlertCircle, ExternalLink, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import type { BapProfile } from "./use-profile-card"
 import type { ReactNode } from "react"
@@ -36,6 +36,8 @@ export interface ProfileCardUIProps {
   onRetry?: () => void
   /** Render prop for a follow button or other action in the header */
   renderAction?: (bapId: string) => ReactNode
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -108,6 +110,7 @@ export function ProfileCardUI({
   error,
   onRetry,
   renderAction,
+  onExternalLink,
 }: ProfileCardUIProps) {
   if (isLoading) {
     return <ProfileCardSkeleton className={className} />
@@ -192,14 +195,26 @@ export function ProfileCardUI({
         </div>
 
         {profile?.url && (
-          <a
-            href={profile.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block text-xs text-primary hover:underline transition-colors"
-          >
-            {profile.url}
-          </a>
+          onExternalLink ? (
+            <button
+              type="button"
+              onClick={() => onExternalLink(profile.url as string)}
+              className="inline-flex items-center gap-1 text-xs text-primary hover:underline transition-colors"
+            >
+              {profile.url}
+              <ExternalLink className="size-3 flex-shrink-0" />
+            </button>
+          ) : (
+            <a
+              href={profile.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-primary hover:underline transition-colors"
+            >
+              {profile.url}
+              <ExternalLink className="size-3 flex-shrink-0" />
+            </a>
+          )
         )}
       </CardContent>
     </Card>

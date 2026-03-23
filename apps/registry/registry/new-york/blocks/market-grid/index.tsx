@@ -45,6 +45,8 @@ export interface MarketGridProps {
   onBuy: (outpoint: string, price: number) => void
   /** Callback when a listing card is clicked (navigation) */
   onListingClick?: (outpoint: string) => void
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
   /** Number of skeleton cards to show during loading */
   skeletonCount?: number
   /** Optional CSS class name */
@@ -84,6 +86,7 @@ export function MarketGrid({
   contentTypeFilter,
   onBuy,
   onListingClick,
+  onExternalLink,
   skeletonCount,
   className,
 }: MarketGridProps) {
@@ -106,6 +109,7 @@ export function MarketGrid({
       onRefresh={grid.refresh}
       onBuy={onBuy}
       onListingClick={onListingClick}
+      onExternalLink={onExternalLink}
       skeletonCount={skeletonCount}
       className={className}
     />

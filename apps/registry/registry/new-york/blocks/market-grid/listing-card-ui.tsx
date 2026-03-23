@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ShoppingCart } from "lucide-react"
+import { ExternalLink, ShoppingCart } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -37,6 +37,8 @@ export interface ListingCardUIProps {
   onBuy: (outpoint: string, price: number) => void
   /** Click on the card body to navigate */
   onListingClick?: (outpoint: string) => void
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
   /** Optional CSS class name */
   className?: string
 }
@@ -81,6 +83,7 @@ export function ListingCardUI({
   name,
   onBuy,
   onListingClick,
+  onExternalLink,
   className,
 }: ListingCardUIProps) {
   const [imgLoaded, setImgLoaded] = useState(false)
@@ -144,10 +147,39 @@ export function ListingCardUI({
       </div>
 
       <CardContent className="flex flex-col gap-2 p-3 pb-2">
-        {/* Name */}
-        <h3 className="truncate text-sm font-semibold leading-none">
-          {name ?? "Unnamed Ordinal"}
-        </h3>
+        {/* Name + external link */}
+        <div className="flex items-center gap-1">
+          <h3 className="truncate text-sm font-semibold leading-none">
+            {name ?? "Unnamed Ordinal"}
+          </h3>
+          {(() => {
+            const ordfsUrl = `https://ordfs.network/${outpoint}`
+            return onExternalLink ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onExternalLink(ordfsUrl)
+                }}
+                className="flex-shrink-0 text-muted-foreground transition-colors hover:text-foreground"
+                aria-label="View on ORDFS"
+              >
+                <ExternalLink className="size-3" />
+              </button>
+            ) : (
+              <a
+                href={ordfsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex-shrink-0 text-muted-foreground transition-colors hover:text-foreground"
+                aria-label="View on ORDFS"
+              >
+                <ExternalLink className="size-3" />
+              </a>
+            )
+          })()}
+        </div>
 
         {/* Seller row */}
         {seller && (

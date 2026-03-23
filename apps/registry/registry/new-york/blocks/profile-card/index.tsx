@@ -36,6 +36,8 @@ export interface ProfileCardProps {
   className?: string
   /** Render prop for a follow button or other action in the header */
   renderAction?: (bapId: string) => ReactNode
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -67,6 +69,7 @@ export function ProfileCard({
   apiUrl,
   className,
   renderAction,
+  onExternalLink,
 }: ProfileCardProps) {
   const hook = useProfileCard({ bapId: bapIdProp, address, apiUrl })
 
@@ -80,6 +83,7 @@ export function ProfileCard({
       error={hook.error}
       onRetry={hook.refetch}
       renderAction={renderAction}
+      onExternalLink={onExternalLink}
     />
   )
 }

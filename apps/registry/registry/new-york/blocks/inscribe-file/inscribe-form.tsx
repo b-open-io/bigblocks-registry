@@ -34,6 +34,8 @@ export interface InscribeFormProps {
   signWithBAP: boolean
   /** Callback when BAP signing toggle changes */
   onSignWithBAPChange: (enabled: boolean) => void
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
   /** Optional CSS class name */
   className?: string
 }
@@ -50,6 +52,7 @@ export function InscribeForm({
   onContentTypeChange,
   signWithBAP,
   onSignWithBAPChange,
+  onExternalLink,
   className,
 }: InscribeFormProps) {
   const handleAdd = useCallback(() => {

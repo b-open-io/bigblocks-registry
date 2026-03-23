@@ -31,6 +31,8 @@ export interface MarketGridUIProps {
   onBuy: (outpoint: string, price: number) => void
   /** Callback when a listing card is clicked (navigation) */
   onListingClick?: (outpoint: string) => void
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
   /** Number of skeleton cards to show during loading */
   skeletonCount?: number
   /** Optional CSS class name */
@@ -79,6 +81,7 @@ export function MarketGridUI({
   onRefresh,
   onBuy,
   onListingClick,
+  onExternalLink,
   skeletonCount = 8,
   className,
 }: MarketGridUIProps) {
@@ -152,6 +155,7 @@ export function MarketGridUI({
             name={listing.name}
             onBuy={onBuy}
             onListingClick={onListingClick}
+            onExternalLink={onExternalLink}
           />
         ))}
       </div>

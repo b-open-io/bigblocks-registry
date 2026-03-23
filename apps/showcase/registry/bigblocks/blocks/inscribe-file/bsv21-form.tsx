@@ -30,6 +30,8 @@ export interface Bsv21FormProps {
   data: Bsv21FormData
   /** Callback when any field changes */
   onDataChange: (data: Bsv21FormData) => void
+  /** Callback to handle external links (e.g. open in system browser from a WebView) */
+  onExternalLink?: (url: string) => void
   /** Optional CSS class name */
   className?: string
 }
@@ -58,7 +60,7 @@ export { createDefaultBsv21Data }
  * Form for deploying a new BSV21 token. Includes symbol input, icon upload
  * with live preview, max supply, and decimal precision.
  */
-export function Bsv21Form({ data, onDataChange, className }: Bsv21FormProps) {
+export function Bsv21Form({ data, onDataChange, onExternalLink, className }: Bsv21FormProps) {
   const lastPreviewUrlRef = useRef<string | null>(null)
 
   // Track the current preview URL for unmount cleanup
