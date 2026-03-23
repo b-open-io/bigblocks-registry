@@ -4,11 +4,11 @@ export const registry = {
     // ── Existing ──
     {
       name: "step-indicator",
-      type: "registry:ui",
+      type: "registry:block",
       title: "Step Indicator",
       description: "Display progress through multi-step processes with horizontal and vertical variants",
       categories: ["ui-components"],
-      files: [{ path: "ui/step-indicator.tsx", type: "registry:ui" }],
+      files: [{ path: "blocks/step-indicator/index.tsx", type: "registry:block" }],
       dependencies: ["@radix-ui/react-icons"],
     },
 

@@ -10,15 +10,15 @@ export const Index: Record<string, any> = {
     name: "step-indicator",
     title: "Step Indicator",
     description: "Display progress through multi-step processes with horizontal and vertical variants",
-    type: "registry:ui",
+    type: "registry:block",
     registryDependencies: undefined,
     files: [{
-      path: "registry/bigblocks/ui/step-indicator.tsx",
-      type: "registry:ui",
+      path: "registry/bigblocks/blocks/step-indicator/index.tsx",
+      type: "registry:block",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/bigblocks/ui/step-indicator.tsx")
+      const mod = await import("@/registry/bigblocks/blocks/step-indicator/index.tsx")
       return { default: mod.StepIndicator || mod.default }
     }),
     categories: ["ui-components"],
