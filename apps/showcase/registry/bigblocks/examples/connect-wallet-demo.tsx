@@ -15,8 +15,7 @@ export default function ConnectWalletDemo() {
   const mockIdentityKey =
     "02a1633cafcc01ebfb6d78e39f687a1f0995c62fc95f51ead10a02ee0be551b5dc"
   const truncatedKey = `${mockIdentityKey.slice(0, 8)}...${mockIdentityKey.slice(-6)}`
-  const gradient =
-    "linear-gradient(135deg, hsl(200, 70%, 50%), hsl(280, 70%, 50%))"
+  const gradient = "hsl(var(--primary))"
 
   const handleTriggerClick = useCallback(() => {
     setStatus("connecting")

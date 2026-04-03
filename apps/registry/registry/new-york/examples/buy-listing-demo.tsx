@@ -10,27 +10,27 @@ import {
 const SAMPLE_LISTINGS = [
   {
     outpoint:
-      "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2.0",
+      "1611d956f397caa80b56bc148b4bce87b54f39b234aeca4668b4d5a7785eb9fa_0",
     price: 50000,
-    name: "Rare Pepe #42",
+    name: "Pixel Fox #42",
     seller: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
     contentType: "image/png",
   },
   {
     outpoint:
-      "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2.0",
-    price: 125000,
-    name: "1Sat Punk #1337",
+      "3265e1cfee59754a6e9e3e473fc8dbbf7bf0ebb7a50d97d00c0870fb27b934b2_0",
+    price: 150000,
+    name: "SNOW",
     seller: "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2",
-    contentType: "image/webp",
+    contentType: "image/jpeg",
   },
   {
     outpoint:
-      "c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3.0",
-    price: 1000000,
-    name: "Genesis Block Art",
-    seller: "1CounterpartyXXXXXXXXXXXXXXXUWLpVr",
-    contentType: "image/svg+xml",
+      "87459ead23591c06e2e06de62051e2265c6697dad8647d0aaba4933265ad5dba_0",
+    price: 250000,
+    name: "Crypto Adventure",
+    seller: "15Cytz9MVSxwYpYo1hNCqVwnqPi2GCaWCi",
+    contentType: "image/webp",
   },
 ]
 
@@ -56,7 +56,7 @@ export default function BuyListingDemo() {
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     return {
-      txid: "d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5",
+      txid: "f1f82b4f815e8b4fd49c43bc471d60d93943f514ca20047939bb789cd067a933",
     }
   }
 

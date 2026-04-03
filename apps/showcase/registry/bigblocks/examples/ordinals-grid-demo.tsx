@@ -9,62 +9,63 @@ import {
 const MOCK_ORDINALS: OrdinalOutput[] = [
   {
     outpoint:
-      "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2_0",
+      "1611d956f397caa80b56bc148b4bce87b54f39b234aeca4668b4d5a7785eb9fa_0",
     contentType: "image/png",
-    name: "Rare Pepe #42",
+    name: "Pixel Foxes",
     origin:
-      "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2_0",
+      "1611d956f397caa80b56bc148b4bce87b54f39b234aeca4668b4d5a7785eb9fa_0",
     satoshis: 1,
-    tags: ["type:image/png", "name:Rare Pepe #42"],
+    tags: ["type:image/png", "name:Pixel Foxes"],
   },
   {
     outpoint:
-      "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3_0",
+      "87459ead23591c06e2e06de62051e2265c6697dad8647d0aaba4933265ad5dba_0",
     contentType: "image/webp",
-    name: "1Sat Punk #1337",
+    name: "Crypto Adventure",
     origin:
-      "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3_0",
+      "87459ead23591c06e2e06de62051e2265c6697dad8647d0aaba4933265ad5dba_0",
     satoshis: 1,
-    tags: ["type:image/webp", "name:1Sat Punk #1337"],
+    tags: ["type:image/webp", "name:Crypto Adventure"],
   },
   {
     outpoint:
-      "c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4_0",
-    contentType: "image/svg+xml",
-    name: "Genesis Block Art",
+      "0d2b430030ab8480a430a300e0393d107b3754bce4d98bf919c39f0e752b6746_0",
+    contentType: "image/png",
+    name: "TestyPepes",
     origin:
-      "c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4_0",
+      "0d2b430030ab8480a430a300e0393d107b3754bce4d98bf919c39f0e752b6746_0",
     satoshis: 1,
-    tags: ["type:image/svg+xml", "name:Genesis Block Art"],
+    tags: ["type:image/png", "name:TestyPepes"],
   },
   {
     outpoint:
-      "d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5_0",
-    contentType: "application/json",
+      "8664fcbca0d1b6c6e2323b42434d90b57be562b6c49bc1f266a7fa23bb8edc19_0",
+    contentType: "image/png",
+    name: "Aym the GM",
     origin:
-      "d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5_0",
+      "8664fcbca0d1b6c6e2323b42434d90b57be562b6c49bc1f266a7fa23bb8edc19_0",
     satoshis: 1,
-    tags: ["type:application/json"],
+    tags: ["type:image/png", "name:Aym the GM"],
   },
   {
     outpoint:
-      "e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6_0",
+      "3265e1cfee59754a6e9e3e473fc8dbbf7bf0ebb7a50d97d00c0870fb27b934b2_0",
     contentType: "image/jpeg",
-    name: "Sigma Identity Avatar",
+    name: "SNOW",
     origin:
-      "e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6_0",
+      "3265e1cfee59754a6e9e3e473fc8dbbf7bf0ebb7a50d97d00c0870fb27b934b2_0",
     satoshis: 1,
-    tags: ["type:image/jpeg", "name:Sigma Identity Avatar"],
+    tags: ["type:image/jpeg", "name:SNOW"],
   },
   {
     outpoint:
-      "f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1_0",
-    contentType: "text/plain",
-    name: "On-Chain Note",
+      "94f664c15f3f8a5f2930a053381b4b94e264c77434cd99b49b03734f7862bc6e_0",
+    contentType: "image/jpeg",
+    name: "The Pepeverse",
     origin:
-      "f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1_0",
+      "94f664c15f3f8a5f2930a053381b4b94e264c77434cd99b49b03734f7862bc6e_0",
     satoshis: 1,
-    tags: ["type:text/plain", "name:On-Chain Note"],
+    tags: ["type:image/jpeg", "name:The Pepeverse"],
   },
 ]
 

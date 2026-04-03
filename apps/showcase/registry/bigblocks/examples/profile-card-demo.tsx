@@ -7,7 +7,7 @@ const MOCK_PROFILE: BapProfile = {
   name: "Satoshi Nakamoto",
   alternateName: "satoshi",
   description: "Creator of Bitcoin. Building a peer-to-peer electronic cash system.",
-  image: undefined,
+  image: "https://ordfs.network/content/1611d956f397caa80b56bc148b4bce87b54f39b234aeca4668b4d5a7785eb9fa_0",
   url: "https://bitcoin.org",
 }
 

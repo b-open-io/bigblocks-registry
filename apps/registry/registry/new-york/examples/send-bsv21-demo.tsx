@@ -10,20 +10,20 @@ import {
 
 const MOCK_BALANCES: TokenBalance[] = [
   {
-    tokenId: "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2_0",
+    tokenId: "6d2b430030ab8480a430a300e0393d107b3754bce4d98bf919c39f0e752b6746_0",
     symbol: "PEPE",
     balance: "100000000",
     decimals: 4,
-    iconUrl: "https://ordfs.network/content/a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2_0",
+    iconUrl: "https://ordfs.network/content/1611d956f397caa80b56bc148b4bce87b54f39b234aeca4668b4d5a7785eb9fa_0",
   },
   {
-    tokenId: "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3_0",
+    tokenId: "ba11660cc3d3b71d196034e4ecf0e47aa2b90f362e9a36ead9df3bfa15bccb42_0",
     symbol: "GOLD",
     balance: "5000000",
     decimals: 2,
   },
   {
-    tokenId: "c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4_0",
+    tokenId: "d4d9f56ac42133771a01e116c99ea5f116a3f0fd07d1a616ebefec8b9cc67551_0",
     symbol: "SIGMA",
     balance: "999",
     decimals: 0,
@@ -52,7 +52,7 @@ export default function SendBsv21Demo() {
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     return {
-      txid: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      txid: "fb009b6083474453cea20a9b0186dc56361903125607178f725b43753d586d01",
     }
   }
 

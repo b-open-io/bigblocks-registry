@@ -10,11 +10,11 @@ import {
 
 const SAMPLE_ORDINAL: OrdinalItem = {
   outpoint:
-    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.0",
-  name: "Rare Pepe #42",
+    "1611d956f397caa80b56bc148b4bce87b54f39b234aeca4668b4d5a7785eb9fa_0",
+  name: "Pixel Fox #42",
   contentType: "image/png",
   origin:
-    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.0",
+    "1611d956f397caa80b56bc148b4bce87b54f39b234aeca4668b4d5a7785eb9fa_0",
 }
 
 export default function CreateListingDemo() {
@@ -39,7 +39,7 @@ export default function CreateListingDemo() {
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     return {
-      txid: "f4a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+      txid: "d4d9f56ac42133771a01e116c99ea5f116a3f0fd07d1a616ebefec8b9cc67551",
     }
   }
 
