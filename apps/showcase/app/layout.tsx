@@ -16,7 +16,33 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "BigBlocks",
-  description: "Production-ready Bitcoin UI components for React applications",
+  description: "Production-ready Bitcoin UI blocks for React applications",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://showcase.bigblocks.dev"
+  ),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "BigBlocks",
+    title: "BigBlocks — Bitcoin UI Blocks for React",
+    description:
+      "Production-ready, shadcn-compatible Bitcoin UI blocks. Wallet, social, marketplace, and identity components you install with one CLI command.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "BigBlocks — Bitcoin UI Blocks for React",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BigBlocks — Bitcoin UI Blocks for React",
+    description:
+      "Production-ready, shadcn-compatible Bitcoin UI blocks. Wallet, social, marketplace, and identity components you install with one CLI command.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
