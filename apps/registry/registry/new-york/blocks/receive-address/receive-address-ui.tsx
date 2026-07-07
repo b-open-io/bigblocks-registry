@@ -127,7 +127,7 @@ function AddressPattern({
       aria-label={`QR placeholder for ${truncate(address)}`}
       className="rounded-md"
     >
-      <rect width={size} height={size} fill="hsl(var(--background))" rx={4} />
+      <rect width={size} height={size} fill="var(--background)" rx={4} />
       {cells.map((filled, i) => {
         if (!filled) return null
         const row = Math.floor(i / gridSize)
@@ -139,7 +139,7 @@ function AddressPattern({
             y={cellSize + row * cellSize}
             width={cellSize}
             height={cellSize}
-            fill="hsl(var(--foreground))"
+            fill="var(--foreground)"
           />
         )
       })}
