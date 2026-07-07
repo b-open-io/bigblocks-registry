@@ -85,7 +85,7 @@ export default function PostCard({ post }) {
 | --- | --- |
 | `default` | Bordered button with icon and count |
 | `compact` | Square icon-only button (count hidden) |
-| `text` | Plain text style for minimal UIs |
+| `ghost` | Borderless minimal style |
 
 ### Liked State
 
@@ -97,7 +97,7 @@ export default function PostCard({ post }) {
 
 ### Text
 
-<ComponentPreview name="like-button-text" showV0Button={false} />
+<ComponentPreview name="like-button-ghost" showV0Button={false} />
 
 ## Hook: `useLike`
 
@@ -143,7 +143,7 @@ export function CustomLikeControl({ txid, count, liked }) {
 | `onToggled` | `(liked: boolean, result: LikeResult) => void` | — | Called after a successful like/unlike |
 | `onError` | `(error: Error) => void` | — | Called when the action fails |
 | `useThumbsUp` | `boolean` | `false` | Use a thumbs-up icon instead of a heart |
-| `variant` | `"default" \| "compact" \| "text"` | `"default"` | Visual variant |
+| `variant` | `"default" \| "compact" \| "ghost"` | `"default"` | Visual variant |
 | `disabled` | `boolean` | `false` | Disable the button |
 | `className` | `string` | — | Additional CSS classes |
 

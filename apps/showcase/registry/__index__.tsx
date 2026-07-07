@@ -1284,16 +1284,16 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/like-button-compact.tsx")),
     categories: ["examples"],
   },
-  "like-button-text": {
-    name: "like-button-text",
+  "like-button-ghost": {
+    name: "like-button-ghost",
     type: "registry:example",
     registryDependencies: ["like-button"],
     files: [{
-      path: "registry/bigblocks/examples/like-button-text.tsx",
+      path: "registry/bigblocks/examples/like-button-ghost.tsx",
       type: "registry:example",
       target: ""
     }],
-    component: React.lazy(() => import("@/registry/bigblocks/examples/like-button-text.tsx")),
+    component: React.lazy(() => import("@/registry/bigblocks/examples/like-button-ghost.tsx")),
     categories: ["examples"],
   },
   "follow-button-demo": {
@@ -1452,16 +1452,16 @@ export const Index: Record<string, any> = {
     component: React.lazy(() => import("@/registry/bigblocks/examples/create-listing-demo.tsx")),
     categories: ["examples"],
   },
-  "create-listing-primary": {
-    name: "create-listing-primary",
+  "create-listing-default": {
+    name: "create-listing-default",
     type: "registry:example",
     registryDependencies: ["create-listing"],
     files: [{
-      path: "registry/bigblocks/examples/create-listing-primary.tsx",
+      path: "registry/bigblocks/examples/create-listing-default.tsx",
       type: "registry:example",
       target: ""
     }],
-    component: React.lazy(() => import("@/registry/bigblocks/examples/create-listing-primary.tsx")),
+    component: React.lazy(() => import("@/registry/bigblocks/examples/create-listing-default.tsx")),
     categories: ["examples"],
   },
   "create-listing-ghost": {

@@ -15,7 +15,7 @@ export default function LikeButtonTextDemo() {
   return (
     <div className="flex items-center justify-center">
       <LikeButton
-        variant="text"
+        variant="ghost"
         txid={SAMPLE_TXID}
         count={99}
         liked={false}

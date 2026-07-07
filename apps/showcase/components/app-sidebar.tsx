@@ -30,6 +30,7 @@ const data = {
       url: "/",
       items: [
         { title: "Introduction", url: "/" },
+        { title: "Conventions", url: "/docs/conventions" },
       ],
     },
     {

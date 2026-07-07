@@ -29,7 +29,7 @@ export default function CreateListingPrimaryDemo() {
   return (
     <div className="flex items-center justify-center">
       <CreateListing
-        variant="primary"
+        variant="default"
         ordinal={SAMPLE_ORDINAL}
         onList={handleList}
         onListed={(result) => console.log("Listed:", result.txid)}

@@ -60,7 +60,7 @@ export default function LikeButtonDemo() {
       <div className="space-y-1.5">
         <p className="text-sm font-medium text-muted-foreground">Text</p>
         <LikeButton
-          variant="text"
+          variant="ghost"
           txid={SAMPLE_TXID}
           count={99}
           liked={false}

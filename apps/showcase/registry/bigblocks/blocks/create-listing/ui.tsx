@@ -35,9 +35,9 @@ export const createListingTriggerVariants = cva(
     variants: {
       variant: {
         default:
-          "rounded-md border border-input bg-background text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground px-4 py-2 text-sm",
-        primary:
           "rounded-md bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 text-sm",
+        outline:
+          "rounded-md border border-input bg-background text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground px-4 py-2 text-sm",
         ghost:
           "rounded-md text-foreground hover:bg-accent hover:text-accent-foreground px-4 py-2 text-sm",
       },

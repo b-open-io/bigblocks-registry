@@ -14,7 +14,7 @@ export interface Step {
 export interface StepIndicatorProps {
 	steps: Step[];
 	className?: string;
-	variant?: "horizontal" | "vertical";
+	orientation?: "horizontal" | "vertical";
 }
 
 export function StepIndicator({
@@ -25,9 +25,9 @@ export function StepIndicator({
 		{ id: "4", label: "Review", status: "pending" as const }
 	],
 	className = "",
-	variant = "horizontal",
+	orientation = "horizontal",
 }: StepIndicatorProps) {
-	if (variant === "vertical") {
+	if (orientation === "vertical") {
 		return (
 			<div className={cn("flex flex-col gap-4", className)}>
 				{steps.map((step, index) => (
@@ -69,7 +69,7 @@ export function StepIndicator({
 		);
 	}
 
-	// Horizontal variant
+	// Horizontal orientation
 	return (
 		<div className={cn("flex items-center", className)}>
 			{steps.map((step, index) => (

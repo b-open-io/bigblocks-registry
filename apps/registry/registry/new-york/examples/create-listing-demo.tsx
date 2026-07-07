@@ -54,7 +54,7 @@ export default function CreateListingDemo() {
           defaultPayAddress="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
         />
         <CreateListing
-          variant="primary"
+          variant="default"
           ordinal={SAMPLE_ORDINAL}
           onList={handleList}
           onListed={(result) => setLastResult(result)}

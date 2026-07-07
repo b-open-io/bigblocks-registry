@@ -81,7 +81,7 @@ export interface SocialFeedProps
  *     <LikeButton
  *       txid={post.txid}
  *       count={post.likes ?? 0}
- *       variant="text"
+ *       variant="ghost"
  *       onLike={async (txid) => {
  *         // broadcast BSocial like tx
  *         return { txid: "..." }

@@ -1,0 +1,49 @@
+---
+title: Conventions
+description: API conventions every BigBlocks block follows
+---
+
+## Variants
+
+Every block that exposes a `variant` prop follows one rule:
+
+**`variant` styles the block's own rendered surface. It never changes
+behavior, and it never changes any dialog or secondary surface the block
+opens.**
+
+What that means in practice:
+
+- On **trigger blocks** (Post Button, Connect Wallet, Like Button, Follow
+  Button, Friend Button), the block's surface is the button itself. Variants
+  change how the trigger looks — `compact` is an icon-only trigger, `ghost`
+  is borderless, `fab` is a floating action button. The dialog a trigger
+  opens is identical across all variants.
+- On **display blocks** (Transaction History, Receive Address), variants
+  change information density — `compact` shows fewer details in less space.
+
+### Shared vocabulary
+
+When two blocks offer the same visual concept, they use the same name:
+
+| Variant | Meaning |
+| --- | --- |
+| `default` | The filled, primary-colored presentation |
+| `outline` | Bordered, transparent background |
+| `ghost` | Borderless, background only on hover |
+| `compact` | Icon-only trigger, or reduced-density display |
+| `inline` | Sized to sit inside toolbars and text flows |
+| `fab` | Fixed floating action button |
+| `pill` | Fully rounded |
+
+## Orientation
+
+Blocks that lay out in two directions (Step Indicator) take an
+`orientation` prop — `"horizontal" | "vertical"` — following the Radix
+convention. Orientation is not a variant.
+
+## Behavior props
+
+Anything that changes what a block *does* — not how it looks — is a
+dedicated prop with a descriptive name, never a variant value. If a popover
+compose surface is ever added to trigger blocks, it will arrive as a
+`surface` prop that composes with every variant, not as a new variant.

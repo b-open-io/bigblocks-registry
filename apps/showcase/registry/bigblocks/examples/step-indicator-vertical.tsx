@@ -38,7 +38,7 @@ export default function StepIndicatorVertical() {
 
   return (
     <div className="w-full max-w-md">
-      <StepIndicator steps={steps} variant="vertical" />
+      <StepIndicator steps={steps} orientation="vertical" />
       <div className="mt-8 flex gap-2">
         <Button 
           variant="outline"

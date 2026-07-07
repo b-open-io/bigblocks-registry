@@ -19,7 +19,7 @@ export const likeButtonVariants = cva(
           "rounded-md border border-input bg-background px-3 py-1.5 text-sm shadow-sm hover:bg-accent hover:text-accent-foreground",
         compact:
           "rounded-full border border-input bg-background size-8 justify-center text-sm shadow-sm hover:bg-accent hover:text-accent-foreground p-0",
-        text: "text-sm text-muted-foreground hover:text-foreground bg-transparent px-1 py-0.5",
+        ghost: "text-sm text-muted-foreground hover:text-foreground bg-transparent px-1 py-0.5",
       },
     },
     defaultVariants: {
@@ -74,7 +74,7 @@ export function LikeButtonUI({
       className={cn(
         likeButtonVariants({ variant }),
         isLiked && "text-primary border-primary/30 bg-primary/5",
-        isLiked && variant === "text" && "bg-transparent text-primary",
+        isLiked && variant === "ghost" && "bg-transparent text-primary",
         className,
       )}
       onClick={onToggle}
