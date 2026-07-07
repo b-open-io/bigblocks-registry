@@ -40,6 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@bigblocksdev",
+    creator: "@bigblocksdev",
     title: "BigBlocks Registry",
     description:
       "Component registry API for BigBlocks — shadcn-compatible Bitcoin UI blocks",

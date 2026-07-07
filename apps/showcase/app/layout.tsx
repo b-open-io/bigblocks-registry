@@ -45,6 +45,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@bigblocksdev",
+    creator: "@bigblocksdev",
     title: "BigBlocks — Bitcoin UI Blocks for React",
     description:
       "Production-ready, shadcn-compatible Bitcoin UI blocks. Wallet, social, marketplace, and identity components you install with one CLI command.",
