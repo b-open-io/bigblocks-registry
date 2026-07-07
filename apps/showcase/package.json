@@ -46,7 +46,7 @@
     "rehype-pretty-code": "^0.14.4",
     "shadcn": "^4.13.0",
     "shiki": "^4.3.1",
-    "sigma-avatars": "^0.0.5",
+    "sigma-avatars": "^0.0.6",
     "sigma-protocol": "^0.1.9",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0",
