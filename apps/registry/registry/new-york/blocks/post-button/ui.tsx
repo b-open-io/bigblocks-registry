@@ -25,7 +25,7 @@ export const postButtonVariants = cva(
         default:
           "rounded-md bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 text-sm",
         compact:
-          "rounded-md bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-3 text-sm",
+          "rounded-md bg-primary text-primary-foreground shadow hover:bg-primary/90 size-9",
         fab: "fixed bottom-6 right-6 z-50 size-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 hover:shadow-xl transition-all",
         inline:
           "rounded-md border border-input bg-background text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground px-3 py-1.5 text-xs",
@@ -127,11 +127,10 @@ export function PostButtonUI({
         className={cn(postButtonVariants({ variant }), className)}
         onClick={onOpen}
         disabled={disabled}
-        aria-label={isFab ? "Create post" : undefined}
+        aria-label={isFab || isCompact ? label : undefined}
       >
         <VariantIcon variant={variant} />
         {!isFab && !isCompact && <span>{label}</span>}
-        {isCompact && <span>{label}</span>}
       </button>
 
       <Dialog open={dialogOpen} onOpenChange={(open) => !open && onClose()}>
