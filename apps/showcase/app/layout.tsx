@@ -15,15 +15,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BigBlocks",
+  title: {
+    default: "BigBlocks — Bitcoin UI Blocks for React",
+    template: "%s | BigBlocks",
+  },
   description: "Production-ready Bitcoin UI blocks for React applications",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "https://showcase.bigblocks.dev"
   ),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: "BigBlocks",
+    url: "/",
     title: "BigBlocks — Bitcoin UI Blocks for React",
     description:
       "Production-ready, shadcn-compatible Bitcoin UI blocks. Wallet, social, marketplace, and identity components you install with one CLI command.",

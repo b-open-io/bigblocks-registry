@@ -3,12 +3,48 @@ import {
   IconArrowRight,
 } from "@tabler/icons-react"
 import { findNeighbour } from "fumadocs-core/page-tree"
+import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
 
 import { source } from "@/lib/source"
 import { mdxComponents } from "@/mdx-components"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const page = source.getPage(slug)
+
+  if (!page) {
+    return {}
+  }
+
+  const { title, description } = page.data
+
+  return {
+    title,
+    ...(description ? { description } : {}),
+    alternates: {
+      canonical: page.url,
+    },
+    openGraph: {
+      title,
+      ...(description ? { description } : {}),
+      url: page.url,
+      images: ["/og-image.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      ...(description ? { description } : {}),
+      images: ["/og-image.png"],
+    },
+  }
+}
 
 export default async function ComponentPage({
   params,

@@ -19,9 +19,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_REGISTRY_URL || "https://registry.bigblocks.dev"
   ),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     siteName: "BigBlocks Registry",
+    url: "/",
     title: "BigBlocks Registry",
     description:
       "Component registry API for BigBlocks — shadcn-compatible Bitcoin UI blocks",
