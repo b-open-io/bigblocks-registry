@@ -2,9 +2,9 @@
 
 import { TransactionHistoryUI } from "./transaction-history-ui"
 import {
-  useTransactionHistory,
   type HistoryEntry,
   type UseTransactionHistoryOptions,
+  useTransactionHistory,
 } from "./use-transaction-history"
 
 // ---------------------------------------------------------------------------
@@ -16,11 +16,11 @@ export {
   type TransactionHistoryUIProps,
 } from "./transaction-history-ui"
 export {
-  useTransactionHistory,
-  type UseTransactionHistoryOptions,
-  type UseTransactionHistoryReturn,
   type HistoryEntry,
   type TransactionStatus,
+  type UseTransactionHistoryOptions,
+  type UseTransactionHistoryReturn,
+  useTransactionHistory,
 } from "./use-transaction-history"
 
 // ---------------------------------------------------------------------------

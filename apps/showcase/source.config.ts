@@ -1,5 +1,5 @@
+import { metaSchema, pageSchema } from "fumadocs-core/source/schema"
 import { defineConfig, defineDocs } from "fumadocs-mdx/config"
-import { pageSchema, metaSchema } from "fumadocs-core/source/schema"
 import rehypePrettyCode from "rehype-pretty-code"
 import { transformers } from "@/lib/transformers"
 

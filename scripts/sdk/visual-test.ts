@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
-import { query, type Options } from "@anthropic-ai/claude-code";
-import { readFile } from "fs/promises";
-import { join } from "path";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { type Options, query } from "@anthropic-ai/claude-code";
 
 interface VisualTestOptions {
   componentName: string;
@@ -10,7 +10,7 @@ interface VisualTestOptions {
   outputDir?: string;
 }
 
-async function loadPrompt(filename: string): Promise<string> {
+async function _loadPrompt(filename: string): Promise<string> {
   const promptPath = join(process.cwd(), ".claude", "prompts", filename);
   return readFile(promptPath, "utf-8");
 }

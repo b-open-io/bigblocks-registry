@@ -1,7 +1,11 @@
 "use client"
 
-import { useState } from "react"
 import { ExternalLink, ShoppingCart } from "lucide-react"
+import { useState } from "react"
+import {
+  Avatar,
+  AvatarFallback,
+} from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,10 +14,6 @@ import {
   CardFooter,
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import {
-  Avatar,
-  AvatarFallback,
-} from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
 
 // ---------------------------------------------------------------------------

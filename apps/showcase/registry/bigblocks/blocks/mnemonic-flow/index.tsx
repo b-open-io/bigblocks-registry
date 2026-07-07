@@ -1,35 +1,34 @@
 "use client"
 
-import {
-  useMnemonicFlow,
-  type UseMnemonicFlowOptions,
-} from "./use-mnemonic-flow"
 import { MnemonicFlowUi } from "./mnemonic-flow-ui"
+import {
+  type UseMnemonicFlowOptions,
+  useMnemonicFlow,
+} from "./use-mnemonic-flow"
 
 // ---------------------------------------------------------------------------
 // Re-exports
 // ---------------------------------------------------------------------------
 
-export {
-  useMnemonicFlow,
-  type UseMnemonicFlowOptions,
-  type UseMnemonicFlowReturn,
-  type MnemonicFlowMode,
-  type MnemonicWordCount,
-  type VerificationChallenge,
-} from "./use-mnemonic-flow"
 
 export {
   MnemonicFlowUi,
   type MnemonicFlowUiProps,
 } from "./mnemonic-flow-ui"
-
 export {
   MnemonicGridUi,
   type MnemonicGridUiProps,
-  type WordSlotProps,
   type WordSlotMode,
+  type WordSlotProps,
 } from "./mnemonic-grid-ui"
+export {
+  type MnemonicFlowMode,
+  type MnemonicWordCount,
+  type UseMnemonicFlowOptions,
+  type UseMnemonicFlowReturn,
+  useMnemonicFlow,
+  type VerificationChallenge,
+} from "./use-mnemonic-flow"
 
 // ---------------------------------------------------------------------------
 // Types

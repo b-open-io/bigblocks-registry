@@ -2,13 +2,10 @@
 
 import {
   OrdinalsGridUI,
-  type OrdinalsGridUIProps,
 } from "./ordinals-grid-ui"
 import {
-  useOrdinalsGrid,
   type OrdinalOutput,
-  type UseOrdinalsGridOptions,
-  type UseOrdinalsGridReturn,
+  useOrdinalsGrid,
 } from "./use-ordinals-grid"
 
 // ---------------------------------------------------------------------------
@@ -20,10 +17,10 @@ export {
   type OrdinalsGridUIProps,
 } from "./ordinals-grid-ui"
 export {
-  useOrdinalsGrid,
   type OrdinalOutput,
   type UseOrdinalsGridOptions,
   type UseOrdinalsGridReturn,
+  useOrdinalsGrid,
 } from "./use-ordinals-grid"
 
 // ---------------------------------------------------------------------------

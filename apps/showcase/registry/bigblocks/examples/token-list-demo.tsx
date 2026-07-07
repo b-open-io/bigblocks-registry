@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import {
-  TokenListUI,
   type TokenHolding,
+  TokenListUI,
 } from "@/registry/bigblocks/blocks/token-list"
 
 const MOCK_TOKENS: TokenHolding[] = [

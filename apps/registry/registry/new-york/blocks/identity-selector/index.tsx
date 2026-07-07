@@ -2,13 +2,10 @@
 
 import {
   IdentitySelectorUI,
-  type IdentitySelectorUIProps,
 } from "./identity-selector-ui"
 import {
-  useIdentitySelector,
-  type UseIdentitySelectorOptions,
-  type UseIdentitySelectorReturn,
   type IdentityEntry,
+  useIdentitySelector,
 } from "./use-identity-selector"
 
 // ---------------------------------------------------------------------------
@@ -20,10 +17,10 @@ export {
   type IdentitySelectorUIProps,
 } from "./identity-selector-ui"
 export {
-  useIdentitySelector,
+  type IdentityEntry,
   type UseIdentitySelectorOptions,
   type UseIdentitySelectorReturn,
-  type IdentityEntry,
+  useIdentitySelector,
 } from "./use-identity-selector"
 
 // ---------------------------------------------------------------------------

@@ -11,13 +11,13 @@ import {
 // Re-exports
 // ---------------------------------------------------------------------------
 
-export { CloudBackupPromptUi } from "./cloud-backup-prompt-ui"
 export type { CloudBackupPromptUiProps } from "./cloud-backup-prompt-ui"
-export { useCloudBackup } from "./use-cloud-backup"
+export { CloudBackupPromptUi } from "./cloud-backup-prompt-ui"
 export type {
   UseCloudBackupOptions,
   UseCloudBackupReturn,
 } from "./use-cloud-backup"
+export { useCloudBackup } from "./use-cloud-backup"
 
 // ---------------------------------------------------------------------------
 // Types

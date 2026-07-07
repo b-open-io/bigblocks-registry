@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server"
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
+import { NextResponse } from "next/server"
 import { getRegistryItem } from "@/lib/registry-config"
 import { hydrateRegistryItem } from "@/lib/registry-gateway"
 

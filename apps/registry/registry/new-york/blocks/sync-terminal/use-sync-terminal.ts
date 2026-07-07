@@ -95,10 +95,10 @@ export function useSyncTerminal(
     if (isAutoScroll && bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" })
     }
-  }, [buffer, isAutoScroll])
+  }, [isAutoScroll])
 
   // Sync external events prop into buffer when it changes
-  const externalKey = useMemo(
+  const _externalKey = useMemo(
     () => (initialEvents ? initialEvents.length : -1),
     [initialEvents]
   )
@@ -107,7 +107,7 @@ export function useSyncTerminal(
     if (initialEvents) {
       setBuffer(initialEvents.slice(-maxEvents))
     }
-  }, [externalKey, maxEvents])
+  }, [maxEvents, initialEvents])
 
   const push = useCallback(
     (event: SyncEvent) => {

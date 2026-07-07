@@ -1,8 +1,7 @@
 "use client"
 
-import { ProfileCard } from "@/registry/new-york/blocks/profile-card"
-import { ProfileCardUI } from "@/registry/new-york/blocks/profile-card/profile-card-ui"
 import { Button } from "@/components/ui/button"
+import { ProfileCardUI } from "@/registry/new-york/blocks/profile-card/profile-card-ui"
 import type { BapProfile } from "@/registry/new-york/blocks/profile-card/use-profile-card"
 
 const MOCK_BAP_ID = "Go8vCHAa4S6AhXKdRp3nT9wJm"

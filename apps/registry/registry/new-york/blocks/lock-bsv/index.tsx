@@ -1,22 +1,22 @@
 "use client"
 
-import { useLockBsv } from "./use-lock-bsv"
 import { LockBsvUi } from "./lock-bsv-ui"
+import { useLockBsv } from "./use-lock-bsv"
 
 // ---------------------------------------------------------------------------
 // Re-exports
 // ---------------------------------------------------------------------------
 
-export { useLockBsv } from "./use-lock-bsv"
+export type { LockBsvUiProps } from "./lock-bsv-ui"
 export { LockBsvUi } from "./lock-bsv-ui"
 export type {
   LockData,
-  LockParams,
   LockOperationResult,
+  LockParams,
   UseLockBsvOptions,
   UseLockBsvReturn,
 } from "./use-lock-bsv"
-export type { LockBsvUiProps } from "./lock-bsv-ui"
+export { useLockBsv } from "./use-lock-bsv"
 
 // ---------------------------------------------------------------------------
 // Types

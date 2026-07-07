@@ -1,10 +1,10 @@
 "use client"
 
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
+import { Heart, Loader2, ThumbsUp } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Heart, Loader2, ThumbsUp } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 // ---------------------------------------------------------------------------
 // Variant definitions

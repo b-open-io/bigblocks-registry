@@ -1,31 +1,28 @@
 "use client"
 
-import { WalletOverviewUI } from "./wallet-overview-ui"
 import {
   useWalletOverview,
   useWalletOverviewDirect,
-  type UseWalletOverviewOptions,
-  type UseWalletOverviewReturn,
-  type WalletBalance,
   type WalletSource,
 } from "./use-wallet-overview"
+import { WalletOverviewUI } from "./wallet-overview-ui"
 
 // ---------------------------------------------------------------------------
 // Re-exports
 // ---------------------------------------------------------------------------
 
 export {
-  WalletOverviewUI,
-  type WalletOverviewUIProps,
-} from "./wallet-overview-ui"
-export {
-  useWalletOverview,
-  useWalletOverviewDirect,
   type UseWalletOverviewOptions,
   type UseWalletOverviewReturn,
+  useWalletOverview,
+  useWalletOverviewDirect,
   type WalletBalance,
   type WalletSource,
 } from "./use-wallet-overview"
+export {
+  WalletOverviewUI,
+  type WalletOverviewUIProps,
+} from "./wallet-overview-ui"
 
 // ---------------------------------------------------------------------------
 // Types

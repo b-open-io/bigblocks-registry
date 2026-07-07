@@ -1,13 +1,10 @@
 "use client"
 
-import { type VariantProps } from "class-variance-authority"
-import { FollowButtonUI, followButtonVariants } from "./ui"
+import type { VariantProps } from "class-variance-authority"
+import { FollowButtonUI, type followButtonVariants } from "./ui"
 import {
-  useFollow,
   type FollowResult,
-  type FollowState,
-  type UseFollowReturn,
-  type UseFollowOptions,
+  useFollow,
 } from "./use-follow"
 
 // ---------------------------------------------------------------------------
@@ -16,15 +13,15 @@ import {
 
 export {
   FollowButtonUI,
-  followButtonVariants,
   type FollowButtonUIProps,
+  followButtonVariants,
 } from "./ui"
 export {
-  useFollow,
   type FollowResult,
   type FollowState,
-  type UseFollowReturn,
   type UseFollowOptions,
+  type UseFollowReturn,
+  useFollow,
 } from "./use-follow"
 
 // ---------------------------------------------------------------------------

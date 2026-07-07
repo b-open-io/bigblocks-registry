@@ -2,10 +2,10 @@
 
 import { useCallback, useState } from "react"
 import {
-  BigBlocksProvider,
-  useBigBlocks,
   type BigBlocksBalance,
   type BigBlocksOrdinal,
+  BigBlocksProvider,
+  useBigBlocks,
 } from "@/components/blocks/bigblocks-provider"
 
 // ---------------------------------------------------------------------------

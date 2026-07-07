@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import {
-  TokenListUI,
   type TokenHolding,
+  TokenListUI,
 } from "@/registry/new-york/blocks/token-list"
 
 // ---------------------------------------------------------------------------

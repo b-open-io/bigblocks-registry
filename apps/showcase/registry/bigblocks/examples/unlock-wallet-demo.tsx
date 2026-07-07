@@ -10,7 +10,7 @@ export default function UnlockWalletDemo() {
   const [unlockCount, setUnlockCount] = useState(0)
 
   async function handleUnlock(
-    passphrase?: string,
+    _passphrase?: string,
   ): Promise<UnlockWalletResult> {
     await new Promise((resolve) => setTimeout(resolve, 1500))
 

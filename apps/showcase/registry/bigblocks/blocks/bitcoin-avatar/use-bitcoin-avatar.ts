@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react"
 import { ImageProtocols } from "bitcoin-image"
+import { useCallback, useEffect, useState } from "react"
 
 // ---------------------------------------------------------------------------
 // Types
@@ -44,7 +44,7 @@ function getImageProtocols(): ImageProtocols {
 // ---------------------------------------------------------------------------
 
 export function useBitcoinAvatar({
-  address,
+  address: _address,
   imageUrl,
 }: UseBitcoinAvatarOptions): UseBitcoinAvatarReturn {
   const [resolvedUrl, setResolvedUrl] = useState<string | null>(null)

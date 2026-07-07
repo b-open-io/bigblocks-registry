@@ -1,8 +1,8 @@
 "use client"
 
 import {
-  WalletOverviewUI,
   type WalletBalance,
+  WalletOverviewUI,
 } from "@/registry/new-york/blocks/wallet-overview"
 
 const MOCK_BALANCE: WalletBalance = {

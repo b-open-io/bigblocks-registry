@@ -1,9 +1,9 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import { ExternalLink, Heart, MessageCircle } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Heart, MessageCircle, ExternalLink } from "lucide-react"
+import { cn } from "@/lib/utils"
 import type { SocialPost } from "./use-social-feed"
 
 // ---------------------------------------------------------------------------
@@ -217,6 +217,7 @@ export function PostCardUI({
                 "inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-muted-foreground",
                 "transition-colors duration-150"
               )}
+              role="img"
               aria-label={`${post.likes ?? 0} likes`}
             >
               <Heart className="size-3.5" aria-hidden="true" />

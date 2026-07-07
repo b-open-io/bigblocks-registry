@@ -21,7 +21,7 @@ export default function CreateListingDemo() {
   const [lastResult, setLastResult] = useState<ListOrdinalResult | null>(null)
 
   async function handleList(
-    params: ListOrdinalParams,
+    _params: ListOrdinalParams,
   ): Promise<ListOrdinalResult> {
     // In a real application, you would use the @1sat/actions listOrdinal action:
     //

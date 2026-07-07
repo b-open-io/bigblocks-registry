@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import {
-  OrdinalsGrid,
   type OrdinalOutput,
+  OrdinalsGrid,
 } from "@/registry/new-york/blocks/ordinals-grid"
 
 const MOCK_ORDINALS: OrdinalOutput[] = [

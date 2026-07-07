@@ -2,32 +2,30 @@
 
 import { useCallback, useState } from "react"
 import {
-  SendBsvTrigger,
-  type SendBsvTriggerProps,
-  type SendBsvTriggerVariant,
-} from "./send-bsv-trigger"
-import {
   SendBsvDialog,
-  type SendBsvDialogProps,
   type SendBsvParams,
   type SendBsvResult,
 } from "./send-bsv-dialog"
+import {
+  SendBsvTrigger,
+  type SendBsvTriggerVariant,
+} from "./send-bsv-trigger"
 
 // ---------------------------------------------------------------------------
 // Re-exports
 // ---------------------------------------------------------------------------
 
 export {
-  SendBsvTrigger,
-  type SendBsvTriggerProps,
-  type SendBsvTriggerVariant,
-} from "./send-bsv-trigger"
-export {
   SendBsvDialog,
   type SendBsvDialogProps,
   type SendBsvParams,
   type SendBsvResult,
 } from "./send-bsv-dialog"
+export {
+  SendBsvTrigger,
+  type SendBsvTriggerProps,
+  type SendBsvTriggerVariant,
+} from "./send-bsv-trigger"
 
 // ---------------------------------------------------------------------------
 // Types

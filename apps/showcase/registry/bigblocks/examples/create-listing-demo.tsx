@@ -21,7 +21,7 @@ export default function CreateListingDemo() {
   const [lastResult, setLastResult] = useState<ListOrdinalResult | null>(null)
 
   async function handleList(
-    params: ListOrdinalParams,
+    _params: ListOrdinalParams,
   ): Promise<ListOrdinalResult> {
     await new Promise((resolve) => setTimeout(resolve, 2000))
     return {

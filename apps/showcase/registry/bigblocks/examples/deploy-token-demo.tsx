@@ -8,10 +8,10 @@ import {
 } from "@/registry/bigblocks/blocks/deploy-token"
 
 export default function DeployTokenDemo() {
-  const [lastResult, setLastResult] = useState<DeployTokenResult | null>(null)
+  const [_lastResult, setLastResult] = useState<DeployTokenResult | null>(null)
 
   async function handleDeploy(
-    params: DeployTokenParams
+    _params: DeployTokenParams
   ): Promise<DeployTokenResult> {
     // In a real application, you would call deployBsv21Token from @1sat/core:
     //

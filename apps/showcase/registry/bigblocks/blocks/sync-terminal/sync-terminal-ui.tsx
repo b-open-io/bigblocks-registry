@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect, useCallback } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
 import type { SyncEvent, SyncEventLevel, SyncStatus } from "./use-sync-terminal"
 
@@ -79,7 +79,7 @@ export function SyncTerminalUI({
     if (bottomRef?.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" })
     }
-  }, [events.length, bottomRef])
+  }, [bottomRef])
 
   const renderStatusDot = useCallback(() => {
     if (!status) return null
@@ -91,6 +91,7 @@ export function SyncTerminalUI({
             "inline-block size-2 rounded-full",
             status.connected ? "bg-chart-2" : "bg-muted-foreground"
           )}
+          role="img"
           aria-label={status.connected ? "Connected" : "Disconnected"}
         />
         {status.connected && (

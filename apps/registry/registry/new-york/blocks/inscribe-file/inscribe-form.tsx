@@ -1,7 +1,7 @@
 "use client"
 
-import { useCallback } from "react"
 import { Plus, X } from "lucide-react"
+import { useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -52,7 +52,7 @@ export function InscribeForm({
   onContentTypeChange,
   signWithBAP,
   onSignWithBAPChange,
-  onExternalLink,
+  onExternalLink: _onExternalLink,
   className,
 }: InscribeFormProps) {
   const handleAdd = useCallback(() => {

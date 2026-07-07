@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react"
-import { useWallet } from "@1sat/react"
 import {
-  getOpnsNames,
-  opnsRegister,
-  opnsDeregister,
   createContext,
+  getOpnsNames,
   type OpnsOperationResponse,
+  opnsDeregister,
+  opnsRegister,
 } from "@1sat/actions"
+import { useWallet } from "@1sat/react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 // ---------------------------------------------------------------------------
 // Types

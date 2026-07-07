@@ -1,13 +1,12 @@
 import fs from "node:fs/promises"
 import path from "node:path"
-import * as React from "react"
-
-import { highlightCode } from "@/lib/highlight-code"
-import { getRegistryItem } from "@/lib/registry"
-import { cn } from "@/lib/utils"
+import type * as React from "react"
 import { CodeCollapsibleWrapper } from "@/components/code-collapsible-wrapper"
 import { CopyButton } from "@/components/copy-button"
 import { getIconForLanguageExtension } from "@/components/icons"
+import { highlightCode } from "@/lib/highlight-code"
+import { getRegistryItem } from "@/lib/registry"
+import { cn } from "@/lib/utils"
 
 export async function ComponentSource({
   name,
@@ -95,6 +94,7 @@ function ComponentCode({
         </figcaption>
       )}
       <CopyButton value={code} />
+      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: renders Shiki-highlighted code HTML generated server-side from trusted source files */}
       <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
     </figure>
   )

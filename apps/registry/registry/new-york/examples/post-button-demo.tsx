@@ -3,7 +3,7 @@
 import { PostButton } from "@/registry/new-york/blocks/post-button"
 
 /** Simulates an on-chain post broadcast with a short delay. */
-async function mockPost(content: string) {
+async function mockPost(_content: string) {
   await new Promise((resolve) => setTimeout(resolve, 1500))
   return {
     txid: `${Math.random().toString(36).slice(2, 10)}...${Math.random().toString(36).slice(2, 6)}`,

@@ -1,9 +1,9 @@
 "use client"
 
 import { useCallback, useState } from "react"
-import { MnemonicFlow, type MnemonicFlowMode } from "@/registry/new-york/blocks/mnemonic-flow"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { MnemonicFlow, type MnemonicFlowMode } from "@/registry/new-york/blocks/mnemonic-flow"
 
 const MOCK_WORDS = [
   "abandon", "ability", "able", "about", "above", "absent",

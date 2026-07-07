@@ -33,7 +33,7 @@ const MOCK_BALANCES: TokenBalance[] = [
 export default function SendBsv21Demo() {
   const [lastResult, setLastResult] = useState<SendBsv21Result | null>(null)
 
-  async function handleSend(params: SendBsv21Params): Promise<SendBsv21Result> {
+  async function handleSend(_params: SendBsv21Params): Promise<SendBsv21Result> {
     // In a real application, use @1sat/actions:
     //
     // import { sendBsv21, createContext } from "@1sat/actions"

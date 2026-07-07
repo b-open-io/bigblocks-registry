@@ -10,7 +10,7 @@ export default function UnlockWalletDemo() {
   const [unlockCount, setUnlockCount] = useState(0)
 
   async function handleUnlock(
-    passphrase?: string,
+    _passphrase?: string,
   ): Promise<UnlockWalletResult> {
     // In a real application, verify the passphrase against
     // the encrypted backup or invoke the platform biometric API.

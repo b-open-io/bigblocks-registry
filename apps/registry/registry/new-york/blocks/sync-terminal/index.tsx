@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useCallback, useState } from "react"
 import { SyncTerminalUI } from "./sync-terminal-ui"
 import {
-  useSyncTerminal,
   type SyncEvent,
   type SyncStatus,
+  useSyncTerminal,
 } from "./use-sync-terminal"
 
 // ---------------------------------------------------------------------------
@@ -14,12 +14,12 @@ import {
 
 export { SyncTerminalUI, type SyncTerminalUIProps } from "./sync-terminal-ui"
 export {
-  useSyncTerminal,
-  type UseSyncTerminalOptions,
-  type UseSyncTerminalReturn,
   type SyncEvent,
   type SyncEventLevel,
   type SyncStatus,
+  type UseSyncTerminalOptions,
+  type UseSyncTerminalReturn,
+  useSyncTerminal,
 } from "./use-sync-terminal"
 
 // ---------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises"
-import { join, isAbsolute } from "node:path"
+import { isAbsolute, join } from "node:path"
 import { getRegistryMeta } from "./registry-config"
 
 const REGISTRY_ROOT = process.cwd()

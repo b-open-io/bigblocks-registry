@@ -2,8 +2,8 @@
 
 import { AlertCircle, Loader2, RefreshCw, Store } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils"
 import { ListingCardUI } from "./listing-card-ui"
 import type { MarketListing } from "./use-market-grid"

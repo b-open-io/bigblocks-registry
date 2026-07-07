@@ -63,7 +63,7 @@ function green(s: string): string {
   return `\x1b[32m${s}\x1b[0m`
 }
 
-function yellow(s: string): string {
+function _yellow(s: string): string {
   return `\x1b[33m${s}\x1b[0m`
 }
 

@@ -6,7 +6,7 @@ import {
 } from "@/registry/bigblocks/blocks/lock-bsv"
 
 export default function LockBsvEmptyDemo() {
-  async function handleLock(params: {
+  async function handleLock(_params: {
     satoshis: number
     until: number
   }): Promise<LockOperationResult> {

@@ -1,11 +1,8 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import { BitcoinAvatarUI } from "./ui"
 import {
   useBitcoinAvatar,
-  type UseBitcoinAvatarReturn,
-  type UseBitcoinAvatarOptions,
 } from "./use-bitcoin-avatar"
 
 // ---------------------------------------------------------------------------
@@ -14,9 +11,9 @@ import {
 
 export { BitcoinAvatarUI, type BitcoinAvatarUIProps } from "./ui"
 export {
-  useBitcoinAvatar,
-  type UseBitcoinAvatarReturn,
   type UseBitcoinAvatarOptions,
+  type UseBitcoinAvatarReturn,
+  useBitcoinAvatar,
 } from "./use-bitcoin-avatar"
 
 // ---------------------------------------------------------------------------

@@ -2,12 +2,8 @@
 
 import { OAuthCallbackUI } from "./oauth-callback-ui"
 import {
-  useOAuthCallback,
   type OAuthCallbackResult,
-  type OAuthCallbackUser,
-  type OAuthCallbackStatus,
-  type UseOAuthCallbackOptions,
-  type UseOAuthCallbackReturn,
+  useOAuthCallback,
 } from "./use-oauth-callback"
 
 // ---------------------------------------------------------------------------
@@ -19,12 +15,12 @@ export {
   type OAuthCallbackUIProps,
 } from "./oauth-callback-ui"
 export {
-  useOAuthCallback,
   type OAuthCallbackResult,
-  type OAuthCallbackUser,
   type OAuthCallbackStatus,
+  type OAuthCallbackUser,
   type UseOAuthCallbackOptions,
   type UseOAuthCallbackReturn,
+  useOAuthCallback,
 } from "./use-oauth-callback"
 
 // ---------------------------------------------------------------------------

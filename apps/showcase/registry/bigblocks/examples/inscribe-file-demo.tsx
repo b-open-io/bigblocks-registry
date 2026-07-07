@@ -8,9 +8,9 @@ import {
 } from "@/registry/bigblocks/blocks/inscribe-file"
 
 export default function InscribeFileDemo() {
-  const [lastResult, setLastResult] = useState<InscribeResult | null>(null)
+  const [_lastResult, setLastResult] = useState<InscribeResult | null>(null)
 
-  async function handleInscribe(params: InscribeParams): Promise<InscribeResult> {
+  async function handleInscribe(_params: InscribeParams): Promise<InscribeResult> {
     // In a real application, you would dispatch based on params.type:
     //
     // if (params.type === "file") {

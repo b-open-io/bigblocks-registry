@@ -1,7 +1,7 @@
 "use client"
 
+import { ConnectDialogProvider, WalletProvider } from "@1sat/react"
 import { ConnectWallet } from "@/registry/new-york/blocks/connect-wallet"
-import { WalletProvider, ConnectDialogProvider } from "@1sat/react"
 
 export default function ConnectWalletDemo() {
   return (

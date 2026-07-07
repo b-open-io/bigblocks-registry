@@ -20,59 +20,27 @@ BigBlocks provides a CLI tool to easily add components to your project.
 Install components directly from the registry:
 
 ```bash
-npx shadcn@latest add http://localhost:3002/r/step-indicator.json
+bunx shadcn@latest add https://registry.bigblocks.dev/r/step-indicator.json
 ```
+
+The shadcn CLI copies the component source into your project along with any required dependencies — you own the code and can customize it freely.
 
 ### Manual Installation
 
-<Tabs defaultValue="npm">
-  <TabsList>
-    <TabsTrigger value="npm">npm</TabsTrigger>
-    <TabsTrigger value="yarn">yarn</TabsTrigger>
-    <TabsTrigger value="pnpm">pnpm</TabsTrigger>
-    <TabsTrigger value="bun">bun</TabsTrigger>
-  </TabsList>
-  <TabsContent value="npm">
-    ```bash
-    npm install bigblocks
-    ```
-  </TabsContent>
-  <TabsContent value="yarn">
-    ```bash
-    yarn add bigblocks
-    ```
-  </TabsContent>
-  <TabsContent value="pnpm">
-    ```bash
-    pnpm add bigblocks
-    ```
-  </TabsContent>
-  <TabsContent value="bun">
-    ```bash
-    bun add bigblocks
-    ```
-  </TabsContent>
-</Tabs>
+Every component page includes the full source under the **Code** tab. To install manually, copy the files into your project (by convention under `components/bigblocks/`) and install the npm dependencies listed on the component page.
 
 ## Configuration
 
 ### Tailwind CSS
 
-BigBlocks requires Tailwind CSS v4. Add the following to your `tailwind.config.js`:
+BigBlocks requires Tailwind CSS v4, which is configured in CSS rather than a `tailwind.config.js` file:
 
-```js
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    // ... your content paths
-    "./node_modules/bigblocks/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+```css
+/* globals.css */
+@import "tailwindcss";
 ```
+
+Installed components live in your own source tree, so Tailwind picks up their classes automatically — no extra content configuration is needed.
 
 ### TypeScript
 
@@ -81,5 +49,5 @@ BigBlocks is written in TypeScript and provides full type definitions. No additi
 ## Next Steps
 
 - Check out the [CLI documentation](/docs/cli) for advanced usage
-- Browse [available components](/docs/components/step-indicator)
-- Learn about [theming and customization](/docs/theming)
+- Browse components by category: [Authentication](/docs/components/authentication), [Social](/docs/components/social), [Wallet](/docs/components/wallet), [Market](/docs/components/market)
+- Learn about theming with the [Theme Token Provider](/docs/blocks/theme-token-provider)

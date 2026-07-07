@@ -1,12 +1,12 @@
 "use client"
 
-import { useCallback } from "react"
 import { ArrowDownLeft, ArrowUpRight, ExternalLink, History, Loader2 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { useCallback } from "react"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import type { HistoryEntry, TransactionStatus } from "./use-transaction-history"
 
 // ---------------------------------------------------------------------------
@@ -154,6 +154,8 @@ function TransactionRow({
 
   return (
     <>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: row is conditionally interactive — role, tabIndex, handlers and label are all gated on isInteractive */}
+      {/* biome-ignore lint/a11y/useAriaPropsSupportedByRole: aria-label is only present when role="button" (both gated on isInteractive) */}
       <div
         role={isInteractive ? "button" : undefined}
         tabIndex={isInteractive ? 0 : undefined}
@@ -191,6 +193,7 @@ function TransactionRow({
               "absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full border-2 border-background",
               statusDotClass(entry.status)
             )}
+            role="img"
             aria-label={statusLabel(entry.status)}
           />
         </div>

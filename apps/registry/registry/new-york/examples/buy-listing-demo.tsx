@@ -35,10 +35,10 @@ const SAMPLE_LISTINGS = [
 ]
 
 export default function BuyListingDemo() {
-  const [purchased, setPurchased] = useState<Set<string>>(new Set())
+  const [_purchased, setPurchased] = useState<Set<string>>(new Set())
 
   async function handlePurchase(
-    params: PurchaseOrdinalParams,
+    _params: PurchaseOrdinalParams,
   ): Promise<PurchaseOrdinalResult> {
     // In a real application, you would use the @1sat/actions purchaseOrdinal action:
     //

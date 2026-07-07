@@ -2,11 +2,10 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-
-import { cn } from "@/lib/utils"
-import { siteConfig } from "@/lib/config"
 import { Icons } from "@/components/icons"
 import { Button } from "@/components/ui/button"
+import { siteConfig } from "@/lib/config"
+import { cn } from "@/lib/utils"
 
 export function MainNav({
   className,

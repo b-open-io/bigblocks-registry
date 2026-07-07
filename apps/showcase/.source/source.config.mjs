@@ -1,6 +1,6 @@
 // source.config.ts
+import { metaSchema, pageSchema } from "fumadocs-core/source/schema";
 import { defineConfig, defineDocs } from "fumadocs-mdx/config";
-import { pageSchema, metaSchema } from "fumadocs-core/source/schema";
 import rehypePrettyCode from "rehype-pretty-code";
 
 // lib/registry-url.ts
@@ -18,56 +18,56 @@ var transformers = [
     code(node) {
       if (node.tagName === "code") {
         const raw = this.source;
-        node.properties["__raw__"] = raw;
+        node.properties.__raw__ = raw;
         if (raw.startsWith("npm install")) {
-          node.properties["__npm__"] = raw;
-          node.properties["__yarn__"] = raw.replace("npm install", "yarn add");
-          node.properties["__pnpm__"] = raw.replace("npm install", "pnpm add");
-          node.properties["__bun__"] = raw.replace("npm install", "bun add");
+          node.properties.__npm__ = raw;
+          node.properties.__yarn__ = raw.replace("npm install", "yarn add");
+          node.properties.__pnpm__ = raw.replace("npm install", "pnpm add");
+          node.properties.__bun__ = raw.replace("npm install", "bun add");
         }
         if (raw.startsWith("npx create-")) {
-          node.properties["__npm__"] = raw;
-          node.properties["__yarn__"] = raw.replace(
+          node.properties.__npm__ = raw;
+          node.properties.__yarn__ = raw.replace(
             "npx create-",
             "yarn create "
           );
-          node.properties["__pnpm__"] = raw.replace(
+          node.properties.__pnpm__ = raw.replace(
             "npx create-",
             "pnpm create "
           );
-          node.properties["__bun__"] = raw.replace("npx", "bunx --bun");
+          node.properties.__bun__ = raw.replace("npx", "bunx --bun");
         }
         if (raw.startsWith("npm create")) {
-          node.properties["__npm__"] = raw;
-          node.properties["__yarn__"] = raw.replace("npm create", "yarn create");
-          node.properties["__pnpm__"] = raw.replace("npm create", "pnpm create");
-          node.properties["__bun__"] = raw.replace("npm create", "bun create");
+          node.properties.__npm__ = raw;
+          node.properties.__yarn__ = raw.replace("npm create", "yarn create");
+          node.properties.__pnpm__ = raw.replace("npm create", "pnpm create");
+          node.properties.__bun__ = raw.replace("npm create", "bun create");
         }
         if (raw.startsWith("npx shadcn")) {
           try {
             const registryUrl = getRegistryUrl();
             const processedRaw = raw.replace("http://localhost:3002", registryUrl);
-            node.properties["__npm__"] = processedRaw;
-            node.properties["__yarn__"] = processedRaw;
-            node.properties["__pnpm__"] = processedRaw.replace("npx", "pnpm dlx");
-            node.properties["__bun__"] = processedRaw.replace("npx shadcn", "bunx shadcn");
-          } catch (error) {
-            node.properties["__npm__"] = raw;
-            node.properties["__yarn__"] = raw;
-            node.properties["__pnpm__"] = raw.replace("npx", "pnpm dlx");
-            node.properties["__bun__"] = raw.replace("npx shadcn", "bunx shadcn");
+            node.properties.__npm__ = processedRaw;
+            node.properties.__yarn__ = processedRaw;
+            node.properties.__pnpm__ = processedRaw.replace("npx", "pnpm dlx");
+            node.properties.__bun__ = processedRaw.replace("npx shadcn", "bunx shadcn");
+          } catch (_error) {
+            node.properties.__npm__ = raw;
+            node.properties.__yarn__ = raw;
+            node.properties.__pnpm__ = raw.replace("npx", "pnpm dlx");
+            node.properties.__bun__ = raw.replace("npx shadcn", "bunx shadcn");
           }
         } else if (raw.startsWith("npx")) {
-          node.properties["__npm__"] = raw;
-          node.properties["__yarn__"] = raw.replace("npx", "yarn");
-          node.properties["__pnpm__"] = raw.replace("npx", "pnpm dlx");
-          node.properties["__bun__"] = raw.replace("npx", "bunx --bun");
+          node.properties.__npm__ = raw;
+          node.properties.__yarn__ = raw.replace("npx", "yarn");
+          node.properties.__pnpm__ = raw.replace("npx", "pnpm dlx");
+          node.properties.__bun__ = raw.replace("npx", "bunx --bun");
         }
         if (raw.startsWith("npm run")) {
-          node.properties["__npm__"] = raw;
-          node.properties["__yarn__"] = raw.replace("npm run", "yarn");
-          node.properties["__pnpm__"] = raw.replace("npm run", "pnpm");
-          node.properties["__bun__"] = raw.replace("npm run", "bun");
+          node.properties.__npm__ = raw;
+          node.properties.__yarn__ = raw.replace("npm run", "yarn");
+          node.properties.__pnpm__ = raw.replace("npm run", "pnpm");
+          node.properties.__bun__ = raw.replace("npm run", "bun");
         }
       }
     }

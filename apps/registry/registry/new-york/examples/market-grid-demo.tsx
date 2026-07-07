@@ -76,7 +76,7 @@ const MOCK_LISTINGS: MarketListing[] = [
 // ---------------------------------------------------------------------------
 
 export default function MarketGridDemo() {
-  const [bought, setBought] = useState<Set<string>>(new Set())
+  const [_bought, setBought] = useState<Set<string>>(new Set())
 
   const handleBuy = useCallback((outpoint: string, price: number) => {
     // In a real app, use @1sat/actions purchaseOrdinal:

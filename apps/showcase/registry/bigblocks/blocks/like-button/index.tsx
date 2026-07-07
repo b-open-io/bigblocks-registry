@@ -1,24 +1,22 @@
 "use client"
 
-import { type VariantProps } from "class-variance-authority"
-import { LikeButtonUI, likeButtonVariants } from "./ui"
+import type { VariantProps } from "class-variance-authority"
+import { LikeButtonUI, type likeButtonVariants } from "./ui"
 import {
-  useLike,
   type LikeResult,
-  type UseLikeReturn,
-  type UseLikeOptions,
+  useLike,
 } from "./use-like"
 
 // ---------------------------------------------------------------------------
 // Re-exports
 // ---------------------------------------------------------------------------
 
-export { LikeButtonUI, likeButtonVariants, type LikeButtonUIProps } from "./ui"
+export { LikeButtonUI, type LikeButtonUIProps, likeButtonVariants } from "./ui"
 export {
-  useLike,
   type LikeResult,
-  type UseLikeReturn,
   type UseLikeOptions,
+  type UseLikeReturn,
+  useLike,
 } from "./use-like"
 
 // ---------------------------------------------------------------------------

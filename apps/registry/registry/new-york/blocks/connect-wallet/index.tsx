@@ -1,14 +1,12 @@
 "use client"
 
-import { type VariantProps } from "class-variance-authority"
+import type { VariantProps } from "class-variance-authority"
 import {
   ConnectWalletUI,
-  connectWalletVariants,
+  type connectWalletVariants,
 } from "./ui"
 import {
   useConnectWallet,
-  type UseConnectWalletReturn,
-  type UseConnectWalletOptions,
 } from "./use-connect-wallet"
 
 // ---------------------------------------------------------------------------
@@ -17,13 +15,13 @@ import {
 
 export {
   ConnectWalletUI,
-  connectWalletVariants,
   type ConnectWalletUIProps,
+  connectWalletVariants,
 } from "./ui"
 export {
-  useConnectWallet,
-  type UseConnectWalletReturn,
   type UseConnectWalletOptions,
+  type UseConnectWalletReturn,
+  useConnectWallet,
 } from "./use-connect-wallet"
 
 // ---------------------------------------------------------------------------

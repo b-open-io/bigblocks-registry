@@ -1,14 +1,14 @@
 "use client"
 
-import { useCallback } from "react"
 import { Coins, ExternalLink } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { useCallback } from "react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
+import { Skeleton } from "@/components/ui/skeleton"
+import { cn } from "@/lib/utils"
 import type { TokenHolding, TokenProtocol, TokenType } from "./use-token-list"
 
 // ---------------------------------------------------------------------------
@@ -114,6 +114,8 @@ function TokenRow({ token, onSelect, onExternalLink, isLast }: TokenRowProps) {
 
   return (
     <>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: row is conditionally interactive — role, tabIndex, handlers and label are all gated on isInteractive */}
+      {/* biome-ignore lint/a11y/useAriaPropsSupportedByRole: aria-label is only present when role="button" (both gated on isInteractive) */}
       <div
         role={isInteractive ? "button" : undefined}
         tabIndex={isInteractive ? 0 : undefined}

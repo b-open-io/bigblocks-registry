@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
-import { readFile } from "fs/promises";
-import { join } from "path";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 // Simple local test of the component generation system
 async function testLocalGeneration() {

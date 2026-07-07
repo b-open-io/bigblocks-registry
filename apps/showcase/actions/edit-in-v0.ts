@@ -28,7 +28,8 @@ export async function editInV0({
     }
 
     // If V0_EDIT_SECRET is not set, fall back to simple URL approach
-    if (!process.env.V0_EDIT_SECRET) {
+    const editSecret = process.env.V0_EDIT_SECRET
+    if (!editSecret) {
       const registryUrl = process.env.NEXT_PUBLIC_REGISTRY_URL || "https://bigblocks-registry.vercel.app"
       return {
         url: `https://v0.dev/chat/api/open?url=${registryUrl}/r/${name}.json`
@@ -38,16 +39,6 @@ export async function editInV0({
     // Generate a human-friendly project name
     const projectName = registryItem.title || capitalCase(name.replace(/^step-indicator-/, "").replace(/-/g, " "))
     
-    // Replace import paths in files
-    if (registryItem.files) {
-      registryItem.files = registryItem.files.map((file: any) => {
-        if (file.content?.includes("@/components/ui/")) {
-          // The content already uses the correct imports, no need to change
-        }
-        return file
-      })
-    }
-
     const payload = {
       version: 2,
       payload: registryItem,
@@ -65,7 +56,7 @@ export async function editInV0({
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
-        "x-v0-edit-secret": process.env.V0_EDIT_SECRET!,
+        "x-v0-edit-secret": editSecret,
         "x-vercel-protection-bypass":
           process.env.DEPLOYMENT_PROTECTION_BYPASS || "not-set",
         "Content-Type": "application/json",

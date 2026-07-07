@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { StepIndicator } from "@/registry/bigblocks/blocks/step-indicator"
 import { Button } from "@/components/ui/button"
+import { StepIndicator } from "@/registry/bigblocks/blocks/step-indicator"
 
 export default function StepIndicatorDemo() {
   const [activeStep, setActiveStep] = useState(1)

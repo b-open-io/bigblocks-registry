@@ -138,7 +138,7 @@ export function useTokenList(
   const abortRef = useRef<AbortController | null>(null)
 
   // Stable stringified token ID list for dependency tracking
-  const tokenIdKey = useMemo(
+  const _tokenIdKey = useMemo(
     () => (tokenIds ? tokenIds.slice().sort().join(",") : ""),
     [tokenIds]
   )
@@ -253,7 +253,7 @@ export function useTokenList(
     } finally {
       setIsLoading(false)
     }
-  }, [address, tokenIdKey, apiUrl, ordfsBase, protocol, prePopulatedMap])
+  }, [address, apiUrl, ordfsBase, protocol, prePopulatedMap, tokenIds])
 
   // Auto-fetch on mount / dependency change
   useEffect(() => {
@@ -264,7 +264,7 @@ export function useTokenList(
     return () => {
       abortRef.current?.abort()
     }
-  }, [autoFetch, fetchTokens, address, tokenIdKey])
+  }, [autoFetch, fetchTokens, address, tokenIds])
 
   return {
     tokens,

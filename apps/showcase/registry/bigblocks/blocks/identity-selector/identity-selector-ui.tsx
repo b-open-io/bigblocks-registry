@@ -1,13 +1,13 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { Card, CardContent } from "@/components/ui/card"
+import { AlertCircle, Check, Plus } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
+import { cn } from "@/lib/utils"
 import { BitcoinAvatar } from "@/registry/bigblocks/blocks/bitcoin-avatar"
-import { Check, Plus, AlertCircle } from "lucide-react"
 import type { IdentityEntry } from "./use-identity-selector"
 
 // ---------------------------------------------------------------------------

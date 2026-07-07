@@ -969,7 +969,7 @@
       "author": "Satchmo",
       "dependencies": [
         "@1sat/react",
-        "@1sat/connect",
+        "@1sat/actions",
         "lucide-react"
       ],
       "registryDependencies": [

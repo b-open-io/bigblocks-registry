@@ -1,7 +1,8 @@
 "use client"
 
-import { useMemo } from "react"
 import { Check, ClipboardCopy, Loader2, X } from "lucide-react"
+import { useMemo } from "react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -13,7 +14,6 @@ import {
 } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import { MnemonicGridUi } from "./mnemonic-grid-ui"
 import type {
@@ -123,7 +123,7 @@ export function MnemonicFlowUi({
   onWordChange,
   challenge,
   onVerificationAnswer,
-  isValid,
+  isValid: _isValid,
   canSubmit,
   onSubmit,
   onCancel,

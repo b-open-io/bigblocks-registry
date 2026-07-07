@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { createContext, deriveDepositAddresses } from "@1sat/actions"
 import { useWallet } from "@1sat/react"
-import { loadConnection } from "@1sat/connect"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 // ---------------------------------------------------------------------------
 // Types
@@ -109,7 +109,7 @@ async function fetchBalance(
 
 /**
  * Manages balance fetching for a wallet whose addresses are known upfront.
- * Does **not** depend on `@1sat/react` or `@1sat/connect` — suitable for
+ * Does **not** depend on `@1sat/react` or `@1sat/actions` — suitable for
  * desktop apps, custom wallet integrations, or any context where wallet
  * data is provided externally.
  *
@@ -198,7 +198,7 @@ export function useWalletOverviewDirect(
 // ---------------------------------------------------------------------------
 
 /**
- * Fetches wallet addresses from `@1sat/connect` stored connection and
+ * Derives the wallet's deposit address via `@1sat/actions` and fetches
  * balance from the 1sat-stack API. Must be rendered inside `WalletProvider`
  * from `@1sat/react`.
  *
@@ -221,7 +221,7 @@ export function useWalletOverview(
   options?: UseWalletOverviewOptions
 ): UseWalletOverviewReturn {
   const apiUrl = options?.apiUrl ?? DEFAULT_API_URL
-  const { status, identityKey } = useWallet()
+  const { wallet, status, identityKey } = useWallet()
   const [balance, setBalance] = useState<WalletBalance | null>(null)
   const [paymentAddress, setPaymentAddress] = useState<string | null>(null)
   const [ordinalAddress, setOrdinalAddress] = useState<string | null>(null)
@@ -229,19 +229,43 @@ export function useWalletOverview(
   const [error, setError] = useState<Error | null>(null)
   const abortRef = useRef<AbortController | null>(null)
 
-  // Resolve addresses from the stored connection when connected
+  // Derive the wallet's deposit address when connected. BRC-100 wallets
+  // expose a single P1SAT deposit address (derived from the identity key)
+  // that receives both payments and ordinals, so both fields resolve to it.
   useEffect(() => {
-    if (status === "connected") {
-      const stored = loadConnection()
-      setPaymentAddress(stored?.paymentAddress ?? null)
-      setOrdinalAddress(stored?.ordinalAddress ?? null)
-    } else {
+    if (status !== "connected" || !wallet) {
       setPaymentAddress(null)
       setOrdinalAddress(null)
       setBalance(null)
       setError(null)
+      return
     }
-  }, [status])
+
+    let active = true
+    const ctx = createContext(wallet, { chain: "main" })
+    deriveDepositAddresses
+      .execute(ctx, {})
+      .then(({ derivations }) => {
+        if (!active) return
+        const address = derivations[0]?.address ?? null
+        setPaymentAddress(address)
+        setOrdinalAddress(address)
+      })
+      .catch((err) => {
+        if (!active) return
+        setError(
+          err instanceof Error
+            ? err
+            : new Error("Failed to derive wallet address")
+        )
+        setPaymentAddress(null)
+        setOrdinalAddress(null)
+      })
+
+    return () => {
+      active = false
+    }
+  }, [status, wallet])
 
   const doFetch = useCallback(async () => {
     if (!paymentAddress) return

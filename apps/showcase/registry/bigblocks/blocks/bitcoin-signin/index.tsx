@@ -2,14 +2,11 @@
 
 import {
   BitcoinSigninUI,
-  type BitcoinSigninUIProps,
 } from "./bitcoin-signin-ui"
 import {
-  useBitcoinSignin,
-  type UseBitcoinSigninOptions,
-  type UseBitcoinSigninReturn,
-  type SigmaSignInFn,
   type OAuthProvider,
+  type SigmaSignInFn,
+  useBitcoinSignin,
 } from "./use-bitcoin-signin"
 
 // ---------------------------------------------------------------------------
@@ -21,11 +18,11 @@ export {
   type BitcoinSigninUIProps,
 } from "./bitcoin-signin-ui"
 export {
-  useBitcoinSignin,
+  type OAuthProvider,
+  type SigmaSignInFn,
   type UseBitcoinSigninOptions,
   type UseBitcoinSigninReturn,
-  type SigmaSignInFn,
-  type OAuthProvider,
+  useBitcoinSignin,
 } from "./use-bitcoin-signin"
 
 // ---------------------------------------------------------------------------

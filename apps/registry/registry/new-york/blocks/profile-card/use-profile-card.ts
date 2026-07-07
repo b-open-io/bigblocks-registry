@@ -107,7 +107,7 @@ export function useProfileCard({
   const [currentAddress, setCurrentAddress] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
-  const [fetchKey, setFetchKey] = useState(0)
+  const [_fetchKey, setFetchKey] = useState(0)
 
   const refetch = useCallback(() => {
     setFetchKey((k) => k + 1)
@@ -200,7 +200,7 @@ export function useProfileCard({
     return () => {
       cancelled = true
     }
-  }, [bapIdProp, address, apiUrl, fetchKey])
+  }, [bapIdProp, address, apiUrl])
 
   return {
     bapId,

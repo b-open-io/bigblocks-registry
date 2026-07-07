@@ -1,8 +1,19 @@
 "use client"
 
+import {
+  WalletSelector,
+  type WalletSelectorProviderInfo,
+} from "@1sat/react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
-import { Badge } from "@/components/ui/badge"
+import {
+  Check,
+  ChevronDown,
+  Copy,
+  Loader2,
+  LogOut,
+  Wallet,
+} from "lucide-react"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -18,19 +29,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import {
-  WalletSelector,
-  type WalletSelectorProviderInfo,
-} from "@1sat/react"
-import {
-  Wallet,
-  Loader2,
-  ChevronDown,
-  Copy,
-  Check,
-  LogOut,
-} from "lucide-react"
+import { cn } from "@/lib/utils"
 
 // ---------------------------------------------------------------------------
 // Variant definitions
@@ -122,11 +121,6 @@ function ProviderList({ providers, error }: ProviderListProps) {
           <span className="flex-1 text-left">{provider.name}</span>
           {provider.isConnecting && (
             <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-          )}
-          {provider.detected && !provider.isConnecting && (
-            <Badge variant="secondary" className="text-[10px]">
-              Detected
-            </Badge>
           )}
         </Button>
       ))}
@@ -239,7 +233,7 @@ export function ConnectWalletUI({
   onDisconnect,
   onCopy,
   copied,
-  error,
+  error: _error,
 }: ConnectWalletUIProps) {
   const isCompact = variant === "compact"
 

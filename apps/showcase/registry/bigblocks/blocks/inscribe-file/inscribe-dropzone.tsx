@@ -1,6 +1,5 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState, type DragEvent, type ChangeEvent } from "react"
 import {
   Code,
   File as FileIcon,
@@ -10,6 +9,7 @@ import {
   Upload,
   Video,
 } from "lucide-react"
+import { type ChangeEvent, type DragEvent, useCallback, useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
@@ -219,6 +219,7 @@ export function InscribeDropzone({
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: native drag-and-drop target; keyboard and click users are served by the file input below */}
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}

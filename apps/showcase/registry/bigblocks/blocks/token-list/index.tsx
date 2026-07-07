@@ -2,10 +2,9 @@
 
 import { TokenListUI } from "./token-list-ui"
 import {
-  useTokenList,
-  type UseTokenListOptions,
   type TokenHolding,
   type TokenProtocol,
+  useTokenList,
 } from "./use-token-list"
 
 // ---------------------------------------------------------------------------
@@ -14,12 +13,12 @@ import {
 
 export { TokenListUI, type TokenListUIProps } from "./token-list-ui"
 export {
-  useTokenList,
+  type TokenHolding,
+  type TokenProtocol,
+  type TokenType,
   type UseTokenListOptions,
   type UseTokenListReturn,
-  type TokenHolding,
-  type TokenType,
-  type TokenProtocol,
+  useTokenList,
 } from "./use-token-list"
 
 // ---------------------------------------------------------------------------

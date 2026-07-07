@@ -1,14 +1,14 @@
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import { mdxComponents } from "@/mdx-components"
 import {
   IconArrowLeft,
   IconArrowRight,
 } from "@tabler/icons-react"
 import { findNeighbour } from "fumadocs-core/page-tree"
+import Link from "next/link"
+import { notFound } from "next/navigation"
+import { Button } from "@/components/ui/button"
 
 import { source } from "@/lib/source"
-import { Button } from "@/components/ui/button"
+import { mdxComponents } from "@/mdx-components"
 
 export default async function ComponentPage({
   params,

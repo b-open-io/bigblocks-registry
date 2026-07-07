@@ -3,13 +3,13 @@
 import { useMemo } from "react"
 import {
   BigBlocksContext,
+  type BigBlocksContextValue,
   DEFAULT_API_URL,
   DEFAULT_ORDFS_URL,
-  type BigBlocksContextValue,
   type GetBalanceFn,
+  type GetHistoryFn,
   type GetOrdinalsFn,
   type GetTokenBalancesFn,
-  type GetHistoryFn,
   type OnExternalLinkFn,
 } from "./bigblocks-context"
 
@@ -17,24 +17,24 @@ import {
 // Re-exports
 // ---------------------------------------------------------------------------
 
+
+export type {
+  BigBlocksBalance,
+  BigBlocksContextValue,
+  BigBlocksHistoryEntry,
+  BigBlocksOrdinal,
+  BigBlocksTokenBalance,
+  GetBalanceFn,
+  GetHistoryFn,
+  GetOrdinalsFn,
+  GetTokenBalancesFn,
+  OnExternalLinkFn,
+} from "./bigblocks-context"
 export {
-  useBigBlocks,
   BigBlocksContext,
   DEFAULT_API_URL,
   DEFAULT_ORDFS_URL,
-} from "./bigblocks-context"
-
-export type {
-  BigBlocksContextValue,
-  BigBlocksBalance,
-  BigBlocksOrdinal,
-  BigBlocksTokenBalance,
-  BigBlocksHistoryEntry,
-  GetBalanceFn,
-  GetOrdinalsFn,
-  GetTokenBalancesFn,
-  GetHistoryFn,
-  OnExternalLinkFn,
+  useBigBlocks,
 } from "./bigblocks-context"
 
 // ---------------------------------------------------------------------------

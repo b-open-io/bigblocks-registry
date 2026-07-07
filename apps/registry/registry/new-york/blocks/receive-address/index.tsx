@@ -1,9 +1,9 @@
 "use client"
 
-import { ReceiveAddressUI } from "./receive-address-ui"
-import { useReceiveAddress } from "./use-receive-address"
 import type { ReactNode } from "react"
 import type { ReceiveAddressVariant } from "./receive-address-ui"
+import { ReceiveAddressUI } from "./receive-address-ui"
+import { useReceiveAddress } from "./use-receive-address"
 
 // ---------------------------------------------------------------------------
 // Re-exports
@@ -15,9 +15,9 @@ export {
   type ReceiveAddressVariant,
 } from "./receive-address-ui"
 export {
-  useReceiveAddress,
   type UseReceiveAddressOptions,
   type UseReceiveAddressReturn,
+  useReceiveAddress,
 } from "./use-receive-address"
 
 // ---------------------------------------------------------------------------

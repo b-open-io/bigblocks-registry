@@ -1,13 +1,11 @@
-import * as React from "react"
-import Image from "next/image"
-import Link from "next/link"
 
-import { cn } from "@/lib/utils"
+import Link from "next/link"
+import type * as React from "react"
+import { CodeBlockCommand } from "@/components/code-block-command"
+import { CodeTabs } from "@/components/code-tabs"
 import { ComponentPreview } from "@/components/component-preview"
 import { ComponentSource } from "@/components/component-source"
 import { CopyButton } from "@/components/copy-button"
-import { CodeTabs } from "@/components/code-tabs"
-import { CodeBlockCommand } from "@/components/code-block-command"
 import { RegistryInstallCommand } from "@/components/registry-install-command"
 import {
   Tabs,
@@ -15,6 +13,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import { cn } from "@/lib/utils"
 
 export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<"h1">) => (

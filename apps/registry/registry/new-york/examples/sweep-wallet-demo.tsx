@@ -1,13 +1,13 @@
 "use client"
 
 import {
-  SweepWallet,
   type ScanResult,
   type SweepResult,
+  SweepWallet,
 } from "@/registry/new-york/blocks/sweep-wallet"
 
 export default function SweepWalletDemo() {
-  async function handleScan(wif: string): Promise<ScanResult> {
+  async function handleScan(_wif: string): Promise<ScanResult> {
     // In a real application, use @1sat/actions:
     //
     // import { PrivateKey } from "@bsv/sdk"

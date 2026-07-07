@@ -1,8 +1,8 @@
 "use client"
 
 import {
-  TransactionHistoryUI,
   type HistoryEntry,
+  TransactionHistoryUI,
 } from "@/registry/bigblocks/blocks/transaction-history"
 
 const MOCK_ENTRIES: HistoryEntry[] = [

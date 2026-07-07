@@ -10,7 +10,7 @@ import {
 export default function SendBsvDemo() {
   const [lastResult, setLastResult] = useState<SendBsvResult | null>(null)
 
-  async function handleSend(params: SendBsvParams): Promise<SendBsvResult> {
+  async function handleSend(_params: SendBsvParams): Promise<SendBsvResult> {
     // In a real application, use @1sat/actions:
     //
     // import { sendBsv, createContext } from "@1sat/actions"

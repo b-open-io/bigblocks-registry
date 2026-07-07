@@ -1,17 +1,16 @@
 "use client"
 
-import * as React from "react"
-import Link, { LinkProps } from "next/link"
+import Link, { type LinkProps } from "next/link"
 import { useRouter } from "next/navigation"
-
-import { source } from "@/lib/source"
-import { cn } from "@/lib/utils"
+import * as React from "react"
 import { Button } from "@/components/ui/button"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import type { source } from "@/lib/source"
+import { cn } from "@/lib/utils"
 
 export function MobileNav({
   tree,
@@ -100,11 +99,13 @@ export function MobileNav({
                             </MobileLink>
                           )
                         }
+                        return null
                       })}
                     </div>
                   </div>
                 )
               }
+              return null
             })}
           </div>
         </div>

@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
-import type { OrdinalItem, ListOrdinalResult } from "./use-create-listing"
+import type { ListOrdinalResult, OrdinalItem } from "./use-create-listing"
 
 // ---------------------------------------------------------------------------
 // Variant definitions

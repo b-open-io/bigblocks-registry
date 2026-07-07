@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
-import { query, type SDKMessage, type Options } from "@anthropic-ai/claude-code";
-import { readFile } from "fs/promises";
-import { join } from "path";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { type Options, query, type SDKMessage } from "@anthropic-ai/claude-code";
 
 async function testSinglePhase() {
   console.log("🧪 Testing single phase generation...\n");

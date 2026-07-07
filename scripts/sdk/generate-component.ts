@@ -1,8 +1,8 @@
 #!/usr/bin/env bun
-import { query, type SDKMessage, type Options } from "@anthropic-ai/claude-code";
-import { readFile, writeFile, mkdir } from "fs/promises";
-import { join, dirname } from "path";
-import { existsSync } from "fs";
+import { existsSync } from "node:fs";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { type Options, query, type SDKMessage } from "@anthropic-ai/claude-code";
 
 interface ComponentGenerationOptions {
   name: string;

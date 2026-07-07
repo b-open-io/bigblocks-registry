@@ -1,13 +1,8 @@
-import Link from "next/link"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
-
-import { siteConfig } from "@/lib/config"
-import { Icons } from "@/components/icons"
+import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
-import { MobileNav } from "@/components/mobile-nav"
 import { ModeSwitcher } from "@/components/mode-switcher"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 
 export function SiteHeader() {
   return (

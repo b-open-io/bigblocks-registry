@@ -1,7 +1,7 @@
 "use client"
 
-import * as React from "react"
-
+import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
+import type * as React from "react"
 import { Icons } from "@/components/icons"
 import {
   Collapsible,
@@ -21,7 +21,6 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
 
 // BigBlocks navigation data
 const data = {

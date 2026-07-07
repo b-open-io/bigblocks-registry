@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useState } from "react"
 import { useWallet } from "@1sat/react"
+import { useCallback, useMemo, useState } from "react"
 
 // ---------------------------------------------------------------------------
 // Types

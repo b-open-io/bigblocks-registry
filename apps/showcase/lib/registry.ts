@@ -1,6 +1,6 @@
-import { promises as fs } from "fs"
-import { tmpdir } from "os"
-import path from "path"
+import { promises as fs } from "node:fs"
+import { tmpdir } from "node:os"
+import path from "node:path"
 import { Project, ScriptKind } from "ts-morph"
 
 import { Index } from "@/registry/__index__"
@@ -165,7 +165,7 @@ export function createFileTreeForRegistryItemFiles(
         if (isFile) {
           existingNode.path = filePath
         } else {
-          currentLevel = existingNode.children!
+          currentLevel = existingNode.children ??= []
         }
       } else {
         const newNode: FileTree = isFile
@@ -175,7 +175,7 @@ export function createFileTreeForRegistryItemFiles(
         currentLevel.push(newNode)
 
         if (!isFile) {
-          currentLevel = newNode.children!
+          currentLevel = newNode.children ??= []
         }
       }
     }

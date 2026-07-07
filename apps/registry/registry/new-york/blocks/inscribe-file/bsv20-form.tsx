@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useState } from "react"
+import { useCallback, } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -63,7 +63,7 @@ export { createDefaultBsv20Data }
  * Form for BSV20 fungible token inscription — supports both minting existing
  * tickers and deploying new ones.
  */
-export function Bsv20Form({ data, onDataChange, onExternalLink, className }: Bsv20FormProps) {
+export function Bsv20Form({ data, onDataChange, onExternalLink: _onExternalLink, className }: Bsv20FormProps) {
   const updateField = useCallback(
     <K extends keyof Bsv20FormData>(field: K, value: Bsv20FormData[K]) => {
       onDataChange({ ...data, [field]: value })

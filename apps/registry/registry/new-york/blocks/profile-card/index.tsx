@@ -1,13 +1,10 @@
 "use client"
 
-import { ProfileCardUI, type ProfileCardUIProps } from "./profile-card-ui"
+import type { ReactNode } from "react"
+import { ProfileCardUI, } from "./profile-card-ui"
 import {
   useProfileCard,
-  type UseProfileCardOptions,
-  type UseProfileCardReturn,
-  type BapProfile,
 } from "./use-profile-card"
-import type { ReactNode } from "react"
 
 // ---------------------------------------------------------------------------
 // Re-exports
@@ -15,10 +12,10 @@ import type { ReactNode } from "react"
 
 export { ProfileCardUI, type ProfileCardUIProps } from "./profile-card-ui"
 export {
-  useProfileCard,
+  type BapProfile,
   type UseProfileCardOptions,
   type UseProfileCardReturn,
-  type BapProfile,
+  useProfileCard,
 } from "./use-profile-card"
 
 // ---------------------------------------------------------------------------

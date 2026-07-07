@@ -1,19 +1,19 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import { AlertCircle, ExternalLink, RefreshCw } from "lucide-react"
+import type { ReactNode } from "react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardHeader,
 } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
+import { cn } from "@/lib/utils"
 import { BitcoinAvatar } from "@/registry/bigblocks/blocks/bitcoin-avatar"
-import { AlertCircle, ExternalLink, RefreshCw } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import type { BapProfile } from "./use-profile-card"
-import type { ReactNode } from "react"
 
 // ---------------------------------------------------------------------------
 // Types

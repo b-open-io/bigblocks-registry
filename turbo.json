@@ -16,8 +16,6 @@
       "dependsOn": ["^build"],
       "outputs": ["public/r/**"]
     },
-    "lint": {
-      "dependsOn": ["^build"]
-    }
+    "lint": {}
   }
 }

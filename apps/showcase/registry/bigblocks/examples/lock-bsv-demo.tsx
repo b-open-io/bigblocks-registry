@@ -9,7 +9,7 @@ import {
 export default function LockBsvDemo() {
   const [lastResult, setLastResult] = useState<LockOperationResult | null>(null)
 
-  async function handleLock(params: {
+  async function handleLock(_params: {
     satoshis: number
     until: number
   }): Promise<LockOperationResult> {

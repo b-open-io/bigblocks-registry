@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import {
-  SyncTerminalUI,
   type SyncEvent,
   type SyncEventLevel,
   type SyncStatus,
+  SyncTerminalUI,
 } from "@/registry/bigblocks/blocks/sync-terminal"
 
 // ---------------------------------------------------------------------------

@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import {
-  TransactionHistoryUI,
   type HistoryEntry,
+  TransactionHistoryUI,
 } from "@/registry/new-york/blocks/transaction-history"
 
 // ---------------------------------------------------------------------------

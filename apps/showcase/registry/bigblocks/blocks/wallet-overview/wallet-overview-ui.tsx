@@ -1,35 +1,35 @@
 "use client"
 
+import {
+  AlertCircle,
+  ArrowDownLeft,
+  ArrowUpRight,
+  Check,
+  Copy,
+  Eye,
+  EyeOff,
+  Fingerprint,
+  RefreshCw,
+  Wallet,
+} from "lucide-react"
 import { useCallback, useState } from "react"
-import { cn } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Skeleton } from "@/components/ui/skeleton"
 import { Separator } from "@/components/ui/separator"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import {
-  Wallet,
-  ArrowUpRight,
-  ArrowDownLeft,
-  Copy,
-  Check,
-  Eye,
-  EyeOff,
-  RefreshCw,
-  AlertCircle,
-  Fingerprint,
-} from "lucide-react"
+import { cn } from "@/lib/utils"
 import type { WalletBalance } from "./use-wallet-overview"
 
 // ---------------------------------------------------------------------------

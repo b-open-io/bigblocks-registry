@@ -1,13 +1,11 @@
 "use client"
 
-import { type VariantProps } from "class-variance-authority"
-import { FriendButtonUI, friendButtonVariants } from "./ui"
+import type { VariantProps } from "class-variance-authority"
+import { FriendButtonUI, type friendButtonVariants } from "./ui"
 import {
-  useFriend,
   type FriendResult,
   type FriendshipStatus,
-  type UseFriendReturn,
-  type UseFriendOptions,
+  useFriend,
 } from "./use-friend"
 
 // ---------------------------------------------------------------------------
@@ -16,15 +14,15 @@ import {
 
 export {
   FriendButtonUI,
-  friendButtonVariants,
   type FriendButtonUIProps,
+  friendButtonVariants,
 } from "./ui"
 export {
-  useFriend,
   type FriendResult,
   type FriendshipStatus,
-  type UseFriendReturn,
   type UseFriendOptions,
+  type UseFriendReturn,
+  useFriend,
 } from "./use-friend"
 
 // ---------------------------------------------------------------------------

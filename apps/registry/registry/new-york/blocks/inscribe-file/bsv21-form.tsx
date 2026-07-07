@@ -1,7 +1,7 @@
 "use client"
 
-import { useCallback, useEffect, useRef, type ChangeEvent } from "react"
 import { Image as ImageIcon, Upload, X } from "lucide-react"
+import { type ChangeEvent, useCallback, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -60,7 +60,7 @@ export { createDefaultBsv21Data }
  * Form for deploying a new BSV21 token. Includes symbol input, icon upload
  * with live preview, max supply, and decimal precision.
  */
-export function Bsv21Form({ data, onDataChange, onExternalLink, className }: Bsv21FormProps) {
+export function Bsv21Form({ data, onDataChange, onExternalLink: _onExternalLink, className }: Bsv21FormProps) {
   const lastPreviewUrlRef = useRef<string | null>(null)
 
   // Track the current preview URL for unmount cleanup

@@ -1,12 +1,12 @@
 "use client"
 
+import { AlertCircle, Check, Loader2, Palette, RotateCcw } from "lucide-react"
 import { useCallback, useState } from "react"
-import { Loader2, Palette, RotateCcw, Check, AlertCircle } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 import type { ThemeTokenStatus } from "./use-theme-token"
@@ -181,6 +181,7 @@ export function ThemeTokenSettingsUi({
                       style={{
                         backgroundColor: `var(--${swatch.variable})`,
                       }}
+                      role="img"
                       aria-label={`${swatch.label} color swatch`}
                     />
                     <span className="text-[10px] leading-tight text-muted-foreground">
