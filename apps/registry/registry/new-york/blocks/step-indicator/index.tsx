@@ -1,6 +1,6 @@
 "use client"
 
-import { CheckIcon } from "@radix-ui/react-icons";
+import { Check } from "lucide-react";
 import React from "react";
 import { cn } from "@/lib/utils";
 
@@ -43,7 +43,7 @@ export function StepIndicator({
 							)}
 						>
 							{step.status === "complete" ? (
-								<CheckIcon className="h-4 w-4" aria-label="Complete" />
+								<Check className="h-4 w-4" aria-label="Complete" />
 							) : (
 								<span>{index + 1}</span>
 							)}
@@ -86,7 +86,7 @@ export function StepIndicator({
 							)}
 						>
 							{step.status === "complete" ? (
-								<CheckIcon className="h-5 w-5" aria-label="Complete" />
+								<Check className="h-5 w-5" aria-label="Complete" />
 							) : (
 								<span>{index + 1}</span>
 							)}

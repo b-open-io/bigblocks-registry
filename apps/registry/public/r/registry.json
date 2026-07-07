@@ -10,7 +10,7 @@
       "description": "A step indicator component for multi-step forms and processes",
       "author": "Satchmo",
       "dependencies": [
-        "@radix-ui/react-icons"
+        "lucide-react"
       ],
       "files": [
         {
