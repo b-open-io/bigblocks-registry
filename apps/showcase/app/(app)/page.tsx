@@ -8,6 +8,7 @@ import {
   Wallet,
 } from "lucide-react"
 import Link from "next/link"
+import { BBMark } from "@/components/bb-mark"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -109,7 +110,13 @@ export default function Home() {
     <div className="flex flex-col gap-16 py-10">
       {/* Hero */}
       <section className="flex flex-col gap-6 text-center items-center">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col items-center gap-3">
+          <span className="flex items-center gap-2.5">
+            <span className="flex size-8 items-center justify-center rounded-md bg-[#FCC800]">
+              <BBMark className="w-5 text-[#0A0A0A]" />
+            </span>
+            <span className="font-semibold tracking-tight">BigBlocks</span>
+          </span>
           <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">
             BigBlocks
           </h1>

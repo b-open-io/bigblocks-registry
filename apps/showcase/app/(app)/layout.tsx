@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar"
+import { BBMark } from "@/components/bb-mark"
 import { ModeSwitcher } from "@/components/mode-switcher"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -23,7 +24,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
             className="mr-2 data-[orientation=vertical]:h-4"
           />
           <div className="flex flex-1 items-center justify-between">
-            <h1 className="text-lg font-semibold">BigBlocks</h1>
+            <span className="flex items-center gap-2.5">
+              <span className="flex size-8 items-center justify-center rounded-md bg-[#FCC800]">
+                <BBMark className="w-5 text-[#0A0A0A]" />
+              </span>
+              <span className="font-semibold tracking-tight">BigBlocks</span>
+            </span>
             <ModeSwitcher />
           </div>
         </header>

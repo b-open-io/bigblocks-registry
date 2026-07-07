@@ -1,3 +1,4 @@
+import { BBMark } from "@/components/bb-mark"
 import { getAllRegistryItems } from "@/lib/registry-config"
 
 const REGISTRY_URL = "https://registry.bigblocks.dev/r"
@@ -38,6 +39,12 @@ export default function Home() {
   return (
     <div className="max-w-4xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
       <header className="flex flex-col gap-2">
+        <span className="flex items-center gap-2.5">
+          <span className="flex size-8 items-center justify-center rounded-md bg-[#FCC800]">
+            <BBMark className="w-5 text-[#0A0A0A]" />
+          </span>
+          <span className="font-semibold tracking-tight">BigBlocks</span>
+        </span>
         <h1 className="text-3xl font-bold tracking-tight">BigBlocks Registry</h1>
         <p className="text-muted-foreground">
           {items.length} production-ready Bitcoin UI blocks for shadcn projects.

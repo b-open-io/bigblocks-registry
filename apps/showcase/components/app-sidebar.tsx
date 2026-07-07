@@ -2,7 +2,7 @@
 
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
 import type * as React from "react"
-import { Icons } from "@/components/icons"
+import { BBMark } from "@/components/bb-mark"
 import {
   Collapsible,
   CollapsibleContent,
@@ -112,13 +112,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="/">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Icons.logo className="size-4" />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-medium">BigBlocks</span>
-                  <span className="text-muted-foreground">Bitcoin UI blocks</span>
-                </div>
+                <span className="flex items-center gap-2.5">
+                  <span className="flex size-8 items-center justify-center rounded-md bg-[#FCC800]">
+                    <BBMark className="w-5 text-[#0A0A0A]" />
+                  </span>
+                  <span className="font-semibold tracking-tight">BigBlocks</span>
+                </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
