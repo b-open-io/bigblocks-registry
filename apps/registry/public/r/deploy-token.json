@@ -35,5 +35,8 @@
       "target": "~/components/blocks/deploy-token/use-deploy-token.ts"
     }
   ],
+  "categories": [
+    "market"
+  ],
   "type": "registry:block"
 }

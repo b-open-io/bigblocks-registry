@@ -35,5 +35,8 @@
       "target": "~/components/blocks/send-bsv21/use-send-bsv21.ts"
     }
   ],
+  "categories": [
+    "wallet"
+  ],
   "type": "registry:block"
 }

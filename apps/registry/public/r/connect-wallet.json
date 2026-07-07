@@ -36,5 +36,8 @@
       "target": "~/components/blocks/connect-wallet/use-connect-wallet.ts"
     }
   ],
+  "categories": [
+    "wallet"
+  ],
   "type": "registry:block"
 }

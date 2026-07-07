@@ -31,5 +31,8 @@
       "target": "~/components/blocks/follow-button/use-follow.ts"
     }
   ],
+  "categories": [
+    "social"
+  ],
   "type": "registry:block"
 }

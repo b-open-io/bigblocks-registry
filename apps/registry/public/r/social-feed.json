@@ -40,5 +40,8 @@
       "target": "~/components/blocks/social-feed/use-social-feed.ts"
     }
   ],
+  "categories": [
+    "social"
+  ],
   "type": "registry:block"
 }

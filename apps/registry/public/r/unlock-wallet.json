@@ -34,5 +34,8 @@
       "target": "~/components/blocks/unlock-wallet/use-unlock-wallet.ts"
     }
   ],
+  "categories": [
+    "wallet"
+  ],
   "type": "registry:block"
 }

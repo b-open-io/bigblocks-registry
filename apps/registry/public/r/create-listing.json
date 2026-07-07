@@ -36,5 +36,8 @@
       "target": "~/components/blocks/create-listing/use-create-listing.ts"
     }
   ],
+  "categories": [
+    "market"
+  ],
   "type": "registry:block"
 }

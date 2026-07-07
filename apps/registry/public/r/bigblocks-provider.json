@@ -18,5 +18,8 @@
       "target": "~/components/blocks/bigblocks-provider/bigblocks-context.ts"
     }
   ],
+  "categories": [
+    "developer"
+  ],
   "type": "registry:lib"
 }

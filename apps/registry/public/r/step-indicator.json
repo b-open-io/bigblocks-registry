@@ -15,5 +15,8 @@
       "target": ""
     }
   ],
+  "categories": [
+    "developer"
+  ],
   "type": "registry:block"
 }

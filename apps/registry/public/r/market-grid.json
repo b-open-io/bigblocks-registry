@@ -40,5 +40,8 @@
       "target": "~/components/blocks/market-grid/use-market-grid.ts"
     }
   ],
+  "categories": [
+    "market"
+  ],
   "type": "registry:block"
 }

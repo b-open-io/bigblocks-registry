@@ -18,6 +18,9 @@
           "type": "registry:block",
           "target": ""
         }
+      ],
+      "categories": [
+        "developer"
       ]
     },
     {
@@ -97,6 +100,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/bitcoin-avatar/use-bitcoin-avatar.ts"
         }
+      ],
+      "categories": [
+        "identity"
       ]
     },
     {
@@ -150,6 +156,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/connect-wallet/use-connect-wallet.ts"
         }
+      ],
+      "categories": [
+        "wallet"
       ]
     },
     {
@@ -220,6 +229,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/inscribe-file/bsv21-form.tsx"
         }
+      ],
+      "categories": [
+        "market"
       ]
     },
     {
@@ -273,6 +285,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/create-listing/use-create-listing.ts"
         }
+      ],
+      "categories": [
+        "market"
       ]
     },
     {
@@ -324,6 +339,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/buy-listing/use-buy-listing.ts"
         }
+      ],
+      "categories": [
+        "market"
       ]
     },
     {
@@ -377,6 +395,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/send-bsv/send-bsv-dialog.tsx"
         }
+      ],
+      "categories": [
+        "wallet"
       ]
     },
     {
@@ -426,6 +447,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/post-button/use-post.ts"
         }
+      ],
+      "categories": [
+        "social"
       ]
     },
     {
@@ -475,6 +499,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/like-button/use-like.ts"
         }
+      ],
+      "categories": [
+        "social"
       ]
     },
     {
@@ -523,6 +550,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/follow-button/use-follow.ts"
         }
+      ],
+      "categories": [
+        "social"
       ]
     },
     {
@@ -571,6 +601,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/friend-button/use-friend.ts"
         }
+      ],
+      "categories": [
+        "social"
       ]
     },
     {
@@ -623,6 +656,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/deploy-token/use-deploy-token.ts"
         }
+      ],
+      "categories": [
+        "market"
       ]
     },
     {
@@ -674,6 +710,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/token-list/use-token-list.ts"
         }
+      ],
+      "categories": [
+        "wallet"
       ]
     },
     {
@@ -730,6 +769,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/market-grid/use-market-grid.ts"
         }
+      ],
+      "categories": [
+        "market"
       ]
     },
     {
@@ -782,6 +824,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/ordinals-grid/use-ordinals-grid.ts"
         }
+      ],
+      "categories": [
+        "market"
       ]
     },
     {
@@ -838,6 +883,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/social-feed/use-social-feed.ts"
         }
+      ],
+      "categories": [
+        "social"
       ]
     },
     {
@@ -890,6 +938,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/profile-card/use-profile-card.ts"
         }
+      ],
+      "categories": [
+        "identity"
       ]
     },
     {
@@ -942,6 +993,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/identity-selector/use-identity-selector.ts"
         }
+      ],
+      "categories": [
+        "identity"
       ]
     },
     {
@@ -996,6 +1050,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/wallet-overview/use-wallet-overview.ts"
         }
+      ],
+      "categories": [
+        "wallet"
       ]
     },
     {
@@ -1021,7 +1078,9 @@
       "title": "Receive Address",
       "description": "QR code and deposit address display with clipboard copy and optional address rotation. Supports default, compact, and inline variants.",
       "author": "Satchmo <https://bigblocks.dev>",
-      "categories": ["wallet"],
+      "categories": [
+        "wallet"
+      ],
       "dependencies": [
         "lucide-react"
       ],
@@ -1073,7 +1132,9 @@
       "title": "Transaction History",
       "description": "Transaction list with status indicators, amounts, relative dates, and pagination. Supports default and compact variants with inbound/outbound display.",
       "author": "Satchmo <https://bigblocks.dev>",
-      "categories": ["wallet"],
+      "categories": [
+        "wallet"
+      ],
       "dependencies": [
         "lucide-react"
       ],
@@ -1124,7 +1185,9 @@
       "title": "Sync Terminal",
       "description": "Monospace event log for blockchain sync activity with colour-coded severity levels, auto-scroll, and connection status indicator",
       "author": "Satchmo <https://bigblocks.dev>",
-      "categories": ["wallet"],
+      "categories": [
+        "developer"
+      ],
       "dependencies": [],
       "registryDependencies": [],
       "files": [
@@ -1168,7 +1231,9 @@
       "title": "Mnemonic Flow",
       "description": "Multi-mode seed phrase display and input block with create, display, import, and verify modes. Includes numbered word grid, copy-all, confirmation checkbox, and verification challenge.",
       "author": "Satchmo <https://bigblocks.dev>",
-      "categories": ["wallet"],
+      "categories": [
+        "wallet"
+      ],
       "dependencies": [
         "lucide-react"
       ],
@@ -1226,7 +1291,9 @@
       "title": "Lock BSV",
       "description": "Time-lock BSV until a future block height with lock form, lock summary, and unlock for matured locks via @1sat/actions lockBsv and unlockBsv",
       "author": "Satchmo <https://bigblocks.dev>",
-      "categories": ["wallet"],
+      "categories": [
+        "wallet"
+      ],
       "dependencies": [
         "lucide-react"
       ],
@@ -1308,6 +1375,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/sweep-wallet/use-sweep-wallet.ts"
         }
+      ],
+      "categories": [
+        "wallet"
       ]
     },
     {
@@ -1333,7 +1403,9 @@
       "title": "OpNS Manager",
       "description": "OpNS name management block for listing owned names and registering or deregistering identity key bindings via @1sat/actions opns module",
       "author": "Satchmo <https://bigblocks.dev>",
-      "categories": ["identity"],
+      "categories": [
+        "identity"
+      ],
       "dependencies": [
         "@1sat/react",
         "@1sat/actions",
@@ -1415,6 +1487,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/send-bsv21/use-send-bsv21.ts"
         }
+      ],
+      "categories": [
+        "wallet"
       ]
     },
     {
@@ -1466,6 +1541,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/unlock-wallet/use-unlock-wallet.ts"
         }
+      ],
+      "categories": [
+        "wallet"
       ]
     },
     {
@@ -1502,6 +1580,9 @@
           "type": "registry:lib",
           "target": "~/components/blocks/bigblocks-provider/bigblocks-context.ts"
         }
+      ],
+      "categories": [
+        "developer"
       ]
     },
     {
@@ -1555,6 +1636,9 @@
           "type": "registry:hook",
           "target": "~/components/blocks/theme-token-provider/use-theme-token.ts"
         }
+      ],
+      "categories": [
+        "developer"
       ]
     },
     {
@@ -1580,7 +1664,9 @@
       "title": "OAuth Callback",
       "description": "OAuth callback page block that handles the redirect after Sigma Identity authentication. Reads URL params, exchanges code for tokens via a provided handler, and displays loading, success, or error states with auto-redirect.",
       "author": "Satchmo <https://bigblocks.dev>",
-      "categories": ["authentication"],
+      "categories": [
+        "authentication"
+      ],
       "registryDependencies": [
         "avatar",
         "button",
@@ -1653,6 +1739,9 @@
           "type": "registry:component",
           "target": "~/components/blocks/cloud-backup-prompt/use-cloud-backup.ts"
         }
+      ],
+      "categories": [
+        "authentication"
       ]
     },
     {
@@ -1678,7 +1767,9 @@
       "title": "Bitcoin Sign In",
       "description": "A sign-in button that initiates OAuth flow via Sigma Identity (Bitcoin-based authentication using Better Auth)",
       "author": "Satchmo <https://bigblocks.dev>",
-      "categories": ["authentication"],
+      "categories": [
+        "authentication"
+      ],
       "dependencies": [
         "lucide-react"
       ],

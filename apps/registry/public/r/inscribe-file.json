@@ -56,5 +56,8 @@
       "target": "~/components/blocks/inscribe-file/bsv21-form.tsx"
     }
   ],
+  "categories": [
+    "market"
+  ],
   "type": "registry:block"
 }

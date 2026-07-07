@@ -31,5 +31,8 @@
       "target": "~/components/blocks/friend-button/use-friend.ts"
     }
   ],
+  "categories": [
+    "social"
+  ],
   "type": "registry:block"
 }

@@ -36,5 +36,8 @@
       "target": "~/components/blocks/theme-token-provider/use-theme-token.ts"
     }
   ],
+  "categories": [
+    "developer"
+  ],
   "type": "registry:block"
 }

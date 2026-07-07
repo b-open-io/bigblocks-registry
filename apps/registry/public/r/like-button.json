@@ -32,5 +32,8 @@
       "target": "~/components/blocks/like-button/use-like.ts"
     }
   ],
+  "categories": [
+    "social"
+  ],
   "type": "registry:block"
 }

@@ -36,5 +36,8 @@
       "target": "~/components/blocks/send-bsv/send-bsv-dialog.tsx"
     }
   ],
+  "categories": [
+    "wallet"
+  ],
   "type": "registry:block"
 }

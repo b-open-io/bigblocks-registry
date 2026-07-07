@@ -37,5 +37,8 @@
       "target": "~/components/blocks/wallet-overview/use-wallet-overview.ts"
     }
   ],
+  "categories": [
+    "wallet"
+  ],
   "type": "registry:block"
 }

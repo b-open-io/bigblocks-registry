@@ -34,5 +34,8 @@
       "target": "~/components/blocks/buy-listing/use-buy-listing.ts"
     }
   ],
+  "categories": [
+    "market"
+  ],
   "type": "registry:block"
 }

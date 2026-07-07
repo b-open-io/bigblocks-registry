@@ -35,5 +35,8 @@
       "target": "~/components/blocks/profile-card/use-profile-card.ts"
     }
   ],
+  "categories": [
+    "identity"
+  ],
   "type": "registry:block"
 }

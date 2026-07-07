@@ -34,5 +34,8 @@
       "target": "~/components/blocks/token-list/use-token-list.ts"
     }
   ],
+  "categories": [
+    "wallet"
+  ],
   "type": "registry:block"
 }

@@ -35,5 +35,8 @@
       "target": "~/components/blocks/identity-selector/use-identity-selector.ts"
     }
   ],
+  "categories": [
+    "identity"
+  ],
   "type": "registry:block"
 }

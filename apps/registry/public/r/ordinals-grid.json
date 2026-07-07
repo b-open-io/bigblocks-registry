@@ -35,5 +35,8 @@
       "target": "~/components/blocks/ordinals-grid/use-ordinals-grid.ts"
     }
   ],
+  "categories": [
+    "market"
+  ],
   "type": "registry:block"
 }

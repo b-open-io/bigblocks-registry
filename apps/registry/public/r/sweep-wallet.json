@@ -36,5 +36,8 @@
       "target": "~/components/blocks/sweep-wallet/use-sweep-wallet.ts"
     }
   ],
+  "categories": [
+    "wallet"
+  ],
   "type": "registry:block"
 }

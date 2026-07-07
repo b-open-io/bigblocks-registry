@@ -28,5 +28,8 @@
       "target": "~/components/blocks/bitcoin-avatar/use-bitcoin-avatar.ts"
     }
   ],
+  "categories": [
+    "identity"
+  ],
   "type": "registry:block"
 }

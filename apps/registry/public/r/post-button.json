@@ -32,5 +32,8 @@
       "target": "~/components/blocks/post-button/use-post.ts"
     }
   ],
+  "categories": [
+    "social"
+  ],
   "type": "registry:block"
 }
